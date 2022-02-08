@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:34 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/07 13:28:32 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/08 10:46:37 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct g_data
 	char	*prompt;
 	char	**envp;
 }t_gdata;
+
+void	init_prompt(t_gdata *g_data, char **envp);
 
 //char	*get_next_line(int fd);
 //size_t	ft_strlen(char const *str);

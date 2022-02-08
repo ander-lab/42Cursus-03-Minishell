@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 13:31:58 by ajimenez          #+#    #+#              #
-#    Updated: 2022/02/07 14:55:39 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/02/08 10:46:59 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT	= ./includes/libft/libft.a
 LIBP	= minishell.a 
 
 NAME 	= minishell
-SRCS	= srcs/minishell.c
+SRCS	= srcs/minishell.c srcs/prompt.c
 
 OBJS	= $(SRCS:.c=.o)
 COMP	= $(CC) $(CFLAGS) $(LIBP) $(SRCS) -o $(NAME) -lreadline
