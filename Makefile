@@ -6,8 +6,18 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 13:31:58 by ajimenez          #+#    #+#              #
-#    Updated: 2022/02/08 10:46:59 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/02/09 15:03:35 by ajimenez         ###   ########.fr        #
 #                                                                              #
+# **************************************************************************** #
+
+# **************************************************************************** #
+# 									 PROGRAM                                   #
+# **************************************************************************** #
+
+NAME 	= minishell
+LIBP	= minishell.a 
+# **************************************************************************** #
+# 									COMPILER                                   #
 # **************************************************************************** #
 
 CC		= gcc 
@@ -16,11 +26,21 @@ SAN		= -fsanitize=address
 LIB 	= ar -rcs
 RM		= /bin/rm -rf
 
-LIBFT	= ./includes/libft/libft.a
-LIBP	= minishell.a 
+# **************************************************************************** #
+# 									INCLUDES                                   #
+# **************************************************************************** #
 
-NAME 	= minishell
-SRCS	= srcs/minishell.c srcs/prompt.c
+LIBFT	= ./includes/libft/libft.a
+
+# **************************************************************************** #
+# 									SOURCES                                    #
+# **************************************************************************** #
+
+SRCS	= srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c
+
+# **************************************************************************** #
+# 								    RULES                                      #
+# **************************************************************************** #
 
 OBJS	= $(SRCS:.c=.o)
 COMP	= $(CC) $(CFLAGS) $(LIBP) $(SRCS) -o $(NAME) -lreadline
@@ -30,7 +50,7 @@ all: 		$(NAME)
 
 $(NAME):			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ (._.)\ ░░░░░\033[39m\n"
-					@make -s -C ./includes/libft
+					@make bonus -s -C ./includes/libft
 					@cp includes/libft/libft.a ./$(LIBP)
 					$(LIB) $(LIBP) $(OBJS)
 					$(COMP) 
@@ -38,7 +58,7 @@ $(NAME):			$(OBJS)
 
 fsanitize:			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ /(ಠ_ಠ)\ ░░░░░\033[39m\n"
-					@make -s -C ./includes/libft
+					@make bonus -s -C ./includes/libft
 					@cp includes/libft/libft.a ./$(LIBP)
 					$(LIB) $(LIBP) $(OBJS)
 					$(SANCOMP)
