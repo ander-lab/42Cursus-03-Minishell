@@ -6,12 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/09 11:15:51 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:24:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <readline/history.h>
 
 int main(int argc, char **argv)
 {
@@ -27,10 +26,15 @@ int main(int argc, char **argv)
 	while (42)
 	{
 		inp = readline(g_data.prompt);
+		//printf("C: %c\n", inp[0]);
+		//return 1;
 		if (inp[0])
+		{
+			//printf("-----DEBUGGER00----\n");
 			add_history(inp);
-		lexer(inp);
-		//printf("INP: %s\n", inp);
+		}
+		//lexer(inp);
+		printf("INP: %s\n", inp);
 	}
 	return (0);
 }

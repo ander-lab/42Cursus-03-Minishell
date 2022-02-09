@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 13:31:58 by ajimenez          #+#    #+#              #
-#    Updated: 2022/02/09 11:13:14 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/02/09 15:03:35 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@
 
 NAME 	= minishell
 LIBP	= minishell.a 
-
 # **************************************************************************** #
 # 									COMPILER                                   #
 # **************************************************************************** #
@@ -51,7 +50,7 @@ all: 		$(NAME)
 
 $(NAME):			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ (._.)\ ░░░░░\033[39m\n"
-					@make -s -C ./includes/libft
+					@make bonus -s -C ./includes/libft
 					@cp includes/libft/libft.a ./$(LIBP)
 					$(LIB) $(LIBP) $(OBJS)
 					$(COMP) 
@@ -59,7 +58,7 @@ $(NAME):			$(OBJS)
 
 fsanitize:			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ /(ಠ_ಠ)\ ░░░░░\033[39m\n"
-					@make -s -C ./includes/libft
+					@make bonus -s -C ./includes/libft
 					@cp includes/libft/libft.a ./$(LIBP)
 					$(LIB) $(LIBP) $(OBJS)
 					$(SANCOMP)
