@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 10:45:42 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/08 13:36:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/09 11:55:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,11 @@ char	*add_at_sign(char *str)
 	char	*word;
 	int		i;
 
-	word = malloc(sizeof(char) * ft_strlen(str + 1));
+	word = ft_calloc(sizeof(char), (ft_strlen(str) + 2));
 	if (!word)
 		return (0);
-	i = 0;
-	while (str[i])
-	{
-		word[i] = str[i];
-		i++;
-	}
+	ft_strcpy(word, str);
+	i = ft_strlen(str);
 	word[i] = '@';
 	word[i + 1] = '\0';
 	free(str);
@@ -87,15 +83,11 @@ char *pretty_hostname(char *str)
 	char	*word;
 	int		i;
 
-	i = 0;
-	word = malloc(sizeof(char) * ft_strlen(str + 3));
+	word = ft_calloc(sizeof(char), (ft_strlen(str) + 4));
 	if (!word)
 		return (0);
-	while(str[i])
-	{
-		word[i] = str[i];
-		i++;
-	}
+	ft_strcpy(word, str);
+	i = ft_strlen(str);
 	word[i] = ':';
 	word[i + 1] = ' ';
 	word[i + 2] = '\0';

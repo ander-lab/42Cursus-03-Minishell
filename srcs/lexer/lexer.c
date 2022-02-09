@@ -6,8 +6,20 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 13:36:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/08 13:36:38 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/09 11:31:41 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void lexer(char *s)
+{
+	int	aux;
+
+	aux = 0;
+	while (s[aux])
+	{
+		printf("%c\n", s[aux]);
+		aux++;
+	}
+}

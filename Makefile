@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 13:31:58 by ajimenez          #+#    #+#              #
-#    Updated: 2022/02/08 13:43:23 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/02/09 11:13:14 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ LIBFT	= ./includes/libft/libft.a
 # 									SOURCES                                    #
 # **************************************************************************** #
 
-SRCS	= srcs/minishell.c srcs/prompt.c
+SRCS	= srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c
 
 # **************************************************************************** #
 # 								    RULES                                      #
