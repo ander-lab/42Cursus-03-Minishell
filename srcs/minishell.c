@@ -12,16 +12,14 @@
 
 #include "../includes/minishell.h"
 
-/*
- * SIGINT CTRL + C == 2
- *
- *
- *
- */
-
-void handle_sigint(int n)
+void signal_handler(int n)
 {
-	printf("SEÑAL: %d\n", n);
+	/* Ctrl + C */
+	if (n == SIGINT)
+		exit(0);
+	/* Ctrl + \ */
+	if (n == SIGQUIT)
+		exit(0);
 }
 
 int main(int argc, char **argv)
@@ -35,9 +33,10 @@ int main(int argc, char **argv)
 	init_prompt(&g_data, environ);
 	//execve("/usr/bin/whoami", cmd, environ);
 	//execve("/usr/bin/hostnamectl", cmd, environ);
-	signal(SIGQUIT, handle_sigint);
 	while (42)
 	{
+		signal(SIGQUIT, signal_handler);
+		signal(SIGINT, signal_handler);
 		inp = readline(g_data.prompt);
 		//printf("C: %c\n", inp[0]);
 		//return 1;
