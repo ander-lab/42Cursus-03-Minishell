@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/15 12:28:47 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:09:51 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,52 @@ int is_in_quotes(int quotes)
 	return (is_in_quotes);
 }
 
+char	*remove_ind_red(char *s)
+{
+	char	*aux;
+	int		i;
+	int		quotes;
+	int		x;
+
+	i = 0;
+	x = -1;
+	aux = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!aux)
+		return (s);
+	quotes = 0;
+	while (s[i])
+	{
+		if (is_quote(s[i]))
+			quotes = is_in_quotes(quotes);
+		if (quotes == 0 && s[i] != '<' && s[i] != '>')
+			aux[++x] = s[i];
+		if (quotes == 1)
+			aux[++x] = s[i];
+		i++;
+	}
+	aux[x] = '\0';
+	free(s);
+	return (aux);
+}
+
 char	*get_until_token(int prev_l, int l, char *str)
 {
 	char	*word;
-	int quotes;
 	int	i;
 
-	quotes = 0;
 	word = malloc(sizeof(char) * (l - prev_l + 1));
 	if (!word)
 		return (0);
 	i = 0;
 	while (prev_l < l)
 	{
-		//if (is_quote(str[prev_l]))
-		//		quotes = is_in_quotes(quotes);
-		//if (quotes == 0 && str[prev_l] != '<' && str[prev_l] != '>')
 		word[i] = str[prev_l];
 		i++;
 		prev_l++;
 	}
 	word[i] = '\0';
+	word = remove_ind_red(word);
+	printf("WORD: %s\n", word);
 	return (word);
 }
 
@@ -81,7 +106,6 @@ void	handle_input(char *s, t_gdata *g_data/*, t_token_data *cmd_table*/)
 		if (token != -1 && quotes == 0)
 		{
 			word = get_until_token(prev_l, l, s);
-			printf("word: %s\n", word);
 			g_data->n_commands--;
 			prev_l = l + 1;
 			//if (s[l] == '<' || s[l + 1] == '>')
@@ -91,8 +115,10 @@ void	handle_input(char *s, t_gdata *g_data/*, t_token_data *cmd_table*/)
 	}
 	if (g_data->n_commands == 1)
 	{
+		printf("PREV: %d\n", prev_l);
+		printf("L: %d\n", prev_l);
 		word = get_until_token(prev_l, l, s);
-		printf("word: %s\n", word);
+		//printf("word: %s\n", word);
 	}
 }
 
