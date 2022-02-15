@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/15 10:42:38 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:06:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
 {
 	char	*prompt;
 	char	**envp;
+	int	n_commands;
 } t_gdata;
 
 /*
@@ -55,6 +56,7 @@ typedef struct s_data
 typedef struct s_token_data
 {
 	int		token;
+	char	*str;
 }	t_token_data;
 
 #endif

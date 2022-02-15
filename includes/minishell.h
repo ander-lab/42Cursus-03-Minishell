@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:34 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/09 12:04:21 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:10:08 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # include "structs_and_macros.h"
 
 void	init_prompt(t_gdata *g_data, char **envp);
-void 	lexer(char *s);
+void 	lexer(char *s, t_gdata *g_data);
 
+int		ft_give_token(char c1, char c2, int *aux);
+char	*get_until_token(int prev_l, int l, char *str);
+int		is_escaping(char c);
+void	handle_input(char *str, t_gdata *g_data/*, t_token_data *cmd_table*/);
+int		get_n_commands(char *s);
 #endif

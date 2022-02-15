@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/14 20:05:40 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:07:58 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 			return (1);
 		if (inp[0])
 			add_history(inp);
-		lexer(inp);
+		lexer(inp, &g_data);
 		printf("INP: %s\n", inp);
 	}
 	return (0);
