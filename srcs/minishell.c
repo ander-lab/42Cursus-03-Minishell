@@ -6,14 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/09 18:40:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:05:40 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
- * SIGINT CTRL + C == 2
+/* SIGINT CTRL + C == 2
  *
  *
  *
@@ -45,7 +44,7 @@ int main(int argc, char **argv)
 			return (1);
 		if (inp[0])
 			add_history(inp);
-		//lexer(inp);
+		lexer(inp);
 		printf("INP: %s\n", inp);
 	}
 	return (0);
