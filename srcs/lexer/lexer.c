@@ -6,11 +6,12 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 13:36:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/15 10:39:09 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:58:52 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 int	ft_give_token(char c1, char c2, int *aux)
 {
 	if (c1 == '|')
