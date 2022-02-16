@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/15 15:09:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:37:55 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,21 @@ int		is_quote(char c)
 	if (c == '\"')
 		quotes = 1;
 	if (c == '\'')
-		quotes = 1;
+		quotes = 2;
 	return (quotes);
 }
 
-int is_in_quotes(int quotes)
+int is_in_quotes(int quotes, int tquotes)
 {
 	int is_in_quotes;
 
-	if (quotes)
+	is_in_quotes = 0;
+	if (quotes == 0)
+		is_in_quotes = tquotes;
+	else if (quotes == tquotes)
 		is_in_quotes = 0;
 	else
-		is_in_quotes = 1;
+		is_in_quotes = quotes;
 	return (is_in_quotes);
 }
 
@@ -51,14 +54,16 @@ char	*remove_ind_red(char *s)
 	while (s[i])
 	{
 		if (is_quote(s[i]))
-			quotes = is_in_quotes(quotes);
+			quotes = is_in_quotes(quotes, 1);
+		if (is_quote(s[i]) == 2)
+			quotes = is_in_quotes(quotes, 2);
 		if (quotes == 0 && s[i] != '<' && s[i] != '>')
 			aux[++x] = s[i];
 		if (quotes == 1)
 			aux[++x] = s[i];
 		i++;
 	}
-	aux[x] = '\0';
+	aux[++x] = '\0';
 	free(s);
 	return (aux);
 }
@@ -80,7 +85,6 @@ char	*get_until_token(int prev_l, int l, char *str)
 	}
 	word[i] = '\0';
 	word = remove_ind_red(word);
-	printf("WORD: %s\n", word);
 	return (word);
 }
 
@@ -98,7 +102,9 @@ void	handle_input(char *s, t_gdata *g_data/*, t_token_data *cmd_table*/)
 	while (s[l])
 	{
 		if (is_quote(s[l]))
-				quotes = is_in_quotes(quotes);
+			quotes = is_in_quotes(quotes, 1);
+		else if (is_quote(s[l]) == 2)
+			quotes = is_in_quotes(quotes, 2);
 		if (s[l + 1])
 			token = ft_give_token(s[l], s[l + 1], &l);
 		else
@@ -106,20 +112,38 @@ void	handle_input(char *s, t_gdata *g_data/*, t_token_data *cmd_table*/)
 		if (token != -1 && quotes == 0)
 		{
 			word = get_until_token(prev_l, l, s);
+			//if (!word[0])
+			//	free(word);
 			g_data->n_commands--;
+			printf("WORD1: %s\n", word);
 			prev_l = l + 1;
-			//if (s[l] == '<' || s[l + 1] == '>')
-			//	prev_l++;
 		}
 		l++;
 	}
 	if (g_data->n_commands == 1)
-	{
-		printf("PREV: %d\n", prev_l);
-		printf("L: %d\n", prev_l);
 		word = get_until_token(prev_l, l, s);
-		//printf("word: %s\n", word);
+	printf("WORD2: %s\n", word);
+}
+
+int	starts_with_token(char *s)
+{
+	int	starts;
+	int	token;
+	int	i;
+
+	i = 0;
+	starts = 0;
+	while (s[i])
+	{
+		if (s[i + 1])
+			token = ft_give_token(s[i], s[i + 1], &i);
+		else
+			token = ft_give_token(s[i], 0, NULL);
+		if ((i == 0 || i == 1) && token > -1)
+			starts = 1;
+		i++;
 	}
+	return (starts);
 }
 
 int	get_n_commands(char *s)
@@ -135,8 +159,10 @@ int	get_n_commands(char *s)
 	quotes = 0;
 	while (s[i])
 	{
-		if (is_quote(s[i]))
-				quotes= is_in_quotes(quotes);
+		if (is_quote(s[i]) == 1)
+			quotes = is_in_quotes(quotes, 1);
+		if (is_quote(s[i]) == 2)
+			quotes = is_in_quotes(quotes, 2);
 		if (s[i + 1])
 			token = ft_give_token(s[i], s[i + 1], &i);
 		else
@@ -145,5 +171,7 @@ int	get_n_commands(char *s)
 			nc++;
 		i++;
 	}
+	if (starts_with_token(s))
+		nc--;
 	return (nc);
 }
