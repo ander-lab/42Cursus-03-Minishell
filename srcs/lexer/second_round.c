@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:50:54 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 13:39:34 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:52:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ void	ft_changevalue(t_list **lst, int val, int pos)
 {
 	if (pos == NEXT || val == FILE_NAME)
 	{
-		((t_token_data *)(*lst)->next->content)->token = val;
+		if (((t_token_data *)(*lst)->next->content)->token == -1)
+			((t_token_data *)(*lst)->next->content)->token = val;
 	}
 	else if (val == ARGUMENT)
-		((t_token_data *)(*lst)->content)->token = val;
+		if (((t_token_data *)(*lst)->content)->token == -1)
+			((t_token_data *)(*lst)->content)->token = val;
 }
 
 int	ft_tokenizer(int token, int next_token)
 {
-	if (next_token == INDIRECTION || next_token == REDIRECTION
-		|| next_token == HERE_DOC || next_token == APPEND || next_token == PIPE)
+	if (next_token != FILE_NAME && next_token != ARGUMENT && next_token != -1)
 	{
 		if (token == -1)
 			token = ARGUMENT;
@@ -43,7 +44,7 @@ int	ft_tokenizer(int token, int next_token)
 	{
 		if (token == PIPE)
 			token = ARGUMENT;
-		if (token == INDIRECTION || token == REDIRECTION
+		else if (token == INDIRECTION || token == REDIRECTION
 			|| token == HERE_DOC || token == APPEND)
 			token = FILE_NAME;
 	}
