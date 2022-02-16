@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/07 13:31:58 by ajimenez          #+#    #+#              #
-#    Updated: 2022/02/15 13:26:56 by ajimenez         ###   ########.fr        #
+#    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
+#    Updated: 2022/02/16 15:18:22 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 # **************************************************************************** #
 # 									 PROGRAM                                   #
@@ -36,7 +37,7 @@ LIBFT	= ./includes/libft/libft.a
 # 									SOURCES                                    #
 # **************************************************************************** #
 
-SRCS	= srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/parser_lexer.c srcs/lexer/second_round.c
+SRCS	= srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/parser_lexer.c srcs/lexer/second_round.c ./utils/quotes.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

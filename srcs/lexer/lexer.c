@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 13:36:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 12:29:49 by ajimenez         ###   ########.fr       */
+/*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/02/16 15:21:25 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void lexer(char *s, t_gdata *gdata)
 	token_lst = NULL;
 	aux = 0;
 	gdata->n_commands = get_n_commands(s);
-	//handle_input(s, gdata);
+	handle_input(s, gdata);
+	printf("\n-----------------------\n");
 	while (s[aux])
 	{
 		if (s[aux + 1])
@@ -88,11 +89,10 @@ void lexer(char *s, t_gdata *gdata)
 		else
 			token_data->token = ft_give_token(s[aux], 0, NULL);
 		ft_lstadd_back(&token_lst, ft_lstnew_struct(token_data, sizeof(t_token_data)));
-		//token_data = token_lst->content;
 		aux++;
 	}
-	ft_printlst(token_lst);
+	//ft_printlst(token_lst);
 	lexer_lst(token_lst);
 	printf("\n-----------------------\n");
-	ft_printlst(token_lst);
+	//ft_printlst(token_lst);
 }
