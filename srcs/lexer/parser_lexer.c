@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 15:20:31 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:18:38 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,11 @@ void	handle_input(char *s, t_gdata *g_data)
 			word = get_until_token(prev_l, l, s);
 			g_data->n_commands--;
 			prev_l = l + 1;
-			printf("word: %s\n", word);
+			//printf("word: %s\n", word);
 		}
 	}
 	if (g_data->n_commands == 1)
 		word = get_until_token(prev_l, l, s);
-	printf("word: %s\n", word);
 }
 
 int	starts_with_token(char *s)
@@ -142,5 +141,29 @@ int	get_n_commands(char *s)
 	}
 	if (starts_with_token(s))
 		nc--;
+	//printf("%d", nc);
+	//printf("\n");
 	return (nc);
+}
+
+int	get_n_tokens(char *s)
+{
+	int	i;
+	int	nt;
+	int	token;
+
+	i = 0;
+	nt = 0;
+	token = 0;
+	while (s[i])
+	{
+		if (s[i + 1])
+			token = ft_give_token(s[i], s[i + 1], &i);
+		else
+			token = ft_give_token(s[i], 0, NULL);
+		if (token >= PIPE)
+			nt++;
+		i++;
+	}
+	return (nt);
 }

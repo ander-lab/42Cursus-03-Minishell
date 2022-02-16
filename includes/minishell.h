@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 15:17:43 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:57:28 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*get_until_token(int prev_l, int l, char *str);
 int		is_escaping(char c);
 void	handle_input(char *str, t_gdata *g_data/*, t_token_data *cmd_table*/);
 int		get_n_commands(char *s);
+int		get_n_tokens(char *s);
 int		is_quote(char c);
 int		is_in_quotes(int quotes, int tquotes);
 
