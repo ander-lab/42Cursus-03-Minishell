@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 13:36:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/15 11:26:47 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/16 12:29:49 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	ft_give_token(char c1, char c2, int *aux)
 		}
 		else
 			return (INDIRECTION);
-	}	
-	else if (c1 == '>')
+	}	else if (c1 == '>')
 	{
 		if (c2 == '>')
 		{
@@ -59,6 +58,18 @@ t_list	*ft_lstnew_struct(void *newcontent, size_t size)
 	return (new);
 }
 
+void ft_printlst(t_list *token_lst)
+{
+	while (token_lst)
+	{
+		//printf("----hell");
+		printf("token  %i \n", ((t_token_data *)token_lst->content)->token);
+		//token_data = token_lst->content;
+		//printf(" token 2= %i\n", token_data->token);
+		token_lst = token_lst->next;
+	}
+}
+
 void lexer(char *s, t_gdata *gdata)
 {
 	int		aux;
@@ -66,13 +77,10 @@ void lexer(char *s, t_gdata *gdata)
 	t_token_data	*token_data;
 
 	token_data = ft_calloc(sizeof(t_token_data), 1);
-	token_lst = ft_lstnew(token_data);
+	token_lst = NULL;
 	aux = 0;
 	gdata->n_commands = get_n_commands(s);
-	handle_input(s, gdata);
-	//token_lst = 0;
-	//token_data = 0;
-	//token_data->token = 0;
+	//handle_input(s, gdata);
 	while (s[aux])
 	{
 		if (s[aux + 1])
@@ -80,14 +88,11 @@ void lexer(char *s, t_gdata *gdata)
 		else
 			token_data->token = ft_give_token(s[aux], 0, NULL);
 		ft_lstadd_back(&token_lst, ft_lstnew_struct(token_data, sizeof(t_token_data)));
-	//	printf("aux = %i char = %c = %i\n", aux, s[aux], token_data->token);
+		//token_data = token_lst->content;
 		aux++;
 	}
-	while (token_lst->next)
-	{
-		//printf("%i\n", ((t_token_data *)token_lst->content)->token);
-		token_data = token_lst->content;
-	//	printf(" token = %i\n", token_data->token);
-		token_lst = token_lst->next;
-	}
+	ft_printlst(token_lst);
+	lexer_lst(token_lst);
+	printf("\n-----------------------\n");
+	ft_printlst(token_lst);
 }

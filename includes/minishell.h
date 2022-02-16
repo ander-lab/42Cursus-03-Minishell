@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:34 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/15 11:10:08 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:36:56 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 void	init_prompt(t_gdata *g_data, char **envp);
 void 	lexer(char *s, t_gdata *g_data);
 
+void 	lexer_lst(t_list *token_lst);
 int		ft_give_token(char c1, char c2, int *aux);
 char	*get_until_token(int prev_l, int l, char *str);
 int		is_escaping(char c);
