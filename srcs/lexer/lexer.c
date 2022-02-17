@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 17:45:33 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:10:54 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,13 @@ void lexer(char *s, t_gdata *gdata)
 	token_lst = NULL;
 	aux = 0;
 	gdata->n_commands = get_n_commands(s);
+	printf("N_COMMANDS: %d\n", gdata->n_commands);
 	gdata->n_tokens = get_n_tokens(s);
-	int	n_commands = get_n_commands(s);
-	printf("N_commands: %d N_tk: %d\n", gdata->n_commands, gdata->n_tokens);
-	handle_input(s, gdata);
+	//int	n_commands = get_n_commands(s);
+	//printf("N_commands: %d N_tk: %d\n", gdata->n_commands, gdata->n_tokens);
+	//handle_input(s, gdata);
 	//printf("\n-----------------------\n");
-	while (s[aux])
+	/*while (s[aux])
 	{
 		if (s[aux + 1])
 			raw_tokens[aux] = ft_give_token(s[aux], s[aux + 1], &aux);
@@ -139,7 +140,7 @@ void lexer(char *s, t_gdata *gdata)
 //		printf("%d ", raw_tokens[i]);
 //	printf("\n----------------------------------\n");
 	//raw_tokens_len = aux;
-	clean_tokens(raw_tokens, aux, n_commands + gdata->n_tokens);
+	clean_tokens(raw_tokens, aux, n_commands + gdata->n_tokens);*/
 	//ft_printlst(token_lst);
 	//lexer_lst(token_lst);
 	//printf("\n-----------------------\n");

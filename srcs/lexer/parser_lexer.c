@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 17:18:38 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:10:52 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	*remove_ind_red(char *s)
 			aux[++x] = s[i];
 		if (quotes == 1)
 			aux[++x] = s[i];
+		if (quotes == 2)
+			aux[++x] = s[i];
 	}
 	aux[++x] = '\0';
 	free(s);
@@ -61,6 +63,21 @@ char	*get_until_token(int prev_l, int l, char *str)
 	return (word);
 }
 
+int	ends_with_token(char *s)
+{
+	int ends;
+	int	l;
+
+	l = ft_strlen(s);
+	ends = 0;
+	if (l == 0)
+		return (ends);
+	if (s[l - 1] == '>' || s[l - 1] == '<' || s[l - 1] == '|')
+		ends = 1;
+	return (ends);
+}
+
+
 void	handle_input(char *s, t_gdata *g_data)
 {
 	int		prev_l;
@@ -84,14 +101,19 @@ void	handle_input(char *s, t_gdata *g_data)
 			token = ft_give_token(s[l], 0, NULL);
 		if (token != -1 && quotes == 0)
 		{
-			word = get_until_token(prev_l, l, s);
 			g_data->n_commands--;
+			word = get_until_token(prev_l, l, s);
+			if (*word)
+				printf("WORD: %s\n", word);
 			prev_l = l + 1;
-			//printf("word: %s\n", word);
 		}
 	}
-	if (g_data->n_commands == 1)
+	if ((g_data->n_commands == 0 || g_data->n_commands == 1) && !ends_with_token(s))
+	{
 		word = get_until_token(prev_l, l, s);
+		printf("WORD: %s\n", word);
+	}
+	//printf("WORD: %s\n", word);
 }
 
 int	starts_with_token(char *s)
@@ -114,6 +136,29 @@ int	starts_with_token(char *s)
 	}
 	return (starts);
 }
+
+/*
+int	is_cmd_between_tokens(char *s, int idx)
+{
+	int	token;
+	int	cmd_exists;
+
+	token = 0;
+	cmd_exists = 0;
+	while (s[idx])
+	{
+		printf("S: %c\n", s[idx]);
+		if (s[idx + 1])
+			token = ft_give_token(s[idx], s[idx + 1], &idx);
+		else
+			token = ft_give_token(s[idx], 0, NULL);
+		if (token == -1 && s[idx] != ' ')
+			cmd_exists = 1;
+		idx++;
+	}
+	printf("CMD: %d\n", cmd_exists);
+	return(cmd_exists);
+}*/
 
 int	get_n_commands(char *s)
 {
@@ -138,8 +183,15 @@ int	get_n_commands(char *s)
 			token = ft_give_token(s[i], 0, NULL);
 		if (token != -1 && quotes == 0)
 			nc++;
+/*		if (token != -1 && quotes == 0)
+		{
+			if (is_cmd_between_tokens(s, i))
+				nc++;
+		}*/
 	}
 	if (starts_with_token(s))
+		nc--;
+	if (ends_with_token(s))
 		nc--;
 	//printf("%d", nc);
 	//printf("\n");
