@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 17:45:33 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:21:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 	int aux_clean = 0;	
 
 	printf("raw len : %d len: %d\n", raw_len, len);
-	clean_tokens = ft_calloc(sizeof(int), len);
+	clean_tokens = malloc(sizeof(int) * len);
 	if (!clean_tokens)
 		return (0);
 	while (aux < raw_len)
 	{
-		if (raw[aux] > -1)
+		if (raw[aux] > -1 && aux_clean < len)
 			clean_tokens[aux_clean] = raw[aux];
 		else
 		{
@@ -96,14 +96,17 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 	//	printf("%d", raw[1]);
 	//	printf("%d", raw[2]);
 	//	printf("%d", raw[3]);
-		printf("%d", aux_clean);
+		//printf("%d", aux_clean);
 		aux_clean++;
 		aux++;
 		//printf("clean %d raw   %d\n", clean_tokens[aux_clean], raw[aux]);
 	}
-	printf("\n %d ----------------------------------\n", len);
+	printf("\n --------------CLEAN---------------\n");
 	for (int i = 0; i < len; i++)
 		printf("%d ", clean_tokens[i]);
+	printf("\n---------------RAW-------------------\n");
+	for (int i = 0; i < raw_len; i++)
+		printf("%d ", raw[i]);
 	printf("\n----------------------------------\n");
 	return (0);
 }
