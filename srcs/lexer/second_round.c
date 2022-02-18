@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:50:54 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/16 15:51:36 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:01:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_tokenizer(int token, int next_token)
 	return (token);
 }
 
-void	lexer_lst(t_list *token_lst)
+void	clean_lst_tokens(t_list *token_lst)
 {
 	int	token;
 	int	token_next;

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 12:35:13 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:27:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,12 @@ int	ft_give_token(char c1, char c2, int *aux)
 	return (-1);
 }
 
-t_list	*ft_lstnew_struct(void *newcontent, size_t size)
-{
-	t_list	*new;
-	void	*content;
-
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	content = malloc(size);
-	if (!content)
-	{
-		free(new);
-		return (NULL);
-	}
-	ft_memcpy(content, newcontent, size);
-	new->content = content;
-	new->next = NULL;
-	return (new);
-}
-
 void ft_printlst(t_list *token_lst)
 {
 	while (token_lst)
 	{
 		//printf("----hell");
-		printf("token  %i \n", ((t_token_data *)token_lst->content)->token);
+		printf("token  %i char * %s\n", ((t_token_data *)token_lst->content)->token, ((t_token_data *)token_lst->content)->str);
 		//token_data = token_lst->content;
 		//printf(" token 2= %i\n", token_data->token);
 		token_lst = token_lst->next;
@@ -73,49 +53,39 @@ void ft_printlst(t_list *token_lst)
 int	*clean_tokens(int *raw, int raw_len, int len)
 {
 	int	*clean_tokens;
-	int	aux = 0;
+	int	aux_raw = 0;
 	int aux_clean = 0;	
 
-	printf("raw len : %d len: %d\n", raw_len, len);
 	clean_tokens = malloc(sizeof(int) * len);
 	if (!clean_tokens)
 		return (0);
-	while (aux < raw_len)
+	while (aux_raw < raw_len)
 	{
-		if (raw[aux] > -1 && aux_clean < len)
-			clean_tokens[aux_clean] = raw[aux];
+		if (raw[aux_raw] > -1 && aux_clean < len)
+			clean_tokens[aux_clean] = raw[aux_raw];
 		else
 		{
 			clean_tokens[aux_clean] = -1;
-			while (raw[aux + 1] == -1 && aux < raw_len)
+			while (raw[aux_raw + 1] == -1 && aux_raw < raw_len && aux_clean < len)
 			{
-				//printf("%d ", aux);
-				aux++;
+				aux_raw++;
 			}
 		}
-	//	printf("%d", raw[1]);
-	//	printf("%d", raw[2]);
-	//	printf("%d", raw[3]);
-		//printf("%d", aux_clean);
 		aux_clean++;
-		aux++;
-		//printf("clean %d raw   %d\n", clean_tokens[aux_clean], raw[aux]);
+		aux_raw++;
 	}
-	printf("\n --------------CLEAN---------------\n");
-	for (int i = 0; i < len; i++)
-		printf("%d ", clean_tokens[i]);
-	printf("\n---------------RAW-------------------\n");
-	for (int i = 0; i < raw_len; i++)
-		printf("%d ", raw[i]);
-	printf("\n----------------------------------\n");
-	return (0);
+	return (clean_tokens);
 }
+
+//int	*ft_put_tokens_into_array(char *s)
 
 void lexer(char *s, t_gdata *gdata)
 {
 	int		aux;
 	int		*raw_tokens;
-	//int		raw_tokens_len = 0;;
+	int 	*clean_tkns;
+	int		raw_tokens_len = 0;
+	int		clean_len;
 	t_list			*token_lst;
 	t_token_data	*token_data;
 
@@ -124,37 +94,25 @@ void lexer(char *s, t_gdata *gdata)
 	token_lst = NULL;
 	aux = 0;
 	gdata->n_commands = get_n_commands(s);
-	printf("N_COMMANDS: %d\n", gdata->n_commands);
 	gdata->n_tokens = get_n_tokens(s);
-	//int	n_commands = get_n_commands(s);
-	//printf("N_commands: %d N_tk: %d\n", gdata->n_commands, gdata->n_tokens);
+	int	n_commands = get_n_commands(s);
 	handle_input(s, gdata);
 	if (gdata->data_error > 0)
 		return ; //gestion de comillas abiertas lexer
-	int i = 0;
-	while (gdata->cmds[i])
-	{
-		printf("WORD_INS: %s\n", gdata->cmds[i]);
-		i++;
-	}
-	
 	//printf("\n-----------------------\n");
-	/*while (s[aux])
+	while (s[aux])
 	{
 		if (s[aux + 1])
 			raw_tokens[aux] = ft_give_token(s[aux], s[aux + 1], &aux);
 		else
 			raw_tokens[aux] = ft_give_token(s[aux], 0, NULL);
-		//ft_lstadd_back(&token_lst, ft_lstnew_struct(token_data, sizeof(t_token_data)));
 		aux++;
 	}
-//	for (int i = 0; i < aux; i++)
-//		printf("%d ", raw_tokens[i]);
-//	printf("\n----------------------------------\n");
-	//raw_tokens_len = aux;
-	clean_tokens(raw_tokens, aux, n_commands + gdata->n_tokens);*/
-	//ft_printlst(token_lst);
-	//lexer_lst(token_lst);
-	//printf("\n-----------------------\n");
-	//ft_printlst(token_lst);
+	raw_tokens_len = aux;
+	clean_len = n_commands + gdata->n_tokens;
+	clean_tkns = clean_tokens(raw_tokens, aux, clean_len);
+	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
+	ft_convert_matrix(gdata->cmds, token_lst);
+	clean_lst_tokens(token_lst);
+	ft_printlst(token_lst);
 }

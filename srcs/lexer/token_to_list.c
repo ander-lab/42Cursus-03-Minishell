@@ -6,13 +6,13 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:39:30 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/17 14:03:52 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/18 12:59:33 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_list	*ft_lstnew_struct(void *newcontent, size_t size)
+static t_list	*ft_lstnew_struct(void *newcontent, size_t size)
 {
 	t_list	*new;
 	void	*content;
@@ -45,7 +45,7 @@ void	ft_insert_data_lst(t_list **lst, t_token_data *token_data, int *tokens, int
 	}
 }
 
-void	ft_strdup_on_lst(t_list **lst, char *str)
+static void	ft_strdup_on_lst(t_list **lst, char *str)
 {
 	if (!*lst || !str)
 		return ;

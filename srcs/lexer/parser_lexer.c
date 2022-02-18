@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 12:35:15 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:05:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int	get_n_commands(char *s)
 			token = ft_give_token(s[i], s[i + 1], &i);
 		else
 			token = ft_give_token(s[i], 0, NULL);
-		printf("TOKEN: %d\n", token);
+		//printf("TOKEN: %d\n", token);
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 			nc++;
 	}
