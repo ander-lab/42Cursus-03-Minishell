@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/17 16:10:52 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:02:00 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ int	starts_with_token(char *s)
 	return (starts);
 }
 
-/*
 int	is_cmd_between_tokens(char *s, int idx)
 {
 	int	token;
@@ -145,20 +144,19 @@ int	is_cmd_between_tokens(char *s, int idx)
 
 	token = 0;
 	cmd_exists = 0;
-	while (s[idx])
+	while (s[++idx])
 	{
-		printf("S: %c\n", s[idx]);
 		if (s[idx + 1])
 			token = ft_give_token(s[idx], s[idx + 1], &idx);
 		else
 			token = ft_give_token(s[idx], 0, NULL);
+		if (token != -1)
+			return (cmd_exists);
 		if (token == -1 && s[idx] != ' ')
 			cmd_exists = 1;
-		idx++;
 	}
-	printf("CMD: %d\n", cmd_exists);
 	return(cmd_exists);
-}*/
+}
 
 int	get_n_commands(char *s)
 {
@@ -181,20 +179,13 @@ int	get_n_commands(char *s)
 			token = ft_give_token(s[i], s[i + 1], &i);
 		else
 			token = ft_give_token(s[i], 0, NULL);
-		if (token != -1 && quotes == 0)
+		printf("TOKEN: %d\n", token);
+		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 			nc++;
-/*		if (token != -1 && quotes == 0)
-		{
-			if (is_cmd_between_tokens(s, i))
-				nc++;
-		}*/
 	}
 	if (starts_with_token(s))
 		nc--;
-	if (ends_with_token(s))
-		nc--;
-	//printf("%d", nc);
-	//printf("\n");
+	//if (ends_with_token(s))
 	return (nc);
 }
 
