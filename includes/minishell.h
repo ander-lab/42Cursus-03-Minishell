@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 13:01:37 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:59:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int		get_n_tokens(char *s);
 int		is_quote(char c);
 int		is_in_quotes(int quotes, int tquotes);
 
+/* 
+ * 
+ * TOKENS 
+ *
+ * */
+int		ft_get_token(char *s, int l);
+int		ft_give_token(char c1, char c2, int *aux);
+int		ends_with_token(char *s);
+int		starts_with_token(char *s);
+int		get_n_tokens(char *s);
 
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 void	ft_insert_data_lst(t_list **lst, t_token_data *token_data, int *tokens, int len);

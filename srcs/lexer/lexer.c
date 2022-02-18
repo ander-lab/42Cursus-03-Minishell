@@ -6,37 +6,11 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 13:27:59 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/18 18:11:45 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	ft_give_token(char c1, char c2, int *aux)
-{
-	if (c1 == '|')
-		return (PIPE);
-	else if (c1 == '<')
-	{
-		if (c2 == '<')
-		{
-			*aux = *aux + 1;
-			return (HERE_DOC);
-		}
-		else
-			return (INDIRECTION);
-	}	else if (c1 == '>')
-	{
-		if (c2 == '>')
-		{
-			*aux = *aux + 1;
-			return (APPEND);
-		}
-		else
-			return (REDIRECTION);
-	}	
-	return (-1);
-}
 
 void ft_printlst(t_list *token_lst)
 {
@@ -83,9 +57,9 @@ void lexer(char *s, t_gdata *gdata)
 {
 	int		aux;
 	int		*raw_tokens;
-	int 	*clean_tkns;
-	int		raw_tokens_len = 0;
-	int		clean_len;
+	//int 	*clean_tkns;
+	//int		raw_tokens_len = 0;
+	//int		clean_len;
 	t_list			*token_lst;
 	t_token_data	*token_data;
 
@@ -94,10 +68,17 @@ void lexer(char *s, t_gdata *gdata)
 	token_lst = NULL;
 	aux = 0;
 	gdata->n_commands = get_n_commands(s);
+	printf("N_COMMADS: %d\n", gdata->n_commands);
 	gdata->n_tokens = get_n_tokens(s);
-	int	n_commands = get_n_commands(s);
+	//int	n_commands = get_n_commands(s);
 	handle_input(s, gdata);
-	if (gdata->data_error > 0)
+	int i = 0;
+	while (gdata->cmds[i])
+	{
+		printf("DATA: %s\n", gdata->cmds[i]);
+		i++;
+	}
+	/*if (gdata->data_error > 0)
 		return ; //gestion de comillas abiertas lexer
 	//printf("\n-----------------------\n");
 	while (s[aux])
@@ -114,5 +95,5 @@ void lexer(char *s, t_gdata *gdata)
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
-	ft_printlst(token_lst);
+	ft_printlst(token_lst);*/
 }
