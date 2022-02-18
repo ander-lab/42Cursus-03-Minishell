@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 11:28:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/18 12:35:15 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	ends_with_token(char *s)
 	return (ends);
 }
 
-
 void	handle_input(char *s, t_gdata *g_data)
 {
 	int		prev_l;
@@ -85,10 +84,15 @@ void	handle_input(char *s, t_gdata *g_data)
 	int		token;
 	char	*word;
 	int		quotes;
+	int		i;
 
 	l = -1;
 	prev_l = 0;
 	quotes = 0;
+	i = 0;
+	g_data->cmds = ft_calloc(sizeof(char *), (g_data->n_commands + 1));
+	if (!g_data->cmds)
+		return ;
 	while (s[++l])
 	{
 		if (is_quote(s[l]) == 1)
@@ -104,14 +108,17 @@ void	handle_input(char *s, t_gdata *g_data)
 			g_data->n_commands--;
 			word = get_until_token(prev_l, l, s);
 			if (*word)
-				printf("WORD: %s\n", word);
+			{
+				g_data->cmds[i] = word;
+				i++;
+			}
 			prev_l = l + 1;
 		}
 	}
 	if ((g_data->n_commands == 0 || g_data->n_commands == 1) && !ends_with_token(s))
 	{
 		word = get_until_token(prev_l, l, s);
-		printf("WORD: %s\n", word);
+		g_data->cmds[i] = word;
 	}
 	//printf("WORD: %s\n", word);
 	g_data->data_error = quotes;
