@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 11:16:20 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:30:26 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,9 @@ void lexer(char *s, t_gdata *gdata)
 	gdata->n_tokens = get_n_tokens(s);
 	//int	n_commands = get_n_commands(s);
 	//printf("N_commands: %d N_tk: %d\n", gdata->n_commands, gdata->n_tokens);
-	//handle_input(s, gdata);
+	handle_input(s, gdata);
+	if (gdata->data_error > 0)
+		return ; //gestion de comillas abiertas lexer
 	//printf("\n-----------------------\n");
 	/*while (s[aux])
 	{

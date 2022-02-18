@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 11:02:00 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:28:55 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	handle_input(char *s, t_gdata *g_data)
 		printf("WORD: %s\n", word);
 	}
 	//printf("WORD: %s\n", word);
+	g_data->data_error = quotes;
 }
 
 int	starts_with_token(char *s)
