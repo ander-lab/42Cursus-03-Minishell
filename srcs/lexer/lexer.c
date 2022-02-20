@@ -55,18 +55,18 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 
 void lexer(char *s, t_gdata *gdata)
 {
-	int		aux;
-	int		*raw_tokens;
+	//int		aux;
+	//int		*raw_tokens;
 	//int 	*clean_tkns;
 	//int		raw_tokens_len = 0;
 	//int		clean_len;
-	t_list			*token_lst;
-	t_token_data	*token_data;
+	//t_list			*token_lst;
+	//t_token_data	*token_data;
 
-	token_data = ft_calloc(sizeof(t_token_data), 1);
-	raw_tokens = ft_calloc(ft_strlen(s), sizeof(int));
-	token_lst = NULL;
-	aux = 0;
+	//token_data = ft_calloc(sizeof(t_token_data), 1);
+	//raw_tokens = ft_calloc(ft_strlen(s), sizeof(int));
+	//token_lst = NULL;
+	//aux = 0;
 	gdata->n_commands = get_n_commands(s);
 	printf("N_COMMADS: %d\n", gdata->n_commands);
 	gdata->n_tokens = get_n_tokens(s);

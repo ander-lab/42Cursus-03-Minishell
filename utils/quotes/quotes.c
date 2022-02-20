@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int		is_quote(char c)
 {
@@ -36,4 +36,16 @@ int is_in_quotes(int quotes, int tquotes)
 	else
 		is_in_quotes = quotes;
 	return (is_in_quotes);
+}
+
+int	quote_type(int quotes, char *s, int l)
+{
+	int quote_type;
+
+	quote_type = quotes;
+	if (is_quote(s[l]) == 1)
+		quote_type = is_in_quotes(quotes, 1);
+	if (is_quote(s[l]) == 2)
+		quote_type = is_in_quotes(quotes, 2);
+	return (quote_type);
 }

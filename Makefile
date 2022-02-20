@@ -38,8 +38,8 @@ LIBFT	= ./includes/libft/libft.a
 # **************************************************************************** #
 
 SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/parser_lexer.c \
-			srcs/lexer/second_round.c ./utils/quotes.c srcs/lexer/token_to_list.c \
-			utils/tokens.c
+			srcs/lexer/second_round.c ./utils/quotes/quotes.c srcs/lexer/token_to_list.c \
+			utils/tokens/tokens.c ./utils/str/strings.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

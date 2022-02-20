@@ -12,115 +12,59 @@
 
 #include "../../includes/minishell.h"
 
-char	*remove_ind_red(char *s)
+static void	init_cmd_str(t_gdata *g_data)
 {
-	char	*aux;
-	int		i;
-	int		quotes;
-	int		x;
-
-	i = -1;
-	x = -1;
-	aux = ft_calloc(sizeof(char), (ft_strlen(s) + 1));
-	if (!aux)
-		return (s);
-	quotes = 0;
-	while (s[++i])
-	{
-		if (is_quote(s[i]) == 1)
-			quotes = is_in_quotes(quotes, 1);
-		if (is_quote(s[i]) == 2)
-			quotes = is_in_quotes(quotes, 2);
-		if (quotes == 0 && s[i] != '<' && s[i] != '>')
-			aux[++x] = s[i];
-		if (quotes == 1 || quotes == 2)
-			aux[++x] = s[i];
-		//if (quotes == 2)
-		//	aux[++x] = s[i];
-	}
-	free(s);
-	return (aux);
+	g_data->cmds = ft_calloc(sizeof(char *), (g_data->n_commands + 1));
+	if (!g_data->cmds)
+		return ;
 }
 
-char	*get_until_token(int prev_l, int l, char *str)
+static int	get_cmds_length(t_gdata *g_data)
 {
-	char	*word;
-	int		i;
+	int	l;
 
-	word = malloc(sizeof(char) * (l - prev_l + 1));
-	if (!word)
-		return (0);
-	i = 0;
-	while (prev_l < l)
+	l = 0;
+	while (g_data->cmds[l])
+		l++;
+	return (l);
+}
+
+static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
+{
+	int	idx;
+	char	*word;
+
+	idx = get_cmds_length(g_data);
+	word = get_until_token(prev_l, l, s);
+	if (exists_word(word))
 	{
-		word[i] = str[prev_l];
-		i++;
-		prev_l++;
+		g_data->cmds[idx] = word;
+		g_data->n_commands--;
 	}
-	word[i] = '\0';
-	word = remove_ind_red(word);
-	return (word);
 }
 
 void	handle_input(char *s, t_gdata *g_data)
 {
 	int		prev_l;
 	int		l;
-	int		token;
-	char	*word;
 	int		quotes;
-	int		i;
 
 	l = -1;
 	prev_l = 0;
 	quotes = 0;
-	i = 0;
-	g_data->cmds = ft_calloc(sizeof(char *), (g_data->n_commands + 1));
-	if (!g_data->cmds)
-		return ;
+	init_cmd_str(g_data);
 	while (s[++l])
 	{
-		if (is_quote(s[l]) == 1)
-			quotes = is_in_quotes(quotes, 1);
-		if (is_quote(s[l]) == 2)
-			quotes = is_in_quotes(quotes, 2);
-		token = ft_get_token(s, l);
-		if (token != -1 && quotes == 0)
+		quotes = quote_type(quotes, s, l);
+		if (ft_get_token(s, l) != -1 && quotes == 0)
 		{
-			g_data->n_commands--;
-			word = get_until_token(prev_l, l, s);
-			if (word[0])
-			{
-				g_data->cmds[i] = word;
-				i++;
-			}
+			fill_cmd_str(s, prev_l, l, g_data);
 			prev_l = l + 1;
 		}
 	}
 	if ((g_data->n_commands == 0 || g_data->n_commands == 1) && !ends_with_token(s))
-	{
-		word = get_until_token(prev_l, l, s);
-		g_data->cmds[i] = word;
-	}
+		g_data->cmds[get_cmds_length(g_data)] = get_until_token(prev_l, l, s);
 	g_data->data_error = quotes;
-}
-
-int	is_cmd_between_tokens(char *s, int idx)
-{
-	int	token;
-	int	cmd_exists;
-
-	token = 0;
-	cmd_exists = 0;
-	while (s[++idx])
-	{
-		token = ft_get_token(s, idx);
-		if (token != -1)
-			return (cmd_exists);
-		if (token == -1 && s[idx] != ' ')
-			cmd_exists = 1;
-	}
-	return (cmd_exists);
 }
 
 int	get_n_commands(char *s)
@@ -136,10 +80,7 @@ int	get_n_commands(char *s)
 	quotes = 0;
 	while (s[++i])
 	{
-		if (is_quote(s[i]) == 1)
-			quotes = is_in_quotes(quotes, 1);
-		if (is_quote(s[i]) == 2)
-			quotes = is_in_quotes(quotes, 2);
+		quotes = quote_type(quotes, s, i);
 		token = ft_get_token(s, i);
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 			nc++;
