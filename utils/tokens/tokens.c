@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:29:59 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/18 17:59:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:10:51 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int	get_n_tokens(char *s)
 	token = 0;
 	while (s[i])
 	{
-		token = ft_get_token(s, i);
+		if (s[i + 1])
+			token = ft_give_token(s[i], s[i + 1], &i);
+		else
+			token = ft_give_token(s[i], 0, NULL);
+		//token = ft_get_token(s, i);
 		if (token >= PIPE)
 			nt++;
 		i++;
