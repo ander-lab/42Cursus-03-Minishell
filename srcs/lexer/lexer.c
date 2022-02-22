@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/22 10:39:27 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:54:06 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void lexer(char *s, t_gdata *gdata)
 	t_token_data	*token_data;
 
 	token_data = ft_calloc(sizeof(t_token_data), 1);
-	raw_tokens = ft_calloc(ft_strlen(s), sizeof(int));
+	raw_tokens = ft_calloc(ft_strlen(s) + 2, sizeof(int));
 	token_lst = NULL;
 	aux = 0;
 	gdata->n_commands = get_n_commands(s);
