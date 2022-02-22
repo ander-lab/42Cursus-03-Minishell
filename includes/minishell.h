@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 17:59:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:42:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int     quote_type(int quotes, char *s, int l);
 /*  
  * TOKENS 
  */
-int		ft_get_token(char *s, int l);
+int		ft_get_token(char *s, int *l);
 int		ft_give_token(char c1, char c2, int *aux);
 int		ends_with_token(char *s);
 int		starts_with_token(char *s);

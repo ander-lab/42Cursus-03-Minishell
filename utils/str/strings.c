@@ -53,7 +53,7 @@ int	is_cmd_between_tokens(char *s, int idx)
 	cmd_exists = 0;
 	while (s[++idx])
 	{
-		token = ft_get_token(s, idx);
+		token = ft_get_token(s, &idx);
 		if (token != -1)
 			return (cmd_exists);
 		if (token == -1 && s[idx] != ' ')

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 18:11:43 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:41:23 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	handle_input(char *s, t_gdata *g_data)
 	while (s[++l])
 	{
 		quotes = quote_type(quotes, s, l);
-		if (ft_get_token(s, l) != -1 && quotes == 0)
+		if (ft_get_token(s, &l) != -1 && quotes == 0)
 		{
 			fill_cmd_str(s, prev_l, l, g_data);
 			prev_l = l + 1;
@@ -81,7 +81,7 @@ int	get_n_commands(char *s)
 	while (s[++i])
 	{
 		quotes = quote_type(quotes, s, i);
-		token = ft_get_token(s, i);
+		token = ft_get_token(s, &i);
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 			nc++;
 	}
