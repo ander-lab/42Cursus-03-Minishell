@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/22 10:54:06 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:25:01 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,23 @@ void ft_printlst(t_list *token_lst)
 	}
 }
 
-int	*clean_tokens(int *raw, int raw_len, int len)
-{
-	int	*clean_tokens;
-	int	aux_raw = 0;
-	int aux_clean = 0;	
-
-	clean_tokens = malloc(sizeof(int) * len);
-	if (!clean_tokens)
-		return (0);
-	while (aux_raw < raw_len)
-	{
-		if (raw[aux_raw] > -1 && aux_clean < len)
-			clean_tokens[aux_clean] = raw[aux_raw];
-		else
-		{
-			clean_tokens[aux_clean] = -1;
-			while (raw[aux_raw + 1] == -1 && aux_raw < raw_len && aux_clean < len)
-			{
-				aux_raw++;
-			}
-		}
-		aux_clean++;
-		aux_raw++;
-	}
-	return (clean_tokens);
-}
-
 //int	*ft_put_tokens_into_array(char *s)
+
+int ft_count_spec_tokens(int *arr, int len)
+{
+	int	count;
+	int	aux;
+	
+	count = 0;
+	aux = 0;
+	while (aux < len)
+	{
+		if (arr[aux] == 3 || arr[aux] == 4)
+			count++;
+		aux++;
+	}
+	return (count);
+}
 
 void lexer(char *s, t_gdata *gdata)
 {
@@ -78,9 +67,9 @@ void lexer(char *s, t_gdata *gdata)
 	//	printf("DATA: %s\n", gdata->cmds[i]);
 	//	i++;
 	//}
+	//TODO -> Contar appends y here docs para reservar memoria antes del raw_tokens;
 	if (gdata->data_error > 0)
 		return ; //gestion de comillas abiertas lexer
-	//printf("\n-----------------------\n");
 	int i = 0;
 	while (s[aux])
 	{
@@ -88,12 +77,20 @@ void lexer(char *s, t_gdata *gdata)
 			raw_tokens[i] = ft_give_token(s[aux], s[aux + 1], &aux);
 		else
 			raw_tokens[i] = ft_give_token(s[aux], 0, NULL);
+	//	if (raw_tokens[i] == 4 || raw_tokens[i] == 3)
+	//		aux--;
 		i++;
 		aux++;
 	}
+	raw_tokens = ft_recalloc(raw_tokens, ft_count_spec_tokens(raw_tokens, aux));
+	//raw_tokens[aux] -= (count_chars(3, (char *)raw_tokens) + count_chars(4, (char *)raw_tokens));
+	printf("\n-----------------------\n");
 	raw_tokens_len = aux;
 	clean_len = n_commands + gdata->n_tokens;
-	clean_tkns = clean_tokens(raw_tokens, aux, clean_len);
+	clean_tkns = clean_tokens(raw_tokens, aux, clean_len, n_commands, s);
+	for (int x = 0; x < clean_len; x++)
+		printf("%i ", clean_tkns[x]);
+	printf("\n-----------------------\n");
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
