@@ -1,4 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strings.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/23 13:21:18 by goliano-          #+#    #+#             */
+/*   Updated: 2022/02/23 13:25:02 by goliano-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
+
+int	spaces_or_null(char *s)
+{
+	int	exists;
+	int	i;
+
+	exists = 1;
+	i = 0;
+	while(s[i] && exists == 1)
+	{
+		if (s[i] != ' ')
+			exists = 0;
+		i++;
+	}
+	return (exists);
+}
 
 char	*remove_ind_red(char *s)
 {

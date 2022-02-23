@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/22 15:55:26 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:59:12 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,22 @@ int		needs_split(char *word, t_gdata *g_data)
 {
 	int	i;
 	int	need_it;
+	int	is_in_space;
 
 	i = 0;
 	need_it = 0;
+	is_in_space = 0;
 	g_data->handle_next = 0;
 	// LEAK POR AKI jiji
 	word = ft_strtrim(word,  " ");
 	while (word[i] && need_it == 0)
 	{
-		if (word[i] == ' ' && word[i - 1] != '\\')
+		if (word[i] == ' ' && word[i - 1] == '\\')
+			is_in_space = 1;
+		if (word[i] == ' ' && word[i - 1] != '\\' && is_in_space == 0)
 			need_it = 1;
+		if (word[i] != ' ')
+			is_in_space = 0;
 		i++;
 	}
 	return (need_it);
@@ -153,24 +159,6 @@ void	handle_input(char *s, t_gdata *g_data)
 	g_data->data_error = quotes;
 }
 
-/*int	is_cmd_hide(char *s, int idx)
-{
-	int	i;
-	int	token;
-
-	i = 0;
-	token = ft_get_token(s, &idx);
-	if (token != -1)
-		idx++;
-	printf("TOKEN: %d\n", token);
-	while (s[idx])
-	{
-		printf("S[idx]: %c\n", s[idx]);
-		idx++;
-	}
-	return (idx);
-}*/
-
 int	get_n_commands(char *s)
 {
 	int	i;
@@ -182,13 +170,16 @@ int	get_n_commands(char *s)
 	nc = 1;
 	token = 0;
 	quotes = 0;
+	if (spaces_or_null(s))
+		return (0);
 	while (s[++i])
 	{
 		quotes = quote_type(quotes, s, i);
 		token = ft_get_token(s, &i);
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 		{
-//			is_cmd_hide(s, i);
+			if (is_cmd_hide(s, ++i, token))
+				nc++;
 			nc++;
 		}
 	}

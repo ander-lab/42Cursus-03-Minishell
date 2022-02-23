@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/22 11:00:46 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:55:03 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,22 @@ int		get_n_tokens(char *s);
  * STR
  */
 char	*remove_ind_red(char *s);
-int	exists_word(char *s);
-int	is_cmd_between_tokens(char *s, int idx);
+int		exists_word(char *s);
+int		is_cmd_between_tokens(char *s, int idx);
 char	*get_until_token(int prev_l, int l, char *str);
+int		spaces_or_null(char *s);
+
+/*
+ * STR 2
+ */
+char	*cpy_cmd(char *s, int l, int idx);
+
+/*
+ * CHEQUER
+ */
+int		needs_split2(char *word);
+int		get_cmd_length_until_token(char *s, int idx);
+int		is_cmd_hide(char *s, int idx, int token);
 
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 void	ft_insert_data_lst(t_list **lst, t_token_data *token_data, int *tokens, int len);
