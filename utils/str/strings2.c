@@ -6,11 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:47:49 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/23 15:47:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:02:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*cpy_cmd(char *s, int l, int idx)
 {
@@ -32,3 +32,28 @@ char	*cpy_cmd(char *s, int l, int idx)
 	}
 	return (word);
 }
+
+char	*cpy_cmd2(char *s, int fl, int l)
+{
+	int		i;
+	char	*cmd;
+	int		aux;
+
+	i = 0;
+	printf("S: %s\n", s);
+	printf("FL: %d\n", fl);
+	printf("L: %d\n", l);
+	cmd = ft_calloc(sizeof(char), (l + 1));
+	if (!cmd)
+		return (0);
+	aux = l - fl;
+	while (s[aux])
+	{
+		cmd[i] = s[aux];
+		aux++;
+		i++;
+	}
+	return (cmd);
+}
+
+

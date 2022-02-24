@@ -6,13 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:46:46 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/18 18:06:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/24 11:34:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		is_quote(char c)
+int	is_quote(char c)
 {
 	int	quotes;
 
@@ -24,9 +24,9 @@ int		is_quote(char c)
 	return (quotes);
 }
 
-int is_in_quotes(int quotes, int tquotes)
+int	is_in_quotes(int quotes, int tquotes)
 {
-	int is_in_quotes;
+	int	is_in_quotes;
 
 	is_in_quotes = 0;
 	if (quotes == 0)
@@ -40,7 +40,7 @@ int is_in_quotes(int quotes, int tquotes)
 
 int	quote_type(int quotes, char *s, int l)
 {
-	int quote_type;
+	int	quote_type;
 
 	quote_type = quotes;
 	if (is_quote(s[l]) == 1)

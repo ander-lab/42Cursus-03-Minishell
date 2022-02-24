@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:21:18 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/23 13:25:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:42:03 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	spaces_or_null(char *s)
 
 	exists = 1;
 	i = 0;
-	while(s[i] && exists == 1)
+	while (s[i] && exists == 1)
 	{
 		if (s[i] != ' ')
 			exists = 0;

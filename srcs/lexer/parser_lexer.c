@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 15:59:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:02:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,6 @@ static void	init_cmd_str(t_gdata *g_data)
 		return ;
 }
 
-static int	get_cmds_length(t_gdata *g_data)
-{
-	int	l;
-
-	l = 0;
-	while (g_data->cmds[l])
-		l++;
-	return (l);
-}
-
-int		needs_split(char *word, t_gdata *g_data)
-{
-	int	i;
-	int	need_it;
-	int	is_in_space;
-
-	i = 0;
-	need_it = 0;
-	is_in_space = 0;
-	g_data->handle_next = 0;
-	// LEAK POR AKI jiji
-	word = ft_strtrim(word,  " ");
-	while (word[i] && need_it == 0)
-	{
-		if (word[i] == ' ' && word[i - 1] == '\\')
-			is_in_space = 1;
-		if (word[i] == ' ' && word[i - 1] != '\\' && is_in_space == 0)
-			need_it = 1;
-		if (word[i] != ' ')
-			is_in_space = 0;
-		i++;
-	}
-	return (need_it);
-}
-
 void	custom_split_word(char *word, t_gdata *g_data)
 {
 	int		l;
@@ -61,73 +26,34 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	char	*cmd;
 
 	l = 0;
-	printf("WORD: %s\n", word);
 	// LEAK POR AKI jiji
 	word = ft_strtrim(word,  " ");
-	while (word[l])
-	{
-		l++;
-		if (word[l] == ' ' && word[l - 1] != '\\')
-			break;
-	}
-	printf("L: %d\n", l);
-	printf("N_COMMANDS2: %d\n", g_data->n_commands);
-	file_name = malloc(sizeof(char) * (l + 1));
-	if (!file_name)
-		return ;
-	//ft_strlcpy(file_name, word, l);
-	int	i = 0;
-	while (i < l)
-	{
-		file_name[i] = word[i];
-		printf("NAMEN: %d\n", file_name[i]);
-		printf("NAMEC: %c\n", file_name[i]);
-		i++;
-	}
-	file_name[i] = '\0';
-	int	r = 0;
-	int	nl = 0;
-	while (word[l])
-	{
-		nl++;
-		l++;
-	}
-	cmd = malloc(sizeof(char) * (nl + 1));
-	if (!cmd)
-		return ;
-	int aux = l - nl;
-	while (word[aux])
-	{
-		cmd[r] = word[aux];
-		r++;
-		aux++;
-	}
-	cmd[r] = '\0';
-	printf("CMD: %s\n", cmd);
+	l = filename_length(word);
+	file_name = cpy_cmd(word, l, 0);
 	printf("FILE_NAME: %s\n", file_name);
+	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
+	printf("CMD: %s\n", cmd);
 	g_data->cmds[get_cmds_length(g_data)] = file_name;
 	g_data->cmds[get_cmds_length(g_data)] = cmd;
 }
 
 static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 {
-	int	idx;
+	int		idx;
 	char	*word;
 
 	idx = get_cmds_length(g_data);
 	word = get_until_token(prev_l, l, s);
-	if (g_data->handle_next && needs_split(word, g_data))
+	if (g_data->handle_next && needs_split(word))
 		custom_split_word(word, g_data);
 	else if (exists_word(word))
 	{
 		g_data->cmds[idx] = word;
 		g_data->n_commands--;
 	}
+	g_data->handle_next = 0;
 	if (g_data->last_token > 0 && g_data->last_token < 5)
-	{
-		printf("ENTRO CON TOKEN: %d\n", g_data->last_token);
 		g_data->handle_next = 1;
-	}
 }
 
 void	handle_input(char *s, t_gdata *g_data)
@@ -150,10 +76,15 @@ void	handle_input(char *s, t_gdata *g_data)
 			prev_l = l + 1;
 		}
 	}
-	if ((g_data->n_commands == 0 || g_data->n_commands == 1) && !ends_with_token(s))
+	printf("N_COMMANDS: %d\n", g_data->n_commands);
+	/*if ((g_data->n_commands == 0 || g_data->n_commands == 1 || g_data->n_commands == 2) && !ends_with_token(s))
 	{
-		printf("g_DATA: %d\n", g_data->handle_next);
-		printf("get_until: %s\n", get_until_token(prev_l, l, s));
+		printf("get_until_TOKEN: %s\n", get_until_token(prev_l, l, s));
+		g_data->cmds[get_cmds_length(g_data)] = get_until_token(prev_l, l, s);
+	}*/
+	if (!ends_with_token(s))
+	{
+		printf("NETRO\n");
 		g_data->cmds[get_cmds_length(g_data)] = get_until_token(prev_l, l, s);
 	}
 	g_data->data_error = quotes;

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/23 15:53:08 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/24 15:20:47 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ int	is_cmd_hide(char *s, int idx, int token)
 	char	*word;
 
 	is_hide = 0;
-	if (token <= 0 || token >=5)
+	if (token <= 0 || token >= 5)
 		return (0);
 	i = get_cmd_length_until_token(s, idx);
 	word = cpy_cmd(s, i, idx);
 	word = remove_ind_red(word);
-	return (needs_split2(word));
+	return (needs_split(word));
 }
-
 
 int	get_cmd_length_until_token(char *s, int idx)
 {
@@ -46,7 +45,22 @@ int	get_cmd_length_until_token(char *s, int idx)
 	return (i);
 }
 
-int		needs_split2(char *word)
+int	next_is_command(char *word, int idx)
+{
+	int	i;
+	int	is_cmd;
+
+	i = 0;
+	is_cmd = 0;
+	while (word[idx] == ' ')
+		idx++;
+	printf("WORD[idx]: %c\n", word[idx]);
+	if (word[idx] == '\"' || word[idx] == '\'' || word[idx] == '-')
+		is_cmd = 1;
+	return (is_cmd);
+}
+
+int	needs_split(char *word)
 {
 	int	i;
 	int	is_in_space;
@@ -56,13 +70,13 @@ int		needs_split2(char *word)
 	need_it = 0;
 	is_in_space = 0;
 	// LEAK POR AKI jiji
-	word = ft_strtrim(word,  " ");
+	word = ft_strtrim(word, " ");
 	while (word[i] && need_it == 0)
 	{
 		if (word[i] == ' ' && word[i - 1] == '\\')
 			is_in_space = 1;
 		if (word[i] == ' ' && word[i - 1] != '\\' && is_in_space == 0)
-			need_it = 1;
+			need_it = !next_is_command(word, i);
 		if (word[i] != ' ')
 			is_in_space = 0;
 		i++;

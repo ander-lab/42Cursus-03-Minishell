@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 15:55:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:31:29 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,21 @@ int		spaces_or_null(char *s);
  * STR 2
  */
 char	*cpy_cmd(char *s, int l, int idx);
+char	*cpy_cmd2(char *s, int fl, int l);
 
 /*
  * CHEQUER
  */
-int		needs_split2(char *word);
+int		needs_split(char *word);
 int		get_cmd_length_until_token(char *s, int idx);
 int		is_cmd_hide(char *s, int idx, int token);
+
+/*
+ * LENGTHS
+ */
+int		length_from_idx(char *word, int idx);
+int		get_cmds_length(t_gdata *g_data);
+int		filename_length(char *word);
 
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 void	ft_insert_data_lst(t_list **lst, t_token_data *token_data, int *tokens, int len);
