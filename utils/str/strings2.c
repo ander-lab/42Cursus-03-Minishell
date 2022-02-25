@@ -37,20 +37,17 @@ char	*cpy_cmd2(char *s, int fl, int l)
 {
 	int		i;
 	char	*cmd;
-	int		aux;
+	//int		aux;
 
 	i = 0;
-	printf("S: %s\n", s);
-	printf("FL: %d\n", fl);
-	printf("L: %d\n", l);
 	cmd = ft_calloc(sizeof(char), (l + 1));
 	if (!cmd)
 		return (0);
-	aux = l - fl;
-	while (s[aux])
+	//aux = l - fl;
+	while (s[fl])
 	{
-		cmd[i] = s[aux];
-		aux++;
+		cmd[i] = s[fl];
+		fl++;
 		i++;
 	}
 	return (cmd);

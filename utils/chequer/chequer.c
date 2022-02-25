@@ -15,10 +15,8 @@
 int	is_cmd_hide(char *s, int idx, int token)
 {
 	int		i;
-	int		is_hide;
 	char	*word;
 
-	is_hide = 0;
 	if (token <= 0 || token >= 5)
 		return (0);
 	i = get_cmd_length_until_token(s, idx);
@@ -47,10 +45,8 @@ int	get_cmd_length_until_token(char *s, int idx)
 
 int	next_is_command(char *word, int idx)
 {
-	int	i;
 	int	is_cmd;
 
-	i = 0;
 	is_cmd = 0;
 	while (word[idx] == ' ')
 		idx++;

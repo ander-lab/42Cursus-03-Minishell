@@ -30,9 +30,7 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	word = ft_strtrim(word,  " ");
 	l = filename_length(word);
 	file_name = cpy_cmd(word, l, 0);
-	printf("FILE_NAME: %s\n", file_name);
 	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
-	printf("CMD: %s\n", cmd);
 	g_data->cmds[get_cmds_length(g_data)] = file_name;
 	g_data->cmds[get_cmds_length(g_data)] = cmd;
 }
@@ -76,7 +74,6 @@ void	handle_input(char *s, t_gdata *g_data)
 			prev_l = l + 1;
 		}
 	}
-	printf("N_COMMANDS: %d\n", g_data->n_commands);
 	/*if ((g_data->n_commands == 0 || g_data->n_commands == 1 || g_data->n_commands == 2) && !ends_with_token(s))
 	{
 		printf("get_until_TOKEN: %s\n", get_until_token(prev_l, l, s));
@@ -84,8 +81,12 @@ void	handle_input(char *s, t_gdata *g_data)
 	}*/
 	if (!ends_with_token(s))
 	{
-		printf("NETRO\n");
-		g_data->cmds[get_cmds_length(g_data)] = get_until_token(prev_l, l, s);
+		char *word;
+		word = get_until_token(prev_l, l, s);
+		if (g_data->handle_next && needs_split(word))
+			custom_split_word(word, g_data);
+		else
+			g_data->cmds[get_cmds_length(g_data)] = get_until_token(prev_l, l, s);
 	}
 	g_data->data_error = quotes;
 }
