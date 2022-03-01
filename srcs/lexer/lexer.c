@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:18:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 11:18:50 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/01 12:17:26 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,17 @@ void lexer(char *s, t_gdata *gdata)
 	token_lst = NULL;
 	gdata->n_commands = get_n_commands(s);
 	gdata->n_tokens = get_n_tokens(s);
-	printf("N_COMMADS: %d\n", gdata->n_commands);
-	printf("N_TOKENS: %d\n", gdata->n_tokens);
 	int	n_commands = get_n_commands(s);
 	handle_input(s, gdata);
 	if (gdata->data_error > 0)
 		return ; //gestion de comillas abiertas lexer
 	raw_len = put_tokens_on_arr(s, raw_tokens);
-	printf("N_COMMANDS: %i\nN_TOKENS: %i\n", n_commands, gdata->n_tokens);
 	clean_len = n_commands + gdata->n_tokens;
 	printf("CLEAN_LEN: %d\n", clean_len);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, clean_len, n_commands, s);
-	printf("\n-----------------------\n");
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
+	ft_printlst(token_lst);
+	printf("\n-----------------------\n");
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
 	ft_printlst(token_lst);
