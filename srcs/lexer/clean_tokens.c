@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 16:39:33 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/01 09:50:55 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 //	return (aux);
 //}
 
+
 int	*clean_tokens(int *raw, int raw_len, int len, int n_commands, char *s)
 {
 	int	*clean_tokens;
@@ -42,8 +43,8 @@ int	*clean_tokens(int *raw, int raw_len, int len, int n_commands, char *s)
 //	printf("n_commands %i\n", n_commands);
 	//raw_len -= ft_len_without_ceros(raw, raw_len, s);
 //	printf("\n---------CLEAN-----------\n");
-//	for (int x = 0; x < raw_len; x++)
-//		printf("%i ", raw[x]);
+	for (int x = 0; x < raw_len; x++)
+		printf("%i ", raw[x]);
 	s += 0;
 	clean_tokens = ft_calloc(sizeof(int), len);
 	if (!clean_tokens)
@@ -70,6 +71,9 @@ int	*clean_tokens(int *raw, int raw_len, int len, int n_commands, char *s)
 			}
 		//	printf("n_commands %i\n", n_commands);
 		}
+		for (int x = 0; x < aux_clean; x++)
+			printf("%i ", clean_tokens[x]);
+		printf("\n");
 		aux_clean++;
 		aux_raw++;
 		//printf("clean_tokens ");
@@ -77,5 +81,8 @@ int	*clean_tokens(int *raw, int raw_len, int len, int n_commands, char *s)
 		//	printf("%i ", clean_tokens[x]);
 		//printf("\n");
 	}
+	printf("\n-----------------------\n");
+	for (int x = 0; x < aux_clean; x++)
+		printf("%i ", clean_tokens[x]);
 	return (clean_tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 17:58:41 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:07:47 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void ft_printlst(t_list *token_lst)
 	while (token_lst)
 	{
 		//printf("----hell");
-		printf("token  %i char * %s\n", ((t_token_data *)token_lst->content)->token, ((t_token_data *)token_lst->content)->str);
+		printf("token  %i char * %s\n", ((t_token_data *)token_lst->content)->token,
+			((t_token_data *)token_lst->content)->str);
 		//token_data = token_lst->content;
 		//printf(" token 2= %i\n", token_data->token);
 		token_lst = token_lst->next;
@@ -56,6 +57,7 @@ int	*put_tokens_on_arr(char *s, int *aux, int *raw_tokens)
 	return (raw_tokens);
 }
 
+
 void lexer(char *s, t_gdata *gdata)
 {
 	int		aux;
@@ -80,6 +82,7 @@ void lexer(char *s, t_gdata *gdata)
 		return ; //gestion de comillas abiertas lexer
 	raw_tokens = put_tokens_on_arr(s, &aux, raw_tokens);
 	raw_tokens_len = aux;
+	printf("len %i %i\n", n_commands, gdata->n_tokens);
 	clean_len = n_commands + gdata->n_tokens;
 	clean_tkns = clean_tokens(raw_tokens, aux, clean_len, n_commands, s);
 	printf("\n-----------------------\n");
