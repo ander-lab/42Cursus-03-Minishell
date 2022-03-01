@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:18:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 12:17:26 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/01 16:00:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,33 @@ void ft_printlst(t_list *token_lst)
 //	return (count);
 //}
 
+/*char	*remove_char_from_string(char *s, char c)
+{
+	int		i;
+	int		l;
+	char	*new_str;
+
+	i = -1;
+	l = 0;
+	while(s[++i])
+	{
+		if (s[i] != c)
+			l++;
+	}
+	new_str = ft_calloc(sizeof(char), (l + 1));
+	if (!new_str)
+		return (0);
+	i = -1;
+	l = -1;
+	while (s[++i])
+	{
+		if (s[i] != c)
+			new_str[++l] = s[i];
+	}
+	free(s);
+	return (new_str);
+}*/
+
 int	put_tokens_on_arr(char *s, int *raw_tokens)
 {
 	int	i;
@@ -49,6 +76,8 @@ int	put_tokens_on_arr(char *s, int *raw_tokens)
 
 	i = 0;
 	l = 0;
+	//s = remove_char_from_string(s, ' ');
+	//printf("S: %s\n", s);
 	while (s[i])
 	{
 		raw_tokens[l] = ft_get_token(s, &i);
@@ -57,7 +86,6 @@ int	put_tokens_on_arr(char *s, int *raw_tokens)
 	}
 	return (l);
 }
-
 
 void lexer(char *s, t_gdata *gdata)
 {
@@ -80,10 +108,11 @@ void lexer(char *s, t_gdata *gdata)
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	clean_len = n_commands + gdata->n_tokens;
 	printf("CLEAN_LEN: %d\n", clean_len);
-	clean_tkns = clean_tokens(raw_tokens, raw_len, clean_len, n_commands, s);
+	clean_tkns = clean_tokens(raw_tokens, raw_len, clean_len);
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
-	ft_printlst(token_lst);
-	printf("\n-----------------------\n");
+	//ft_printlst(token_lst);
+	//printf("\n-----------------------\n");
+	//ft_putmatrix(gdata->cmds, n_commands);
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
 	ft_printlst(token_lst);

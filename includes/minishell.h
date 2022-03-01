@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 11:19:08 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/01 12:52:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 void	init_prompt(t_gdata *g_data, char **envp);
 void 	lexer(char *s, t_gdata *g_data);
 
-int	*clean_tokens(int *raw, int raw_len, int len, int n_commands, char *s);
+int	*clean_tokens(int *raw, int raw_len, int len);
 //int		*clean_tokens(int *raw, int raw_len, int len, int n_commands);
 
 void	clean_lst_tokens(t_list *token_lst);
