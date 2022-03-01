@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/02/23 12:54:31 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/03/01 11:21:05 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ LIBFT	= ./includes/libft/libft.a
 
 SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/parser_lexer.c \
 			srcs/lexer/second_round.c ./utils/quotes/quotes.c srcs/lexer/token_to_list.c \
-			srcs/lexer/clean_tokens.c utils/tokens/tokens.c ./utils/str/strings.c
+			utils/tokens/tokens.c ./utils/str/strings.c ./utils/str/strings2.c ./utils/chequer/chequer.c \
+			./utils/lengths/lengths.c srcs/lexer/clean_tokens.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

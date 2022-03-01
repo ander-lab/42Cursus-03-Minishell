@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 11:47:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:45:49 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,12 @@ typedef struct s_data
 	char	*prompt;
 	char	**envp;
 	int		n_commands;
+	int		aux_n_commands;
 	int		n_tokens;
 	int		data_error;
 	char	**cmds;
+	int		last_token;
+	int		handle_next;
 } t_gdata;
 
 /*

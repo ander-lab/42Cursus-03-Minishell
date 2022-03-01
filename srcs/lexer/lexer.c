@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 15:17:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 11:12:59 by goliano-         ###   ########.fr       */
+/*   Created: 2022/03/01 11:18:10 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/03/01 11:18:50 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void ft_printlst(t_list *token_lst)
 //	int	count;
 //	int	aux;
 //	
-//	count = 0;
-//	aux = 0;
+//	count = 0; aux = 0;
 //	while (aux < len)
 		//	{
 //		if (arr[aux] == 3 || arr[aux] == 4)

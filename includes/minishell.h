@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 13:20:28 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/01 11:19:08 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,30 @@ int		get_n_tokens(char *s);
  * STR
  */
 char	*remove_ind_red(char *s);
-int	exists_word(char *s);
-int	is_cmd_between_tokens(char *s, int idx);
+int		exists_word(char *s);
+int		is_cmd_between_tokens(char *s, int idx);
 char	*get_until_token(int prev_l, int l, char *str);
+int		spaces_or_null(char *s);
+
+/*
+ * STR 2
+ */
+char	*cpy_cmd(char *s, int l, int idx);
+char	*cpy_cmd2(char *s, int fl, int l);
+
+/*
+ * CHEQUER
+ */
+int		needs_split(char *word);
+int		get_cmd_length_until_token(char *s, int idx);
+int		is_cmd_hide(char *s, int idx, int token);
+
+/*
+ * LENGTHS
+ */
+int		length_from_idx(char *word, int idx);
+int		get_cmds_length(t_gdata *g_data);
+int		filename_length(char *word);
 
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 void	ft_insert_data_lst(t_list **lst, t_token_data *token_data, int *tokens, int len);
