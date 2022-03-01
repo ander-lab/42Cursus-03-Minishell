@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 09:50:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/01 11:13:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,39 @@
 int	*clean_tokens(int *raw, int raw_len, int len, int n_commands, char *s)
 {
 	int	*clean_tokens;
-	int	aux_raw = 0;
+	int	x = 0;
 	int aux_clean = 0;	
 
 //	printf("n_commands %i\n", n_commands);
 	//raw_len -= ft_len_without_ceros(raw, raw_len, s);
 //	printf("\n---------CLEAN-----------\n");
-	for (int x = 0; x < raw_len; x++)
-		printf("%i ", raw[x]);
+	printf("RAW_LEN: %d\n", raw_len);
+	n_commands += 0;
+//	for (int x = 0; x < raw_len; x++)
+//		printf("RAW: %i\n", raw[x]);
 	s += 0;
 	clean_tokens = ft_calloc(sizeof(int), len);
 	if (!clean_tokens)
 		return (0);
-	while (aux_raw < raw_len)
+	while (x < raw_len)
 	{
-		if (raw[aux_raw] > -1 && aux_clean < len && aux_raw < raw_len)
+		/*if (raw[x] > -1 && aux_clean < len && x < raw_len)
 		{
 		//	printf("%i \n", raw[aux_raw]);
-			clean_tokens[aux_clean] = raw[aux_raw];
+			clean_tokens[aux_clean] = raw[x];
+		}*/
+		if (raw[x] > -1)
+		{
+			clean_tokens[aux_clean] = raw[x];
+			x++;
 		}
-		else if (n_commands)
+		else
+		{
+			while (raw[x] == -1)
+				x++;
+			clean_tokens[aux_clean] = -1;
+		}
+		/*else if (n_commands)
 		{
 			n_commands--;
 			//if (raw[aux_raw + 1] == -1 && raw[aux_raw + 1] == -1)
@@ -65,17 +78,17 @@ int	*clean_tokens(int *raw, int raw_len, int len, int n_commands, char *s)
 				clean_tokens[aux_clean] = -1;
 		//		aux_raw++;
 			//}
-			while (raw[aux_raw + 1] == -1 && aux_raw < raw_len && aux_clean < len)
+			while (raw[x + 1] == -1 && x < raw_len && aux_clean < len)
 			{
-				aux_raw++;
+				x++;
 			}
 		//	printf("n_commands %i\n", n_commands);
-		}
+		}*/
 		for (int x = 0; x < aux_clean; x++)
 			printf("%i ", clean_tokens[x]);
 		printf("\n");
 		aux_clean++;
-		aux_raw++;
+		//x++;
 		//printf("clean_tokens ");
 		//for (int x = 0; x < aux_clean; x++)
 		//	printf("%i ", clean_tokens[x]);
