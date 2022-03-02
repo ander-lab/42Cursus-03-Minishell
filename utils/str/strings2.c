@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:47:49 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/24 16:02:04 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:59:57 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ char	*cpy_cmd2(char *s, int fl, int l)
 {
 	int		i;
 	char	*cmd;
-	//int		aux;
 
 	i = 0;
 	cmd = ft_calloc(sizeof(char), (l + 1));
 	if (!cmd)
 		return (0);
-	//aux = l - fl;
 	while (s[fl])
 	{
 		cmd[i] = s[fl];
@@ -54,3 +52,35 @@ char	*cpy_cmd2(char *s, int fl, int l)
 }
 
 
+char	*pretty_hostname(char *str)
+{
+	char	*word;
+	int		i;
+
+	word = ft_calloc(sizeof(char), (ft_strlen(str) + 4));
+	if (!word)
+		return (0);
+	ft_strcpy(word, str);
+	i = ft_strlen(str);
+	word[i] = ':';
+	word[i + 1] = ' ';
+	word[i + 2] = '\0';
+	free(str);
+	return (word);
+}
+
+char	*add_at_sign(char *str)
+{
+	char	*word;
+	int		i;
+
+	word = ft_calloc(sizeof(char), (ft_strlen(str) + 2));
+	if (!word)
+		return (0);
+	ft_strcpy(word, str);
+	i = ft_strlen(str);
+	word[i] = '@';
+	word[i + 1] = '\0';
+	free(str);
+	return (word);
+}

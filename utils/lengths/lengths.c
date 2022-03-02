@@ -6,13 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:29:03 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/24 12:31:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:06:46 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		filename_length(char *word)
+int	filename_length(char *word)
 {
 	int	i;
 	int	is_in_space;

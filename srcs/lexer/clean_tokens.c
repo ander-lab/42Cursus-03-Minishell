@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 12:13:34 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:38:53 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,6 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			while (raw[x] == -1)
 				x++;
 		}
-		/*else
-		{
-			if (is_file_token(prev_token))
-			{
-				clean_tokens[aux_clean] = -1;
-				aux_clean++;
-			}
-			while (raw[x] == -1)
-				x++;
-			clean_tokens[aux_clean] = -1;
-		}*/
 		aux_clean++;
 	}
 	printf("\n-----------------------\n");

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 10:45:42 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/09 11:55:03 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:58:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ char	*remove_new_line(char *str)
 
 char	*exec_command(char *cmd, char **envp)
 {
-	int	end[2];
+	int		end[2];
 	pid_t	p;
 	char	**sp;
+	char	*out;
 
 	pipe(end);
 	p = fork();
@@ -55,44 +56,11 @@ char	*exec_command(char *cmd, char **envp)
 	}
 	close(end[1]);
 	waitpid(p, NULL, 0);
-	char *out = malloc(sizeof(char) * 4096);
+	out = malloc(sizeof(char) * 4096);
 	out = get_next_line(end[0]);
 	out = remove_new_line(out);
 	close(end[0]);
 	return (out);
-}
-
-char	*add_at_sign(char *str)
-{
-	char	*word;
-	int		i;
-
-	word = ft_calloc(sizeof(char), (ft_strlen(str) + 2));
-	if (!word)
-		return (0);
-	ft_strcpy(word, str);
-	i = ft_strlen(str);
-	word[i] = '@';
-	word[i + 1] = '\0';
-	free(str);
-	return (word);
-}
-
-char *pretty_hostname(char *str)
-{
-	char	*word;
-	int		i;
-
-	word = ft_calloc(sizeof(char), (ft_strlen(str) + 4));
-	if (!word)
-		return (0);
-	ft_strcpy(word, str);
-	i = ft_strlen(str);
-	word[i] = ':';
-	word[i + 1] = ' ';
-	word[i + 2] = '\0';
-	free(str);
-	return (word);
 }
 
 void	init_prompt(t_gdata *g_data, char **envp)

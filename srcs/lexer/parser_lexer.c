@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 10:52:37 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:44:59 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	custom_split_word(char *word, t_gdata *g_data)
 
 	l = 0;
 	// LEAK POR AKI jiji
-	word = ft_strtrim(word,  " ");
+	word = ft_strtrim(word, " ");
 	l = filename_length(word);
 	file_name = cpy_cmd(word, l, 0);
 	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
@@ -50,7 +50,7 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 		g_data->n_commands--;
 	}
 	g_data->handle_next = 0;
-	if (g_data->last_token > 0 && g_data->last_token < 5)
+	if (is_file_token(g_data->last_token))
 		g_data->handle_next = 1;
 }
 
@@ -59,6 +59,7 @@ void	handle_input(char *s, t_gdata *g_data)
 	int		prev_l;
 	int		l;
 	int		quotes;
+	char	*word;
 
 	l = -1;
 	prev_l = 0;
@@ -74,14 +75,8 @@ void	handle_input(char *s, t_gdata *g_data)
 			prev_l = l + 1;
 		}
 	}
-	/*if ((g_data->n_commands == 0 || g_data->n_commands == 1 || g_data->n_commands == 2) && !ends_with_token(s))
-	{
-		printf("get_until_TOKEN: %s\n", get_until_token(prev_l, l, s));
-		g_data->cmds[get_cmds_length(g_data)] = get_until_token(prev_l, l, s);
-	}*/
 	if (!ends_with_token(s))
 	{
-		char *word;
 		word = get_until_token(prev_l, l, s);
 		if (g_data->handle_next && needs_split(word))
 			custom_split_word(word, g_data);

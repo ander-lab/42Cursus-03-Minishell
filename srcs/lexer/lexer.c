@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:18:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 12:13:37 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 14:01:51 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void lexer(char *s, t_gdata *gdata)
 	gdata->n_commands = get_n_commands(s);
 	gdata->n_tokens = get_n_tokens(s);
 	int	n_commands = get_n_commands(s);
+	s = ft_strtrim(s, " ");
 	handle_input(s, gdata);
 	if (gdata->data_error > 0)
 		return ; //gestion de comillas abiertas lexer
