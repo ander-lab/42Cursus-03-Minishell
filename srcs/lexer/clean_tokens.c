@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 13:38:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:54:49 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 	int aux_clean = 0;
 	int	prev_token;
 
-//	printf("n_commands %i\n", n_commands);
-	//raw_len -= ft_len_without_ceros(raw, raw_len, s);
-//	printf("\n---------CLEAN-----------\n");
-	for (int x = 0; x < raw_len; x++)
-		printf("RAW: %i\n", raw[x]);
 	clean_tokens = ft_calloc(sizeof(int), len);
 	if (!clean_tokens)
 		return (0);
@@ -83,9 +78,5 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 		}
 		aux_clean++;
 	}
-	printf("\n-----------------------\n");
-	for (int x = 0; x < aux_clean; x++)
-		printf("%i ", clean_tokens[x]);
-	printf("\n-----------------------\n");
 	return (clean_tokens);
 }

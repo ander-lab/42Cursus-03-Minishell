@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:50:54 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/18 13:01:29 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:53:45 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 int	ft_checkpipe(int token, int next_token)
 {
 	if (token == PIPE && next_token == ARGUMENT)
+		return (NEXT);
+	else if (token == FILE_NAME && next_token == ARGUMENT)
 		return (NEXT);
 	return (0);
 }
@@ -35,6 +37,8 @@ void	ft_changevalue(t_list **lst, int val, int pos)
 
 int	ft_tokenizer(int token, int next_token)
 {
+	if (token == PIPE || token == FILE_NAME)
+		token = ARGUMENT;
 	if (next_token != FILE_NAME && next_token != ARGUMENT && next_token != -1)
 	{
 		if (token == -1)
@@ -42,9 +46,7 @@ int	ft_tokenizer(int token, int next_token)
 	}
 	else if (next_token == -1)
 	{
-		if (token == PIPE)
-			token = ARGUMENT;
-		else if (token == INDIRECTION || token == REDIRECTION
+		if (token == INDIRECTION || token == REDIRECTION
 			|| token == HERE_DOC || token == APPEND)
 			token = FILE_NAME;
 	}
