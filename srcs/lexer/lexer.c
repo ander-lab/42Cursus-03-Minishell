@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:18:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 16:00:04 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:13:37 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,29 @@ int	put_tokens_on_arr(char *s, int *raw_tokens)
 {
 	int	i;
 	int	l;
+	int	token;
+	int	quotes;
 
 	i = 0;
 	l = 0;
+	quotes = 0;
 	//s = remove_char_from_string(s, ' ');
 	//printf("S: %s\n", s);
 	while (s[i])
 	{
-		raw_tokens[l] = ft_get_token(s, &i);
+		quotes = quote_type(quotes, s, i);
+		token = ft_get_token(s, &i);
+		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
+		{
+			raw_tokens[l] = token;
+			if (is_cmd_hide(s, ++i, token))
+			{
+				l++;
+				raw_tokens[l] = -2;
+			}
+		}
+		else
+			raw_tokens[l] = token;
 		i++;
 		l++;
 	}
@@ -107,7 +122,6 @@ void lexer(char *s, t_gdata *gdata)
 		return ; //gestion de comillas abiertas lexer
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	clean_len = n_commands + gdata->n_tokens;
-	printf("CLEAN_LEN: %d\n", clean_len);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, clean_len);
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
 	//ft_printlst(token_lst);

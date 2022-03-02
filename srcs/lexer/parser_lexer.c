@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 13:46:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:52:37 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	l = filename_length(word);
 	file_name = cpy_cmd(word, l, 0);
 	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
-	printf("FILE_NAME: %s\n", file_name);
-	printf("CMD: %s\n", cmd);
 	g_data->cmds[get_cmds_length(g_data)] = file_name;
 	g_data->cmds[get_cmds_length(g_data)] = cmd;
 }

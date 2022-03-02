@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/01 16:00:01 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:13:34 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 //	printf("n_commands %i\n", n_commands);
 	//raw_len -= ft_len_without_ceros(raw, raw_len, s);
 //	printf("\n---------CLEAN-----------\n");
-	printf("RAW_LEN: %d\n", raw_len);
-	//for (int x = 0; x < raw_len; x++)
-	//	printf("RAW: %i\n", raw[x]);
+	for (int x = 0; x < raw_len; x++)
+		printf("RAW: %i\n", raw[x]);
 	clean_tokens = ft_calloc(sizeof(int), len);
 	if (!clean_tokens)
 		return (0);
@@ -67,7 +66,22 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			clean_tokens[aux_clean] = raw[x];
 			x++;
 		}
-		else
+		else if (raw[x] == -2)
+		{
+			clean_tokens[aux_clean] = -1;
+			aux_clean++;
+			x++;
+			while (raw[x] == -1)
+				x++;
+			clean_tokens[aux_clean] = -1;
+		}
+		else if (raw[x] == -1)
+		{
+			clean_tokens[aux_clean] = -1;
+			while (raw[x] == -1)
+				x++;
+		}
+		/*else
 		{
 			if (is_file_token(prev_token))
 			{
@@ -77,7 +91,7 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			while (raw[x] == -1)
 				x++;
 			clean_tokens[aux_clean] = -1;
-		}
+		}*/
 		aux_clean++;
 	}
 	printf("\n-----------------------\n");
