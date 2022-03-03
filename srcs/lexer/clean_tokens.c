@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 16:54:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/03 14:04:33 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,37 @@ int	is_file_token(int t)
 	if (t > 0 && t < 5)
 		it_is = 1;
 	return (it_is);
+}
+
+static int *ft_duparr(const int *arr, int len)
+{
+	int	*arr_dup;
+
+	arr_dup = (int *)malloc(len + 1 * sizeof(int));
+	if (!arr_dup)
+		return (0);
+	ft_memcpy(arr_dup, arr, len + 1);
+	return (arr_dup);
+}
+
+int *spaces(char *s, int *raw, int raw_len)
+{
+	int	*spaces;
+	int	aux_raw;
+	int	aux_str;
+
+	aux_raw = 0;
+	aux_str = 0;
+	spaces = ft_duparr(raw, raw_len);
+	while (raw[aux_raw] < raw_len)
+	{
+		if (raw[aux_raw] == 4 || raw[aux_raw] == 3)
+			aux_str++;
+		if (s[aux_str] == ' ' && raw[aux_raw] == -1)
+			spaces[aux_raw] = -3;
+		aux_raw++;
+	}
+	return (spaces);
 }
 
 int	*clean_tokens(int *raw, int raw_len, int len)
