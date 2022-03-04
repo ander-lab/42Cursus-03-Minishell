@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:18:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 14:01:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:08:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,23 @@ int	put_tokens_on_arr(char *s, int *raw_tokens)
 			}
 		}
 		else
-			raw_tokens[l] = token;
+		{
+			if (s[i] == ' ')
+				raw_tokens[l] = -3;
+			else
+				raw_tokens[l] = token;
+		}
 		i++;
 		l++;
 	}
 	return (l);
+}
+
+void	init_gdata(char *s, t_gdata *gdata)
+{
+	gdata->n_commands = get_n_commands(s);
+	gdata->aux_n_commands = gdata->n_commands;
+	gdata->n_tokens = get_n_tokens(s);
 }
 
 void lexer(char *s, t_gdata *gdata)
@@ -114,15 +126,16 @@ void lexer(char *s, t_gdata *gdata)
 	token_data = ft_calloc(sizeof(t_token_data), 1);
 	raw_tokens = ft_calloc(ft_strlen(s) + 2, sizeof(int));
 	token_lst = NULL;
-	gdata->n_commands = get_n_commands(s);
-	gdata->n_tokens = get_n_tokens(s);
-	int	n_commands = get_n_commands(s);
+	init_gdata(s, gdata);
+	//int	n_commands = get_n_commands(s);
 	s = ft_strtrim(s, " ");
+	if (gdata->n_commands == 0)
+		return (no_cmds_handler(s));
 	handle_input(s, gdata);
 	if (gdata->data_error > 0)
 		return ; //gestion de comillas abiertas lexer
 	raw_len = put_tokens_on_arr(s, raw_tokens);
-	clean_len = n_commands + gdata->n_tokens;
+	clean_len = gdata->n_commands + gdata->n_tokens;
 	clean_tkns = clean_tokens(raw_tokens, raw_len, clean_len);
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
 	//ft_printlst(token_lst);

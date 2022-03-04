@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 13:44:59 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:10:02 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,20 @@ void	custom_split_word(char *word, t_gdata *g_data)
 
 static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 {
-	int		idx;
 	char	*word;
 
-	idx = get_cmds_length(g_data);
 	word = get_until_token(prev_l, l, s);
+	if (!exists_word(word))
+		free(word);
 	if (g_data->handle_next && needs_split(word))
+	{
 		custom_split_word(word, g_data);
+		g_data->aux_n_commands--;
+	}
 	else if (exists_word(word))
 	{
-		g_data->cmds[idx] = word;
-		g_data->n_commands--;
+		g_data->cmds[get_cmds_length(g_data)] = word;
+		g_data->aux_n_commands--;
 	}
 	g_data->handle_next = 0;
 	if (is_file_token(g_data->last_token))
@@ -81,8 +84,9 @@ void	handle_input(char *s, t_gdata *g_data)
 		if (g_data->handle_next && needs_split(word))
 			custom_split_word(word, g_data);
 		else
-			g_data->cmds[get_cmds_length(g_data)] = get_until_token(prev_l, l, s);
+			g_data->cmds[get_cmds_length(g_data)] = word;
 	}
+	ft_putmatrix(g_data->cmds, g_data->n_commands);
 	g_data->data_error = quotes;
 }
 

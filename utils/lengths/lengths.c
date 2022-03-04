@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:29:03 by goliano-          #+#    #+#             */
-/*   Updated: 2022/03/02 13:06:46 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:32:53 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 int	filename_length(char *word)
 {
 	int	i;
-	int	is_in_space;
+	int	quotes;
 
 	i = 0;
-	is_in_space = 0;
+	quotes = 0;
 	while (word[i])
 	{
-		if (word[i] == ' ' && word[i - 1] == '\\')
-			is_in_space = 1;
-		if (word[i] == ' ' && word[i - 1] != '\\' && is_in_space == 0)
-			break ;
-		if (word[i] != ' ')
-			is_in_space = 0;
+		quotes = quote_type(quotes, word, i);
+		if (word[i] == ' ' && quotes == 0)
+			break;
 		i++;
 	}
 	return (i);

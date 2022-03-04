@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/03 14:04:33 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/04 11:42:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,16 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 				x++;
 			clean_tokens[aux_clean] = -1;
 		}
+		else if (raw[x] == -3)
+		{
+			clean_tokens[aux_clean] = -3;
+			while (raw[x] == -3)
+				x++;
+		}
 		else if (raw[x] == -1)
 		{
 			clean_tokens[aux_clean] = -1;
-			while (raw[x] == -1)
-				x++;
+			x++;
 		}
 		aux_clean++;
 	}

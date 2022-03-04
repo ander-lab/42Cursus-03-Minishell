@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 14:01:19 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/04 15:31:36 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ int		length_from_idx(char *word, int idx);
 int		get_cmds_length(t_gdata *g_data);
 int		filename_length(char *word);
 
+/*
+ *	HANDLER
+ */
+void	no_cmds_handler(char *s);
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 void	ft_insert_data_lst(t_list **lst, t_token_data *token_data, int *tokens, int len);
 void	ft_convert_matrix(char **words, t_list *lst);
