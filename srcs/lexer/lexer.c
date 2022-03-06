@@ -112,6 +112,7 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->n_commands = get_n_commands(s);
 	gdata->aux_n_commands = gdata->n_commands;
 	gdata->n_tokens = get_n_tokens(s);
+	gdata->handle_next = 0;
 }
 
 void lexer(char *s, t_gdata *gdata)
@@ -140,8 +141,8 @@ void lexer(char *s, t_gdata *gdata)
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
 	//ft_printlst(token_lst);
 	//printf("\n-----------------------\n");
-	//ft_putmatrix(gdata->cmds, n_commands);
+	//ft_putmatrix(gdata->cmds, gdata->n_commands);
 	ft_convert_matrix(gdata->cmds, token_lst);
-	clean_lst_tokens(token_lst);
+	//clean_lst_tokens(token_lst);
 	ft_printlst(token_lst);
 }

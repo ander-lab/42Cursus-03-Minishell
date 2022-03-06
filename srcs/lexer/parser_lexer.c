@@ -31,6 +31,8 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	l = filename_length(word);
 	file_name = cpy_cmd(word, l, 0);
 	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
+	printf("FILE_NAME: %s\n", file_name);
+	printf("CMD: %s\n", cmd);
 	g_data->cmds[get_cmds_length(g_data)] = file_name;
 	g_data->cmds[get_cmds_length(g_data)] = cmd;
 }
@@ -40,8 +42,6 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 	char	*word;
 
 	word = get_until_token(prev_l, l, s);
-	if (!exists_word(word))
-		free(word);
 	if (g_data->handle_next && needs_split(word))
 	{
 		custom_split_word(word, g_data);
@@ -52,6 +52,8 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 		g_data->cmds[get_cmds_length(g_data)] = word;
 		g_data->aux_n_commands--;
 	}
+	if (!exists_word(word))
+		free(word);
 	g_data->handle_next = 0;
 	if (is_file_token(g_data->last_token))
 		g_data->handle_next = 1;
@@ -78,7 +80,7 @@ void	handle_input(char *s, t_gdata *g_data)
 			prev_l = l + 1;
 		}
 	}
-	if (!ends_with_token(s))
+	if (/*g_data->aux_n_commands == 1 &&*/ !ends_with_token(s))
 	{
 		word = get_until_token(prev_l, l, s);
 		if (g_data->handle_next && needs_split(word))

@@ -79,16 +79,21 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 	int	*clean_tokens;
 	int	x = 0;
 	int aux_clean = 0;
-	int	prev_token;
 
 	clean_tokens = ft_calloc(sizeof(int), len);
+	int z = 0;
+	printf("LEN: %d\n", len);
+	while (z < raw_len)
+	{
+		printf("RAW: %d\n", raw[z]);
+		z++;
+	}
 	if (!clean_tokens)
 		return (0);
 	while (x < raw_len)
 	{
 		if (raw[x] > -1)
 		{
-			prev_token = raw[x];
 			clean_tokens[aux_clean] = raw[x];
 			x++;
 		}
@@ -103,16 +108,26 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 		}
 		else if (raw[x] == -3)
 		{
-			clean_tokens[aux_clean] = -3;
+			//clean_tokens[aux_clean] = -3;
 			while (raw[x] == -3)
+				x++;
+			while (raw[x] == -1)
 				x++;
 		}
 		else if (raw[x] == -1)
 		{
 			clean_tokens[aux_clean] = -1;
-			x++;
+			while (raw[x] == -1)
+				x++;
 		}
 		aux_clean++;
+	}
+	int h = 0;
+	printf("CLEAN: %d\n", aux_clean);
+	while (h < aux_clean)
+	{
+		printf("CLEAN: %d\n", clean_tokens[h]);
+		h++;
 	}
 	return (clean_tokens);
 }
