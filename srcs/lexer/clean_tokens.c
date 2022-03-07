@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/04 11:42:27 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:41:11 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 		if (raw[x] > -1)
 		{
 			clean_tokens[aux_clean] = raw[x];
+			aux_clean++;
 			x++;
 		}
 		else if (raw[x] == -2)
@@ -105,6 +106,7 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			while (raw[x] == -1)
 				x++;
 			clean_tokens[aux_clean] = -1;
+			aux_clean++;
 		}
 		else if (raw[x] == -3)
 		{
@@ -117,10 +119,10 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 		else if (raw[x] == -1)
 		{
 			clean_tokens[aux_clean] = -1;
+			aux_clean++;
 			while (raw[x] == -1)
 				x++;
 		}
-		aux_clean++;
 	}
 	int h = 0;
 	printf("CLEAN: %d\n", aux_clean);
