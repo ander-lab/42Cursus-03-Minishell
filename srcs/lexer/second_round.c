@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:50:54 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 16:53:45 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:07:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_checkpipe(int token, int next_token)
 	return (0);
 }
 
-void	ft_changevalue(t_list **lst, int val, int pos)
+void	ft_changevalue(t_dlist **lst, int val, int pos)
 {
 	if (pos == NEXT || val == FILE_NAME)
 	{
@@ -53,14 +53,14 @@ int	ft_tokenizer(int token, int next_token)
 	return (token);
 }
 
-void	clean_lst_tokens(t_list *token_lst)
+void	clean_lst_tokens(t_dlist *token_lst)
 {
 	int	token;
 	int	token_next;
 	int	new_token;
 
 	token = ((t_token_data *)token_lst->content)->token;
-	if (ft_lstsize(token_lst) == 1 && token == -1)
+	if (ft_dlstsize(token_lst) == 1 && token == -1)
 		ft_changevalue(&token_lst, ARGUMENT, 0);
 	while (token_lst->next)
 	{
