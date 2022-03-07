@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 15:07:56 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 15:16:03 by ajimenez         ###   ########.fr       */
+/*   Created: 2022/03/03 16:01:45 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/03/03 16:02:30 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+int	ft_dlstsize(t_dlist *lst)
 {
-	if (!ptr)
+	size_t	count;
+
+	count = 0;
+	if (!lst)
 		return (0);
-	free(ptr);
-	ptr = (void *)malloc(size);
-	return (ptr);
+	while (lst)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
 }

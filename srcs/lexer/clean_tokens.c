@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 12:50:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/07 10:41:11 by goliano-         ###   ########.fr       */
+/*   Created: 2022/03/07 10:46:51 by goliano-          #+#    #+#             */
+/*   Updated: 2022/03/07 10:47:00 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,6 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 	int aux_clean = 0;
 
 	clean_tokens = ft_calloc(sizeof(int), len);
-	int z = 0;
-	printf("LEN: %d\n", len);
-	while (z < raw_len)
-	{
-		printf("RAW: %d\n", raw[z]);
-		z++;
-	}
 	if (!clean_tokens)
 		return (0);
 	while (x < raw_len)
@@ -123,13 +116,6 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			while (raw[x] == -1)
 				x++;
 		}
-	}
-	int h = 0;
-	printf("CLEAN: %d\n", aux_clean);
-	while (h < aux_clean)
-	{
-		printf("CLEAN: %d\n", clean_tokens[h]);
-		h++;
 	}
 	return (clean_tokens);
 }
