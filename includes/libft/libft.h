@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 15:12:35 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:29:10 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 */
 # include <stdio.h>
 # include <stdlib.h>
-//# include <sys/_types/_size_t.h>
-//# include <sys/_types/_ssize_t.h>
+# include <sys/_types/_size_t.h>
+# include <sys/_types/_ssize_t.h>
 # include <unistd.h>
 
 typedef struct s_list
@@ -28,6 +28,13 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+typedef struct s_dlist
+{
+	void			*content;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}				t_dlist;
+
 typedef struct s_matrix_data
 {
 	ssize_t		line_count;
@@ -35,6 +42,19 @@ typedef struct s_matrix_data
 	ssize_t		max;
 	ssize_t		min;
 }	t_matrix_data;
+
+/*
+**Dlst Library
+*/
+void	ft_dlstadd_back(t_dlist **dlst, t_dlist *new);
+void	ft_dlstadd_front(t_dlist **lst, t_dlist *new);
+void	ft_dlstclear(t_dlist **lst, void (*del)(void *));
+void	ft_dlstdelone(t_dlist *lst, void (*del)(void *));
+t_dlist	*ft_dlstnew_struct(void *newcontent, size_t size);
+t_dlist	*ft_dlstlast(t_dlist *lst);
+t_dlist *ft_dlstnew(void *content);
+int		ft_dlstsize(t_dlist *lst);
+
 /*
 **Is Library
 */
@@ -65,8 +85,6 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *haystack, const char *needle,
 					size_t	len);
 void			*ft_calloc(size_t num, size_t size);
-void			*ft_realloc(void *ptr, size_t size);
-void			*ft_recalloc(void *ptr, size_t size);
 char			*ft_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);

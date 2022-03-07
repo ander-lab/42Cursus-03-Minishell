@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recalloc.c                                      :+:      :+:    :+:   */
+/*   ft_dlstdelone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 15:14:13 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/23 15:15:46 by ajimenez         ###   ########.fr       */
+/*   Created: 2022/03/03 16:04:37 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/03/03 16:04:48 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_recalloc(void *ptr, size_t size)
+void	ft_dlstdelone(t_dlist *lst, void (*del)(void *))
 {
-	if (!ptr)
-		return (0);
-	free(ptr);
-	ptr = (void *)ft_calloc(size, 1);
-	return (ptr);
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
 }
