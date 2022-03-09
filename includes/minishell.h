@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/04 15:31:36 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:08:10 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void 	lexer(char *s, t_gdata *g_data);
 int	*clean_tokens(int *raw, int raw_len, int len);
 //int		*clean_tokens(int *raw, int raw_len, int len, int n_commands);
 
-void	clean_lst_tokens(t_list *token_lst);
+void	clean_lst_tokens(t_dlist *token_lst);
 int		ft_give_token(char c1, char c2, int *aux);
 char	*get_until_token(int prev_l, int l, char *str);
 int		is_escaping(char c);
@@ -91,7 +91,7 @@ int		filename_length(char *word);
  */
 void	no_cmds_handler(char *s);
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
-void	ft_insert_data_lst(t_list **lst, t_token_data *token_data, int *tokens, int len);
-void	ft_convert_matrix(char **words, t_list *lst);
+void	ft_insert_data_lst(t_dlist **lst, t_token_data *token_data, int *tokens, int len);
+void	ft_convert_matrix(char **words, t_dlist *lst);
 
 #endif
