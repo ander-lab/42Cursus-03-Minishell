@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 10:46:51 by goliano-          #+#    #+#             */
-/*   Updated: 2022/03/07 10:47:00 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:19:24 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			aux_clean++;
 			x++;
 		}
-		else if (raw[x] == -2)
+		if (raw[x] == -2)
 		{
 			clean_tokens[aux_clean] = -1;
 			aux_clean++;
@@ -101,7 +101,7 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			clean_tokens[aux_clean] = -1;
 			aux_clean++;
 		}
-		else if (raw[x] == -3)
+		if (raw[x] == -3)
 		{
 			//clean_tokens[aux_clean] = -3;
 			while (raw[x] == -3)
@@ -109,13 +109,22 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 			while (raw[x] == -1)
 				x++;
 		}
-		else if (raw[x] == -1)
+		if (raw[x] == -1)
 		{
 			clean_tokens[aux_clean] = -1;
 			aux_clean++;
 			while (raw[x] == -1)
 				x++;
 		}
+	}
+	int h = 0;
+	printf("LEN0: %d\n", raw_len);
+	printf("LEN1: %d\n", aux_clean);
+	printf("LEN2: %d\n", len);
+	while (h < aux_clean)
+	{
+		printf("CLEAN: %d\n", clean_tokens[h]);
+		h++;
 	}
 	return (clean_tokens);
 }

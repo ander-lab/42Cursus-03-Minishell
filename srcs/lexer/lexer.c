@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:18:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/07 10:39:58 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:26:44 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	put_tokens_on_arr(char *s, int *raw_tokens)
 			if (s[i] == ' ')
 				raw_tokens[l] = -3;
 			else
-				raw_tokens[l] = token;
+				raw_tokens[l] = -1;
 		}
 		i++;
 		l++;
@@ -163,6 +163,8 @@ void lexer(char *s, t_gdata *gdata)
 		return ; //gestion de comillas abiertas lexer
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	clean_len = gdata->n_commands + gdata->n_tokens;
+	printf("N_COM: %d\n", gdata->n_commands);
+	printf("N_TOK: %d\n", gdata->n_tokens);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, clean_len);
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
 	//ft_printlst(token_lst);

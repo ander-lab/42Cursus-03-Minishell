@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:29:59 by goliano-          #+#    #+#             */
-/*   Updated: 2022/03/03 15:34:29 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:19:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@ int	get_n_tokens(char *s)
 	int	i;
 	int	nt;
 	int	token;
+	int	quotes;
 
 	i = 0;
 	nt = 0;
 	token = 0;
+	quotes = 0;
 	while (s[i])
 	{
 		token = ft_get_token(s, &i);
-		if (token >= PIPE)
+		quotes = quote_type(quotes, s, i);
+		if (token >= PIPE && quotes == 0)
 			nt++;
 		i++;
 	}
