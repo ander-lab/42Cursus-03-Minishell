@@ -6,24 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/03/09 13:00:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:43:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void ft_printdlst(t_dlist *token_lst)
-{
-	while (token_lst)
-	{
-		//printf("----hell");
-		printf("token  %i char * %s\n", ((t_token_data *)token_lst->content)->token,
-			((t_token_data *)token_lst->content)->str);
-		//token_data = token_lst->content;
-		//printf(" token 2= %i\n", token_data->token);
-		token_lst = token_lst->next;
-	}
-}
 
 //int ft_count_spec_tokens(int *arr, int len)
 //{
@@ -67,44 +54,6 @@ void ft_printdlst(t_dlist *token_lst)
 	return (new_str);
 }*/
 
-int	put_tokens_on_arr(char *s, int *raw_tokens)
-{
-	int	i;
-	int	l;
-	int	token;
-	int	quotes;
-
-	i = 0;
-	l = 0;
-	quotes = 0;
-	//s = remove_char_from_string(s, ' ');
-	//printf("S: %s\n", s);
-	while (s[i])
-	{
-		quotes = quote_type(quotes, s, i);
-		token = ft_get_token(s, &i);
-		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
-		{
-			raw_tokens[l] = token;
-			if (is_cmd_hide(s, ++i, token))
-			{
-				l++;
-				raw_tokens[l] = -2;
-			}
-		}
-		else
-		{
-			if (s[i] == ' ')
-				raw_tokens[l] = -3;
-			else
-				raw_tokens[l] = -1;
-		}
-		i++;
-		l++;
-	}
-	return (l);
-}
-
 void	init_gdata(char *s, t_gdata *gdata)
 {
 	gdata->n_commands = get_n_commands(s);
@@ -113,34 +62,14 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->handle_next = 0;
 }
 
-void lexer(char *s, t_gdata *gdata)
+void	lexer(char *s, t_gdata *gdata)
 {
-	int		*raw_tokens;
-	int		raw_len;
-	int 	*clean_tkns;
-	int		clean_len;
-	t_dlist			*token_lst;
-	t_token_data	*token_data;
-
-	clean_len = 0;
-	token_data = ft_calloc(sizeof(t_token_data), 1);
-	raw_tokens = ft_calloc(ft_strlen(s) + 2, sizeof(int));
-	token_lst = NULL;
 	init_gdata(s, gdata);
 	s = ft_strtrim(s, " ");
-	if (gdata->n_commands == 0)
-		return (no_cmds_handler(s));
+	if (exists_error(s, gdata))
+		return ;
 	handle_input(s, gdata);
 	if (gdata->data_error > 0)
 		return ; //gestion de comillas abiertas lexer
-	raw_len = put_tokens_on_arr(s, raw_tokens);
-	clean_len = gdata->n_commands + gdata->n_tokens;
-	clean_tkns = clean_tokens(raw_tokens, raw_len, clean_len);
-	ft_insert_data_lst(&token_lst, token_data, clean_tkns, clean_len);
-	//ft_printlst(token_lst);
-	//ft_putmatrix(gdata->cmds, gdata->n_commands);
-	ft_convert_matrix(gdata->cmds, token_lst);
-	clean_lst_tokens(token_lst);
-	printf("\n-----------------------\n");
-	ft_printdlst(token_lst);
+	init_tokens(s, gdata);
 }
