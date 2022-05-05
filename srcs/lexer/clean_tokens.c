@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:49:06 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/05 12:40:22 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:59:12 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,25 @@ static void	ft_iter_raw_x(int *x, int *raw, int n)
 	while (raw[*x] == n)
 		*x += 1;
 }
-
-static void	nuclear(int *clean_tokens, int *x, int *aux_clean, int *raw)
+void raw_three(int *x, int *raw)
 {
-	if (raw[*x] > -1)
-	{
-		clean_tokens[*aux_clean] = raw[*x];
-		*aux_clean += 1;
+	while (raw[*x] == -3)
 		*x += 1;
-	}
-	if (raw[*x] == -2)
-	{
-		clean_tokens[*aux_clean] = -1;
+	while (raw[*x] == -1)
 		*x += 1;
-		ft_iter_raw_x(x, raw, -1);
-		clean_tokens[*aux_clean] = -1;
-		*aux_clean += 1;
-	}
-	if (raw[*x] == -3)
-	{
-		ft_iter_raw_x(x, raw, -3);
-		ft_iter_raw_x(x, raw, -1);
-	}
-	if (raw[*x] == -1)
-	{
-		clean_tokens[*aux_clean] = -1;
-		*aux_clean += 1;
-		ft_iter_raw_x(x, raw, -1);
-	}
+}
+
+void raw_two(int *x, int *raw, int *aux_clean, int *clean_tokens)
+{
+	clean_tokens[*aux_clean] = -1;
+	//aux_clean++;
+	*aux_clean += 1;
+	*x += 1;
+	//ft_iter_raw_x(&x, raw, -1);
+	while (raw[*x] == -1)
+		*x += 1;
+	clean_tokens[*aux_clean] = -1;
+	*aux_clean += 1;
 }
 
 int	*clean_tokens(int *raw, int raw_len, int len)
@@ -60,7 +51,24 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 		return (0);
 	while (x < raw_len)
 	{
-		nuclear(clean_tokens, &x, &aux_clean, raw);
+		if (raw[x] > -1)
+		{
+			clean_tokens[aux_clean] = raw[x];
+			aux_clean++;
+			x++;
+		}
+		if (raw[x] == -2)
+			raw_two(&x, raw, &aux_clean, clean_tokens);
+		if (raw[x] == -3)
+			raw_three(&x, raw);
+		if (raw[x] == -1)
+		{
+			clean_tokens[aux_clean] = -1;
+			aux_clean++;
+			ft_iter_raw_x(&x, raw, -1);
+			//while (raw[x] == -1)
+			//	x++;
+		}
 	}
 	return (clean_tokens);
 }
