@@ -3,128 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 10:46:51 by goliano-          #+#    #+#             */
-/*   Updated: 2022/03/08 10:19:24 by goliano-         ###   ########.fr       */
+/*   Created: 2022/05/05 10:49:06 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/05/06 11:55:17 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//int ft_count_spaces()
-
-//int ft_len_without_ceros(int *raw, int len, char *s)
-//{
-//	int	before_zero = len;
-//	int	aux = len;
-//	printf("len %i \n", aux);
-//	while(raw[aux] == 0)
-//		aux--;
-//	//count pipes
-//	while (s[before_zero] == '|')
-//	{
-//		aux++;
-//		before_zero--;
-//	}
-////	if (before_zero != len)
-////		aux = aux - before_zero;
-//	printf("ceros %i \n", aux);
-//	return (aux);
-//}
-
-int	is_file_token(int t)
+static void	ft_iter_raw_x(int *x, int *raw, int n)
 {
-	int	it_is;
-
-	it_is = 0;
-	if (t > 0 && t < 5)
-		it_is = 1;
-	return (it_is);
+	while (raw[*x] == n)
+		*x += 1;
 }
 
-static int *ft_duparr(const int *arr, int len)
+void	raw_three(int *x, int *raw)
 {
-	int	*arr_dup;
-
-	arr_dup = (int *)malloc(len + 1 * sizeof(int));
-	if (!arr_dup)
-		return (0);
-	ft_memcpy(arr_dup, arr, len + 1);
-	return (arr_dup);
+	while (raw[*x] == -3)
+		*x += 1;
+	while (raw[*x] == -1)
+		*x += 1;
 }
 
-int *spaces(char *s, int *raw, int raw_len)
+void	raw_two(int *x, int *raw, int *aux_clean, int *clean_tokens)
 {
-	int	*spaces;
-	int	aux_raw;
-	int	aux_str;
+	clean_tokens[*aux_clean] = -1;
+	*aux_clean += 1;
+	*x += 1;
+	while (raw[*x] == -1)
+		*x += 1;
+	clean_tokens[*aux_clean] = -1;
+	*aux_clean += 1;
+}
 
-	aux_raw = 0;
-	aux_str = 0;
-	spaces = ft_duparr(raw, raw_len);
-	while (raw[aux_raw] < raw_len)
-	{
-		if (raw[aux_raw] == 4 || raw[aux_raw] == 3)
-			aux_str++;
-		if (s[aux_str] == ' ' && raw[aux_raw] == -1)
-			spaces[aux_raw] = -3;
-		aux_raw++;
-	}
-	return (spaces);
+void	raw_one(int *x, int *raw, int *aux_clean, int *clean_tokens)
+{
+	clean_tokens[*aux_clean] = raw[*x];
+	*aux_clean += 1;
+	*x += 1;
 }
 
 int	*clean_tokens(int *raw, int raw_len, int len)
 {
 	int	*clean_tokens;
-	int	x = 0;
-	int aux_clean = 0;
+	int	x;
+	int	aux_clean;
 
+	x = 0;
+	aux_clean = 0;
 	clean_tokens = ft_calloc(sizeof(int), len);
 	if (!clean_tokens)
 		return (0);
 	while (x < raw_len)
 	{
 		if (raw[x] > -1)
-		{
-			clean_tokens[aux_clean] = raw[x];
-			aux_clean++;
-			x++;
-		}
+			raw_one(&x, raw, &aux_clean, clean_tokens);
 		if (raw[x] == -2)
-		{
-			clean_tokens[aux_clean] = -1;
-			aux_clean++;
-			x++;
-			while (raw[x] == -1)
-				x++;
-			clean_tokens[aux_clean] = -1;
-			aux_clean++;
-		}
+			raw_two(&x, raw, &aux_clean, clean_tokens);
 		if (raw[x] == -3)
-		{
-			//clean_tokens[aux_clean] = -3;
-			while (raw[x] == -3)
-				x++;
-			while (raw[x] == -1)
-				x++;
-		}
+			raw_three(&x, raw);
 		if (raw[x] == -1)
 		{
 			clean_tokens[aux_clean] = -1;
 			aux_clean++;
-			while (raw[x] == -1)
-				x++;
+			ft_iter_raw_x(&x, raw, -1);
 		}
-	}
-	int h = 0;
-	printf("LEN0: %d\n", raw_len);
-	printf("LEN1: %d\n", aux_clean);
-	printf("LEN2: %d\n", len);
-	while (h < aux_clean)
-	{
-		printf("CLEAN: %d\n", clean_tokens[h]);
-		h++;
 	}
 	return (clean_tokens);
 }
