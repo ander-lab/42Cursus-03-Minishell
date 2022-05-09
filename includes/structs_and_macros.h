@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/04 12:09:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:15:17 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ typedef struct s_data
 	int		n_commands;
 	int		aux_n_commands;
 	int		n_tokens;
-	int		data_error;
+	int		err;
 	char	**cmds;
 	int		last_token;
 	int		handle_next;
+	t_dlist	*cmds_list;
 } t_gdata;
 
 /*

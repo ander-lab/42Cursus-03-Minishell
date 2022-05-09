@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/05 15:43:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:24:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ void	lexer(char *s, t_gdata *gdata)
 	if (exists_error(s, gdata))
 		return ;
 	handle_input(s, gdata);
-	if (gdata->data_error > 0)
+	if (gdata->err)
 		return ; //gestion de comillas abiertas lexer
+	//ft_putmatrix(gdata->cmds, get_n_commands(s));
 	init_tokens(s, gdata);
+	parser(gdata);
+	if (gdata->err)
+		return ; //gestion de comillas abiertas lexer
 }

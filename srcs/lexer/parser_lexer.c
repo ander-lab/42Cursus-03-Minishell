@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/05 15:29:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:34:37 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	handle_input(char *s, t_gdata *g_data)
 			g_data->cmds[get_cmds_length(g_data)] = word;
 	}
 	ft_putmatrix(g_data->cmds, g_data->n_commands);
-	g_data->data_error = quotes;
+	g_data->err = quotes;
 }
 
 int	get_n_commands(char *s)

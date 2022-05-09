@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/05 12:34:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:36:14 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	{
 		quotes = quote_type(quotes, s, i);
 		token = ft_get_token(s, &i);
-		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
+		if (token != -1 && quotes == 0 /*&& is_cmd_between_tokens(s, i)*/)
 		{
 			raw_tokens[l] = token;
 			if (is_cmd_hide(s, ++i, token))
@@ -71,10 +71,17 @@ void	init_tokens(char *s, t_gdata *gdata)
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, \
 			gdata->n_commands + gdata->n_tokens);
+	/*int x = 0;
+	while (x < gdata->n_commands + gdata->n_tokens)
+	{
+		printf("CLEAN: %d\n", clean_tkns[x]);
+		x++;
+	}*/
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, \
 			gdata->n_commands + gdata->n_tokens);
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
 	printf("\n------------------------------\n");
+	gdata->cmds_list = token_lst;
 	ft_printdlst(token_lst);
 }

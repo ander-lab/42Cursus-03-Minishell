@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:11:27 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/05 15:24:25 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:13:14 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ static void	print_token_error(int pt, int t, int nt)
 		write(1, "syntax error near unexpected token '>>'\n", 40);
 }
 
-static void	prev_handler(int n_tokens, int prev_token, int hp)
+static int	prev_handler(int n_tokens, int prev_token, int hp)
 {
 	if (n_tokens == 1 && prev_token == 0)
-		return ((void)(write(1, \
-						"syntax error near unexpected token '|'\n", 40)));
+		return (write(1, "syntax error near unexpected token '|'\n", 40));
 	if (n_tokens == 1 || hp == 1)
-		return ((void)(write(1, \
-						"syntax error near unexpected token 'newline'\n", 46)));
+		return (write(1, "syntax error near unexpected token 'newline'\n", 46));
+	return (0);
 }
 
 static void	error_handler(char *s, int hp)
@@ -58,7 +57,8 @@ static void	error_handler(char *s, int hp)
 	i = 0;
 	n_tokens = get_n_tokens(s);
 	prev_token = ft_get_token(s, &i);
-	prev_handler(n_tokens, prev_token, hp);
+	if (prev_handler(n_tokens, prev_token, hp) > 0)
+		return ;
 	next_token = -2;
 	while (s[++i])
 	{
