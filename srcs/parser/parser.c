@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:17:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/09 15:12:28 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:42:07 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,24 @@ int parser(t_gdata *gdata)
 	char	*cmd;
 	int		is_ftkn;
 	int		is_tkn;
+	t_dlist	*aux;
 
 	is_ftkn = 0;
 	is_tkn = 0;
-	while (gdata->cmds_list && !gdata->err)
+	aux = gdata->cmds_list;
+	while (aux && !gdata->err)
 	{
-		tkn = ((t_token_data *)gdata->cmds_list->content)->token;
-		cmd = ((t_token_data *)gdata->cmds_list->content)->str;
+		tkn = ((t_token_data *)aux->content)->token;
+		cmd = ((t_token_data *)aux->content)->str;
 		if (is_file_token(tkn))
 			is_ftkn = 1;
 		if (is_ftkn || tkn == 0)
 			is_tkn = 1;
 		if (is_ftkn || is_tkn)
 		{
-			gdata->cmds_list = gdata->cmds_list->next;
-			tkn = ((t_token_data *)gdata->cmds_list->content)->token;
-			cmd = ((t_token_data *)gdata->cmds_list->content)->str;
+			aux = aux->next;
+			tkn = ((t_token_data *)aux->content)->token;
+			cmd = ((t_token_data *)aux->content)->str;
 		}
 		if (is_tkn && tkn >= 0 && tkn <= 4)
 		{
@@ -66,8 +68,7 @@ int parser(t_gdata *gdata)
 		//parser_handler(tkn, cmd, 1);
 		is_ftkn = 0;
 		is_tkn = 0;
-		gdata->cmds_list = gdata->cmds_list->next;
+		aux = aux->next;
 	}
-	printf("ERROR: %d\n", gdata->err);
 	return (1);
 }

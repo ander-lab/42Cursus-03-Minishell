@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/09 11:07:46 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:21:33 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ char	*get_until_token(int prev_l, int l, char *str);
 int		is_escaping(char c);
 void	handle_input(char *str, t_gdata *g_data/*, t_token_data *cmd_table*/);
 int		get_n_commands(char *s);
+
+/*
+ *	srcs/executor/executor.c
+ */
+void	executor(t_gdata *gdata);
 
 /*
  *	srcs/lexer/spaces.c

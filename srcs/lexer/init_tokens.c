@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/09 13:36:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:39:11 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	return (l);
 }
 
-static void	ft_printdlst(t_dlist *token_lst)
+/*static void	ft_printdlst(t_dlist *token_lst)
 {
 	while (token_lst)
 	{
@@ -55,7 +55,7 @@ static void	ft_printdlst(t_dlist *token_lst)
 				((t_token_data *)token_lst->content)->str);
 		token_lst = token_lst->next;
 	}
-}
+}*/
 
 void	init_tokens(char *s, t_gdata *gdata)
 {
@@ -81,7 +81,7 @@ void	init_tokens(char *s, t_gdata *gdata)
 			gdata->n_commands + gdata->n_tokens);
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
-	printf("\n------------------------------\n");
+	//printf("\n------------------------------\n");
 	gdata->cmds_list = token_lst;
-	ft_printdlst(token_lst);
+	//ft_printdlst(token_lst);
 }
