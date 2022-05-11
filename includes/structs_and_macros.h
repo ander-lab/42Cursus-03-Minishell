@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 10:11:30 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/11 13:39:11 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef struct s_data
 {
 	char	*prompt;
 	char	**envp;
-	int		n_commands;
+	int		n_commands;	// comandos y redirecciones
+	int		commands;	// comandos solo (pipes)
 	int		aux_n_commands;
 	int		n_tokens;
 	int		err;

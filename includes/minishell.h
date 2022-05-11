@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 10:21:33 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/11 12:08:34 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ int		parser(t_gdata *gdata);
  *	srcs/lexer/init_tokens.c
  */
 void	init_tokens(char *s, t_gdata *gdata);
+
+/*
+ *	utils/global/global.c
+ */
+int		command_count(char *s);
 
 /*
  * utils/quotes/quotes.c
