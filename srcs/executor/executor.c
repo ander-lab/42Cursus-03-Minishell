@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/11 15:52:26 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:47:25 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ static int check_access(char *cmd, char **mycmdargs, char **envp)
 	int	r;
 
 	r = 0;
+	/*write(2, "CMD\n", 4);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\nANTES ACCESS\n", 14);
+	int i = 0;
+	while (mycmdargs[i])
+	{
+		write(2, "ARGS: \n", 7);
+		write(2, mycmdargs[i], ft_strlen(mycmdargs[i]));
+		write(2, "ARGS: \n", 7);
+		i++;
+	}*/
 	if (access(cmd, X_OK) > -1)
 	{
 		execve(cmd, mycmdargs, envp);
@@ -104,9 +115,19 @@ void	do_child_one(int fd, char *cmd, int *end, char **envp)
 		return ;
 }*/
 
+void	do_child_two(int fd, char *cmd, int *end, char **envp)
+{
+	close(end[1]);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	dup2(end[0], STDOUT_FILENO);
+	handle_path(cmd, envp);
+}
+
 void handle_cmd(int in, int *end, char *cmd, char **envp)
 {
 	pid_t	p1;
+	pid_t	p2;
 	int		status;
 
 	p1 = fork();
@@ -117,30 +138,44 @@ void handle_cmd(int in, int *end, char *cmd, char **envp)
 	waitpid(p1, &status, 0);
 	if (WEXITSTATUS(status))
 	{
-		printf("WEXITSTATUS: %d\n", status);
+		printf("WEXITSTATUS1: %d\n", status);
 		return ;
 	}
-	/*p2 = fork();
+	p2 = fork();
 	if (p2 < 0)
 		return (perror("Fork: "));
 	if (p2 == 0)
-		do_child_two(in, cmd, );
-	*/
-	/*if ((pid = fork()) == 0)
+		do_child_two(in, cmd, end, envp);
+	close(end[0]);
+	close(end[1]);
+	waitpid(p2, &status, 0);
+	if (WEXITSTATUS(status))
 	{
-		if (in != 0)
-		{
-			dup2(in, 0);
-			close(in);
-		}
-		if (out != 1)
-		{
-			dup2(out, 1);
-			close(out);
-		}
-		return (execvp(cmd, cmds));
-	}*/
+		printf("WEXITSTATUS2: %d\n", status);
+		return ;
+	}
 	return ;
+}
+
+int	get_next_type(t_dlist *lst)
+{
+	t_dlist	*aux;
+	int		tkn;
+	int		type;
+
+	aux = lst;
+	aux = aux->next;
+	type = 0;
+	if (!aux)
+		return (-1);
+	tkn = ((t_token_data *)aux->content)->token;
+	if (tkn == 0)			//viene commando (pipe)
+		type = 0;
+	else if (tkn == 2)		//viene redireccion (>)
+		type = 1;
+	else if (tkn == 4)		//viene append (>>)
+		type = 2;
+	return (type);
 }
 
 void executor(t_gdata *gdata)
@@ -151,11 +186,13 @@ void executor(t_gdata *gdata)
 	int		file;
 	int		fd;
 	int		end[2];
+	int		next_type;
 
 	aux = gdata->cmds_list;
 	file = 0;
 	fd = 0;
 	tkn = 0;
+	next_type = 0;
 	printf("COMMANDS: %d\n", gdata->commands);
 	while (aux)
 	{
@@ -163,19 +200,24 @@ void executor(t_gdata *gdata)
 		cmd = ((t_token_data *)aux->content)->str;
 		if (file && cmd)
 			fd = handle_file(cmd, file);
-		file = 0;
 		if (is_file_token(tkn) && tkn != 3)
 			file = 1;
 		if (tkn == 2 || tkn == 4)
 			file = 2; //indirection
+		printf("TKN: %d\n", tkn);
+		printf("CMD: %s\n", cmd);
 		if (!file && cmd)
 		{
-			printf("ENTRO\n");
+			next_type = get_next_type(aux);
+			return ;
+			cmd = ft_strtrim(cmd, " ");
 			pipe(end);
 			handle_cmd(fd, end, cmd, gdata->envp);
 			close(end[0]);
 			close(end[1]);
 		}
+		if (cmd && file > 0)
+			file = 0;
 			//handle_cmd(fd, cmd, gdata->envp);
 		aux = aux->next;
 	}
