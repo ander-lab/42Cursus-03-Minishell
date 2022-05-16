@@ -37,7 +37,6 @@
 int parser(t_gdata *gdata)
 {
 	int		tkn;
-	char	*cmd;
 	int		is_ftkn;
 	int		is_tkn;
 	t_dlist	*aux;
@@ -48,7 +47,6 @@ int parser(t_gdata *gdata)
 	while (aux && !gdata->err)
 	{
 		tkn = ((t_token_data *)aux->content)->token;
-		cmd = ((t_token_data *)aux->content)->str;
 		if (is_file_token(tkn))
 			is_ftkn = 1;
 		if (is_ftkn || tkn == 0)
@@ -57,7 +55,6 @@ int parser(t_gdata *gdata)
 		{
 			aux = aux->next;
 			tkn = ((t_token_data *)aux->content)->token;
-			cmd = ((t_token_data *)aux->content)->str;
 		}
 		if (is_tkn && tkn >= 0 && tkn <= 4)
 		{

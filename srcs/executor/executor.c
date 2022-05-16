@@ -12,24 +12,59 @@
 
 #include "../../includes/minishell.h"
 
-int handle_file(char *file, int type)
+int	need_cmd_slash(char *cmd)
+{
+	int	r;
+
+	r = 1;
+	if (cmd[0] == '/' || cmd[0] == '.' || cmd[0] == '~')
+		r = 0;
+	return (r);
+}
+
+
+char *cmd_add_slash(char *cmd)
+{
+	int		l;
+	int		i;
+	char	*n_cmd;
+
+	l = ft_strlen(cmd);
+	n_cmd = malloc(sizeof(char) * (l + 2));
+	if (!n_cmd)
+		return (0);
+	l = 1;
+	i = 0;
+	n_cmd[0] = '/';
+	while (cmd[i])
+		n_cmd[l++] = cmd[i++];
+	n_cmd[l] = '\0';
+	return (n_cmd);
+}
+
+int handle_file_no_create(char *file)
 {
 	int	fd;
 
-	fd = 0;
-	if (type == 2)
-	{
-		file = ft_strtrim(file, " ");
-		fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	}
-	else
-		fd = open(file, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		perror("Error");
 		return (-1);
 	}
-	printf("ARCHIVO: %s abierto\n", file);
+	return (fd);
+}
+
+int	handle_file_create(char *file)
+{
+	int fd;
+
+	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		perror("Error");
+		return (-1);
+	}
 	return (fd);
 }
 
@@ -38,7 +73,7 @@ static int check_access(char *cmd, char **mycmdargs, char **envp)
 	int	r;
 
 	r = 0;
-	/*write(2, "CMD\n", 4);
+	write(2, "CMD\n", 4);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, "\nANTES ACCESS\n", 14);
 	int i = 0;
@@ -48,9 +83,10 @@ static int check_access(char *cmd, char **mycmdargs, char **envp)
 		write(2, mycmdargs[i], ft_strlen(mycmdargs[i]));
 		write(2, "ARGS: \n", 7);
 		i++;
-	}*/
+	}
 	if (access(cmd, X_OK) > -1)
 	{
+		write(2, "EJECUTAMOS\n", 11);
 		execve(cmd, mycmdargs, envp);
 		r = 1;
 	}
@@ -77,25 +113,45 @@ int	handle_path(char *cmd, char **envp)
 	char	*path;
 	char	**all_paths;
 	char	**mycmdargs;
+	char	*cmd_one;
 
+	if (need_cmd_slash(cmd))
+		cmd = cmd_add_slash(cmd);
 	i = path_index(envp);
 	path = ft_strtrim(envp[i], "PATH=");
 	all_paths = ft_split(path, ':');
 	mycmdargs = ft_split(cmd, ' ');
 	if (check_access(cmd, mycmdargs, envp))
 		return (1);
+	i = -1;
+	while (all_paths[++i])
+	{
+		cmd_one = ft_strjoin(all_paths[i], mycmdargs[0]);
+		if (check_access(cmd_one, mycmdargs, envp))
+			return (1);
+		free(cmd_one);
+	}
 	perror("zsh");
 	exit(EXIT_FAILURE);
 }
 
-void	do_child_one(int fd, char *cmd, int *end, char **envp)
+/*void	do_child_one(int fd, char *cmd, int *end, char **envp)
 {
 	close(end[0]);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	dup2(end[1], STDOUT_FILENO);
 	handle_path(cmd, envp);
-}
+}*/
+
+/*void	do_child_one(int fd, char *cmd, int *end, char **envp)
+{
+	fd = fd +1;
+	close(end[0]);
+	dup2(end[1], STDOUT_FILENO);
+	close(end[1]);
+	handle_path(cmd, envp);
+}*/
 
 /*int	pipex(int fd, char *cmd, char **envp)
 {
@@ -115,19 +171,19 @@ void	do_child_one(int fd, char *cmd, int *end, char **envp)
 		return ;
 }*/
 
-void	do_child_two(int fd, char *cmd, int *end, char **envp)
+/*void	do_child_two(int fd, char *cmd, int *end, char **envp)
 {
 	close(end[1]);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	dup2(end[0], STDOUT_FILENO);
 	handle_path(cmd, envp);
-}
+}*/
 
-void handle_cmd(int in, int *end, char *cmd, char **envp)
+/*void handle_cmd(int in, int *end, char *cmd, char **envp)
 {
 	pid_t	p1;
-	pid_t	p2;
+	//pid_t	p2;
 	int		status;
 
 	p1 = fork();
@@ -135,12 +191,18 @@ void handle_cmd(int in, int *end, char *cmd, char **envp)
 		return (perror("Fork: "));
 	if (p1 == 0)
 		do_child_one(in, cmd, end, envp);
+	close(end[1]);
 	waitpid(p1, &status, 0);
 	if (WEXITSTATUS(status))
 	{
 		printf("WEXITSTATUS1: %d\n", status);
 		return ;
 	}
+	write(2, "SIGO\n", 5);
+	char *out = malloc(sizeof(char) * 4096);
+	out = get_next_line(end[0]);
+	write(2, out, ft_strlen(out));
+	write(2, "\n", 1);
 	p2 = fork();
 	if (p2 < 0)
 		return (perror("Fork: "));
@@ -155,7 +217,7 @@ void handle_cmd(int in, int *end, char *cmd, char **envp)
 		return ;
 	}
 	return ;
-}
+}*/
 
 int	get_next_type(t_dlist *lst)
 {
@@ -178,47 +240,123 @@ int	get_next_type(t_dlist *lst)
 	return (type);
 }
 
+int	open_next_file(t_dlist *lst)
+{
+	t_dlist	*aux;
+	char	*cmd;
+
+	aux = lst;
+
+	aux = aux->next;
+	aux = aux->next;
+	cmd = (((t_token_data *)aux->content)->str);
+	return (handle_file_create(ft_strtrim(cmd, " ")));
+}
+
+void do_child_one(int fd, int *end, char *cmd, char **envp)
+{
+	close(end[0]);
+	dup2(fd, STDIN_FILENO);	//fd es la entrada de execve
+	close(fd);
+	dup2(end[1], STDOUT_FILENO); //la salida de execve se guarda en end[1]
+	handle_path(cmd, envp);
+}
+
+void handle_cmd1(int fd, int *end, char *cmd, char **envp)
+{
+	pid_t	p1;
+	int	status;
+
+	p1 = fork();
+	if (p1 < 0)
+		return (perror("Fork: "));
+	if (p1 == 0)
+		do_child_one(fd, end, cmd, envp);
+	waitpid(p1, &status, 0);
+	if (WEXITSTATUS(status))
+	{
+		write(2, "WEXIT1\n", 7);
+		return ;
+	}
+}
+
+void	do_child_two(int fd, int *end, char *cmd, char **envp)
+{
+	close(end[1]);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	dup2(end[0], STDIN_FILENO);
+	handle_path(cmd, envp);
+}
+
+void	handle_cmd2(int fd, int *end, char *cmd, char **envp)
+{
+	pid_t	p;
+	int	status;
+
+	p = fork();
+	if (p < 0)
+		return (perror("Fork: "));
+	if (p == 0)
+		do_child_two(fd, end, cmd, envp);
+	close(end[0]);
+	close(end[1]);
+	waitpid(p, &status, 0);
+	if (WEXITSTATUS(status))
+	{
+		write(2, "WEXIT2\n", 7);
+		return ;
+	}
+
+}
+
 void executor(t_gdata *gdata)
 {
 	t_dlist	*aux;
 	int		tkn;
 	char	*cmd;
 	int		file;
-	int		fd;
+	int		fd[2];
 	int		end[2];
 	int		next_type;
 
 	aux = gdata->cmds_list;
 	file = 0;
-	fd = 0;
+	fd[0] = 0;
+	fd[1] = 1;
 	tkn = 0;
 	next_type = 0;
+	pipe(end);
 	printf("COMMANDS: %d\n", gdata->commands);
-	while (aux)
+	while (aux && gdata->commands > 0)
 	{
 		tkn = ((t_token_data *)aux->content)->token;
 		cmd = ((t_token_data *)aux->content)->str;
 		if (file && cmd)
-			fd = handle_file(cmd, file);
+			fd[0] = handle_file_no_create(cmd);
 		if (is_file_token(tkn) && tkn != 3)
 			file = 1;
-		if (tkn == 2 || tkn == 4)
-			file = 2; //indirection
+		//if (tkn == 2 || tkn == 4)
+		//	file = 2; //indirection
 		printf("TKN: %d\n", tkn);
 		printf("CMD: %s\n", cmd);
 		if (!file && cmd)
 		{
 			next_type = get_next_type(aux);
-			return ;
+			if (next_type)
+				fd[1] = open_next_file(aux);
 			cmd = ft_strtrim(cmd, " ");
-			pipe(end);
-			handle_cmd(fd, end, cmd, gdata->envp);
-			close(end[0]);
-			close(end[1]);
+			if (next_type == 0)
+				handle_cmd1(fd[0], end, cmd, gdata->envp);
+			if (next_type == 1)
+				handle_cmd2(fd[1], end, cmd, gdata->envp);
+			//handle_cmd(fd, end, cmd, gdata->envp);
+			//close(end[0]);
+			//close(end[1]);
+			gdata->commands--;
 		}
 		if (cmd && file > 0)
 			file = 0;
-			//handle_cmd(fd, cmd, gdata->envp);
 		aux = aux->next;
 	}
 }
