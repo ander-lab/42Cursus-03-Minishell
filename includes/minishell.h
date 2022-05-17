@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/11 12:08:34 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:28:36 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ char	*get_until_token(int prev_l, int l, char *str);
 int		is_escaping(char c);
 void	handle_input(char *str, t_gdata *g_data/*, t_token_data *cmd_table*/);
 int		get_n_commands(char *s);
+
+/*
+ *	srcs/lexer/lexer.c
+ */
+void	ft_printdlst(t_dlist *token_lst);
+
+/*
+ *	srcs/prompt/prompt.c
+ */
+char	*remove_new_line(char *str);
 
 /*
  *	srcs/executor/executor.c

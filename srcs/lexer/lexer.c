@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/11 13:32:34 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:48:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,19 @@
 	free(s);
 	return (new_str);
 }*/
+
+void ft_printdlst(t_dlist *token_lst)
+{
+	while (token_lst)
+	{
+		//printf("----hell");
+		printf("token  %i char * %s\n", ((t_token_data *)token_lst->content)->token,
+			((t_token_data *)token_lst->content)->str);
+		//token_data = token_lst->content;
+		//printf(" token 2= %i\n", token_data->token);
+		token_lst = token_lst->next;
+	}
+}
 
 void	init_gdata(char *s, t_gdata *gdata)
 {
