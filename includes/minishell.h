@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/17 12:28:36 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:02:06 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		command_count(char *s);
 int		is_quote(char c);
 int		is_in_quotes(int quotes, int tquotes);
 int     quote_type(int quotes, char *s, int l);
+int		has_quotes(char *s);
 
 /*  
  * utils/tokens/tokens.c

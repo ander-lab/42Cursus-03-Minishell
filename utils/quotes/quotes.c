@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:46:46 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/24 11:34:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:02:17 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,30 @@ int	quote_type(int quotes, char *s, int l)
 	if (is_quote(s[l]) == 2)
 		quote_type = is_in_quotes(quotes, 2);
 	return (quote_type);
+}
+
+int	has_quotes(char *s)
+{
+	int	i;
+	int	quotes;
+	int	is_closed;
+
+	i = 0;
+	quotes = 0;
+	is_closed = 0;
+	while (s[i])
+	{
+		if (is_quote(s[i]))
+		{
+			is_closed = 0;
+			if (quotes == 0)
+				quotes = is_quote(s[i]);
+			else if (quotes == is_quote(s[i]))
+				is_closed = 1;
+		}
+		i++;
+	}
+	if (is_closed == 0)
+		return (-1);
+	return (quotes);
 }

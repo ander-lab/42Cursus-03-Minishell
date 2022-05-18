@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/17 15:48:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:53:26 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int check_access(char *cmd, char **mycmdargs, char **envp)
 	{
 		write(2, "ARGS: \n", 7);
 		write(2, mycmdargs[i], ft_strlen(mycmdargs[i]));
-		write(2, "ARGS: \n", 7);
+		write(2, "\nARGS: \n", 7);
 		i++;
 	}*/
 	if (access(cmd, X_OK) > -1)
@@ -109,10 +109,10 @@ static int	path_index(char **envp)
 	return (i);
 }
 
-char	*command_parser(char *cmd)
+/*char	*command_parser(char *cmd)
 {
 	
-}
+}*/
 
 int	handle_path(char *cmd, char **envp)
 {
@@ -122,13 +122,17 @@ int	handle_path(char *cmd, char **envp)
 	char	**mycmdargs;
 	char	*cmd_one;
 
+	mycmdargs = NULL;
 	if (need_cmd_slash(cmd))
 		cmd = cmd_add_slash(cmd);
 	i = path_index(envp);
 	path = ft_strtrim(envp[i], "PATH=");
 	all_paths = ft_split(path, ':');
-	cmd = command_parser(cmd);
-	mycmdargs = ft_split(cmd, ' ');
+//	cmd = command_parser(cmd);
+	if (has_quotes(cmd))
+		mycmdargs = ft_split_quotes(cmd, ' ');
+	else
+		mycmdargs = ft_split(cmd, ' ');
 	if (check_access(cmd, mycmdargs, envp))
 		return (1);
 	i = -1;
@@ -349,7 +353,6 @@ void	handle_cmd2(int fd, int *end, char *cmd, char **envp)
 		write(2, "WEXIT2\n", 7);
 		return ;
 	}
-
 }
 
 void executor(t_gdata *gdata)
