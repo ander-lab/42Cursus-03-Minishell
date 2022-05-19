@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:47:49 by goliano-          #+#    #+#             */
-/*   Updated: 2022/03/04 12:21:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:49:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*cpy_cmd2(char *s, int fl, int l)
 	return (cmd);
 }
 
-
 char	*pretty_hostname(char *str)
 {
 	char	*word;
@@ -83,4 +82,23 @@ char	*add_at_sign(char *str)
 	word[i + 1] = '\0';
 	free(str);
 	return (word);
+}
+
+char	*cmd_add_slash(char *cmd)
+{
+	int		l;
+	int		i;
+	char	*n_cmd;
+
+	l = ft_strlen(cmd);
+	n_cmd = malloc(sizeof(char) * (l + 2));
+	if (!n_cmd)
+		return (0);
+	l = 1;
+	i = 0;
+	n_cmd[0] = '/';
+	while (cmd[i])
+		n_cmd[l++] = cmd[i++];
+	n_cmd[l] = '\0';
+	return (n_cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/18 13:02:06 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:39:56 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ int		is_in_quotes(int quotes, int tquotes);
 int     quote_type(int quotes, char *s, int l);
 int		has_quotes(char *s);
 
+/*
+ *	utils/files/files.c
+ */
+int		handle_file_no_create(char *file);
+int		handle_file_create(char *file, int type);
+int		open_next_file(t_dlist *lst, int type);
+
 /*  
  * utils/tokens/tokens.c
  */
@@ -101,6 +108,7 @@ int		spaces_or_null(char *s);
 /*
  * utils/str/strings2.c
  */
+char	*cmd_add_slash(char	*cmd);
 char	*cpy_cmd(char *s, int l, int idx);
 char	*cpy_cmd2(char *s, int fl, int l);
 char	*pretty_hostname(char *str);
@@ -112,6 +120,7 @@ char	*add_at_sign(char *str);
 int		needs_split(char *word);
 int		get_cmd_length_until_token(char *s, int idx);
 int		is_cmd_hide(char *s, int idx, int token);
+int		need_cmd_slash(char *cmd);
 
 /*
  * utils/lengths/lengths.c
@@ -124,6 +133,19 @@ int		filename_length(char *word);
  *	utils/handler/error_handler.c
  */
 int		exists_error(char *s, t_gdata *gdata);
+
+/*
+ *	utils/cmd_exec/cmd_exec.c
+ */
+int		handle_path(char *cmd, char **envp);
+
+/*
+ *	utils/forks/forks.c
+ */
+void	handle_cmd1(int fd, int *end, char *cmd, char **envp);
+void	handle_cmd2(int fd, int *end, char *cmd, char **envp);
+void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
+
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 void	ft_insert_data_lst(t_dlist **lst, t_token_data *token_data, int *tokens, int len);
 void	ft_convert_matrix(char **words, t_dlist *lst);
