@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/17 12:18:52 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:20:00 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	get_n_commands(char *s)
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 		{
 			if (is_cmd_hide(s, ++i, token))
+			//if (is_cmd_hide(s, i, token))
 				nc++;
 			nc++;
 		}

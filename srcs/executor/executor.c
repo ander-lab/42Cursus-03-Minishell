@@ -6,13 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/19 15:41:17 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/20 10:53:28 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	get_next_type(t_dlist *lst)
+int	get_next_type(t_dlist *lst)
 {
 	t_dlist	*aux;
 	int		tkn;

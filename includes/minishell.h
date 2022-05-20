@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/19 15:39:56 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/20 11:38:16 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*remove_new_line(char *str);
  *	srcs/executor/executor.c
  */
 void	executor(t_gdata *gdata);
+int		get_next_type(t_dlist *lst);
 
 /*
  *	srcs/lexer/spaces.c

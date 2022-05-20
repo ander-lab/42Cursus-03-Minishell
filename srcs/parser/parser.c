@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:17:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/17 12:22:26 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/20 12:18:06 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,30 @@
 int parser(t_gdata *gdata)
 {
 	int		tkn;
-	int		is_ftkn;
+	int		next_type;
 	int		is_tkn;
 	t_dlist	*aux;
 
-	is_ftkn = 0;
+	//is_ftkn = 0;
 	is_tkn = 0;
+	next_type = 0;
 	aux = gdata->cmds_list;
+	ft_printdlst(aux);
 	while (aux && !gdata->err)
 	{
 		tkn = ((t_token_data *)aux->content)->token;
-		if (is_file_token(tkn))
+		next_type = get_next_type(aux);
+		printf("TKN: %d\n", tkn);
+		printf("NEXT_TYPE: %d\n", next_type);
+		if (is_file_token(tkn) || tkn == 0)
+			is_tkn = 1;
+		if (is_tkn && (is_file_token(next_type) || next_type == 0))
+		{
+			write(1, "syntax error near unexpected token 'newline'\n", 46);
+			gdata->err = 1;
+		}
+		aux = aux->next;
+		/*if (is_file_token(tkn))
 			is_ftkn = 1;
 		if (is_ftkn || tkn == 0)
 			is_tkn = 1;
@@ -65,7 +78,7 @@ int parser(t_gdata *gdata)
 		//parser_handler(tkn, cmd, 1);
 		is_ftkn = 0;
 		is_tkn = 0;
-		aux = aux->next;
+		aux = aux->next;*/
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/19 15:15:57 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:36:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	is_cmd_hide(char *s, int idx, int token)
 		return (0);
 	i = get_cmd_length_until_token(s, idx);
 	word = cpy_cmd(s, i, idx);
-	word = remove_ind_red(word);
+	//ls >a | cat a 
+	//word = remove_ind_red(word);
 	return (needs_split(word));
 }
 
