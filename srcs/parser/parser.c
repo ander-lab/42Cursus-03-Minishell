@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:17:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/20 12:18:06 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:21:05 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,14 @@ int parser(t_gdata *gdata)
 	{
 		tkn = ((t_token_data *)aux->content)->token;
 		next_type = get_next_type(aux);
-		printf("TKN: %d\n", tkn);
-		printf("NEXT_TYPE: %d\n", next_type);
 		if (is_file_token(tkn) || tkn == 0)
 			is_tkn = 1;
-		if (is_tkn && (is_file_token(next_type) || next_type == 0))
+		if (is_tkn && next_type >= 0 && next_type <= 3)
 		{
 			write(1, "syntax error near unexpected token 'newline'\n", 46);
 			gdata->err = 1;
 		}
+		is_tkn = 0;
 		aux = aux->next;
 		/*if (is_file_token(tkn))
 			is_ftkn = 1;

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/20 12:20:38 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:20:30 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->n_tokens = get_n_tokens(s);
 	gdata->handle_next = 0;
 	gdata->commands = command_count(s);
+	gdata->fd[0] = 0;
+	gdata->fd[1] = 1;
 }
 
 void	lexer(char *s, t_gdata *gdata)
