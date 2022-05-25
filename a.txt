@@ -1,2 +1,0 @@
-open -a xcode a.txtopen -a xcode a.txtopen -a xcode a.txtopen -a xcode a.txtopen -a xcode a.txt
-open -a xcode a.txtopen -a xcode a.txtopen -a xcode a.txtopen -a xcode a.txt
