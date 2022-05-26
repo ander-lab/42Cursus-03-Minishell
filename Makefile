@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/05/19 15:40:18 by goliano-         ###   ########.fr        #
+#    Updated: 2022/05/26 15:21:47 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./utils/lengths/lengths.c srcs/lexer/clean_tokens.c ./utils/handler/error_handler.c \
 			./srcs/lexer/init_tokens.c ./srcs/lexer/spaces.c ./srcs/parser/parser.c \
 			./srcs/executor/executor.c ./utils/global/count.c ./utils/files/files.c \
-			./utils/cmd_exec/cmd_exec.c ./utils/forks/forks.c
+			./utils/cmd_exec/cmd_exec.c ./utils/forks/forks.c ./srcs/builtins/ft_pwd.c \
+			./srcs/builtins/ft_echo.c ./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c \
 
 # **************************************************************************** #
 # 								    RULES                                      #

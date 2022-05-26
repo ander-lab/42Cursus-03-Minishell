@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/25 14:47:37 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:22:33 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@ int		is_escaping(char c);
 void	handle_input(char *str, t_gdata *g_data/*, t_token_data *cmd_table*/);
 int		get_n_commands(char *s);
 
+/*
+ *	srcs/builtins/ft_pwd.c
+ */
+int		ft_pwd(void);
+
+/*
+ *	srcs/builtins/ft_echo.c
+ */
+int		ft_echo(char **cmd);
+
+/*
+ *	srcs/builtins/ft_env.c
+ */
+int		ft_env(char **env, char **args);
+
+/*
+ *	srcs/builtins/ft_exit.c
+ */
+int		ft_exit(char **cmd);
 /*
  *	srcs/lexer/lexer.c
  */
