@@ -16,21 +16,21 @@ int	get_next_type(t_dlist *lst)
 {
 	t_dlist	*aux;
 	int		tkn;
-	int		type;
+	//int		type;
 
 	aux = lst;
 	aux = aux->next;
 	if (!aux)
 		return (-1);
 	tkn = ((t_token_data *)aux->content)->token;
-	type = tkn;
+	/*type = tkn;
 	if (tkn == 0)			//viene commando (pipe)
 		type = 0;
 	else if (tkn == 2)		//viene redireccion (>)
 		type = 1;
 	else if (tkn == 4)		//viene append (>>)
-		type = 2;
-	return (type);
+		type = 2;*/
+	return (tkn);
 }
 
 int	get_prev_type(t_dlist *lst)
@@ -46,7 +46,35 @@ int	get_prev_type(t_dlist *lst)
 	return (tkn);
 }
 
-static void	handle_executor(t_gdata *gdata, t_dlist *aux, int *end, char *cmd)
+t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata)
+{
+	char	*cmd;
+	int	tkn;
+	int	is_red;
+
+	aux = aux->next;
+	tkn = ((t_token_data *)aux->content)->token;
+	while (tkn == 2 || tkn == 4)
+	{
+		is_red = 0;
+		if (tkn == 2) //red
+			is_red = 1;
+		aux = aux->next;
+		cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
+		cmd = ft_strtrim(cmd, " ");
+		if (is_red)
+			gdata->fd[1] = handle_file_create(cmd, 0);
+		else
+			gdata->fd[1] = handle_file_create(cmd, 1);
+		aux = aux->next;
+		if (!aux)
+			return (aux);
+		tkn = ((t_token_data *)aux->content)->token;
+	}
+	return (aux->next);
+}
+
+/*static void	handle_executor(t_gdata *gdata, t_dlist *aux, int *end, char *cmd)
 {
 	int	next_type;
 	int	prev_type;
@@ -66,9 +94,36 @@ static void	handle_executor(t_gdata *gdata, t_dlist *aux, int *end, char *cmd)
 	//else if (next_type == 2)	//append
 	//	handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
 	gdata->commands--;
+}*/
+
+static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *aux, int *end)
+{
+	int	next_type;
+	int	prev_type;
+	char	*cmd;
+
+	next_type = get_next_type(aux);
+	prev_type = get_prev_type(aux);
+	cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
+	cmd = ft_strtrim(cmd, " ");
+	if (next_type == 0)	//pipe
+		handle_cmd1(gdata->fd[0], end, cmd, gdata->envp);
+	//else if (next_type == 1 || next_type == 2 || prev_type == 2)	//redirección
+	//	handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
+	else if (next_type == 2 || next_type == 4)	//redirección
+	{
+		aux = do_red_or_app(aux, gdata);
+		handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
+	}
+	else if (next_type == -1)		//un cmd
+		handle_cmd3(0, end, cmd, gdata->envp);
+	//else if (next_type == 2)	//append
+	//	handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
+	gdata->commands--;
+	return (aux);
 }
 
-static int	is_token_file(t_dlist *aux)
+/*static int	is_token_file(t_dlist *aux)
 {
 	int	is_file;
 	int	tkn;
@@ -78,7 +133,7 @@ static int	is_token_file(t_dlist *aux)
 	if (is_file_token(tkn) && tkn != 3)
 		is_file = 1;
 	return (is_file);
-}
+}*/
 
 int	is_heredoc(t_dlist *aux)
 {
@@ -146,7 +201,7 @@ char	*cpy_str_no_quotes(char *cmd)
 	return (word);
 }
 
-void	do_heredoc(t_dlist *lst)
+t_dlist	*do_heredoc(t_dlist *lst)
 {
 	char	*cmd;
 	char	*line;
@@ -171,6 +226,7 @@ void	do_heredoc(t_dlist *lst)
 			break ;
 		line = readline("> ");
 	}
+	return (aux->next);
 }
 
 /*void	executor(t_gdata *gdata)
@@ -212,6 +268,8 @@ char	*cpy_until_space(char *cmd)
 
 	i = 0;
 	l = 0;
+	//if (!cmd)
+	//	return (0);
 	while (is_quote(cmd[i]))
 		i++;
 	while (cmd[i])
@@ -244,6 +302,8 @@ int		is_builtin(char *cmd)
 	char	*builtin;
 
 	it_is = 0;
+	if (!cmd)
+		return (it_is);
 	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen(builtin)) \
 			&& !ft_strncmp("echo", builtin, ft_strlen("echo")))
@@ -275,6 +335,7 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 	char	*builtin;
 
 	builtin = cpy_until_space(cmd);
+	printf("SALE BUILTIN: %s\n", builtin);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
 		ft_echo(ft_split(cmd, ' '));
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
@@ -285,7 +346,7 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 		ft_pwd();
 }
 
-void	executor(t_gdata *gdata)
+/*void	executor(t_gdata *gdata)
 {
 	t_dlist	*aux;
 	char	*cmd;
@@ -320,12 +381,91 @@ void	executor(t_gdata *gdata)
 			//handle_executor(gdata, aux, end, cmd);
 		}
 		if (is_builtin(cmd))
+		{
+			printf("BUILTIN\n");
 			execute_builtin(gdata, cmd);
+		}
 		//return ;
 		else if (!file && cmd)
 			handle_executor(gdata, aux, end, cmd);
 		if (cmd && file > 0)
 			file = 0;
 		aux = aux->next;
+	}
+}*/
+
+int	is_infile(t_dlist *aux)
+{
+	int	tkn;
+	int	it_is;
+
+	it_is = 0;
+	tkn = ((t_token_data *)aux->content)->token;
+	if (tkn == 1)
+		it_is = 1;
+	return (it_is);
+}
+
+t_dlist	*do_infile(t_dlist *aux, t_gdata *gdata)
+{
+	char	*cmd;
+
+	aux = aux->next;
+	cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
+	cmd = ft_strtrim(cmd, " ");
+	gdata->fd[0] = handle_file_no_create(cmd);
+	return (aux->next);
+}
+
+int	is_red_or_app(t_dlist *aux)
+{
+	int	tkn;
+	int	it_is;
+
+	it_is = 0;
+	tkn = ((t_token_data *)aux->content)->token;
+	if (tkn == 2 || tkn == 4)
+		it_is = 1;
+	return (it_is);
+}
+
+/*t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata)
+{
+	char	*cmd;
+	int	tkn;
+	int	is_red;
+
+	aux = aux->next;
+	tkn = ((t_token_data *)aux->content)->token;
+	printf("TKN: %d\n", tkn);
+	is_red = 0;
+	if (tkn == 2) //red
+		is_red = 1;
+	aux = aux->next;
+	cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
+	cmd = ft_strtrim(cmd, " ");
+	printf("CMD: %d\n", cmd);
+	if (is_red)
+		gdata->fd[1] = handle_file_create(cmd, 0);
+	else
+		gdata->fd[1] = handle_file_create(cmd, 1);
+	return (aux->next);
+}*/
+
+void	executor(t_gdata *gdata)
+{
+	t_dlist	*aux;
+	int		end[2];
+
+	aux = gdata->cmds_list;
+	pipe(end);
+	while (aux && gdata->commands > 0)
+	{
+		if (is_heredoc(aux))
+			aux = do_heredoc(aux);
+		else if (is_infile(aux))
+			aux = do_infile(aux, gdata);
+		else
+			aux = handle_executor(gdata, aux, end);
 	}
 }
