@@ -78,6 +78,18 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->fd[1] = 1;
 }
 
+/*void	free_gdata(t_gdata *gdata)
+{
+	int	i;
+
+	i = 0;
+	while (gdata->cmds[i])
+	{
+		free(gdata->cmds[i]);
+		i++;
+	}
+}*/
+
 void	lexer(char *s, t_gdata *gdata)
 {
 	init_gdata(s, gdata);
@@ -94,4 +106,5 @@ void	lexer(char *s, t_gdata *gdata)
 	if (gdata->err)
 		return ; //gestion de comillas abiertas lexer
 	executor(gdata);
+	//free(gdata);
 }

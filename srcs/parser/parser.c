@@ -12,72 +12,41 @@
 
 #include "../../includes/minishell.h"
 
-/*static int parser_handler(int tkn, char *cmd, int type)
+static int	check_parser_error(int i, t_dlist *aux)
 {
-	int	error;
+	int	tkn;
+	int	next_type;
+	int	err;
 
-	error = 0;
-	// tipo 0, empieza en ind, red, h_d, app y luego viene archivo
-	if (type == 0 && tkn != 5)
-		error = 1;
-	// dos tokens seguidos
-	if (type == 1 && (tkn != 5 || tkn != 6))
-		error = 1;
-	//printf("TKN: %d\n", tkn);
-	printf("CMD: %s\n", cmd);
-	//printf("ERROR: %d\n", error);
-	return (error);
-}*/
+	err = 0;
+	tkn = ((t_token_data *)aux->content)->token;
+	next_type = get_next_type(aux);
+	if (i == 0 && tkn == 0)
+	{
+		write(1, "syntax error near unexpected token '|'\n", 40);
+		err = 1;
+	}
+	if (next_type >= 0 && next_type <= 4 && tkn >= 0 && tkn <= 4)
+	{
+		write(1, "syntax error near unexpected token 'newline'\n", 46);
+		err = 1;
+	}
+	return (err);
+}
 
-/*int check_consecutive_tokens()
+void	parser(t_gdata *gdata)
 {
-
-}*/
-
-int parser(t_gdata *gdata)
-{
-	int		tkn;
-	int		next_type;
-	int		is_tkn;
 	t_dlist	*aux;
+	int	i;
 
-	//is_ftkn = 0;
-	is_tkn = 0;
-	next_type = 0;
 	aux = gdata->cmds_list;
+	i = 0;
 	ft_printdlst(aux);
 	while (aux && !gdata->err)
 	{
-		tkn = ((t_token_data *)aux->content)->token;
-		next_type = get_next_type(aux);
-		if (is_file_token(tkn) || tkn == 0)
-			is_tkn = 1;
-		if (is_tkn && next_type >= 0 && next_type <= 3)
-		{
-			write(1, "syntax error near unexpected token 'newline'\n", 46);
+		if (check_parser_error(i, aux))
 			gdata->err = 1;
-		}
-		is_tkn = 0;
+		i++;
 		aux = aux->next;
-		/*if (is_file_token(tkn))
-			is_ftkn = 1;
-		if (is_ftkn || tkn == 0)
-			is_tkn = 1;
-		if (is_ftkn || is_tkn)
-		{
-			aux = aux->next;
-			tkn = ((t_token_data *)aux->content)->token;
-		}
-		if (is_tkn && tkn >= 0 && tkn <= 4)
-		{
-			write(1, "syntax error near unexpected token 'newline'\n", 46);
-			gdata->err = 1;
-		}
-	//	parser_handler(tkn, cmd, 0);
-		//parser_handler(tkn, cmd, 1);
-		is_ftkn = 0;
-		is_tkn = 0;
-		aux = aux->next;*/
 	}
-	return (1);
 }

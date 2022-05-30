@@ -56,7 +56,7 @@ char	*pretty_hostname(char *str)
 	char	*word;
 	int		i;
 
-	word = ft_calloc(sizeof(char), (ft_strlen(str) + 4));
+	word = ft_calloc(sizeof(char), (ft_strlen(str) + 3));
 	if (!word)
 		return (0);
 	ft_strcpy(word, str);

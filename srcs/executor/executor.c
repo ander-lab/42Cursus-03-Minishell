@@ -41,7 +41,7 @@ int	get_prev_type(t_dlist *lst)
 	aux = lst;
 	aux = aux->prev;
 	if (!aux)
-		return (-2);
+		return (-1);
 	tkn = ((t_token_data *)aux->content)->token;
 	return (tkn);
 }
@@ -108,17 +108,14 @@ static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *aux, int *end)
 	cmd = ft_strtrim(cmd, " ");
 	if (next_type == 0)	//pipe
 		handle_cmd1(gdata->fd[0], end, cmd, gdata->envp);
-	//else if (next_type == 1 || next_type == 2 || prev_type == 2)	//redirección
-	//	handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
-	else if (next_type == 2 || next_type == 4)	//redirección
+	else if (next_type == 2 || next_type == 4 || prev_type == 2)	//redirección
 	{
 		aux = do_red_or_app(aux, gdata);
-		handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
+		if (prev_type != 3)
+			handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
 	}
 	else if (next_type == -1)		//un cmd
 		handle_cmd3(0, end, cmd, gdata->envp);
-	//else if (next_type == 2)	//append
-	//	handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
 	gdata->commands--;
 	return (aux);
 }
@@ -181,7 +178,7 @@ char	*cpy_str_no_quotes(char *cmd)
 	i = 0;
 	l = 0;
 	quote_type = 0;
-	word = malloc(sizeof(char *) + (length_str_no_quotes(cmd) + 1));
+	word = ft_calloc(sizeof(char *), (length_str_no_quotes(cmd) + 1));
 	if (!word)
 		return (0);
 	while (cmd[i])
@@ -207,8 +204,8 @@ t_dlist	*do_heredoc(t_dlist *lst)
 	char	*line;
 	int		checker;
 	t_dlist	*aux;
+	int	next_type;
 
-	aux = lst;
 	aux = lst->next;
 	cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
 	if (has_quotes(cmd))
@@ -226,7 +223,11 @@ t_dlist	*do_heredoc(t_dlist *lst)
 			break ;
 		line = readline("> ");
 	}
-	return (aux->next);
+	next_type = get_next_type(aux);
+	if (next_type == 3 || next_type == -1)
+		return (aux->next);
+	free(cmd);
+	return (aux);
 }
 
 /*void	executor(t_gdata *gdata)
@@ -335,7 +336,6 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 	char	*builtin;
 
 	builtin = cpy_until_space(cmd);
-	printf("SALE BUILTIN: %s\n", builtin);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
 		ft_echo(ft_split(cmd, ' '));
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
@@ -461,6 +461,10 @@ void	executor(t_gdata *gdata)
 	pipe(end);
 	while (aux && gdata->commands > 0)
 	{
+		char* cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
+		int tkn = ((t_token_data *)aux->content)->token;
+		printf("CMD0: %s\n", cmd);
+		printf("TKN0: %d\n", tkn);
 		if (is_heredoc(aux))
 			aux = do_heredoc(aux);
 		else if (is_infile(aux))

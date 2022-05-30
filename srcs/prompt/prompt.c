@@ -56,7 +56,7 @@ char	*exec_command(char *cmd, char **envp)
 	}
 	close(end[1]);
 	waitpid(p, NULL, 0);
-	out = malloc(sizeof(char) * 4096);
+	//out = malloc(sizeof(char) * 4096);
 	out = get_next_line(end[0]);
 	out = remove_new_line(out);
 	close(end[0]);
@@ -74,4 +74,6 @@ void	init_prompt(t_gdata *g_data, char **envp)
 	hostname = exec_command("/bin/hostname", envp);
 	hostname = pretty_hostname(hostname);
 	g_data->prompt = ft_strjoin(username, hostname);
+	free(username);
+	free(hostname);
 }

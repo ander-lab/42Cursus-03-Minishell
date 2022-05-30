@@ -37,6 +37,7 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	int	l;
 	int	token;
 	int	quotes;
+	int	r;
 
 	i = -1;
 	l = 0;
@@ -52,7 +53,7 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 		{
 			raw_tokens[l] = token;
 	//		check_no_spaces(token, s, i);
-			int r = i;
+			r = i;
 			//if (is_cmd_hide(s, ++r, token))
 			if (is_cmd_hide(s, ++i, token))
 				raw_tokens[++l] = -2;
@@ -86,7 +87,9 @@ void	init_tokens(char *s, t_gdata *gdata)
 	int				*clean_tkns;
 
 	token_data = ft_calloc(sizeof(t_token_data), 1);
-	raw_tokens = ft_calloc(ft_strlen(s) + 2, sizeof(int));
+	//raw_tokens = ft_calloc(sizeof(int), ft_strlen(s) + 2);
+	raw_tokens = ft_calloc(sizeof(int), ft_strlen(s) + 1);
+	//printf("LEN: %ld\n", ft_strlen(s));
 	token_lst = NULL;
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	/*int j = 0;
@@ -109,5 +112,7 @@ void	init_tokens(char *s, t_gdata *gdata)
 	clean_lst_tokens(token_lst);
 	//printf("\n------------------------------\n");
 	gdata->cmds_list = token_lst;
+	free(raw_tokens);
+	free(clean_tkns);
 	//ft_printdlst(token_lst);
 }

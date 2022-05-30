@@ -81,7 +81,7 @@ int		is_file_token(int t);
 /*
  *	srcs/parser/parser.c
  */
-int		parser(t_gdata *gdata);
+void		parser(t_gdata *gdata);
 /*
  *	srcs/lexer/init_tokens.c
  */
@@ -166,6 +166,9 @@ void	handle_cmd1(int fd, int *end, char *cmd, char **envp);
 void	handle_cmd2(int fd, int *end, char *cmd, char **envp);
 void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
 
+/*
+ *	srcs/lexer/token_to_list.c
+ */
 //t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 void	ft_insert_data_lst(t_dlist **lst, t_token_data *token_data, int *tokens, int len);
 void	ft_convert_matrix(char **words, t_dlist *lst);
