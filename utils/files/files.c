@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:51:41 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/26 11:59:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:13:03 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	handle_file_no_create(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("File: ");
+		perror(file);
 		return (-1);
 	}
 	return (fd);

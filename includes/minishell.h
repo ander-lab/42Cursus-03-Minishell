@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/26 15:22:33 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/31 10:47:11 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,12 @@ char	*pretty_hostname(char *str);
 char	*add_at_sign(char *str);
 
 /*
+ *	utils/str/strings3.c
+ */
+char	*cpy_str_no_quotes(char *cmd);
+char	*cpy_until_space(char *cmd);
+
+/*
  * utils/chequer/chequer.c
  */
 int		needs_split(char *word);
@@ -148,6 +154,7 @@ int		need_cmd_slash(char *cmd);
 int		length_from_idx(char *word, int idx);
 int		get_cmds_length(t_gdata *g_data);
 int		filename_length(char *word);
+int		length_str_no_quotes(char *cmd);
 
 /*
  *	utils/handler/error_handler.c
@@ -165,6 +172,30 @@ int		handle_path(char *cmd, char **envp);
 void	handle_cmd1(int fd, int *end, char *cmd, char **envp);
 void	handle_cmd2(int fd, int *end, char *cmd, char **envp);
 void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
+
+/*
+ *	srcs/executor/heredoc.c
+ */
+t_dlist	*do_heredoc(t_dlist *lst);
+int		is_heredoc(t_dlist *aux);
+
+/*
+ *	srcs/executor/infile.c
+ */
+int		is_infile(t_dlist *aux);
+t_dlist	*do_infile(t_dlist *aux, t_gdata *gdata);
+
+/*
+ *	srcs/executor/red_app.c
+ */
+t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata);
+int		is_red_or_app(t_dlist *aux);
+
+/*
+ *	srcs/executor/builtins.c
+ */
+int		is_builtin(char *cmd);
+void	execute_builtin(t_gdata *gdata, char *cmd);
 
 /*
  *	srcs/lexer/token_to_list.c

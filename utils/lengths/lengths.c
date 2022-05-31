@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:29:03 by goliano-          #+#    #+#             */
-/*   Updated: 2022/03/04 12:32:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/05/31 10:30:30 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,30 @@ int	length_from_idx(char *word, int idx)
 	{
 		idx++;
 		l++;
+	}
+	return (l);
+}
+
+int		length_str_no_quotes(char *cmd)
+{
+	int	l;
+	int	i;
+	int	quote_type;
+
+	i = 0;
+	l = 0;
+	quote_type = 0;
+	while (cmd[i])
+	{
+		if (quote_type == is_quote(cmd[i]))
+			quote_type = 0;
+		if (!quote_type && is_quote(cmd[i]))
+			quote_type = is_quote(cmd[i]);
+		if (is_quote(cmd[i]) != quote_type)
+			l++;
+		else if (!is_quote(cmd[i]))
+			l++;
+		i++;
 	}
 	return (l);
 }
