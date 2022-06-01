@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:32:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/31 10:36:56 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:41:52 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_heredoc(t_dlist *aux)
 	return (it_is);
 }
 
-t_dlist	*do_heredoc(t_dlist *lst)
+t_dlist	*do_heredoc(t_dlist *lst, t_gdata *gdata)
 {
 	char	*cmd;
 	char	*line;
@@ -37,6 +37,7 @@ t_dlist	*do_heredoc(t_dlist *lst)
 	if (has_quotes(cmd))
 		cmd = cpy_str_no_quotes(cmd);
 	line = readline("> ");
+	gdata->heredoc = line;
 	while (line)
 	{
 		checker = 0;
@@ -47,6 +48,7 @@ t_dlist	*do_heredoc(t_dlist *lst)
 			checker++;
 		if (checker == 2)
 			break ;
+		gdata->heredoc = ft_strjoinnl(gdata->heredoc, line);
 		line = readline("> ");
 	}
 	next_type = get_next_type(aux);

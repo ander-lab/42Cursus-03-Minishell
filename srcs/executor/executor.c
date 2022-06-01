@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/31 15:48:35 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:58:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,24 +81,35 @@ int		next_is_heredoc(t_dlist *aux)
 	int	it_is;
 
 	aux = aux->next;
-	tkn = ((t_token_data *)aux->content)->token;
 	it_is = 0;
+	if (!aux)
+		return (it_is);
+	tkn = ((t_token_data *)aux->content)->token;
 	if (tkn == 3)
 		it_is = 1;
 	return (it_is);
 }
 
-t_dlist	*do_here_cmd(t_dlist *lst, t_gdata *gdata, int *end)
+t_dlist	*do_here_cmd(t_dlist *lst, t_gdata *gdata)
 {
 	t_dlist	*aux;
 	char	*cmd;
+	int		end[2];
 
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	printf("CMD: %s\n", cmd);
 	aux = lst;
 	lst	= lst->next;
-	lst = do_heredoc(lst);
-	handle_cmd3(0, end, cmd, gdata->envp);
+	lst = do_heredoc(lst, gdata);
+	pipe(end);
+	int n = write(end[1], gdata->heredoc, ft_strlen(gdata->heredoc));
+	printf("HERE: %s\n", gdata->heredoc);
+	printf("ESCRITOs: %d\n", n);
+	char *word = malloc(sizeof(char) + 9000);
+	//dup2(end[1], end[0]);
+	read(end[0], word, ft_strlen(gdata->heredoc));
+	write(2, word, ft_strlen(word));
+	printf("WORD: %s\n", word);
+	//handle_cmd1(end[0], end, cmd, gdata->envp);
 	return (lst);
 }
 
@@ -117,9 +128,9 @@ void	executor(t_gdata *gdata)
 		printf("TKN0: %d\n", tkn);
 		printf("NCOM1: %d\n", gdata->commands);
 		if (next_is_heredoc(aux))
-			aux = do_here_cmd(aux, gdata, end);
+			aux = do_here_cmd(aux, gdata);
 		else if (is_heredoc(aux))
-			aux = do_heredoc(aux);
+			aux = do_heredoc(aux, gdata);
 		else if (is_infile(aux))
 			aux = do_infile(aux, gdata);
 		else
