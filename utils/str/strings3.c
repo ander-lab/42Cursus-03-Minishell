@@ -75,3 +75,22 @@ char	*cpy_until_space(char *cmd)
 	word[i] = '\0';
 	return (word);
 }
+
+char	*append_nl(char *str)
+{
+	int	i;
+	char	*word;
+
+	if (!str)
+		return (0);
+	word = malloc(sizeof(char) * ft_strlen(str) + 2);
+	if (!word)
+		return (0);
+	i = -1;
+	while (str[++i])
+		word[i] = str[i];
+	word[i] = '\n';
+	word[i + 1] = '\0';
+	free(str);
+	return (word);
+}

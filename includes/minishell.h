@@ -139,6 +139,7 @@ char	*add_at_sign(char *str);
  */
 char	*cpy_str_no_quotes(char *cmd);
 char	*cpy_until_space(char *cmd);
+char	*append_nl(char *str);
 
 /*
  * utils/chequer/chequer.c
@@ -176,8 +177,10 @@ void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
 /*
  *	srcs/executor/heredoc.c
  */
-t_dlist	*do_heredoc(t_dlist *lst, t_gdata *gdata);
+void	do_heredocs(t_dlist *lst, t_gdata *gdata);
 int		is_heredoc(t_dlist *aux);
+int	exists_heredoc(t_dlist *aux);
+void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
 
 /*
  *	srcs/executor/infile.c
