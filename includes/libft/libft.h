@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/01 11:31:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:09:48 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			**ft_split(char const *s, char c);
 char			**ft_split_quotes(char const *s, char c);
-void			ft_free_matrix(char **matrix);
 int				ft_iter_str_bool(char *str, int (*f)(int));
 char			*get_next_line(int fd);
 ssize_t			ft_max_int(ssize_t *str, ssize_t len);
@@ -103,8 +102,10 @@ size_t			count_chars(char c, char *str);
 /*
 **Matrix Library
 */
+void			ft_free_matrix(char **matrix);
 int				ft_iter_matrix_bool(char **str, int (*f)(int));
 size_t			ft_matrixlen(char **matrix);
+char			**ft_matrix_dup(char **matrix, size_t lines);
 t_matrix_data	ft_matrix_data(char **matrix);
 
 /*
