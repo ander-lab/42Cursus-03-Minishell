@@ -72,6 +72,12 @@ char	*remove_new_line(char *str);
  */
 void	executor(t_gdata *gdata);
 int		get_next_type(t_dlist *lst);
+int	get_prev_type(t_dlist *lst);
+
+/*
+ *	srcs/executor/heredoc.c
+ */
+t_dlist	*go_to_pipe(t_dlist *lst);
 
 /*
  *	srcs/lexer/spaces.c
@@ -177,7 +183,7 @@ void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
 /*
  *	srcs/executor/heredoc.c
  */
-void	do_heredocs(t_dlist *lst, t_gdata *gdata);
+void	do_heredoc(t_dlist *lst, t_gdata *gdata);
 int		is_heredoc(t_dlist *aux);
 int	exists_heredoc(t_dlist *aux);
 void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
@@ -186,7 +192,7 @@ void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
  *	srcs/executor/infile.c
  */
 int		is_infile(t_dlist *aux);
-t_dlist	*do_infile(t_dlist *aux, t_gdata *gdata);
+void	do_infile(t_dlist *aux, t_gdata *gdata);
 
 /*
  *	srcs/executor/red_app.c
@@ -207,4 +213,12 @@ void	execute_builtin(t_gdata *gdata, char *cmd);
 void	ft_insert_data_lst(t_dlist **lst, t_token_data *token_data, int *tokens, int len);
 void	ft_convert_matrix(char **words, t_dlist *lst);
 
+/*
+ *	utils/heredoc/heredoc.c
+ */
+void	fill_heredoc(t_gdata *gdata, char *cmd);
+int	need_exec(t_dlist *lst);
+t_dlist	*go_heredoc(t_dlist *lst);
+int	is_last_heredoc(t_dlist *lst);
+int	exists_heredoc(t_dlist *lst);
 #endif

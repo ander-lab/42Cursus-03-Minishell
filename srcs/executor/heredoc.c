@@ -12,119 +12,90 @@
 
 #include "../../includes/minishell.h"
 
-/*int	is_heredoc(t_dlist *aux)
-{
-	int	tkn;
-	int	it_is;
-
-	it_is = 0;
-	tkn = ((t_token_data *)aux->content)->token;
-	if (tkn == 3)
-		it_is = 1;
-	return (it_is);
-}*/
-
-int	exists_heredoc(t_dlist *lst)
-{
-	int	tkn;
-	int	exists;
-
-	exists = 0;
-	while (lst && !exists)
-	{
-		
-		tkn = ((t_token_data *)lst->content)->token;
-		if (tkn == 3)
-			exists = 1;
-		lst = lst->next;
-	}
-	return (exists);
-}
-
-/*int	next_is_heredoc(t_dlist *aux)
-{
-	int	tkn;
-	int	it_is;
-
-	aux = aux->next;
-	it_is = 0;
-	if (!aux)
-		return (it_is);
-	tkn = ((t_token_data *)aux->content)->token;
-	if (tkn == 3)
-		it_is = 1;
-	return (it_is);
-}*/
-
-static void	here_cmd_exec(int *end, char *cmd, t_gdata *gdata)
+static void	here_cmd_exec(/*int fd,*/ int *end, char *cmd, t_gdata *gdata)
 {
 	close(end[1]);
+	//dup2(fd, STDOUT_FILENO);
+	//close(fd);
 	dup2(end[0], STDIN_FILENO);
 	close(end[0]);
 	handle_path(cmd, gdata->envp);
 }
 
-/*t_dlist	*do_here_cmd(t_dlist *lst, t_gdata *gdata)
+t_dlist	*go_to_pipe(t_dlist *lst)
 {
-	//t_dlist	*aux;
-	char	*cmd;
-	int		end[2];
-	pid_t	p;
-	int	status;
+	int	tkn;
 
-	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	printf("CMD: %s\n", cmd);
-	//aux = lst;
-	lst = lst->next;
-	lst = do_heredoc(lst, gdata);
-	pipe(end);
-	write(end[1], gdata->heredoc, ft_strlen(gdata->heredoc));
-	p = fork();
-	status = 0;
-	if (p < 0)
-		write(2, "error\n", 6);
-	if (p == 0)
-		here_cmd_exec(end, cmd, gdata);
-	close(end[0]);
-	close(end[1]);
-	waitpid(p, &status, 0);
-	if (WEXITSTATUS(status))
+	while (lst)
 	{
-		write(2, "WEXIT1\n", 7);
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 0)
+			return (lst->next);
+		lst = lst->prev;
 	}
-	//char *word = malloc(sizeof(char) + 9000);
-	//read(end[0], word, ft_strlen(gdata->heredoc));
-	//write(2, word, ft_strlen(word));
-	//printf("WORD: %s\n", word);
-	//handle_cmd3(end[0], end, cmd, gdata->envp);
 	return (lst);
-}*/
+}
 
-void	fill_heredoc(t_gdata *gdata, char *cmd)
+t_dlist	*go_to_cmd(t_dlist *lst)
 {
-	char	*line;
-	int	i;
-	int	checker;
-	
-	line = readline("> ");
-	gdata->heredoc = line;
-	i = 0;
-	while (line)
+	t_dlist *aux;
+	int	tkn;
+	//char *cmd;
+
+	aux = go_to_pipe(lst);
+	if (aux)
+		return (aux);
+	lst = lst->prev;
+	lst = lst->prev;
+	if (!lst->prev)
+		return (lst);
+	while (lst)
 	{
-		checker = 0;
-		printf("%s\n", line);
-		if (!ft_strncmp(line, cmd, ft_strlen(cmd)))
-			checker++;
-		if (!ft_strncmp(line, cmd, ft_strlen(line)))
-			checker++;
-		if (checker == 2)
-			break ;
-		if (i != 0)
-			gdata->heredoc = ft_strjoinnl(gdata->heredoc, line);
-		line = readline("> ");
-		i++;
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 3)
+		{
+			aux = lst->next;
+			aux = aux->next;
+			tkn = ((t_token_data *)aux->content)->token;
+			while (tkn == 1)
+			{
+				aux = aux->next;
+				aux = aux->next;
+				tkn = ((t_token_data *)aux->content)->token;
+			}
+		//	cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
+			if (tkn != 3)
+				return (aux);
+		}
+		lst = lst->prev;
 	}
-	gdata->heredoc = append_nl(gdata->heredoc);
+	lst = lst->next;
+	return (lst->next);
+}
+
+t_dlist *go_last_here(t_dlist *lst)
+{
+	t_dlist	*aux;
+	int	tkn;
+
+	while (lst)
+	{
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 3)
+		{
+			aux = lst;
+			while (lst)
+			{
+				tkn = ((t_token_data *)lst->content)->token;
+				if (tkn == 3)
+					break ;
+				lst = lst->next;
+			}
+			lst = aux;
+		}
+		lst = lst->next;
+	}
+	return (aux->next);
 }
 
 void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
@@ -134,17 +105,18 @@ void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 	int		end[2];
 	pid_t	p;
 	int	status;
+	int	next_type;
 
-	lst = lst->prev;
-	lst = lst->prev;
-	if (!lst)
-		return ;
+	lst = go_to_cmd(lst);
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	printf("CMD: %s\n", cmd);
-	lst = lst->next;
-	lst = lst->next;
+	next_type = get_next_type(lst);
+	lst = go_last_here(lst);
 	here = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	fill_heredoc(gdata, here);
+	printf("NEXT: %d\n", next_type);
+	//if (next_type == 2 || next_type == 4)
+	//	lst = do_red_or_app(lst, gdata);
 	pipe(end);
 	write(end[1], gdata->heredoc, ft_strlen(gdata->heredoc));
 	p = fork();
@@ -152,7 +124,7 @@ void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 	if (p < 0)
 		write(2, "error\n", 6);
 	if (p == 0)
-		here_cmd_exec(end, cmd, gdata);
+		here_cmd_exec(/*gdata->fd[1],*/ end, cmd, gdata);
 	close(end[0]);
 	close(end[1]);
 	waitpid(p, &status, 0);
@@ -162,84 +134,18 @@ void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 	}
 }
 
-t_dlist	*go_heredoc(t_dlist *lst)
-{
-	int	tkn;
-
-	while (lst)
-	{
-		tkn = ((t_token_data *)lst->content)->token;
-		lst = lst->next;
-		if (tkn == 3)
-			break;
-	}
-	return (lst);
-}
-
-int	is_last_heredoc(t_dlist *lst)
-{
-	int	count;
-	int	tkn;
-	int	it_is;
-
-	count = 0;
-	it_is = 0;
-	lst = lst->prev;
-	while (lst)
-	{
-		tkn = ((t_token_data *)lst->content)->token;
-		if (tkn == 3)
-			count++;
-		lst = lst->next;
-	}
-	if (count == 1)
-		it_is = 1;
-	return (it_is);
-}
-
-int	need_exec(t_dlist *lst)
-{
-	int	tkn;
-	int	need_it;
-
-	lst = lst->next;
-	need_it = 1;
-	while (lst)
-	{
-		tkn = ((t_token_data *)lst->content)->token;
-		if (tkn != 3)
-			need_it = 0;
-		lst = lst->next;
-	}
-	return (need_it);
-}
-
-void	do_heredocs(t_dlist *lst, t_gdata *gdata)
+void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 {
 	char	*cmd;
-	//int		checker;
-	//t_dlist	*aux;
-	//int	next_type;
 
-	//aux = lst->next;
 	lst = go_heredoc(lst);
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	if (has_quotes(cmd))
 		cmd = cpy_str_no_quotes(cmd);
-	printf("BUSCO: %s\n", cmd);
-	if (is_last_heredoc(lst) && need_exec(lst))
-	{
-		printf("ULTIMO\n");
+	printf("NEED: %d\n", need_exec(lst));
+	return ;
+	if (is_last_heredoc(lst)/* && need_exec(lst)*/)
 		do_here_cmd(lst, gdata);
-	}
 	else
-	{
-		printf("NOCMD\n");
 		fill_heredoc(gdata, cmd);
-	}
-	/*next_type = get_next_type(aux);
-	if (next_type == 3 || next_type == -1)
-		return (aux->next);
-	free(cmd);
-	return (aux);*/
 }

@@ -38,7 +38,7 @@ int	get_prev_type(t_dlist *lst)
 	return (tkn);
 }
 
-static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *aux, int *end)
+/*static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *aux, int *end)
 {
 	int	next_type;
 	int	prev_type;
@@ -73,38 +73,56 @@ static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *aux, int *end)
 	}
 	gdata->commands--;
 	return (aux);
+}*/
+
+static void	handle_here(t_dlist *lst, t_gdata *gdata)
+{
+	int	tkn;
+
+	tkn = ((t_token_data *)lst->content)->token;
+	while (exists_heredoc(lst))
+	{
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 3)
+			do_heredoc(lst, gdata);
+		lst = lst->next;
+	}
 }
 
+void	handle_infile(t_dlist *lst, t_gdata *gdata)
+{
+	int	tkn;
+
+	while (lst && !gdata->err)
+	{
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 1)
+			do_infile(lst, gdata);
+		lst = lst->next;
+	}
+}
 
 void	executor(t_gdata *gdata)
 {
 	t_dlist	*lst;
 	int		end[2];
-	int	i;
+	//int	tkn;
 
 	lst = gdata->cmds_list;
 	pipe(end);
-	i = 0;
-	while (lst && gdata->commands > 0)
+	handle_here(lst, gdata);
+	handle_infile(lst, gdata);
+	if (gdata->err)
+		return ;
+	/*while (lst && gdata->commands > 0)
 	{
 		char* cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-		int tkn = ((t_token_data *)lst->content)->token;
+		tkn = ((t_token_data *)lst->content)->token;
 		printf("CMD0: %s\n", cmd);
-		//printf("TKN0: %d\n", tkn);
-		/*else if (is_heredoc(aux))
-			aux = do_heredoc(aux, gdata);*/
-		while (exists_heredoc(lst, i))
-		{
-			tkn = ((t_token_data *)lst->content)->token;
-			printf("MUEVO TKN: %d\n", tkn);
-			if (tkn == 3)
-				do_heredocs(lst, gdata, i);
-			lst = lst->next;
-			i++;
-		}
+		printf("TKN0: %d\n", tkn);
 		if (is_infile(lst))
 			lst = do_infile(lst, gdata);
 		else
 			lst = handle_executor(gdata, lst, end);
-	}
+	}*/
 }

@@ -25,7 +25,7 @@ int	is_infile(t_dlist *aux)
 }
 
 
-t_dlist	*do_infile(t_dlist *aux, t_gdata *gdata)
+void	do_infile(t_dlist *aux, t_gdata *gdata)
 {
 	char	*cmd;
 
@@ -33,5 +33,6 @@ t_dlist	*do_infile(t_dlist *aux, t_gdata *gdata)
 	cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
 	cmd = ft_strtrim(cmd, " ");
 	gdata->fd[0] = handle_file_no_create(cmd);
-	return (aux->next);
+	if (gdata->fd[0] == -1)
+		gdata->err = 1;
 }

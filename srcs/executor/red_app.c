@@ -65,6 +65,7 @@ t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata)
 		aux = aux->next;
 		cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
 		cmd = ft_strtrim(cmd, " ");
+		printf("ABRO: %s\n", cmd);
 		if (is_red)
 			gdata->fd[1] = handle_file_create(cmd, 0);
 		else
@@ -73,7 +74,6 @@ t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata)
 		if (!aux)
 			return (aux);
 		tkn = ((t_token_data *)aux->content)->token;
-		printf("ESTE  TKN: %d\n", tkn);
 		if (tkn >= 5)
 			multiple_reds(aux);
 	}
