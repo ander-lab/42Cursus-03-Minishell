@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/07 10:33:00 by goliano-          #+#    #+#             */
+/*   Updated: 2022/06/07 16:28:14 by goliano-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	exists_heredoc(t_dlist *lst)
@@ -38,59 +50,24 @@ int	is_last_heredoc(t_dlist *lst)
 	return (it_is);
 }
 
-t_dlist	*go_heredoc(t_dlist *lst)
-{
-	int	tkn;
-
-	while (lst)
-	{
-		tkn = ((t_token_data *)lst->content)->token;
-		lst = lst->next;
-		if (tkn == 3)
-			break;
-	}
-	return (lst);
-}
-
 int	need_exec(t_dlist *lst)
 {
-	t_dlist *aux;
 	int	tkn;
-	char *cmd;
+	int	prev;
 
-	aux = go_to_pipe(lst);
-	if (aux)
-	{
-		tkn = ((t_token_data *)aux->content)->token;
-		tkn = ((t_token_data *)aux->content)->token;
-		if (tkn >= 5)
-			return (1);
-	}
 	lst = lst->prev;
-	lst = lst->prev;
-	if (!lst)
+	if (!lst->prev)
 		return (0);
-	int prev = get_prev_type(lst);
-	while (prev == 2 || prev == 4)
-	{
-		lst = lst->prev;
-		lst = lst->prev;
-		prev = get_prev_type(lst);
-	}
+	lst = lst->prev;
+	if (!lst->prev)
+		return (1);
+	lst = iterate_red_app(lst);
 	prev = get_prev_type(lst);
 	if (prev == 3)
 		lst = lst->next;
-	else if (prev == 1)
-	{
-		lst = lst->next;
-		int next = get_next_type(lst);
-		while (next == 1)
-		{
-			lst = lst->next;
-			lst = lst->next;
-			next = get_next_type(lst);
-		}
-	}
+	if (prev == 1)
+		lst = iterate_ind(lst);
+	tkn = ((t_token_data *)lst->content)->token;
 	if (tkn >= 5)
 		return (1);
 	return (0);

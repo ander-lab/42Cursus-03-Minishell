@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/01 15:58:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/07 11:40:48 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	handle_here(t_dlist *lst, t_gdata *gdata)
 {
 	int	tkn;
 
-	tkn = ((t_token_data *)lst->content)->token;
 	while (exists_heredoc(lst))
 	{
 		tkn = ((t_token_data *)lst->content)->token;

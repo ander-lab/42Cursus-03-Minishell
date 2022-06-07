@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/01 11:59:07 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:25:26 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,9 @@ void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
  *	srcs/executor/heredoc.c
  */
 void	do_heredoc(t_dlist *lst, t_gdata *gdata);
-int		is_heredoc(t_dlist *aux);
-int	exists_heredoc(t_dlist *aux);
-void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
+int		red_app_handler(t_dlist *lst, t_gdata *gdata);
+t_dlist	*go_last_here(t_dlist *lst);
+t_dlist	*go_to_cmd(t_dlist *lst);
 
 /*
  *	srcs/executor/infile.c
@@ -217,8 +217,21 @@ void	ft_convert_matrix(char **words, t_dlist *lst);
  *	utils/heredoc/heredoc.c
  */
 void	fill_heredoc(t_gdata *gdata, char *cmd);
-int	need_exec(t_dlist *lst);
+int		need_exec(t_dlist *lst);
+int		is_last_heredoc(t_dlist *lst);
+int		exists_heredoc(t_dlist *lst);
+
+/*
+ *	utils/heredoc/heredoc_cmd.c
+ */
+void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
+
+/*
+ *	utils/heredoc/heredoc2.c
+ */
+t_dlist	*iterate_ind(t_dlist *lst);
+t_dlist	*iterate_red_app(t_dlist *lst);
 t_dlist	*go_heredoc(t_dlist *lst);
-int	is_last_heredoc(t_dlist *lst);
-int	exists_heredoc(t_dlist *lst);
+
+
 #endif
