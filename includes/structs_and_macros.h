@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/01 10:28:16 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:35:49 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ typedef enum s_token_type
 ** PROMPT
 */
 
+typedef struct s_env
+{
+	char **envp;
+	char *home;
+	char *pwd;
+	char *old_pwd;
+	//TODO poner strings mas usados en la struct ej. home, pwd, oldpwd... y hacer una funcion que vaya actualizandolo cada vez que pasa por el executor
+}	t_env;
+
 typedef struct s_data
 {
 	char	*prompt;
@@ -68,5 +77,6 @@ typedef struct s_token_data
 	int		token;
 	char	*str;
 }	t_token_data;
+
 
 #endif
