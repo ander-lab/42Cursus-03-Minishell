@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:08:39 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/07 16:20:25 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:02:50 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 
 	lst = go_to_cmd(lst);
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	printf("SALE CMD: %s\n", cmd);
 	red = red_app_handler(lst, gdata);
 	lst = go_last_here(lst);
 	here = ft_strtrim((((t_token_data *)lst->content)->str), " ");

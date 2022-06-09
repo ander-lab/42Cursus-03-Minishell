@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:33:00 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/07 16:28:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:02:47 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	need_exec(t_dlist *lst)
 {
 	int	tkn;
 	int	prev;
+	int	next;
+	char *cmd;
 
 	lst = lst->prev;
 	if (!lst->prev)
@@ -63,6 +65,12 @@ int	need_exec(t_dlist *lst)
 		return (1);
 	lst = iterate_red_app(lst);
 	prev = get_prev_type(lst);
+	next = get_next_type(lst);
+	tkn = ((t_token_data *)lst->content)->token;
+	cmd = ((t_token_data *)lst->content)->str;
+	printf("CMD0: %s\n", cmd);
+	printf("TKN0: %d\n", tkn);
+	printf("PREV: %d\n", prev);
 	if (prev == 3)
 		lst = lst->next;
 	if (prev == 1)
@@ -70,6 +78,10 @@ int	need_exec(t_dlist *lst)
 	tkn = ((t_token_data *)lst->content)->token;
 	if (tkn >= 5)
 		return (1);
+	cmd = ((t_token_data *)lst->content)->str;
+	printf("CMD1: %s\n", cmd);
+	printf("TKN1: %d\n", tkn);
+	printf("LLEGO\n");
 	return (0);
 }
 
@@ -85,7 +97,6 @@ void	fill_heredoc(t_gdata *gdata, char *cmd)
 	while (line)
 	{
 		checker = 0;
-		printf("%s\n", line);
 		if (!ft_strncmp(line, cmd, ft_strlen(cmd)))
 			checker++;
 		if (!ft_strncmp(line, cmd, ft_strlen(line)))

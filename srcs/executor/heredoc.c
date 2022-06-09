@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:32:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/07 16:21:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/09 13:32:37 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	if (has_quotes(cmd))
 		cmd = cpy_str_no_quotes(cmd);
+	printf("NEED: %d\n", need_exec(lst));
 	if (is_last_heredoc(lst) && need_exec(lst))
 		do_here_cmd(lst, gdata);
 	else
