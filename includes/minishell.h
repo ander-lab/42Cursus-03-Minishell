@@ -225,6 +225,7 @@ int		exists_heredoc(t_dlist *lst);
  *	utils/heredoc/heredoc_cmd.c
  */
 void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
+void	here_cmd_call(t_gdata *gdata, char *cmd, int red);
 
 /*
  *	utils/heredoc/heredoc2.c

@@ -53,35 +53,21 @@ int	is_last_heredoc(t_dlist *lst)
 int	need_exec(t_dlist *lst)
 {
 	int	tkn;
-	int	prev;
-	int	next;
-	char *cmd;
-
-	lst = lst->prev;
-	if (!lst->prev)
-		return (0);
-	lst = lst->prev;
-	if (!lst->prev)
-		return (1);
-	lst = iterate_red_app(lst);
-	prev = get_prev_type(lst);
-	next = get_next_type(lst);
-	tkn = ((t_token_data *)lst->content)->token;
-	cmd = ((t_token_data *)lst->content)->str;
-	printf("CMD0: %s\n", cmd);
-	printf("TKN0: %d\n", tkn);
-	printf("PREV: %d\n", prev);
-	if (prev == 3)
-		lst = lst->next;
-	if (prev == 1)
+	
+	while (lst)
+	{
+		lst = lst->prev->prev;
+		if (!lst)
+			return (0);
+		lst = iterate_red_app(lst);
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 6)
+			return (1);
 		lst = iterate_ind(lst);
-	tkn = ((t_token_data *)lst->content)->token;
-	if (tkn >= 5)
-		return (1);
-	cmd = ((t_token_data *)lst->content)->str;
-	printf("CMD1: %s\n", cmd);
-	printf("TKN1: %d\n", tkn);
-	printf("LLEGO\n");
+		if (tkn == 3)
+			lst = lst->next;
+		lst = lst->prev;
+	}
 	return (0);
 }
 

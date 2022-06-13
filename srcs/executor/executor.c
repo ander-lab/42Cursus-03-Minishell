@@ -179,7 +179,10 @@ void	executor(t_gdata *gdata)
 	lst = iter_to_cmd(lst);
 	if (!lst)
 		return ;
-	lst = handle_executor(gdata, lst, end);
+	while (lst)
+	{
+		lst = handle_executor(gdata, lst, end);
+	}
 	/*while (lst && gdata->commands > 0)
 	{
 		char* cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");

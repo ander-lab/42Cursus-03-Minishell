@@ -25,7 +25,7 @@ static void	here_cmd_exec(int fd, int *end, char *cmd, t_gdata *gdata)
 	handle_path(cmd, gdata->envp);
 }
 
-static void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
+void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
 {
 	int		end[2];
 	pid_t	p;
@@ -55,17 +55,17 @@ static void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
 
 void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 {
-	char	*cmd;
+	//char	*cmd;
 	char	*here;
-	int		red;
+	//int		red;
 
 	lst = go_to_cmd(lst);
-	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	printf("SALE CMD: %s\n", cmd);
-	red = red_app_handler(lst, gdata);
+	//cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	//red = red_app_handler(lst, gdata);
+	red_app_handler(lst, gdata);
 	lst = go_last_here(lst);
 	here = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	fill_heredoc(gdata, here);
-	here_cmd_call(gdata, cmd, red);
+	//here_cmd_call(gdata, cmd, red);
 }
-

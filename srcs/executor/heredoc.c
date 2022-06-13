@@ -14,18 +14,23 @@
 
 t_dlist	*go_to_cmd(t_dlist *lst)
 {
-	int	prev;
-
-	lst = lst->prev;
-	lst = lst->prev;
-	if (!lst->prev)
-		return (lst);
-	lst = iterate_red_app(lst);
-	prev = get_prev_type(lst);
-	if (prev == 3)
-		lst = lst->next;
-	if (prev == 1)
+	int	tkn;
+	
+	while (lst)
+	{
+		lst = lst->prev;
+		lst = lst->prev;
+		if (!lst->prev)
+			return (lst);
+		lst = iterate_red_app(lst);
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 6)
+			return (lst);
 		lst = iterate_ind(lst);
+		if (tkn == 3)
+			lst = lst->next;
+		lst = lst->prev;
+	}
 	return (lst);
 }
 
@@ -88,7 +93,6 @@ void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	if (has_quotes(cmd))
 		cmd = cpy_str_no_quotes(cmd);
-	printf("NEED: %d\n", need_exec(lst));
 	if (is_last_heredoc(lst) && need_exec(lst))
 		do_here_cmd(lst, gdata);
 	else
