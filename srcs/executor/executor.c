@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/09 13:36:29 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/14 13:37:06 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst, int *end)
 	next_type = get_next_type(lst);
 	prev_type = get_prev_type(lst);
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	cmd = ft_strtrim(cmd, " ");
 	tkn = ((t_token_data *)lst->content)->token;
-	printf("TKN: %d\n", tkn);
-	printf("CMD: %s\n", cmd);
+	//printf("TKN1: %d\n", tkn);
+	//printf("CMD1: %s\n", cmd);
 	if (next_type == 0)	//pipe
 	{
 		printf("TIPO1\n");
@@ -137,12 +136,34 @@ t_dlist	*iter_to_last_heredoc(t_dlist *lst)
 	return (aux);
 }
 
+t_dlist	*iter_red_app(t_dlist *lst)
+{
+	int	tkn;
+	
+	tkn = ((t_token_data *)lst->content)->token;
+	while (tkn == 2 || tkn == 4)
+	{
+		lst = lst->next;
+		lst = lst->next;
+		if (!lst)
+			return (0);
+		tkn = ((t_token_data *)lst->content)->token;
+	}
+	return (lst);
+}
+
 t_dlist	*iter_to_cmd(t_dlist *lst)
 {
+	int	tkn;
+
 	lst = iter_to_last_heredoc(lst);
 	if (!lst)
 		return (0);
 	lst = iter_indirection(lst);
+	lst = iter_red_app(lst);
+	tkn = ((t_token_data *)lst->content)->token;
+	if (tkn == 0)
+		lst = lst->next;
 	return (lst);
 }
 
@@ -169,6 +190,7 @@ void	executor(t_gdata *gdata)
 {
 	t_dlist	*lst;
 	int		end[2];
+	//int		tkn;
 
 	lst = gdata->cmds_list;
 	pipe(end);
@@ -177,8 +199,12 @@ void	executor(t_gdata *gdata)
 	if (gdata->err)
 		return ;
 	lst = iter_to_cmd(lst);
-	if (!lst)
-		return ;
+	/*if (!lst)
+		return ;*/
+	/*char* cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	int tkn = ((t_token_data *)lst->content)->token;
+	printf("CMD0: %s\n", cmd);
+	printf("TKN0: %d\n", tkn);*/
 	while (lst)
 	{
 		lst = handle_executor(gdata, lst, end);

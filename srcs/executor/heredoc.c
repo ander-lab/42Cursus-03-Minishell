@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:32:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/09 13:32:37 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:32:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,28 @@ t_dlist *go_last_here(t_dlist *lst)
 
 int	red_app_handler(t_dlist *lst, t_gdata *gdata)
 {
-	int	next_type;
 	char	*file;
 	int		fd;
 	int		red;
+	int		prev_type;
 
-	next_type = get_next_type(lst);
 	fd = 1;
 	red = 0;
-	while (next_type == 2 || next_type == 4)
+	lst = lst->prev->prev;
+	prev_type = get_prev_type(lst);
+	if (prev_type == 2 || prev_type == 4)
+	{
+		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		printf("FILE: %s\n", file);
+		if (prev_type == 2)
+			fd = handle_file_create(file, 0);
+		else
+			fd = handle_file_create(file, 1);
+		red = 1;
+	}
+	gdata->fd[1] = fd;
+	return (red);
+	/*while (next_type == 2 || next_type == 4)
 	{
 		lst = lst->next;
 		lst = lst->next;
@@ -81,8 +94,7 @@ int	red_app_handler(t_dlist *lst, t_gdata *gdata)
 		next_type = get_next_type(lst);
 		red = 1;
 	}
-	gdata->fd[1] = fd;
-	return (red);
+	return (red);*/
 }
 
 void	do_heredoc(t_dlist *lst, t_gdata *gdata)

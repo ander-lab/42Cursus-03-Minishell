@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/02/16 15:48:34 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:16:18 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@
 
 void handle_sigint(int n)
 {
-	printf("SEÑAL: %d\n", n);
+	if (n == 2)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		//rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 int main(int argc, char **argv)
@@ -32,11 +38,13 @@ int main(int argc, char **argv)
 	printf("ARGC: %d\n", argc);
 	printf("ARGV[0]: %s\n", argv[0]);
 	init_prompt(&gdata, environ);
+	//printf("VER: %d\n", rl_readline_version);
 	//execve("/usr/bin/whoami", cmd, environ);
 	//execve("/usr/bin/hostnamectl", cmd, environ);
-	signal(SIGQUIT, handle_sigint);
 	while (42)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, handle_sigint);
 		inp = readline(gdata.prompt);
 		//printf("C: %c\n", inp[0]);
 		//return 1;

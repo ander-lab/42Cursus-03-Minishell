@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:08:39 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/09 14:02:50 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:16:19 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,37 @@ void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
 	}
 }
 
+char	*check_fill_cmd(t_dlist *lst, char *cmd)
+{
+	int		next_type;
+	char	*next_cmd;
+	char	*join;
+
+	next_type = get_next_type(lst);
+	if (next_type < 5)
+		return (cmd);
+	lst = lst->next;
+	next_cmd = (((t_token_data *)lst->content)->str);
+	join = ft_strjoin(cmd, next_cmd);
+	free(cmd);
+	free(next_cmd);
+	return (join);
+}
+
 void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 {
-	//char	*cmd;
+	char	*cmd;
 	char	*here;
-	//int		red;
+	int		red;
+	t_dlist	*aux;
 
+	aux = lst;
 	lst = go_to_cmd(lst);
-	//cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	//red = red_app_handler(lst, gdata);
-	red_app_handler(lst, gdata);
+	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	red = red_app_handler(aux, gdata);
 	lst = go_last_here(lst);
 	here = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	fill_heredoc(gdata, here);
-	//here_cmd_call(gdata, cmd, red);
+	cmd = check_fill_cmd(lst, cmd);
+	here_cmd_call(gdata, cmd, red);
 }
