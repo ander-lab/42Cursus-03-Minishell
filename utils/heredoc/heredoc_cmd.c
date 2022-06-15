@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:08:39 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/14 16:16:19 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/15 14:51:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,31 @@ char	*check_fill_cmd(t_dlist *lst, char *cmd)
 	return (join);
 }
 
+void	ind_handler(t_dlist *lst, t_gdata *gdata)
+{
+	int		tkn;
+	int		ind;
+	char	*file;
+	
+	ind = 0;
+	while (lst)
+	{
+		tkn = (((t_token_data *)lst->content)->token);
+		if (tkn == 1)
+		{
+			ind = 1;
+			break ;
+		}
+		lst = lst->prev;
+	}
+	if (!ind)
+		return ;
+	lst = lst->next;
+	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	if (handle_file_no_create(file) < 0)
+		gdata->err = 1;
+}
+
 void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 {
 	char	*cmd;
@@ -84,6 +109,8 @@ void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 	lst = go_last_here(lst);
 	here = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	fill_heredoc(gdata, here);
+	ind_handler(aux, gdata);
 	cmd = check_fill_cmd(lst, cmd);
-	here_cmd_call(gdata, cmd, red);
+	if (!gdata->err)
+		here_cmd_call(gdata, cmd, red);
 }

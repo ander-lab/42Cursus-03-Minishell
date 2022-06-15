@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/14 13:37:06 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/15 13:04:43 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ t_dlist	*iter_to_cmd(t_dlist *lst)
 		return (0);
 	lst = iter_indirection(lst);
 	lst = iter_red_app(lst);
+	if (!lst)
+		return (lst);
 	tkn = ((t_token_data *)lst->content)->token;
 	if (tkn == 0)
 		lst = lst->next;

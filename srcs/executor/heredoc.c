@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:32:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/14 15:32:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/15 13:16:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	red_app_handler(t_dlist *lst, t_gdata *gdata)
 	if (prev_type == 2 || prev_type == 4)
 	{
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-		printf("FILE: %s\n", file);
 		if (prev_type == 2)
 			fd = handle_file_create(file, 0);
 		else
