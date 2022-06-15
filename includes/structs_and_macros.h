@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 14:35:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:23:08 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ typedef enum s_token_type
 
 typedef struct s_env
 {
-	char **envp;
-	char *home;
-	char *pwd;
-	char *old_pwd;
+	t_dlist *env_lst;
+	char	 **envp;
+	char	 *home;
+	char	 *pwd;
+	char	 *old_pwd;
 	//TODO poner strings mas usados en la struct ej. home, pwd, oldpwd... y hacer una funcion que vaya actualizandolo cada vez que pasa por el executor
 }	t_env;
 
