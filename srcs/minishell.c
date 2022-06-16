@@ -18,7 +18,7 @@
  *
  */
 
-void handle_sigint(int n)
+/*void handle_sigint(int n)
 {
 	if (n == 2)
 	{
@@ -27,7 +27,7 @@ void handle_sigint(int n)
 		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
-}
+}*/
 
 int main(int argc, char **argv)
 {
@@ -43,8 +43,8 @@ int main(int argc, char **argv)
 	//execve("/usr/bin/hostnamectl", cmd, environ);
 	while (42)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, handle_sigint);
+//		signal(SIGQUIT, SIG_IGN);
+//		signal(SIGINT, handle_sigint);
 		inp = readline(gdata.prompt);
 		//printf("C: %c\n", inp[0]);
 		//return 1;

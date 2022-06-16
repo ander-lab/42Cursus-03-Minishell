@@ -190,8 +190,9 @@ t_dlist	*go_to_cmd(t_dlist *lst);
 /*
  *	srcs/executor/infile.c
  */
-int		is_infile(t_dlist *aux);
-void	do_infile(t_dlist *aux, t_gdata *gdata);
+int	is_infile(t_dlist *aux);
+t_dlist*	do_infile(t_dlist *aux, t_gdata *gdata);
+void	infile_checker(t_dlist *lst, t_gdata *gdata);
 
 /*
  *	srcs/executor/red_app.c

@@ -24,8 +24,36 @@ int	is_infile(t_dlist *aux)
 	return (it_is);
 }
 
+void	infile_checker(t_dlist *lst, t_gdata *gdata)
+{
+	char	*file;
 
-void	do_infile(t_dlist *aux, t_gdata *gdata)
+	lst = lst->next;
+	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	if (access(file, F_OK) != 0)
+	{
+		perror(file);
+		gdata->err = 1;
+	}
+}
+
+t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
+{
+	char	*file;
+
+	while (is_infile(lst))
+	{
+		lst = lst->next;
+		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		gdata->fd[0] = handle_file_no_create(file);
+		if (gdata->fd[0] == -1)
+			gdata->err = 1;
+		lst = lst->next;
+	}
+	return (lst);
+}
+
+/*void	do_infile(t_dlist *aux, t_gdata *gdata)
 {
 	char	*cmd;
 
@@ -35,4 +63,4 @@ void	do_infile(t_dlist *aux, t_gdata *gdata)
 	gdata->fd[0] = handle_file_no_create(cmd);
 	if (gdata->fd[0] == -1)
 		gdata->err = 1;
-}
+}*/
