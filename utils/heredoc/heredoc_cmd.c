@@ -6,33 +6,69 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:08:39 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/15 14:51:04 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/17 16:31:02 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	here_cmd_exec(int fd, int *end, char *cmd, t_gdata *gdata)
+static void	here_cmd_exec(int fd, char *cmd, t_gdata *gdata)
 {
-	close(end[1]);
+	close(gdata->end[1]);
 	if (fd >= 0)
 	{
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
-	dup2(end[0], STDIN_FILENO);
-	close(end[0]);
+	//else
+	//	dup2(gdata->end[1], STDOUT_FILENO);
+	dup2(gdata->end[0], STDIN_FILENO);
+	close(gdata->end[0]);
 	handle_path(cmd, gdata->envp);
+	/*close(gdata->end[0]);
+	dup2(fd, STDIN_FILENO);
+	if (fd >= 0)
+	{
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+	else
+		dup2(gdata->end[1], STDOUT_FILENO);
+	handle_path(cmd, gdata->envp);*/
+}
+
+static void	here_cmd_exec2(int fd, char *cmd, t_gdata *gdata)
+{
+	close(gdata->end[0]);
+	dup2(gdata->end[1], STDIN_FILENO);
+	close(gdata->end[1]);
+	//close(fd);
+	//else
+	//	dup2(gdata->end[1], STDOUT_FILENO);
+	//dup2(gdata->end[1], STDOUT_FILENO);
+	//close(gdata->end[0]);
+	handle_path(cmd, gdata->envp);
+	/*close(gdata->end[0]);
+	dup2(fd, STDIN_FILENO);
+	if (fd >= 0)
+	{
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+	else
+		dup2(gdata->end[1], STDOUT_FILENO);
+	handle_path(cmd, gdata->envp);*/
 }
 
 void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
 {
-	int		end[2];
+	//int		end[2];
 	pid_t	p;
 	int		status;
 
-	pipe(end);
-	write(end[1], gdata->heredoc, ft_strlen(gdata->heredoc));
+	//pipe(end);
+	if (gdata->heredoc)
+		write(gdata->end[1], gdata->heredoc, ft_strlen(gdata->heredoc));
 	p = fork();
 	status = 0;
 	if (p < 0)
@@ -40,12 +76,18 @@ void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
 	if (p == 0)
 	{
 		if (red)
-			here_cmd_exec(gdata->fd[1], end, cmd, gdata);
+		{
+			here_cmd_exec(gdata->fd[1], cmd, gdata);
+		//	handle_cmd1(gdata->fd[1], gdata, cmd);
+		}
 		else
-			here_cmd_exec(-1, end, cmd, gdata);
+		{
+			//handle_cmd2(gdata->fd[0], gdata, cmd);
+			here_cmd_exec2(gdata->fd[0], cmd, gdata);
+		}
 	}
-	close(end[0]);
-	close(end[1]);
+	close(gdata->end[0]);
+	close(gdata->end[1]);
 	waitpid(p, &status, 0);
 	if (WEXITSTATUS(status))
 	{

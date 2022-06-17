@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:33:00 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/09 14:02:47 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/17 12:30:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ void	fill_heredoc(t_gdata *gdata, char *cmd)
 		if (!ft_strncmp(line, cmd, ft_strlen(line)))
 			checker++;
 		if (checker == 2)
+		{
+			if (i == 0)
+				gdata->heredoc = 0;
 			break ;
+		}
 		if (i != 0)
 			gdata->heredoc = ft_strjoinnl(gdata->heredoc, line);
 		line = readline("> ");

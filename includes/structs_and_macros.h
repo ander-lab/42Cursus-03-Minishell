@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/15 14:51:33 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/17 16:31:08 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_data
 	int		handle_next;
 	t_dlist	*cmds_list;
 	int		fd[2];
+	int		end[2];
 	char	*heredoc;
 } t_gdata;
 

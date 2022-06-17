@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:32:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/15 13:16:04 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:38:47 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,21 @@ int	red_app_handler(t_dlist *lst, t_gdata *gdata)
 	char	*file;
 	int		fd;
 	int		red;
-	int		prev_type;
+	int		next_type;
 
 	fd = 1;
 	red = 0;
-	lst = lst->prev->prev;
-	prev_type = get_prev_type(lst);
-	if (prev_type == 2 || prev_type == 4)
+	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	next_type = get_next_type(lst);
+	if (next_type == 2 || next_type == 4)
 	{
+		lst = lst->next->next;
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-		if (prev_type == 2)
+		if (next_type == 2)
 			fd = handle_file_create(file, 0);
 		else
 			fd = handle_file_create(file, 1);
+		next_type = get_next_type(lst);
 		red = 1;
 	}
 	gdata->fd[1] = fd;

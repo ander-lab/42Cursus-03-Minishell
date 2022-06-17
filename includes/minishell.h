@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/15 10:44:33 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/17 16:10:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,9 +175,9 @@ int		handle_path(char *cmd, char **envp);
 /*
  *	utils/forks/forks.c
  */
-void	handle_cmd1(int fd, int *end, char *cmd, char **envp);
-void	handle_cmd2(int fd, int *end, char *cmd, char **envp);
-void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
+void	handle_cmd1(int fd, t_gdata *gdata, char *cmd);
+void	handle_cmd2(int fd, t_gdata *gdata, char *cmd);
+void	handle_cmd3(int fd, t_gdata *gdata, char *cmd);
 
 /*
  *	srcs/executor/heredoc.c
