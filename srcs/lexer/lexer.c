@@ -74,9 +74,10 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->n_tokens = get_n_tokens(s);
 	gdata->handle_next = 0;
 	gdata->commands = command_count(s);
-	gdata->fd[0] = 0;
-	gdata->fd[1] = 1;
-	pipe(gdata->end);
+	gdata->fd[0] = -1;
+	gdata->fd[1] = -1;
+	gdata->inf_err = 0;
+	gdata->err = 0;
 }
 
 /*void	free_gdata(t_gdata *gdata)

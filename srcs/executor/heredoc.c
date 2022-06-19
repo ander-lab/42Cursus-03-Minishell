@@ -59,18 +59,15 @@ t_dlist *go_last_here(t_dlist *lst)
 	return (aux->next);
 }
 
-int	red_app_handler(t_dlist *lst, t_gdata *gdata)
+t_dlist	*red_app_handler(t_dlist *lst, t_gdata *gdata)
 {
 	char	*file;
 	int		fd;
-	int		red;
 	int		next_type;
 
-	fd = 1;
-	red = 0;
-	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	fd = -1;
 	next_type = get_next_type(lst);
-	if (next_type == 2 || next_type == 4)
+	while (next_type == 2 || next_type == 4)
 	{
 		lst = lst->next->next;
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
@@ -79,10 +76,11 @@ int	red_app_handler(t_dlist *lst, t_gdata *gdata)
 		else
 			fd = handle_file_create(file, 1);
 		next_type = get_next_type(lst);
-		red = 1;
+		if (next_type != 2 && next_type != 4)
+			lst = lst->next;
 	}
 	gdata->fd[1] = fd;
-	return (red);
+	return (lst);
 	/*while (next_type == 2 || next_type == 4)
 	{
 		lst = lst->next;
@@ -106,8 +104,8 @@ void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	if (has_quotes(cmd))
 		cmd = cpy_str_no_quotes(cmd);
-	if (is_last_heredoc(lst) && need_exec(lst))
-		do_here_cmd(lst, gdata);
-	else
-		fill_heredoc(gdata, cmd);
+	//if (is_last_heredoc(lst) && need_exec(lst))
+	//	do_here_cmd(lst, gdata);
+	//else
+	fill_heredoc(gdata, cmd);
 }

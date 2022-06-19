@@ -18,10 +18,7 @@ int	handle_file_no_create(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-	{
-		perror(file);
 		return (-1);
-	}
 	return (fd);
 }
 

@@ -42,7 +42,7 @@ static void	here_cmd_exec2(int fd, char *cmd, t_gdata *gdata)
 	close(gdata->end[0]);
 	dup2(gdata->end[1], STDIN_FILENO);
 	close(gdata->end[1]);
-	//close(fd);
+	close(fd);
 	//else
 	//	dup2(gdata->end[1], STDOUT_FILENO);
 	//dup2(gdata->end[1], STDOUT_FILENO);

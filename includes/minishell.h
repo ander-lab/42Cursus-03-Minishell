@@ -76,7 +76,7 @@ int	get_prev_type(t_dlist *lst);
 /*
  *	srcs/executor/heredoc.c
  */
-t_dlist	*go_to_pipe(t_dlist *lst);
+//t_dlist	*go_to_pipe(t_dlist *lst);
 
 /*
  *	srcs/lexer/spaces.c
@@ -175,15 +175,15 @@ int		handle_path(char *cmd, char **envp);
 /*
  *	utils/forks/forks.c
  */
-void	handle_cmd1(int fd, t_gdata *gdata, char *cmd);
-void	handle_cmd2(int fd, t_gdata *gdata, char *cmd);
-void	handle_cmd3(int fd, t_gdata *gdata, char *cmd);
+void	handle_cmd1(t_gdata *gdata, char *cmd, int prev_pipe);
+void	handle_cmd2(t_gdata *gdata, char *cmd);
+void	handle_cmd3(t_gdata *gdata, char *cmd);
 
 /*
  *	srcs/executor/heredoc.c
  */
 void	do_heredoc(t_dlist *lst, t_gdata *gdata);
-int		red_app_handler(t_dlist *lst, t_gdata *gdata);
+t_dlist	*red_app_handler(t_dlist *lst, t_gdata *gdata);
 t_dlist	*go_last_here(t_dlist *lst);
 t_dlist	*go_to_cmd(t_dlist *lst);
 

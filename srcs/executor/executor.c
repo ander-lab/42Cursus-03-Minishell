@@ -38,7 +38,7 @@ int	get_prev_type(t_dlist *lst)
 	return (tkn);
 }
 
-static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst)
+/*static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst)
 {
 	int	next_type;
 	char	*cmd;
@@ -73,22 +73,150 @@ static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst)
 		exit(0);
 	gdata->commands--;
 	return (lst);
+}*/
+
+static t_dlist	*go_to_pipe(t_dlist *lst)
+{
+	int	tkn;
+
+	while (lst)
+	{
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 0)
+			return (lst->next);
+		lst = lst->next;
+	}
+	return (lst);
 }
 
-/*static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst, int *end)
+static	int	exists_pipe(t_dlist *lst)
 {
-	int	next_type;
+	int	exists;
+	int	tkn;
+
+	exists = 0;
+	while (lst && !exists)
+	{
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn == 0)
+			exists = 1;
+		lst = lst->next;
+	}
+	return (exists);
+}
+
+/*static t_dlist *red_app_handler_back(t_dlist *lst, t_gdata *gdata)
+{
+	char	*file;
+	int	tkn;
+
+	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	if (lst->prev)
+		lst = lst->prev;
+	tkn = ((t_token_data *)lst->content)->token;
+	if (tkn != 2 && tkn != 4)
+		return (lst->next);
+	while (tkn == 2 || tkn == 4)
+	{
+		if (tkn == 2)
+			gdata->fd[1] = handle_file_create(file, 0);
+		else if (tkn == 4)
+			gdata->fd[1] = handle_file_create(file, 1);
+		if (lst->prev)
+			lst = lst->prev;
+		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		if (lst->prev)
+			lst = lst->prev;
+		tkn = ((t_token_data *)lst->content)->token;
+		if (tkn != 2 && tkn != 4)
+			return (lst->next);
+	}
+	return (lst);
+}*/
+
+static t_dlist *handle_one_cmd(t_dlist *lst, t_gdata *gdata)
+{
+	char	*cmd;
+	
+	lst = do_infile(lst, gdata);
+	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	lst = red_app_handler(lst, gdata);
+	handle_cmd2(gdata, cmd);
+	if (lst)
+		lst = lst->next;
+	return (lst);
+}
+
+static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst/*, int *end*/)
+{
+	//int	next_type;
 	int	prev_type;
 	char	*cmd;
-	//int		tkn;
+	int		tkn;
+	int	prev_pipe;
 
-	next_type = get_next_type(lst);
+	//next_type = get_next_type(lst);
+	pipe(gdata->end);
+	printf("END[0]: %d\n", gdata->end[0]);
+	printf("END[1]: %d\n", gdata->end[1]);
+	prev_pipe = 0;
 	prev_type = get_prev_type(lst);
+	if (prev_type == 0)
+		prev_pipe = 1;
+	lst = do_infile(lst, gdata);
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	//tkn = ((t_token_data *)lst->content)->token;
-	//printf("TKN1: %d\n", tkn);
-	//printf("CMD1: %s\n", cmd);
-	if (next_type == 0)	//pipe
+	tkn = ((t_token_data *)lst->content)->token;
+	printf("TKN0: %d\n", tkn);
+	printf("CMD0: %s\n", cmd);
+	lst = red_app_handler(lst, gdata);
+	printf("FD[0]: %d\n", gdata->fd[0]);
+	printf("FD[1]: %d\n", gdata->fd[1]);
+	printf("PREV_PIPE: %d\n", prev_pipe);
+	handle_cmd1(gdata, cmd, prev_pipe);
+	return (lst);
+	/*else if (tkn != 6)
+		lst = lst->next;
+	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	tkn = ((t_token_data *)lst->content)->token;
+	printf("TKN1: %d\n", tkn);
+	printf("CMD1: %s\n", cmd);
+	lst = red_app_handler_back(lst, gdata);
+	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	tkn = ((t_token_data *)lst->content)->token;
+	printf("TKN2: %d\n", tkn);
+	printf("CMD2: %s\n", cmd);*/
+	/*if (exists_pipe(lst))
+	{
+		handle_cmd1(gdata->fd[0], gdata, cmd);
+	}
+	else if (gdata->fd[1] > 2)
+	{
+		handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
+	}*/
+	/*if (tkn == 0)
+	{
+		handle_cmd1(gdata->fd[0], gdata, cmd);
+	}
+	else if (tkn > 5)
+	{
+		if (gdata->inf_err)
+		{
+			printf("INF ERROR\n");
+			exit(0);
+		}
+		next_type = get_next_type(lst);
+		if (next_type == 2 || next_type == 4)
+		{
+			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+			lst = do_red_or_app(lst, gdata);
+			handle_cmd2(gdata->fd[1], end, cmd, gdata->envp);
+		}
+	}
+	//lst = do_pipes(lst);
+	char *cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	printf("TKN1: %d\n", tkn);
+	printf("CMD1: %s\n", cmd);*/
+	/*if (next_type == 0)	//pipe
 	{
 		printf("TIPO1\n");
 		printf("MANDO CMD: %s\n", cmd);
@@ -112,8 +240,8 @@ static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst)
 		lst = lst->next;
 	}
 	gdata->commands--;
-	return (lst);
-}*/
+	return (lst);*/
+}
 
 static void	handle_here(t_dlist *lst, t_gdata *gdata)
 {
@@ -132,7 +260,7 @@ void	handle_infile(t_dlist *lst, t_gdata *gdata)
 {
 	int	tkn;
 
-	while (lst && !gdata->err)
+	while (lst /*&& !gdata->err*/)
 	{
 		tkn = ((t_token_data *)lst->content)->token;
 		if (tkn == 1)
@@ -238,10 +366,10 @@ void	executor(t_gdata *gdata)
 	//pipe(end);
 	handle_here(lst, gdata);
 	handle_infile(lst, gdata);
-	if (gdata->err)
-		return ;
+	//if (gdata->err)
+	//	return ;
 	//lst = iter_to_cmd(lst);
-	lst = iter_to_executor(lst);
+	//lst = iter_to_executor(lst);
 	/*if (!lst)
 		return ;*/
 	/*char* cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
@@ -249,9 +377,21 @@ void	executor(t_gdata *gdata)
 	printf("CMD0: %s\n", cmd);
 	printf("TKN0: %d\n", tkn);
 	return ;*/
+	if (!exists_pipe(lst))
+	{
+		printf("CASO1\n");
+		lst = handle_one_cmd(lst, gdata);
+	}
 	while (lst)
 	{
 		lst = handle_executor(gdata, lst);
+		lst = go_to_pipe(lst);
+		gdata->fd[0] = -1;
+		gdata->fd[1] = -1;
+		/*char* cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		int tkn = ((t_token_data *)lst->content)->token;
+		printf("CMD5: %s\n", cmd);
+		printf("TKN5: %d\n", tkn);*/
 	}
 	/*while (lst && gdata->commands > 0)
 	{

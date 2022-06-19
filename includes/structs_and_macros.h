@@ -51,6 +51,7 @@ typedef struct s_data
 	int		aux_n_commands;
 	int		n_tokens;
 	int		err;
+	int		inf_err;
 	char	**cmds;
 	int		last_token;
 	int		handle_next;

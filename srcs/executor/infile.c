@@ -32,8 +32,8 @@ void	infile_checker(t_dlist *lst, t_gdata *gdata)
 	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	if (access(file, F_OK) != 0)
 	{
+		gdata->inf_err = 1;
 		perror(file);
-		gdata->err = 1;
 	}
 }
 
@@ -46,8 +46,8 @@ t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
 		lst = lst->next;
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		gdata->fd[0] = handle_file_no_create(file);
-		if (gdata->fd[0] == -1)
-			gdata->err = 1;
+		/*if (gdata->fd[0] == -1)
+			gdata->err = 1;*/
 		lst = lst->next;
 	}
 	return (lst);
