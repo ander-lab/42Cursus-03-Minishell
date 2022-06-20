@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:08:39 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/17 16:31:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/20 10:02:36 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	here_cmd_exec2(int fd, char *cmd, t_gdata *gdata)
 	handle_path(cmd, gdata->envp);*/
 }
 
-void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
+void	here_cmd_call(t_gdata *gdata, char *cmd)
 {
 	//int		end[2];
 	pid_t	p;
@@ -75,7 +75,7 @@ void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
 		write(2, "error\n", 6);
 	if (p == 0)
 	{
-		if (red)
+		/*if (red)
 		{
 			here_cmd_exec(gdata->fd[1], cmd, gdata);
 		//	handle_cmd1(gdata->fd[1], gdata, cmd);
@@ -84,7 +84,9 @@ void	here_cmd_call(t_gdata *gdata, char *cmd, int red)
 		{
 			//handle_cmd2(gdata->fd[0], gdata, cmd);
 			here_cmd_exec2(gdata->fd[0], cmd, gdata);
-		}
+		}*/
+		here_cmd_exec(gdata->fd[1], cmd, gdata);
+		here_cmd_exec2(gdata->fd[0], cmd, gdata);
 	}
 	close(gdata->end[0]);
 	close(gdata->end[1]);
@@ -141,18 +143,18 @@ void	do_here_cmd(t_dlist *lst, t_gdata *gdata)
 {
 	char	*cmd;
 	char	*here;
-	int		red;
+	//int		red;
 	t_dlist	*aux;
 
 	aux = lst;
 	lst = go_to_cmd(lst);
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	red = red_app_handler(aux, gdata);
+	//red = red_app_handler(aux, gdata);
 	lst = go_last_here(lst);
 	here = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	fill_heredoc(gdata, here);
 	ind_handler(aux, gdata);
 	cmd = check_fill_cmd(lst, cmd);
 	if (!gdata->err)
-		here_cmd_call(gdata, cmd, red);
+		here_cmd_call(gdata, cmd);
 }

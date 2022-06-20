@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/17 16:30:59 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:21:03 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,9 +156,11 @@ static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst/*, int *end*/)
 	int	prev_pipe;
 
 	//next_type = get_next_type(lst);
+	gdata->fd_pipe = gdata->fd[READ_END];
+	printf("GDATA FD PIPE: %d\n", gdata->fd_pipe);
 	pipe(gdata->end);
-	printf("END[0]: %d\n", gdata->end[0]);
-	printf("END[1]: %d\n", gdata->end[1]);
+	printf("END[0]: %d\n", gdata->end[READ_END]);
+	printf("END[1]: %d\n", gdata->end[WRITE_END]);
 	prev_pipe = 0;
 	prev_type = get_prev_type(lst);
 	if (prev_type == 0)
@@ -172,7 +174,7 @@ static t_dlist	*handle_executor(t_gdata *gdata, t_dlist *lst/*, int *end*/)
 	printf("FD[0]: %d\n", gdata->fd[0]);
 	printf("FD[1]: %d\n", gdata->fd[1]);
 	printf("PREV_PIPE: %d\n", prev_pipe);
-	handle_cmd1(gdata, cmd, prev_pipe);
+	handle_cmd1(gdata, cmd, prev_pipe, exists_pipe(lst));
 	return (lst);
 	/*else if (tkn != 6)
 		lst = lst->next;

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/17 09:21:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/20 15:54:39 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->n_tokens = get_n_tokens(s);
 	gdata->handle_next = 0;
 	gdata->commands = command_count(s);
+	gdata->end[0] = -1;
+	gdata->end[1] = -1;
 	gdata->fd[0] = -1;
 	gdata->fd[1] = -1;
 	gdata->inf_err = 0;
 	gdata->err = 0;
+	gdata->fd_pipe = -1;
 }
 
 /*void	free_gdata(t_gdata *gdata)

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/17 16:10:04 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/20 15:54:02 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <readline/history.h>
 # include "./libft/libft.h"
 # include "structs_and_macros.h"
+
+# define READ_END 0
+# define WRITE_END 1
 
 void	init_prompt(t_gdata *g_data, char **envp);
 void 	lexer(char *s, t_gdata *g_data);
@@ -175,7 +178,7 @@ int		handle_path(char *cmd, char **envp);
 /*
  *	utils/forks/forks.c
  */
-void	handle_cmd1(t_gdata *gdata, char *cmd, int prev_pipe);
+void	handle_cmd1(t_gdata *gdata, char *cmd, int prev_pipe, int next_type);
 void	handle_cmd2(t_gdata *gdata, char *cmd);
 void	handle_cmd3(t_gdata *gdata, char *cmd);
 
@@ -225,7 +228,7 @@ int		exists_heredoc(t_dlist *lst);
  *	utils/heredoc/heredoc_cmd.c
  */
 void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
-void	here_cmd_call(t_gdata *gdata, char *cmd, int red);
+void	here_cmd_call(t_gdata *gdata, char *cmd);
 
 /*
  *	utils/heredoc/heredoc2.c
