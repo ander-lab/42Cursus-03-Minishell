@@ -57,12 +57,14 @@ int	handle_path(char *cmd, char **envp)
 	else
 		mycmdargs = ft_split(cmd, ' ');
 	if (check_access(cmd, mycmdargs, envp))
+		//exit(EXIT_SUCCESS);
 		return (1);
 	i = -1;
 	while (all_paths[++i])
 	{
 		cmd_one = ft_strjoin(all_paths[i], mycmdargs[0]);
 		if (check_access(cmd_one, mycmdargs, envp))
+			//exit(EXIT_SUCCESS);
 			return (1);
 		free(cmd_one);
 	}

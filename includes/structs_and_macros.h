@@ -59,6 +59,7 @@ typedef struct s_data
 	int		fd[2];
 	int		end[2];
 	int		fd_pipe;
+	int	n_pipes;
 	char	*heredoc;
 } t_gdata;
 

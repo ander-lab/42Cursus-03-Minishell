@@ -178,7 +178,7 @@ int		handle_path(char *cmd, char **envp);
 /*
  *	utils/forks/forks.c
  */
-void	handle_cmd1(t_gdata *gdata, char *cmd, int prev_pipe, int next_type);
+void	handle_cmd1(t_gdata *gdata/*, char *cmd, int prev_pipe, int next_type*/);
 void	handle_cmd2(t_gdata *gdata, char *cmd);
 void	handle_cmd3(t_gdata *gdata, char *cmd);
 

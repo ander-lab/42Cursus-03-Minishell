@@ -22,7 +22,8 @@ SRCS =	./srcs/lexer/lexer.c ./srcs/prompt/prompt.c ./srcs/minishell.c ./includes
 	./includes/libft/ft_matrixlen.c ./includes/libft/ft_max_int.c ./includes/libft/ft_min_int.c \
 	./srcs/executor/builtins.c ./srcs/executor/heredoc.c ./srcs/executor/infile.c \
 	./srcs/executor/red_app.c ./utils/str/strings3.c ./includes/libft/ft_strjoinnl.c \
-	./utils/heredoc/heredoc.c ./utils/heredoc/heredoc2.c ./utils/heredoc/heredoc_cmd.c
+	./utils/heredoc/heredoc.c ./utils/heredoc/heredoc2.c ./utils/heredoc/heredoc_cmd.c \
+	./includes/libft/ft_putnbr_fd.c
 
 OBJS = $(SRCS:.c=.o)
 

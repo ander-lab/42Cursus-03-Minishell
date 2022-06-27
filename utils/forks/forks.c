@@ -32,7 +32,7 @@ static void	do_child_two(t_gdata *gdata, char *cmd)
 	handle_path(cmd, gdata->envp);*/
 }
 
-static void do_child_one(t_gdata *gdata, char *cmd, int prev_pipe, int next_pipe)
+/*static void do_child_one(t_gdata *gdata, char *cmd, int prev_pipe, int next_pipe)
 {
 	if (gdata->fd[READ_END] > 2)
 	{
@@ -62,6 +62,7 @@ static void do_child_one(t_gdata *gdata, char *cmd, int prev_pipe, int next_pipe
 		//close(gdata->end[1]);
 	}
 	handle_path(cmd, gdata->envp);
+	*/
 	/*close(gdata->end[0]);
 	if (fd > 2)
 	{
@@ -71,7 +72,7 @@ static void do_child_one(t_gdata *gdata, char *cmd, int prev_pipe, int next_pipe
 	dup2(gdata->end[1], STDOUT_FILENO); //la salida de execve se guarda en end[1]
 	//close(end[1]);
 	handle_path(cmd, gdata->envp);*/
-}
+//}
 
 void handle_cmd3(t_gdata *gdata, char *cmd)
 {
@@ -93,9 +94,110 @@ void handle_cmd3(t_gdata *gdata, char *cmd)
 	}
 }
 
-void handle_cmd1(t_gdata *gdata, char *cmd, int prev_pipe, int next_pipe)
+void handle_cmd1(t_gdata *gdata/*, char *cmd, int prev_pipe, int next_pipe*/)
 {
-	pid_t	p1;
+	int	i;
+	int	*pipes;
+
+	i = 0;
+	pipes = ft_calloc(sizeof(int), gdata->n_pipes * 2);
+	while (i < gdata->n_pipes)
+	{
+		pipe(pipes + (i * 2));
+		i++;
+	}
+	/*printf("PIPE[0]: %d\n", pipes[0]);
+	printf("PIPE[1]: %d\n", pipes[1]);
+	printf("PIPE[2]: %d\n", pipes[2]);
+	printf("PIPE[3]: %d\n", pipes[3]);
+	*/
+	int cc = 0;
+	int r = 0;
+	int m;
+	pid_t pid;
+	while (gdata->cmds[r])
+	{
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("Fork: ");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+		{
+			if (r > 0)
+			{
+				/*int j = 0;
+				while (j < gdata->n_pipes * 2)
+				{
+					if (j != (cc - 1) * 2 && j != cc * 2 + 1)
+						close(pipes[j]);
+					j++;
+				}*/
+				int op = (cc - 1) * 2;
+				write(2, "STDIN\n", 6);
+				ft_putnbr_fd(op, 2);
+				write(2, "\n", 1);
+				if (dup2(pipes[(cc - 1) * 2], STDIN_FILENO) < 0)
+				{
+					write(2, "error dup\n", 10);
+					ft_putnbr_fd((cc - 1) * 2, 2);
+					write(2, "\n", 1);
+					perror("dup21");
+					exit(EXIT_FAILURE);
+				}
+				//printf("TRABAJO1: %d\n", cc * 2 + 1);
+			}
+			if (r < gdata->commands - 1)
+			{
+				/*int k = 0;
+				while (k < gdata->n_pipes * 2)
+				{
+					if (k != cc * 2 + 1 && k != (cc - 1) * 2)
+						close(pipes[k]);
+					k++;
+				}*/
+				int op = cc * 2 + 1;
+				write(2, "STDOUT\n", 7);
+				ft_putnbr_fd(op, 2);
+				write(2, "\n", 1);
+				if (dup2(pipes[cc * 2 + 1], STDOUT_FILENO) < 0)
+				{
+					perror("dup22");
+					exit(EXIT_FAILURE);
+				}
+				//printf("TRABAJO2: %d\n", cc * 2 + 1);
+			}
+			int k = 0;
+			while (k < gdata->n_pipes * 2)
+			{
+				if (k != cc * 2 + 1 && k != (cc - 1) * 2)
+					close(pipes[k]);
+				k++;
+			}
+			write(2, "ejecuto\n", 8);
+			write(2, gdata->cmds[r], ft_strlen(gdata->cmds[r]));
+			write(2, "\n", 1);
+			handle_path(gdata->cmds[r], gdata->envp);
+			exit(EXIT_SUCCESS);
+		//	pid = wait(&j);
+		}
+		waitpid(pid, &m, 0);
+		r++;
+		cc++;
+	}
+	write(2, "FUERA\n", 6);
+	int y = 0;
+	while (y < gdata->n_pipes * 2)
+	{
+		close(pipes[y]);
+		y++;
+	}
+	/*int status;
+	for (int u = 0; u < gdata->n_pipes + 1; u++)
+ 	       wait(&status);
+	      */
+	/*pid_t	p1;
 	int	status;
 
 	p1 = fork();
@@ -111,7 +213,7 @@ void handle_cmd1(t_gdata *gdata, char *cmd, int prev_pipe, int next_pipe)
 	{
 		write(2, "WEXIT1\n", 7);
 		return ;
-	}
+	}*/
 }
 
 void	handle_cmd2(t_gdata *gdata, char *cmd)
