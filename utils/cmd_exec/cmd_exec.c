@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:19:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/31 13:01:55 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:37:37 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	handle_path(char *cmd, char **envp)
 	i = path_index(envp);
 	path = ft_strtrim(envp[i], "PATH=");
 	all_paths = ft_split(path, ':');
-	if (has_quotes(cmd))
-		mycmdargs = ft_split_quotes(cmd, ' ');
-	else
+	//if (has_quotes(cmd))
+	//	mycmdargs = ft_split_quotes(cmd, ' ');
+	//else
 		mycmdargs = ft_split(cmd, ' ');
 	if (check_access(cmd, mycmdargs, envp, 0))
 		exit(EXIT_SUCCESS);

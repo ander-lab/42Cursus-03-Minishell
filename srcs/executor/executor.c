@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/20 16:21:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:54:05 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,14 +377,22 @@ int	get_n_pipes(t_dlist *lst)
 void	executor(t_gdata *gdata)
 {
 	t_dlist	*lst;
-	
+	t_cmds	*cmds_lst;
 	
 	//int		end[2];
 	//int		tkn;
 
-	lst = gdata->cmds_list;
+	cmds_lst = gdata->cmds_lst;
+	while (cmds_lst)
+	{
+		printf("CMD: %s\n", gdata->cmds_lst->cmd);
+		printf("IND: %d\n", gdata->cmds_lst->ind);
+		printf("RED: %d\n", gdata->cmds_lst->red);
+		cmds_lst = cmds_lst->next;	
+	}
+	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);
-	
+	handle_cmd(gdata, lst);
 	
 	//pipe(end);
 	
@@ -415,7 +423,6 @@ void	executor(t_gdata *gdata)
 	}*/
 
 
-	handle_cmd1(gdata);
 	/*while (lst)
 	{
 		lst = handle_executor(gdata, lst);

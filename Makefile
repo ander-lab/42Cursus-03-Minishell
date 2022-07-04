@@ -1,6 +1,6 @@
 CC	= gcc
 
-CFLAGS	= -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRCS =	./srcs/lexer/lexer.c ./srcs/prompt/prompt.c ./srcs/minishell.c ./includes/libft/ft_strlen.c \
 	./includes/libft/ft_split.c ./includes/libft/get_next_line.c ./includes/libft/ft_calloc.c \

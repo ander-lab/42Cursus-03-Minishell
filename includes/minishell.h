@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/20 15:54:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:28:09 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,15 +178,13 @@ int		handle_path(char *cmd, char **envp);
 /*
  *	utils/forks/forks.c
  */
-void	handle_cmd1(t_gdata *gdata/*, char *cmd, int prev_pipe, int next_type*/);
-void	handle_cmd2(t_gdata *gdata, char *cmd);
-void	handle_cmd3(t_gdata *gdata, char *cmd);
+void	handle_cmd(t_gdata *gdata, t_dlist *lst);
 
 /*
  *	srcs/executor/heredoc.c
  */
 void	do_heredoc(t_dlist *lst, t_gdata *gdata);
-t_dlist	*red_app_handler(t_dlist *lst, t_gdata *gdata);
+t_dlist	*red_app_handler(t_dlist *lst);
 t_dlist	*go_last_here(t_dlist *lst);
 t_dlist	*go_to_cmd(t_dlist *lst);
 
@@ -194,13 +192,13 @@ t_dlist	*go_to_cmd(t_dlist *lst);
  *	srcs/executor/infile.c
  */
 int	is_infile(t_dlist *aux);
-t_dlist*	do_infile(t_dlist *aux, t_gdata *gdata);
+t_dlist*	do_infile(t_dlist *aux);
 void	infile_checker(t_dlist *lst, t_gdata *gdata);
 
 /*
  *	srcs/executor/red_app.c
  */
-t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata);
+t_dlist *do_red_or_app(t_dlist *aux);
 int		is_red_or_app(t_dlist *aux);
 
 /*
@@ -236,6 +234,5 @@ void	here_cmd_call(t_gdata *gdata, char *cmd);
 t_dlist	*iterate_ind(t_dlist *lst);
 t_dlist	*iterate_red_app(t_dlist *lst);
 t_dlist	*go_heredoc(t_dlist *lst);
-
 
 #endif

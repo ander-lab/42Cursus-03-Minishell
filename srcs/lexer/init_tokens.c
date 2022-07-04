@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/20 14:41:10 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:54:07 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,26 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	}
 }*/
 
+void	init_cmds_lst(t_gdata *gdata)
+{
+	t_cmds	*cmds;
+	int		i;
+
+	i = 0;
+	cmds = malloc(sizeof(t_cmds));
+	if (!cmds)
+		return ;
+	while (i < gdata->commands)
+	{
+		cmds[i].cmd = gdata->cmds[i];
+		cmds[i].ind = -1;
+		cmds[i].red = -1;
+		i++;
+	}
+	cmds[i] = NULL;
+	gdata->cmds_lst =cmds;
+}
+
 void	init_tokens(char *s, t_gdata *gdata)
 {
 	int				raw_len;
@@ -87,32 +107,17 @@ void	init_tokens(char *s, t_gdata *gdata)
 	int				*clean_tkns;
 
 	token_data = ft_calloc(sizeof(t_token_data), 1);
-	//raw_tokens = ft_calloc(sizeof(int), ft_strlen(s) + 2);
 	raw_tokens = ft_calloc(sizeof(int), ft_strlen(s) + 1);
-	//printf("LEN: %ld\n", ft_strlen(s));
 	token_lst = NULL;
 	raw_len = put_tokens_on_arr(s, raw_tokens);
-	/*int j = 0;
-	while (j < raw_len)
-	{
-		printf("CRAW: %d\n", raw_tokens[j]);
-		j++;
-	}*/
+	init_cmds_lst(gdata);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, \
 			gdata->n_commands + gdata->n_tokens);
-	/*int x = 0;
-	while (x < gdata->n_commands + gdata->n_tokens)
-	{
-		printf("CLEAN: %d\n", clean_tkns[x]);
-		x++;
-	}*/
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, \
 			gdata->n_commands + gdata->n_tokens);
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
-	//printf("\n------------------------------\n");
-	gdata->cmds_list = token_lst;
+	gdata->glob_lst = token_lst;
 	free(raw_tokens);
 	free(clean_tkns);
-	//ft_printdlst(token_lst);
 }

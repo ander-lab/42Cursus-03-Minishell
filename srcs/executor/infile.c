@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:37:10 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/20 12:23:21 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:18:07 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	infile_checker(t_dlist *lst, t_gdata *gdata)
 	}
 }
 
-t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
+t_dlist *do_infile(t_dlist *lst)
 {
 	char	*file;
 
@@ -45,7 +45,9 @@ t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
 	{
 		lst = lst->next;
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-		gdata->fd[0] = handle_file_no_create(file);
+		/*
+		lst->ind = handle_file_no_create(file);
+		*/
 		/*if (gdata->fd[0] == -1)
 			gdata->err = 1;*/
 		lst = lst->next;

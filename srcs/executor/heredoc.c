@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:32:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/17 15:38:47 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/04 13:09:08 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_dlist *go_last_here(t_dlist *lst)
 	return (aux->next);
 }
 
-t_dlist	*red_app_handler(t_dlist *lst, t_gdata *gdata)
+t_dlist	*red_app_handler(t_dlist *lst)
 {
 	char	*file;
 	int		fd;
@@ -79,7 +79,7 @@ t_dlist	*red_app_handler(t_dlist *lst, t_gdata *gdata)
 		if (next_type != 2 && next_type != 4)
 			lst = lst->next;
 	}
-	gdata->fd[1] = fd;
+	//gdata->fd[1] = fd;
 	return (lst);
 	/*while (next_type == 2 || next_type == 4)
 	{
