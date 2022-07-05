@@ -6,7 +6,7 @@
 #    By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/01 17:15:58 by ajimenez          #+#    #+#              #
-#    Updated: 2022/06/03 10:09:10 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/07/05 12:16:34 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC		= gcc
@@ -30,15 +30,14 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 			ft_matrix_data.c ft_max_int.c ft_min_int.c ft_countchars.c \
 			ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
 			ft_dlstdelone.c ft_dlstlast.c ft_dlstnew.c ft_dlstsize.c \
-			ft_dlstnew_struct.c ft_split_quotes.c ft_strjoinnl.c ft_matrix_dup.c 
-
-
+			ft_dlstnew_struct.c ft_split_quotes.c ft_strjoinnl.c ft_matrix_dup.c \
 
 OBJS	= $(SRCS:.c=.o)
 
 BONUS_S = 	ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c\
 			ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c\
-			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
+			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
+			ft_dlstnew2.c ft_dlstadd_back2.c ft_dlstlast2.c
 
 BONUS_O = $(BONUS_S:.c=.o)
 

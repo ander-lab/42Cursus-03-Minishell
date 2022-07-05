@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/04 15:28:09 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:39:54 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		parser(t_gdata *gdata);
 void	init_tokens(char *s, t_gdata *gdata);
 
 /*
- *	utils/global/global.c
+ *	utils/global/count.c
  */
 int		command_count(char *s);
 
@@ -178,7 +178,7 @@ int		handle_path(char *cmd, char **envp);
 /*
  *	utils/forks/forks.c
  */
-void	handle_cmd(t_gdata *gdata, t_dlist *lst);
+void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
 
 /*
  *	srcs/executor/heredoc.c
@@ -192,7 +192,7 @@ t_dlist	*go_to_cmd(t_dlist *lst);
  *	srcs/executor/infile.c
  */
 int	is_infile(t_dlist *aux);
-t_dlist*	do_infile(t_dlist *aux);
+t_dlist*	do_infile(t_dlist *lst);
 void	infile_checker(t_dlist *lst, t_gdata *gdata);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/04 15:10:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/05 12:19:19 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ typedef struct s_dlist
 	struct s_dlist	*prev;
 }				t_dlist;
 
+typedef struct s_cmds_data
+{
+	void	*content;
+	int		ind;
+	int		red;
+	struct	s_cmds_data	*next;
+}	t_cmds;
+
 typedef struct s_matrix_data
 {
 	ssize_t		line_count;
@@ -47,12 +55,16 @@ typedef struct s_matrix_data
 **Dlst Library
 */
 void	ft_dlstadd_back(t_dlist **dlst, t_dlist *new);
+void	ft_dlstadd_back2(t_cmds **dlst, t_cmds *new);
 void	ft_dlstadd_front(t_dlist **lst, t_dlist *new);
 void	ft_dlstclear(t_dlist **lst, void (*del)(void *));
 void	ft_dlstdelone(t_dlist *lst, void (*del)(void *));
 t_dlist	*ft_dlstnew_struct(void *newcontent, size_t size);
+//t_cmds	*ft_dlstnew_struct2(void *newcontent, size_t size);
 t_dlist	*ft_dlstlast(t_dlist *lst);
+t_cmds	*ft_dlstlast2(t_cmds *lst);
 t_dlist *ft_dlstnew(void *content);
+t_cmds *ft_dlstnew2(void *content);
 int		ft_dlstsize(t_dlist *lst);
 
 /*
@@ -134,6 +146,7 @@ void			ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_back(t_list **lst, t_list *new);
+void			ft_lstadd_back2(t_cmds **lst, t_cmds *new);
 void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));

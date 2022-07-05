@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/04 14:20:52 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:01:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,11 @@ void	do_child(int **fd, int r, t_gdata *gdata)
 	}
 }
 
-void	handle_cmd(t_gdata *gdata, t_dlist *lst)
+void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst)
 {
 	int **fd;
 
 	fd = ft_calloc(sizeof(int *), gdata->n_pipes);
-	while(lst)
-	{
-		printf("CMD: %s\n", ((t_token_data *)lst->content)->str);
-		lst = lst->next;
-	}
 	int i = 0;
 	int status;
 	while (i < gdata->n_pipes)
@@ -61,8 +56,12 @@ void	handle_cmd(t_gdata *gdata, t_dlist *lst)
 		if (pids[r] == 0)
 		{
 			do_child(fd, r, gdata);
-			handle_path(gdata->cmds[r], gdata->envp);
+			write(2, "mando\n", 6);
+			write(2, cmds_lst->content, ft_strlen(cmds_lst->content));
+			write(2, "\n", 1);
+			handle_path(cmds_lst->content, gdata->envp);
 		}
+		cmds_lst = cmds_lst->next;
 	}
 	int s = 0;
 	while (s < gdata->n_pipes)

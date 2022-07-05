@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:37:10 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/04 15:18:07 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:32:34 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	is_infile(t_dlist *aux)
 	int	it_is;
 
 	it_is = 0;
+	if (!aux)
+		return (it_is);
 	tkn = ((t_token_data *)aux->content)->token;
 	if (tkn == 1)
 		it_is = 1;
@@ -27,12 +29,24 @@ int	is_infile(t_dlist *aux)
 void	infile_checker(t_dlist *lst, t_gdata *gdata)
 {
 	char	*file;
+	int		tkn;
 
 	lst = lst->next;
 	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	lst = lst->next;
+	tkn = ((t_token_data *)lst->content)->token;
+	while (tkn == 1)
+	{
+		lst = lst->next;
+		tkn = ((t_token_data *)lst->content)->token;
+	}
 	if (access(file, F_OK) != 0)
 	{
-		gdata->inf_err = 1;
+		lst = lst->next;
+		if (tkn == 0)
+			gdata->inf_err = 0;
+		else
+			gdata->inf_err = 1;
 		perror(file);
 	}
 }
@@ -40,17 +54,29 @@ void	infile_checker(t_dlist *lst, t_gdata *gdata)
 t_dlist *do_infile(t_dlist *lst)
 {
 	char	*file;
+	int		tkn;
 
+	lst = lst->next;
+	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	lst = lst->next;
 	while (is_infile(lst))
 	{
 		lst = lst->next;
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		lst = lst->next;
 		/*
 		lst->ind = handle_file_no_create(file);
 		*/
 		/*if (gdata->fd[0] == -1)
 			gdata->err = 1;*/
+	}
+	if (access(file, F_OK) != 0)
+	{
 		lst = lst->next;
+		tkn = ((t_token_data *)lst->content)->token;
+	//	perror(file);
+		if (tkn >= 5)
+			exit(0);
 	}
 	return (lst);
 }

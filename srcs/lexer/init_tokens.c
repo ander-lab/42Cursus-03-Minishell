@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/04 15:54:07 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:01:19 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,24 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 void	init_cmds_lst(t_gdata *gdata)
 {
 	t_cmds	*cmds;
-	int		i;
+	t_dlist	*glob_lst;
+	int		tkn;
 
-	i = 0;
-	cmds = malloc(sizeof(t_cmds));
-	if (!cmds)
-		return ;
-	while (i < gdata->commands)
+	cmds = NULL;
+	int j = 0;
+	glob_lst = gdata->glob_lst;
+	while (gdata->glob_lst)
 	{
-		cmds[i].cmd = gdata->cmds[i];
-		cmds[i].ind = -1;
-		cmds[i].red = -1;
-		i++;
+		printf("CM: %s\n", gdata->cmds[j]);
+		j++;
 	}
-	cmds[i] = NULL;
-	gdata->cmds_lst =cmds;
+	while (glob_lst)
+	{
+		tkn = 
+		ft_dlstadd_back2(&cmds, ft_dlstnew2(gdata->cmds[i]));
+		glob_lst = glob_lst->next;
+	}
+	gdata->cmds_lst = cmds;
 }
 
 void	init_tokens(char *s, t_gdata *gdata)
@@ -110,7 +113,6 @@ void	init_tokens(char *s, t_gdata *gdata)
 	raw_tokens = ft_calloc(sizeof(int), ft_strlen(s) + 1);
 	token_lst = NULL;
 	raw_len = put_tokens_on_arr(s, raw_tokens);
-	init_cmds_lst(gdata);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, \
 			gdata->n_commands + gdata->n_tokens);
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, \
@@ -118,6 +120,7 @@ void	init_tokens(char *s, t_gdata *gdata)
 	ft_convert_matrix(gdata->cmds, token_lst);
 	clean_lst_tokens(token_lst);
 	gdata->glob_lst = token_lst;
+	init_cmds_lst(gdata);
 	free(raw_tokens);
 	free(clean_tkns);
 }

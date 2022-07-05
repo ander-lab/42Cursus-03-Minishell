@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/04 15:54:05 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:19:49 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,18 +258,16 @@ int	get_prev_type(t_dlist *lst)
 	}
 }*/
 
-/*void	handle_infile(t_dlist *lst, t_gdata *gdata)
+void	handle_infile(t_dlist *lst/*, t_gdata *gdata*/)
 {
-	int	tkn;
-
 	while (lst)
 	{
-		tkn = ((t_token_data *)lst->content)->token;
-		if (tkn == 1)
-			infile_checker(lst, gdata);
+		if (is_infile(lst))
+			do_infile(lst);
+			//infile_checker(lst, gdata);
 		lst = lst->next;
 	}
-}*/
+}
 
 t_dlist	*iter_indirection(t_dlist *lst)
 {
@@ -383,22 +381,15 @@ void	executor(t_gdata *gdata)
 	//int		tkn;
 
 	cmds_lst = gdata->cmds_lst;
-	while (cmds_lst)
-	{
-		printf("CMD: %s\n", gdata->cmds_lst->cmd);
-		printf("IND: %d\n", gdata->cmds_lst->ind);
-		printf("RED: %d\n", gdata->cmds_lst->red);
-		cmds_lst = cmds_lst->next;	
-	}
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);
-	handle_cmd(gdata, lst);
+	handle_infile(lst);
+	handle_cmd(gdata, cmds_lst);
 	
 	//pipe(end);
 	
 	/*
 	handle_here(lst, gdata);
-	handle_infile(lst, gdata);
 	*/
 	
 	
