@@ -6,7 +6,7 @@
 #    By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/01 17:15:58 by ajimenez          #+#    #+#              #
-#    Updated: 2022/07/05 12:16:34 by goliano-         ###   ########.fr        #
+#    Updated: 2022/07/06 12:17:19 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC		= gcc
@@ -31,6 +31,7 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 			ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
 			ft_dlstdelone.c ft_dlstlast.c ft_dlstnew.c ft_dlstsize.c \
 			ft_dlstnew_struct.c ft_split_quotes.c ft_strjoinnl.c ft_matrix_dup.c \
+			ft_dlstnew_struct2.c
 
 OBJS	= $(SRCS:.c=.o)
 

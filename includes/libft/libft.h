@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/05 12:19:19 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:23:36 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_dlstadd_front(t_dlist **lst, t_dlist *new);
 void	ft_dlstclear(t_dlist **lst, void (*del)(void *));
 void	ft_dlstdelone(t_dlist *lst, void (*del)(void *));
 t_dlist	*ft_dlstnew_struct(void *newcontent, size_t size);
-//t_cmds	*ft_dlstnew_struct2(void *newcontent, size_t size);
+t_cmds	*ft_dlstnew_struct2(void *newcontent, size_t size);
 t_dlist	*ft_dlstlast(t_dlist *lst);
 t_cmds	*ft_dlstlast2(t_cmds *lst);
 t_dlist *ft_dlstnew(void *content);

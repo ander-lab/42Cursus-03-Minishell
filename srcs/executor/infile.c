@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:37:10 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/05 15:32:34 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:56:33 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_infile(t_dlist *aux)
 	return (it_is);
 }
 
-void	infile_checker(t_dlist *lst, t_gdata *gdata)
+/*void	infile_checker(t_dlist *lst, t_gdata *gdata)
 {
 	char	*file;
 	int		tkn;
@@ -49,34 +49,44 @@ void	infile_checker(t_dlist *lst, t_gdata *gdata)
 			gdata->inf_err = 1;
 		perror(file);
 	}
+}*/
+
+static int	file_checker(char *file)
+{
+	int	err;
+
+	err = 0;
+	if (access(file, F_OK) != 0)
+		err = 1;
+	return (err);
 }
 
-t_dlist *do_infile(t_dlist *lst)
+static int	do_inf_err(char *file, t_dlist *lst)
+{
+	int	next;
+
+	next = get_next_type(lst);
+	printf("NEX: %d\n", next);
+	if (next != 0)
+	{
+		perror(file);
+		return (1);
+	}
+	perror(file);
+	return (0);
+}
+
+t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
 {
 	char	*file;
-	int		tkn;
 
-	lst = lst->next;
-	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	lst = lst->next;
-	while (is_infile(lst))
+	while (is_infile(lst) && !gdata->inf_err)
 	{
 		lst = lst->next;
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		if (file_checker(file) && do_inf_err(file, lst))
+			gdata->inf_err = 1;
 		lst = lst->next;
-		/*
-		lst->ind = handle_file_no_create(file);
-		*/
-		/*if (gdata->fd[0] == -1)
-			gdata->err = 1;*/
-	}
-	if (access(file, F_OK) != 0)
-	{
-		lst = lst->next;
-		tkn = ((t_token_data *)lst->content)->token;
-	//	perror(file);
-		if (tkn >= 5)
-			exit(0);
 	}
 	return (lst);
 }

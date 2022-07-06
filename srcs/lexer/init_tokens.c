@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/05 16:01:19 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:26:15 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,17 @@ void	init_cmds_lst(t_gdata *gdata)
 {
 	t_cmds	*cmds;
 	t_dlist	*glob_lst;
-	int		tkn;
+	char	*cmd;
 
 	cmds = NULL;
-	int j = 0;
 	glob_lst = gdata->glob_lst;
-	while (gdata->glob_lst)
-	{
-		printf("CM: %s\n", gdata->cmds[j]);
-		j++;
-	}
 	while (glob_lst)
 	{
-		tkn = 
-		ft_dlstadd_back2(&cmds, ft_dlstnew2(gdata->cmds[i]));
+		glob_lst = iterate_ind(glob_lst);
+		cmd = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
+		if (cmd)
+			ft_dlstadd_back2(&cmds, ft_dlstnew2(cmd));	
+			//ft_dlstadd_back2(&cmds, ft_dlstnew_struct2(cmd, sizeof(t_cmds)));
 		glob_lst = glob_lst->next;
 	}
 	gdata->cmds_lst = cmds;

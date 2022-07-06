@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/05 15:19:49 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:56:35 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	get_prev_type(t_dlist *lst)
 	return (lst);
 }*/
 
-/*static	int	exists_pipe(t_dlist *lst)
+static	int	exists_pipe(t_dlist *lst)
 {
 	int	exists;
 	int	tkn;
@@ -103,7 +103,7 @@ int	get_prev_type(t_dlist *lst)
 		lst = lst->next;
 	}
 	return (exists);
-}*/
+}
 
 /*static t_dlist *red_app_handler_back(t_dlist *lst, t_gdata *gdata)
 {
@@ -258,12 +258,12 @@ int	get_prev_type(t_dlist *lst)
 	}
 }*/
 
-void	handle_infile(t_dlist *lst/*, t_gdata *gdata*/)
+void	handle_infile(t_dlist *lst, t_gdata *gdata)
 {
 	while (lst)
 	{
-		if (is_infile(lst))
-			do_infile(lst);
+		if (is_infile(lst) && !gdata->inf_err)
+			do_infile(lst, gdata);
 			//infile_checker(lst, gdata);
 		lst = lst->next;
 	}
@@ -380,11 +380,26 @@ void	executor(t_gdata *gdata)
 	//int		end[2];
 	//int		tkn;
 
+	printf("NUEVAS1\n");
 	cmds_lst = gdata->cmds_lst;
+	printf("NUEVAS2\n");
 	lst = gdata->glob_lst;
+	printf("NUEVAS3\n");
 	gdata->n_pipes = get_n_pipes(lst);
-	handle_infile(lst);
+	printf("NUEVAS4\n");
+	handle_infile(lst, gdata);
+	printf("INF: %d\n", gdata->inf_err);
+	if (gdata->inf_err && !exists_pipe(lst))
+		return ;
+	while (cmds_lst)
+	{
+		printf("CMD: %s\n", cmds_lst->content);
+		cmds_lst = cmds_lst->next;
+	}
+	return ;
+	printf("NUEVAS5\n");
 	handle_cmd(gdata, cmds_lst);
+	printf("NUEVAS6\n");
 	
 	//pipe(end);
 	

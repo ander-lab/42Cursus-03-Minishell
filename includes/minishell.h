@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/05 15:39:54 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:06:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ t_dlist	*go_to_cmd(t_dlist *lst);
  *	srcs/executor/infile.c
  */
 int	is_infile(t_dlist *aux);
-t_dlist*	do_infile(t_dlist *lst);
+t_dlist*	do_infile(t_dlist *lst, t_gdata *gdata);
 void	infile_checker(t_dlist *lst, t_gdata *gdata);
 
 /*

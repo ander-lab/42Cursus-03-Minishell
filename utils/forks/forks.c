@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/05 16:01:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:56:38 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst)
 			perror("Fork: ");
 			exit(EXIT_FAILURE);
 		}
+		write(2, "cmd: \n", 6);
+		write(2, cmds_lst->content, ft_strlen(cmds_lst->content));
+		write(2, "\n", 1);
 		if (pids[r] == 0)
 		{
 			do_child(fd, r, gdata);
-			write(2, "mando\n", 6);
-			write(2, cmds_lst->content, ft_strlen(cmds_lst->content));
-			write(2, "\n", 1);
 			handle_path(cmds_lst->content, gdata->envp);
 		}
 		cmds_lst = cmds_lst->next;
