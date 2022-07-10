@@ -262,14 +262,15 @@ void	handle_infile(t_dlist *lst, t_gdata *gdata)
 {
 	while (lst)
 	{
-		if (is_infile(lst) && !gdata->inf_err)
-			do_infile(lst, gdata);
+		if (is_infile(lst))
+			lst = do_infile(lst, gdata);
 			//infile_checker(lst, gdata);
-		lst = lst->next;
+		else
+			lst = lst->next;
 	}
 }
 
-t_dlist	*iter_indirection(t_dlist *lst)
+/*t_dlist	*iter_indirection(t_dlist *lst)
 {
 	int	tkn;
 	
@@ -283,7 +284,7 @@ t_dlist	*iter_indirection(t_dlist *lst)
 		tkn = ((t_token_data *)lst->content)->token;
 	}
 	return (lst);
-}
+}*/
 
 t_dlist	*iter_red_app(t_dlist *lst)
 {
@@ -380,20 +381,18 @@ void	executor(t_gdata *gdata)
 	//int		end[2];
 	//int		tkn;
 
-	printf("NUEVAS1\n");
 	cmds_lst = gdata->cmds_lst;
-	printf("NUEVAS2\n");
 	lst = gdata->glob_lst;
-	printf("NUEVAS3\n");
 	gdata->n_pipes = get_n_pipes(lst);
-	printf("NUEVAS4\n");
 	handle_infile(lst, gdata);
-	printf("INF: %d\n", gdata->inf_err);
 	if (gdata->inf_err && !exists_pipe(lst))
 		return ;
 	while (cmds_lst)
 	{
-		printf("CMD: %s\n", cmds_lst->content);
+		printf("CMD: %s\n", (char *)cmds_lst->content);
+		printf("IND: %d\n", cmds_lst->ind);
+		printf("RED[0]: %d\n", cmds_lst->red[0]);
+		printf("RED[1]: %d\n", cmds_lst->red[1]);
 		cmds_lst = cmds_lst->next;
 	}
 	return ;

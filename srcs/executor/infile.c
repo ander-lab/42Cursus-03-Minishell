@@ -66,7 +66,6 @@ static int	do_inf_err(char *file, t_dlist *lst)
 	int	next;
 
 	next = get_next_type(lst);
-	printf("NEX: %d\n", next);
 	if (next != 0)
 	{
 		perror(file);
@@ -79,8 +78,9 @@ static int	do_inf_err(char *file, t_dlist *lst)
 t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
 {
 	char	*file;
+	//int	tkn;
 
-	while (is_infile(lst) && !gdata->inf_err)
+	while (is_infile(lst))
 	{
 		lst = lst->next;
 		file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
@@ -88,6 +88,18 @@ t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
 			gdata->inf_err = 1;
 		lst = lst->next;
 	}
+	/*tkn = (((t_token_data *)lst->content)->token);
+	printf("FILE: %s\n", file);
+	printf("TKN: %d\n", tkn);
+	while (cmds)
+	{
+		if (tkn == 6 && cmds->ind == -1)
+		{
+			cmds->ind = handle_file_no_create(file);
+			break ;
+		}
+		cmds = cmds->next;
+	}*/
 	return (lst);
 }
 

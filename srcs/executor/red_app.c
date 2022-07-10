@@ -53,15 +53,15 @@ t_dlist *do_red_or_app(t_dlist *lst)
 {
 	char	*cmd;
 	int	tkn;
-	int	is_red;
+	//int	is_red;
 
 	lst = lst->next;
 	tkn = ((t_token_data *)lst->content)->token;
 	while (tkn == 2 || tkn == 4)
 	{
-		is_red = 0;
-		if (tkn == 2) //red
-			is_red = 1;
+	//	is_red = 0;
+	//	if (tkn == 2) //red
+	//		is_red = 1;
 		lst = lst->next;
 		cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		cmd = ft_strtrim(cmd, " ");

@@ -37,9 +37,9 @@ typedef struct s_dlist
 
 typedef struct s_cmds_data
 {
-	void	*content;
-	int		ind;
-	int		red;
+	void			*content;
+	int			ind;
+	int			*red;
 	struct	s_cmds_data	*next;
 }	t_cmds;
 
@@ -64,7 +64,7 @@ t_cmds	*ft_dlstnew_struct2(void *newcontent, size_t size);
 t_dlist	*ft_dlstlast(t_dlist *lst);
 t_cmds	*ft_dlstlast2(t_cmds *lst);
 t_dlist *ft_dlstnew(void *content);
-t_cmds *ft_dlstnew2(void *content);
+t_cmds *ft_dlstnew2(t_cmds *cmds);
 int		ft_dlstsize(t_dlist *lst);
 
 /*

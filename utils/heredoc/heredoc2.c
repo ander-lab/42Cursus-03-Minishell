@@ -28,6 +28,20 @@ t_dlist	*go_heredoc(t_dlist *lst)
 
 t_dlist	*iterate_red_app(t_dlist *lst)
 {
+	int	tkn;
+
+	if (!lst)
+		return (lst);
+	tkn = ((t_token_data *)lst->content)->token;
+	while (tkn == 2 || tkn == 4)
+	{
+		lst = lst->next;
+		if (lst->next)
+			lst = lst->next;
+		tkn = ((t_token_data *)lst->content)->token;
+	}
+	return (lst);
+	/*
 	int prev;
 
 	prev = get_prev_type(lst);
@@ -40,6 +54,7 @@ t_dlist	*iterate_red_app(t_dlist *lst)
 		prev = get_prev_type(lst);
 	}
 	return (lst);
+	*/
 }
 
 t_dlist	*iterate_ind(t_dlist *lst)
@@ -48,9 +63,7 @@ t_dlist	*iterate_ind(t_dlist *lst)
 
 	if (!lst)
 		return (lst);
-	printf("HOLA\n");
 	tkn = ((t_token_data *)lst->content)->token;
-	printf("TKN22: %d\n", tkn);
 	while (tkn == 1)
 	{
 		lst = lst->next;

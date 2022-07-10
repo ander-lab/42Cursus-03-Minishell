@@ -78,11 +78,66 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	}
 }*/
 
+int	last_infile(t_dlist *lst)
+{
+	char *file;
+	int	fd;
+
+	fd = -1;
+	if (lst->prev)
+		lst = lst->prev;
+	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	if (file)
+		fd = handle_file_no_create(file);
+	return (fd);
+}
+
+int	*last_red(t_dlist *lst)
+{
+	char 	*file;
+	int	*fd;
+	int	prev;
+
+	prev = get_prev_type(lst);
+	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	printf("FILE RED: %s\n", file);
+	fd = ft_calloc(sizeof(int), 2);
+	if (prev == 2)
+	{
+		fd[0] = 
+		fd[1] = handle_file_create(file, 0);
+	}
+	els
+	else
+	{
+		fd[0] = -1;
+		fd[1] = -1;
+	}
+	printf("RET FD: %d\n", fd[1]);
+	return (fd);
+}
+
+t_cmds	*fill_cmds(char *cmd, int ind, int *red)
+{
+	t_cmds	*cmds;
+
+	cmds = malloc(sizeof(t_cmds));
+	if (!cmds)
+		return (0);
+	cmds->content = cmd;
+	cmds->ind = ind;
+	cmds->red = red;
+	cmds->next = NULL;
+	return (cmds);
+}
+
 void	init_cmds_lst(t_gdata *gdata)
 {
 	t_cmds	*cmds;
 	t_dlist	*glob_lst;
 	char	*cmd;
+	int	ind;
+	int	*red;
 
 	cmds = NULL;
 	glob_lst = gdata->glob_lst;
@@ -90,11 +145,30 @@ void	init_cmds_lst(t_gdata *gdata)
 	{
 		glob_lst = iterate_ind(glob_lst);
 		cmd = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
+		ind = last_infile(glob_lst);
+		//if (cmd)
+		//	glob_lst = glob_lst->next;
+			//ft_dlstadd_back2(&cmds, ft_dlstnew2(cmd, ind));
+		printf("CMD0: %s\n", cmd);
+		glob_lst = iterate_red_app(glob_lst);
+		char *cmd2 = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
+		printf("CMD1: %s\n", cmd);
+		printf("CMD2: %s\n", cmd2);
+		red = last_red(glob_lst);
 		if (cmd)
-			ft_dlstadd_back2(&cmds, ft_dlstnew2(cmd));	
-			//ft_dlstadd_back2(&cmds, ft_dlstnew_struct2(cmd, sizeof(t_cmds)));
+			ft_dlstadd_back2(&cmds, fill_cmds(cmd, ind, red));
 		glob_lst = glob_lst->next;
 	}
+	while (cmds)
+	{
+		printf("CMD: %s\n", (char *)cmds->content);
+		printf("IND: %d\n", cmds->ind);
+		printf("RED[0]: %d\n", cmds->red[0]);
+		printf("RED[1]: %d\n", cmds->red[1]);
+		cmds = cmds->next;
+	}
+	//printf("RED[0]: %d\n", red[0]);
+	//printf("RED[1]: %d\n", red[1]);
 	gdata->cmds_lst = cmds;
 }
 

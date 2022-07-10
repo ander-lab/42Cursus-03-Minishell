@@ -59,7 +59,7 @@ t_dlist *go_last_here(t_dlist *lst)
 	return (aux->next);
 }
 
-t_dlist	*red_app_handler(t_dlist *lst)
+/*t_dlist	*red_app_handler(t_dlist *lst)
 {
 	char	*file;
 	int		fd;
@@ -80,7 +80,7 @@ t_dlist	*red_app_handler(t_dlist *lst)
 			lst = lst->next;
 	}
 	//gdata->fd[1] = fd;
-	return (lst);
+	return (lst);*/
 	/*while (next_type == 2 || next_type == 4)
 	{
 		lst = lst->next;
@@ -94,7 +94,7 @@ t_dlist	*red_app_handler(t_dlist *lst)
 		red = 1;
 	}
 	return (red);*/
-}
+//}
 
 void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 {

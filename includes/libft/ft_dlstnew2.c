@@ -12,16 +12,16 @@
 
 #include "libft.h"
 
-t_cmds *ft_dlstnew2(void *content)
+t_cmds *ft_dlstnew2(t_cmds *cmds)
 {
 	t_cmds	*lstnew;
 
 	lstnew = malloc(sizeof(t_cmds));
 	if (!lstnew)
 		return (0);
-	lstnew->content = content;
-	lstnew->ind = -1;
-	lstnew->red = -1;
+	lstnew->content = cmds->content;;
+	lstnew->ind = cmds->ind;
+	lstnew->red = cmds->red;
 	lstnew->next = NULL;
 	return (lstnew);
 }

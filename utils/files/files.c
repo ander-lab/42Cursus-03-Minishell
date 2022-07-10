@@ -33,12 +33,12 @@ int	handle_file_create(char *file, int type)
 	if (fd < 0)
 	{
 		perror("File");
-		return (-1);
+		return (0);
 	}
 	return (fd);
 }
 
-int	open_next_file(t_dlist *lst, int type)
+/*int	open_next_file(t_dlist *lst, int type)
 {
 	t_dlist	*aux;
 	char	*cmd;
@@ -57,4 +57,4 @@ int	open_next_file(t_dlist *lst, int type)
 		return (-1);
 	cmd = (((t_token_data *)aux->content)->str);
 	return (handle_file_create(ft_strtrim(cmd, " "), type));
-}
+}*/

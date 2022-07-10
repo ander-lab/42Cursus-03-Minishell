@@ -39,7 +39,7 @@ void	parser(t_gdata *gdata)
 	t_dlist	*aux;
 	int	i;
 
-	aux = gdata->cmds_list;
+	aux = gdata->glob_lst;
 	i = 0;
 	ft_printdlst(aux);
 	while (aux && !gdata->err)
