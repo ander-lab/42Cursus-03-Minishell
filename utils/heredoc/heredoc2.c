@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 16:21:09 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/06 12:15:01 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:41:22 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@ t_dlist	*go_heredoc(t_dlist *lst)
 t_dlist	*iterate_red_app(t_dlist *lst)
 {
 	int	tkn;
+	int	next;
 
 	if (!lst)
 		return (lst);
+	next = get_next_type(lst);
+	if (next == 2 || next == 4)
+		lst = lst->next;
 	tkn = ((t_token_data *)lst->content)->token;
 	while (tkn == 2 || tkn == 4)
 	{

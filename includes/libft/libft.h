@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/06 12:23:36 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:12:47 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_cmds_data
 {
 	void			*content;
 	int			ind;
-	int			*red;
+	int			red;
 	struct	s_cmds_data	*next;
 }	t_cmds;
 

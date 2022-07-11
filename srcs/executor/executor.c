@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/06 15:56:35 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/11 10:12:53 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,8 +391,7 @@ void	executor(t_gdata *gdata)
 	{
 		printf("CMD: %s\n", (char *)cmds_lst->content);
 		printf("IND: %d\n", cmds_lst->ind);
-		printf("RED[0]: %d\n", cmds_lst->red[0]);
-		printf("RED[1]: %d\n", cmds_lst->red[1]);
+		printf("RED: %d\n", cmds_lst->red);
 		cmds_lst = cmds_lst->next;
 	}
 	return ;

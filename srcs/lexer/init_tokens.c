@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/06 12:26:15 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:41:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,32 +92,27 @@ int	last_infile(t_dlist *lst)
 	return (fd);
 }
 
-int	*last_red(t_dlist *lst)
+int	last_red(t_dlist *lst, int red)
 {
 	char 	*file;
-	int	*fd;
-	int	prev;
+	int		fd;
+	int		prev;
 
+	fd = -1;
+	printf("RED: %d\n", red);
+	if (!red)
+		return (fd);
+	lst = lst->prev;
 	prev = get_prev_type(lst);
 	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	printf("FILE RED: %s\n", file);
-	fd = ft_calloc(sizeof(int), 2);
 	if (prev == 2)
-	{
-		fd[0] = 
-		fd[1] = handle_file_create(file, 0);
-	}
-	els
-	else
-	{
-		fd[0] = -1;
-		fd[1] = -1;
-	}
-	printf("RET FD: %d\n", fd[1]);
+		fd = handle_file_create(file, 0);
+	else if (prev == 4)
+		fd = handle_file_create(file, 1);
 	return (fd);
 }
 
-t_cmds	*fill_cmds(char *cmd, int ind, int *red)
+t_cmds	*fill_cmds(char *cmd, int ind, int red)
 {
 	t_cmds	*cmds;
 
@@ -131,40 +126,70 @@ t_cmds	*fill_cmds(char *cmd, int ind, int *red)
 	return (cmds);
 }
 
+int	exist_red(t_dlist *lst)
+{
+	int	prev;
+	int	exists;
+
+	exists = 0;
+	char *cmd2 = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	printf("CMD RED: %s\n", cmd2);
+	prev = get_prev_type(lst);
+	while (lst && prev != 0)
+	{
+		tkn ((t_token_data *)lst->content)->token;
+		lst = lst->prev;
+	}
+	/*if (lst->prev)
+		lst = lst->prev;
+	cmd2 = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	printf("CMD2 RED: %s\n", cmd2);
+	prev = get_prev_type(lst);
+	if (prev == 2 || prev == 4)
+		exists = 1;*/
+	return (exists);
+}
+
 void	init_cmds_lst(t_gdata *gdata)
 {
 	t_cmds	*cmds;
 	t_dlist	*glob_lst;
 	char	*cmd;
-	int	ind;
-	int	*red;
+	int		ind;
+	int		red;
 
 	cmds = NULL;
 	glob_lst = gdata->glob_lst;
 	while (glob_lst)
 	{
+		ind = -1;
+		red = -1;
 		glob_lst = iterate_ind(glob_lst);
 		cmd = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
 		ind = last_infile(glob_lst);
 		//if (cmd)
 		//	glob_lst = glob_lst->next;
 			//ft_dlstadd_back2(&cmds, ft_dlstnew2(cmd, ind));
-		printf("CMD0: %s\n", cmd);
 		glob_lst = iterate_red_app(glob_lst);
-		char *cmd2 = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
+		red = last_red(glob_lst, exist_red(glob_lst));
+		if (red > 2)
+			glob_lst = glob_lst->prev;
+		/*char *cmd2 = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
 		printf("CMD1: %s\n", cmd);
 		printf("CMD2: %s\n", cmd2);
-		red = last_red(glob_lst);
+		printf("IND: %d\n", ind);
+		printf("RED: %d\n", red);*/
 		if (cmd)
 			ft_dlstadd_back2(&cmds, fill_cmds(cmd, ind, red));
 		glob_lst = glob_lst->next;
+		if (glob_lst && glob_lst->next)
+			glob_lst = glob_lst->next;
 	}
 	while (cmds)
 	{
 		printf("CMD: %s\n", (char *)cmds->content);
 		printf("IND: %d\n", cmds->ind);
-		printf("RED[0]: %d\n", cmds->red[0]);
-		printf("RED[1]: %d\n", cmds->red[1]);
+		printf("RED: %d\n", cmds->red);
 		cmds = cmds->next;
 	}
 	//printf("RED[0]: %d\n", red[0]);
