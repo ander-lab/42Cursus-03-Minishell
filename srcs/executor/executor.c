@@ -376,28 +376,25 @@ int	get_n_pipes(t_dlist *lst)
 void	executor(t_gdata *gdata)
 {
 	t_dlist	*lst;
-	t_cmds	*cmds_lst;
+	t_cmds	*cmds;
 	
 	//int		end[2];
 	//int		tkn;
 
-	cmds_lst = gdata->cmds_lst;
+	cmds = gdata->cmds_lst;
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);
 	handle_infile(lst, gdata);
 	if (gdata->inf_err && !exists_pipe(lst))
 		return ;
-	while (cmds_lst)
+	/*while (cmds)
 	{
-		printf("CMD: %s\n", (char *)cmds_lst->content);
-		printf("IND: %d\n", cmds_lst->ind);
-		printf("RED: %d\n", cmds_lst->red);
-		cmds_lst = cmds_lst->next;
-	}
-	return ;
-	printf("NUEVAS5\n");
-	handle_cmd(gdata, cmds_lst);
-	printf("NUEVAS6\n");
+		printf("CMD: %s\n", (char *)cmds->content);
+		printf("IND: %d\n", cmds->ind);
+		printf("RED: %d\n", cmds->red);
+		cmds = cmds->next;
+	}*/
+	handle_cmd(gdata, cmds);
 	
 	//pipe(end);
 	

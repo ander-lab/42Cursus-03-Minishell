@@ -29,11 +29,34 @@ t_dlist	*go_heredoc(t_dlist *lst)
 t_dlist	*iterate_red_app(t_dlist *lst)
 {
 	int	tkn;
+	
+	tkn = ((t_token_data *)lst->content)->token;
+	while (tkn == 2 || tkn == 4)
+	{
+		lst = lst->next;
+		if (lst->next)
+			lst = lst->next;
+		tkn = ((t_token_data *)lst->content)->token;
+	}
+	lst = lst->prev;
+	return (lst);
+}
+
+t_dlist	*iterate_red_app_next(t_dlist *lst)
+{
 	int	next;
 
-	if (!lst)
-		return (lst);
+	//if (!lst)
+	//	return (lst);
 	next = get_next_type(lst);
+	while (next == 2 || next == 4)
+	{
+		lst = lst->next->next;
+		next = get_next_type(lst);
+
+	}
+	return (lst);
+	/*next = get_next_type(lst);
 	if (next == 2 || next == 4)
 		lst = lst->next;
 	tkn = ((t_token_data *)lst->content)->token;
@@ -44,7 +67,7 @@ t_dlist	*iterate_red_app(t_dlist *lst)
 			lst = lst->next;
 		tkn = ((t_token_data *)lst->content)->token;
 	}
-	return (lst);
+	return (lst);*/
 	/*
 	int prev;
 

@@ -232,6 +232,7 @@ void	here_cmd_call(t_gdata *gdata, char *cmd);
  *	utils/heredoc/heredoc2.c
  */
 t_dlist	*iterate_ind(t_dlist *lst);
+t_dlist	*iterate_red_app_next(t_dlist *lst);
 t_dlist	*iterate_red_app(t_dlist *lst);
 t_dlist	*go_heredoc(t_dlist *lst);
 

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	do_child(int **fd, int r, t_gdata *gdata)
+void	do_child(t_cmds *cmds, int **fd, int r, t_gdata *gdata)
 {
 	int	s;
 
@@ -21,6 +21,16 @@ void	do_child(int **fd, int r, t_gdata *gdata)
 		dup2(fd[r][WRITE_END], STDOUT_FILENO);
 	if (r != 0)
 		dup2(fd[r - 1][READ_END], STDIN_FILENO);
+	if (cmds->ind > 0)
+	{
+		dup2(cmds->ind, STDIN_FILENO);
+		close(cmds->ind);
+	}
+	if (cmds->red > 0)
+	{
+		dup2(cmds->red, STDOUT_FILENO);
+		close(cmds->red);
+	}
 	while (s < gdata->n_pipes)
 	{
 		close(fd[s][READ_END]);
@@ -29,7 +39,7 @@ void	do_child(int **fd, int r, t_gdata *gdata)
 	}
 }
 
-void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst)
+void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 {
 	int **fd;
 
@@ -53,15 +63,12 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst)
 			perror("Fork: ");
 			exit(EXIT_FAILURE);
 		}
-		write(2, "cmd: \n", 6);
-		write(2, cmds_lst->content, ft_strlen(cmds_lst->content));
-		write(2, "\n", 1);
 		if (pids[r] == 0)
 		{
-			do_child(fd, r, gdata);
-			handle_path(cmds_lst->content, gdata->envp);
+			do_child(cmds, fd, r, gdata);
+			handle_path(cmds->content, gdata->envp);
 		}
-		cmds_lst = cmds_lst->next;
+		cmds = cmds->next;
 	}
 	int s = 0;
 	while (s < gdata->n_pipes)
