@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/11 13:41:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:29:41 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	last_red(t_dlist *lst, int red)
 	return (fd);
 }
 
-t_cmds	*fill_cmds(char *cmd, int ind, int red)
+t_cmds	*fill_cmds(char *cmd, int ind, int red, int here)
 {
 	t_cmds	*cmds;
 
@@ -120,6 +120,7 @@ t_cmds	*fill_cmds(char *cmd, int ind, int red)
 	cmds->content = cmd;
 	cmds->ind = ind;
 	cmds->red = red;
+	cmds->here = here;
 	cmds->next = NULL;
 	return (cmds);
 }
@@ -151,6 +152,129 @@ int	exist_red(t_dlist *lst)
 		exists = 1;*/
 }
 
+int	get_ind(t_dlist *lst)
+{
+	int		tkn;
+	int		ind;
+	char	*file;
+
+	ind = -1;
+	tkn = (((t_token_data *)lst->content)->token);
+	while (lst && tkn != 0)
+	{
+		if (tkn == 1)
+		{
+			lst = lst->next;
+			file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+			ind = handle_file_no_create(file);
+		}
+		lst = lst->next;
+		if (lst)
+			tkn = (((t_token_data *)lst->content)->token);
+	}
+	return (ind);
+}
+
+int	get_red(t_dlist *lst)
+{
+	int		tkn;
+	int		red;
+	char	*file;
+
+	red = -1;
+	tkn = (((t_token_data *)lst->content)->token);
+	while (lst && tkn != 0)
+	{
+		if (tkn == 2 || tkn == 4)
+		{
+			lst = lst->next;
+			file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+			if (tkn == 2)
+				red = handle_file_create(file, 0);
+			if (tkn == 4)
+				red = handle_file_create(file, 1);
+		}
+		lst = lst->next;
+		if (lst)
+			tkn = (((t_token_data *)lst->content)->token);
+	}
+	return (red);
+}
+
+char	*get_cmd(t_dlist *lst)
+{
+	char	*cmd;
+	int		tkn;
+	int		next;
+	
+	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	tkn = (((t_token_data *)lst->content)->token);
+	while (lst && tkn != 0)
+	{
+		next = get_next_type(lst);
+		if (next == 0 || (next > 1 && next < 5))
+			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		lst = lst->next;
+		if (lst)
+			tkn = (((t_token_data *)lst->content)->token);
+	}
+	return (cmd);
+}
+
+t_dlist	*iter_to_pipe(t_dlist *lst)
+{
+	int	tkn;
+
+	while (lst)
+	{
+		tkn = (((t_token_data *)lst->content)->token);
+		if (tkn == 0)
+		{
+			lst = lst->next;
+			break ;
+		}
+		lst = lst->next;
+	}
+	return (lst);
+}
+
+t_dlist	*move_to_last_heredoc(t_dlist *lst)
+{
+	int 	tkn;
+	t_dlist	*aux;
+	
+	aux = lst;
+	tkn = (((t_token_data *)lst->content)->token);
+	while (lst && tkn != 0)
+	{
+		if (tkn == 3)
+			aux = lst->next;
+		lst = lst->next;
+		if (lst)
+			tkn = (((t_token_data *)lst->content)->token);
+	}
+	return (aux);
+}
+
+int	need_exec_here(t_dlist *lst)
+{
+	int	tkn;
+	int	need_it;
+
+	need_it = 0;
+	lst = move_to_last_heredoc(lst);
+	/*tkn = (((t_token_data *)lst->content)->token);
+	while (lst && tkn != 0)
+	{
+		if (tkn > 0 && tkn < 3
+		lst = lst->next;
+	}*/
+	char *cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	printf("TKN: %d\n", tkn);
+	printf("CMD: %s\n", cmd);
+	return (need_it);
+}
+
 void	init_cmds_lst(t_gdata *gdata)
 {
 	t_cmds	*cmds;
@@ -158,49 +282,45 @@ void	init_cmds_lst(t_gdata *gdata)
 	char	*cmd;
 	int		ind;
 	int		red;
+	int		here;
 
 	cmds = NULL;
 	glob_lst = gdata->glob_lst;
 	while (glob_lst)
 	{
-		ind = -1;
-		red = -1;
-		glob_lst = iterate_ind(glob_lst);
+		ind = get_ind(glob_lst);
+		red = get_red(glob_lst);
+		cmd = get_cmd(glob_lst);
+		here = need_exec_here(glob_lst);
+		ft_dlstadd_back2(&cmds, fill_cmds(cmd, ind, red, here));
+		glob_lst = iter_to_pipe(glob_lst);
+	/*	int tkn = (((t_token_data *)glob_lst->content)->token);
+		char *cmd = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
+		printf("CMD: %s\n", cmd);
+		printf("TKN: %d\n", tkn);*/
+		/*glob_lst = iterate_ind(glob_lst);
 		cmd = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
 		ind = last_infile(glob_lst);
 		if (!cmd)
-		{
 			glob_lst = iterate_red_app(glob_lst);
-		}
 		else
-		{
 			glob_lst = iterate_red_app_next(glob_lst);
-		}
-		//if (cmd)
-		//	glob_lst = glob_lst->next;
-			//ft_dlstadd_back2(&cmds, ft_dlstnew2(cmd, ind));
 		red = last_red(glob_lst, exist_red(glob_lst));
-		//if (red > 2)
-		//	glob_lst = glob_lst->prev;
-		/*char *cmd2 = ft_strtrim((((t_token_data *)glob_lst->content)->str), " ");
-		printf("CMD1: %s\n", cmd);
-		printf("CMD2: %s\n", cmd2);
-		printf("IND: %d\n", ind);
-		printf("RED: %d\n", red);
-		*/
 		if (cmd)
 			ft_dlstadd_back2(&cmds, fill_cmds(cmd, ind, red));
 		glob_lst = glob_lst->next;
 		if (glob_lst && glob_lst->next)
-			glob_lst = glob_lst->next;
+			glob_lst = glob_lst->next;*/
+
 	}
-	/*while (cmds)
+	while (cmds)
 	{
 		printf("CMD: %s\n", (char *)cmds->content);
 		printf("IND: %d\n", cmds->ind);
 		printf("RED: %d\n", cmds->red);
+		printf("HERE: %d\n", cmds->here);
 		cmds = cmds->next;
-	}*/
+	}
 	gdata->cmds_lst = cmds;
 }
 
