@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:33:00 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/17 12:30:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:24:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,15 @@ int	need_exec(t_dlist *lst)
 	return (0);
 }
 
-void	fill_heredoc(t_gdata *gdata, char *cmd)
+char	*fill_heredoc(char *cmd)
 {
 	char	*line;
-	int	i;
-	int	checker;
+	char	*here;
+	int		i;
+	int		checker;
 
 	line = readline("> ");
-	gdata->heredoc = line;
+	here = line;
 	i = 0;
 	while (line)
 	{
@@ -90,13 +91,13 @@ void	fill_heredoc(t_gdata *gdata, char *cmd)
 		if (checker == 2)
 		{
 			if (i == 0)
-				gdata->heredoc = 0;
+				here = 0;
 			break ;
 		}
 		if (i != 0)
-			gdata->heredoc = ft_strjoinnl(gdata->heredoc, line);
+			here = ft_strjoinnl(here, line);
 		line = readline("> ");
 		i++;
 	}
-	gdata->heredoc = append_nl(gdata->heredoc);
+	return (append_nl(here));
 }

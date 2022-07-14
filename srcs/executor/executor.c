@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/13 12:51:33 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:19:47 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,20 +381,27 @@ void	executor(t_gdata *gdata)
 	//int		end[2];
 	//int		tkn;
 
-	return ;
 	cmds = gdata->cmds_lst;
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);
+	do_heredoc(lst, gdata);
 	handle_infile(lst, gdata);
 	if (gdata->inf_err && !exists_pipe(lst))
 		return ;
-	while (cmds)
+	/*while (cmds)
 	{
 		printf("CMD: %s\n", (char *)cmds->content);
 		printf("IND: %d\n", cmds->ind);
 		printf("RED: %d\n", cmds->red);
+		printf("HERE: %d\n", cmds->here);
 		cmds = cmds->next;
-	}
+	}*/
+	/*int r= 0;
+	while (gdata->heredoc[r])
+	{
+		printf("HERE: %s\n", gdata->heredoc[r]);
+		r++;
+	}*/
 	return ;
 	handle_cmd(gdata, cmds);
 	

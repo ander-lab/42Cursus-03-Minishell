@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/07/13 09:53:51 by goliano-         ###   ########.fr        #
+#    Updated: 2022/07/14 10:31:03 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./utils/lengths/lengths.c srcs/lexer/clean_tokens.c ./utils/handler/error_handler.c \
 			./srcs/lexer/init_tokens.c ./srcs/lexer/spaces.c ./utils/global/count.c \
 			./srcs/executor/executor.c ./utils/forks/forks.c ./utils/cmd_exec/cmd_exec.c \
-			./srcs/executor/infile.c ./utils/heredoc/heredoc2.c ./utils/files/files.c
+			./srcs/executor/infile.c ./utils/heredoc/heredoc2.c ./utils/files/files.c \
+			./srcs/executor/heredoc.c ./utils/str/strings3.c ./utils/heredoc/heredoc.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

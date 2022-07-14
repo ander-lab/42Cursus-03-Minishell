@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/11 13:41:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:24:03 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int		length_from_idx(char *word, int idx);
 int		get_cmds_length(t_gdata *g_data);
 int		filename_length(char *word);
 int		length_str_no_quotes(char *cmd);
+int		matrix_length(char **mat);
 
 /*
  *	utils/handler/error_handler.c
@@ -217,7 +218,7 @@ void	ft_convert_matrix(char **words, t_dlist *lst);
 /*
  *	utils/heredoc/heredoc.c
  */
-void	fill_heredoc(t_gdata *gdata, char *cmd);
+char	*fill_heredoc(char *cmd);
 int		need_exec(t_dlist *lst);
 int		is_last_heredoc(t_dlist *lst);
 int		exists_heredoc(t_dlist *lst);

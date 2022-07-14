@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/13 15:29:41 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/14 11:05:33 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,22 +256,41 @@ t_dlist	*move_to_last_heredoc(t_dlist *lst)
 	return (aux);
 }
 
+int	exists_heredoc_until_pipe(t_dlist *lst)
+{
+	int	tkn;
+	int	exist;
+
+	tkn = (((t_token_data *)lst->content)->token);
+	exist = 0;
+	while (lst && tkn != 0)
+	{
+		if (tkn == 3)
+			exist = 1;
+		lst = lst->next;
+		if (lst)
+			tkn = (((t_token_data *)lst->content)->token);
+	}
+	return (exist);	
+}
+
 int	need_exec_here(t_dlist *lst)
 {
 	int	tkn;
 	int	need_it;
 
 	need_it = 0;
-	lst = move_to_last_heredoc(lst);
-	/*tkn = (((t_token_data *)lst->content)->token);
-	while (lst && tkn != 0)
+	tkn = 0;
+	if (exists_heredoc_until_pipe(lst))
 	{
-		if (tkn > 0 && tkn < 3
+		lst = move_to_last_heredoc(lst);
 		lst = lst->next;
-	}*/
-	char *cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	printf("TKN: %d\n", tkn);
-	printf("CMD: %s\n", cmd);
+		if (!lst)
+			return (1);
+		tkn = (((t_token_data *)lst->content)->token);
+		if (tkn == 0)
+			return (1);
+	}
 	return (need_it);
 }
 
@@ -313,14 +332,14 @@ void	init_cmds_lst(t_gdata *gdata)
 			glob_lst = glob_lst->next;*/
 
 	}
-	while (cmds)
+	/*while (cmds)
 	{
 		printf("CMD: %s\n", (char *)cmds->content);
 		printf("IND: %d\n", cmds->ind);
 		printf("RED: %d\n", cmds->red);
 		printf("HERE: %d\n", cmds->here);
 		cmds = cmds->next;
-	}
+	}*/
 	gdata->cmds_lst = cmds;
 }
 
