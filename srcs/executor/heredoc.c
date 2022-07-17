@@ -137,7 +137,7 @@ void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 	char	*here;
 	int		x;
 
-	gdata->heredoc = ft_calloc(sizeof(char *), heredoc_count(lst) + 1);
+	//gdata->heredoc = ft_calloc(sizeof(char *), heredoc_count(lst) + 1);
 	x = -1;
 	while (exists_heredoc(lst))
 	{
@@ -152,6 +152,18 @@ void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 		here = fill_heredoc(cmd);
 		if (store)
 			gdata->heredoc[++x] = here;
+			/*int fd = open("42heredoc", O_WRONLY | O_CREAT, 0644);
+			if (fd < 0)
+			{
+				perror("42heredoc: ");
+				return ;
+			}
+			printf("FD: %d\n", fd);
+			write(fd, here, ft_strlen(here));*/
+			/*while (!cmds || !cmds->here)
+				cmds = cmds->next;
+			cmds->file = fd;
+			cmds = cmds->next;*/
 	}
 	/*int r = 0;
 	while (gdata->heredoc[r])

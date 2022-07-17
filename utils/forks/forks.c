@@ -55,6 +55,9 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 	int r = -1;
 	int *pids;
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
+	int x = -1;
+	//while (gdata->heredoc[++x])
+	//	printf("HERE: %s\n", gdata->heredoc[x]);
 	while (++r < gdata->n_pipes + 1)
 	{
 		pids[r] = fork();
@@ -66,7 +69,29 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 		if (pids[r] == 0)
 		{
 			do_child(cmds, fd, r, gdata);
-			handle_path(cmds->content, gdata->envp);
+			if (cmds->here)
+			{
+				int fd = open("42heredoc", O_WRONLY | O_CREAT, 0644);
+				if (fd < 0)
+				{
+					perror("42heredoc: ");
+					exit(0);
+				}
+				write(fd, gdata->heredoc[r], ft_strlen(gdata->heredoc[r]);
+				char *join = ft_strjoin_space(cmds->content, gdata->heredoc[++x]);
+				write(2, "join: \n", 6);
+				write(2, join, ft_strlen(join));
+				write(2, "\n", 1);
+				handle_path(join, gdata->envp);
+			}
+			else
+			{
+				write(2, "content: \n", 9);
+				write(2, cmds->content, ft_strlen(cmds->content));
+				write(2, "\n", 1);
+				handle_path(cmds->content, gdata->envp);
+		
+			}
 		}
 		cmds = cmds->next;
 	}
@@ -78,5 +103,6 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 		waitpid(pids[s], &status, 0);
 		s++;
 	}
+	// cerrar cmds->ind, cmds->red
 	waitpid(pids[s], &status, 0);
 }

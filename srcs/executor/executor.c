@@ -384,10 +384,11 @@ void	executor(t_gdata *gdata)
 	cmds = gdata->cmds_lst;
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);
-	do_heredoc(lst, gdata);
+	do_heredoc(cmds, lst, gdata);
 	handle_infile(lst, gdata);
 	if (gdata->inf_err && !exists_pipe(lst))
 		return ;
+	handle_cmd(gdata, cmds);
 	/*while (cmds)
 	{
 		printf("CMD: %s\n", (char *)cmds->content);
@@ -402,8 +403,6 @@ void	executor(t_gdata *gdata)
 		printf("HERE: %s\n", gdata->heredoc[r]);
 		r++;
 	}*/
-	return ;
-	handle_cmd(gdata, cmds);
 	
 	//pipe(end);
 	

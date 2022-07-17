@@ -201,18 +201,34 @@ int	get_red(t_dlist *lst)
 	return (red);
 }
 
+/*int	diff_to_token(int prev, int next)
+{
+	int	is_diff;
+
+	is_diff = 0;
+	if (prev < 1 && prev > 4)
+		
+}*/
+
 char	*get_cmd(t_dlist *lst)
 {
 	char	*cmd;
 	int		tkn;
 	int		next;
+	int	prev;
 	
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	tkn = (((t_token_data *)lst->content)->token);
 	while (lst && tkn != 0)
 	{
+		prev = get_prev_type(lst);
 		next = get_next_type(lst);
-		if (next == 0 || (next > 1 && next < 5))
+		/*if (next == 0 || (next > 1 && next < 5))
+			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		*/
+		if ((prev < 1 || prev > 4) && (next < 1 || next > 4) && tkn > 4)
+			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		else if ((prev < 1 || prev > 4) && (next > 1 || next < 4) && tkn > 4)
 			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		lst = lst->next;
 		if (lst)
@@ -338,6 +354,7 @@ void	init_cmds_lst(t_gdata *gdata)
 		printf("IND: %d\n", cmds->ind);
 		printf("RED: %d\n", cmds->red);
 		printf("HERE: %d\n", cmds->here);
+		printf("\n");
 		cmds = cmds->next;
 	}*/
 	gdata->cmds_lst = cmds;
