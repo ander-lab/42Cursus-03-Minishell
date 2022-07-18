@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:37:10 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/06 15:56:33 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:57:47 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,16 @@ int	is_infile(t_dlist *aux)
 	return (it_is);
 }
 
-/*void	infile_checker(t_dlist *lst, t_gdata *gdata)
+void	handle_infile(t_dlist *lst, t_gdata *gdata)
 {
-	char	*file;
-	int		tkn;
-
-	lst = lst->next;
-	file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	lst = lst->next;
-	tkn = ((t_token_data *)lst->content)->token;
-	while (tkn == 1)
+	while (lst)
 	{
-		lst = lst->next;
-		tkn = ((t_token_data *)lst->content)->token;
-	}
-	if (access(file, F_OK) != 0)
-	{
-		lst = lst->next;
-		if (tkn == 0)
-			gdata->inf_err = 0;
+		if (is_infile(lst))
+			lst = do_infile(lst, gdata);
 		else
-			gdata->inf_err = 1;
-		perror(file);
+			lst = lst->next;
 	}
-}*/
+}
 
 static int	file_checker(char *file)
 {
@@ -78,7 +64,6 @@ static int	do_inf_err(char *file, t_dlist *lst)
 t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
 {
 	char	*file;
-	//int	tkn;
 
 	while (is_infile(lst))
 	{
@@ -88,29 +73,5 @@ t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
 			gdata->inf_err = 1;
 		lst = lst->next;
 	}
-	/*tkn = (((t_token_data *)lst->content)->token);
-	printf("FILE: %s\n", file);
-	printf("TKN: %d\n", tkn);
-	while (cmds)
-	{
-		if (tkn == 6 && cmds->ind == -1)
-		{
-			cmds->ind = handle_file_no_create(file);
-			break ;
-		}
-		cmds = cmds->next;
-	}*/
 	return (lst);
 }
-
-/*void	do_infile(t_dlist *aux, t_gdata *gdata)
-{
-	char	*cmd;
-
-	aux = aux->next;
-	cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
-	cmd = ft_strtrim(cmd, " ");
-	gdata->fd[0] = handle_file_no_create(cmd);
-	if (gdata->fd[0] == -1)
-		gdata->err = 1;
-}*/

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:33:00 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/14 15:24:01 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:45:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	exists_heredoc(t_dlist *lst)
 	exists = 0;
 	while (lst && !exists)
 	{
-		
 		tkn = ((t_token_data *)lst->content)->token;
 		if (tkn == 3)
 			exists = 1;
@@ -29,46 +28,16 @@ int	exists_heredoc(t_dlist *lst)
 	return (exists);
 }
 
-int	is_last_heredoc(t_dlist *lst)
+static	int	check_heredoc(char *line, char *cmd)
 {
-	int	count;
-	int	tkn;
-	int	it_is;
+	int	checker;
 
-	count = 0;
-	it_is = 0;
-	lst = lst->prev;
-	while (lst)
-	{
-		tkn = ((t_token_data *)lst->content)->token;
-		if (tkn == 3)
-			count++;
-		lst = lst->next;
-	}
-	if (count == 1)
-		it_is = 1;
-	return (it_is);
-}
-
-int	need_exec(t_dlist *lst)
-{
-	int	tkn;
-	
-	while (lst)
-	{
-		lst = lst->prev->prev;
-		if (!lst)
-			return (0);
-		lst = iterate_red_app(lst);
-		tkn = ((t_token_data *)lst->content)->token;
-		if (tkn == 6)
-			return (1);
-		lst = iterate_ind(lst);
-		if (tkn == 3)
-			lst = lst->next;
-		lst = lst->prev;
-	}
-	return (0);
+	checker = 0;
+	if (!ft_strncmp(line, cmd, ft_strlen(cmd)))
+		checker++;
+	if (!ft_strncmp(line, cmd, ft_strlen(line)))
+		checker++;
+	return (checker);
 }
 
 char	*fill_heredoc(char *cmd)
@@ -83,11 +52,7 @@ char	*fill_heredoc(char *cmd)
 	i = 0;
 	while (line)
 	{
-		checker = 0;
-		if (!ft_strncmp(line, cmd, ft_strlen(cmd)))
-			checker++;
-		if (!ft_strncmp(line, cmd, ft_strlen(line)))
-			checker++;
+		checker = check_heredoc(line, cmd);
 		if (checker == 2)
 		{
 			if (i == 0)

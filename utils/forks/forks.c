@@ -6,13 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/14 11:53:00 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:58:55 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	do_child(t_cmds *cmds, int **fd, int r, t_gdata *gdata)
+static void	do_child(t_cmds *cmds, int **fd, int r, t_gdata *gdata)
 {
 	int	s;
 
@@ -39,25 +39,71 @@ void	do_child(t_cmds *cmds, int **fd, int r, t_gdata *gdata)
 	}
 }
 
-void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
+static int	**init_fds(t_gdata *gdata)
 {
-	int **fd;
+	int	**fd;
+	int	i;
 
 	fd = ft_calloc(sizeof(int *), gdata->n_pipes);
-	int i = 0;
-	int status;
+	i = 0;
 	while (i < gdata->n_pipes)
 	{
 		fd[i] = ft_calloc(sizeof(int), 2);
 		pipe(fd[i]);
 		i++;
 	}
-	int r = -1;
-	int *pids;
+	return (fd);
+}
+
+static void	handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r)
+{
+	int		fd;
+	char	*join;
+
+	if (cmds->here)
+	{
+		fd = open("42heredoctmpfile", O_WRONLY | O_CREAT, 0644);
+		if (fd < 0)
+		{
+			perror("42heredoctmpfile: ");
+			exit(0);
+		}
+		write(fd, gdata->heredoc[r], ft_strlen(gdata->heredoc[r]));
+		join = ft_strjoin_space(cmds->content, "42heredoctmpfile");
+		handle_path(join, gdata->envp);
+	}
+	else
+		handle_path(cmds->content, gdata->envp);
+}
+
+static void	close_fds(t_gdata *gdata, int *pids, int **fd)
+{
+	int	s;
+	int	status;
+
+	s = 0;
+	if (access("42heredoctmpfile", F_OK) == 0)
+		unlink("42heredoctmpfile");
+	while (s < gdata->n_pipes)
+	{
+		close(fd[s][READ_END]);
+		close(fd[s][WRITE_END]);
+		waitpid(pids[s], &status, 0);
+		s++;
+	}
+	// cerrar cmds->ind, cmds->red
+	waitpid(pids[s], &status, 0);
+}
+
+void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
+{
+	int	**fd;
+	int	r;
+	int	*pids;
+
+	r = -1;
+	fd = init_fds(gdata);
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
-	int x = -1;
-	//while (gdata->heredoc[++x])
-	//	printf("HERE: %s\n", gdata->heredoc[x]);
 	while (++r < gdata->n_pipes + 1)
 	{
 		pids[r] = fork();
@@ -69,40 +115,9 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 		if (pids[r] == 0)
 		{
 			do_child(cmds, fd, r, gdata);
-			if (cmds->here)
-			{
-				int fd = open("42heredoc", O_WRONLY | O_CREAT, 0644);
-				if (fd < 0)
-				{
-					perror("42heredoc: ");
-					exit(0);
-				}
-				write(fd, gdata->heredoc[r], ft_strlen(gdata->heredoc[r]);
-				char *join = ft_strjoin_space(cmds->content, gdata->heredoc[++x]);
-				write(2, "join: \n", 6);
-				write(2, join, ft_strlen(join));
-				write(2, "\n", 1);
-				handle_path(join, gdata->envp);
-			}
-			else
-			{
-				write(2, "content: \n", 9);
-				write(2, cmds->content, ft_strlen(cmds->content));
-				write(2, "\n", 1);
-				handle_path(cmds->content, gdata->envp);
-		
-			}
+			handle_here_exec(cmds, gdata, r);
 		}
 		cmds = cmds->next;
 	}
-	int s = 0;
-	while (s < gdata->n_pipes)
-	{
-		close(fd[s][READ_END]);
-		close(fd[s][WRITE_END]);
-		waitpid(pids[s], &status, 0);
-		s++;
-	}
-	// cerrar cmds->ind, cmds->red
-	waitpid(pids[s], &status, 0);
+	close_fds(gdata, pids, fd);
 }

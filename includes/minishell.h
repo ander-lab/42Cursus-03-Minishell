@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/14 15:24:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:58:56 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,16 +185,14 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
  *	srcs/executor/heredoc.c
  */
 void	do_heredoc(t_dlist *lst, t_gdata *gdata);
-t_dlist	*red_app_handler(t_dlist *lst);
-t_dlist	*go_last_here(t_dlist *lst);
-t_dlist	*go_to_cmd(t_dlist *lst);
 
 /*
  *	srcs/executor/infile.c
  */
-int	is_infile(t_dlist *aux);
+int			is_infile(t_dlist *aux);
 t_dlist*	do_infile(t_dlist *lst, t_gdata *gdata);
-void	infile_checker(t_dlist *lst, t_gdata *gdata);
+void		infile_checker(t_dlist *lst, t_gdata *gdata);
+void		handle_infile(t_dlist *lst, t_gdata *gdata);
 
 /*
  *	srcs/executor/red_app.c
@@ -219,22 +217,31 @@ void	ft_convert_matrix(char **words, t_dlist *lst);
  *	utils/heredoc/heredoc.c
  */
 char	*fill_heredoc(char *cmd);
-int		need_exec(t_dlist *lst);
-int		is_last_heredoc(t_dlist *lst);
 int		exists_heredoc(t_dlist *lst);
-
-/*
- *	utils/heredoc/heredoc_cmd.c
- */
-void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
-void	here_cmd_call(t_gdata *gdata, char *cmd);
 
 /*
  *	utils/heredoc/heredoc2.c
  */
 t_dlist	*iterate_ind(t_dlist *lst);
-t_dlist	*iterate_red_app_next(t_dlist *lst);
 t_dlist	*iterate_red_app(t_dlist *lst);
 t_dlist	*go_heredoc(t_dlist *lst);
+
+/*
+ *	utils/cmds/cmds.c
+ */
+int	last_infile(t_dlist *lst);
+int	last_red(t_dlist *lst, int red);
+int	exist_red(t_dlist *lst);
+int	get_ind(t_dlist *lst);
+int	get_red(t_dlist *lst);
+
+/*
+ *	srcs/lexer/cmds_lst.c
+ */
+char	*get_cmd(t_dlist *lst);
+t_dlist	*iter_to_pipe(t_dlist *lst);
+t_dlist	*move_to_last_heredoc(t_dlist *lst);
+int		exists_heredoc_until_pipe(t_dlist *lst);
+int		need_exec_here(t_dlist *lst);
 
 #endif
