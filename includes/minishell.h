@@ -73,13 +73,11 @@ char	*remove_new_line(char *str);
  *	srcs/executor/executor.c
  */
 void	executor(t_gdata *gdata);
-int		get_next_type(t_dlist *lst);
-int	get_prev_type(t_dlist *lst);
 
 /*
  *	srcs/executor/heredoc.c
  */
-//t_dlist	*go_to_pipe(t_dlist *lst);
+void	do_heredoc(t_dlist *lst, t_gdata *gdata);
 
 /*
  *	srcs/lexer/spaces.c
@@ -182,16 +180,11 @@ int		handle_path(char *cmd, char **envp);
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
 
 /*
- *	srcs/executor/heredoc.c
- */
-void	do_heredoc(t_dlist *lst, t_gdata *gdata);
-
-/*
  *	srcs/executor/infile.c
  */
 int			is_infile(t_dlist *aux);
 t_dlist*	do_infile(t_dlist *lst, t_gdata *gdata);
-void		infile_checker(t_dlist *lst, t_gdata *gdata);
+//void		infile_checker(t_dlist *lst, t_gdata *gdata);
 void		handle_infile(t_dlist *lst, t_gdata *gdata);
 
 /*
@@ -243,5 +236,11 @@ t_dlist	*iter_to_pipe(t_dlist *lst);
 t_dlist	*move_to_last_heredoc(t_dlist *lst);
 int		exists_heredoc_until_pipe(t_dlist *lst);
 int		need_exec_here(t_dlist *lst);
+
+/*
+ *	utils/list/list.c
+ */
+int	get_next_type(t_dlist *lst);
+int	get_prev_type(t_dlist *lst);
 
 #endif

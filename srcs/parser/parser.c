@@ -41,7 +41,7 @@ void	parser(t_gdata *gdata)
 
 	aux = gdata->glob_lst;
 	i = 0;
-	ft_printdlst(aux);
+	//ft_printdlst(aux);
 	while (aux && !gdata->err)
 	{
 		if (check_parser_error(i, aux))
