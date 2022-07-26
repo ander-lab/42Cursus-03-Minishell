@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 14:41:16 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:50:54 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 int	chdir_env(t_gdata *data)
 {
-	oldpwd = ft_strdup(pwd);
-	free (pwd);
 	chdir(path);
 	getcwd(pwd, 255);
 	return (0);
@@ -34,7 +32,6 @@ void	go_home(t_gdata *data, char **args, int count)
 {
 	if (count != 1 || (count <= 2 && !ft_strchr(args[1], '~')))
 		return ;
-	chdir_env(home, &pwd, old_pwd);
 }
 
 int	ft_cd(t_gdata *data, char **args)
@@ -43,7 +40,7 @@ int	ft_cd(t_gdata *data, char **args)
 	t_matrix_data 	matrix_data;
 
 	data = ft_matrix_data(args);
-	go_home(home, pwd, , matrix_data.line_count, args);
+	go_home(home, pwd, matrix_data.line_count, args);
 	if (ft_strlen(args[1]) > 255)
 		return (max_name(args[1]));
 	return (EXIT_SUCCESS);

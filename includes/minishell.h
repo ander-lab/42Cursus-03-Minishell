@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/04 15:28:27 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:46:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int		get_n_commands(char *s);
  *	srcs/builtins/ft_pwd.c
  */
 int		ft_pwd(void);
-char	*safe_getcwd(char *current_cwd);
 
 /*
  *	srcs/builtins/ft_echo.c
@@ -53,11 +52,24 @@ int		ft_echo(char **cmd);
  *	srcs/builtins/ft_env.c
  */
 int		ft_env(char **env, char **args);
-
+/*
+ *	srcs/builtins/ft_export.c
+ */
+int	ft_export(t_list **env, char **cmd);
 /*
  *	srcs/builtins/ft_exit.c
  */
 int		ft_exit(char **cmd);
+/*
+ *	srcs/builtins/utils.c
+ */
+char	*safe_getcwd(char *current_cwd);
+t_list	*ft_lstnew_struct(void *newcontent, size_t size);
+char	*ft_strjoin_token(char const *s1, char const *s2, char token);
+void	envp_to_lst(char **envp, t_list **lst_env);
+void	ft_lstfree(t_list *lst);
+char	**lst_to_envmtrx(t_list *lst_env, char **envp);
+
 /*
  *	srcs/lexer/lexer.c
  */

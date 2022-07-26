@@ -6,17 +6,13 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 09:38:43 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:46:05 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-t_list	*ft_lstnew_struct(void *newcontent, size_t size);
-char	**lst_to_envmtrx(t_list *lst_env, char **envp);
-void	envp_to_lst(char **envp, t_list **lst_env);
 
 
 int	check_var_replace(t_list **lst, char *key, char *value)
