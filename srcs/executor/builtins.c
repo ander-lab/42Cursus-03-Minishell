@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/01 12:14:56 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:01:18 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,25 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 
 	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
+	{
+		printf("ECHO\n");
 		ft_echo(ft_split(cmd, ' '));
+	}
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
+	{
+		printf("ENV\n");
 		ft_env(gdata->envp, ft_split(cmd, ' '));
+	}
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
+	{
+		printf("EXIT\n");
 		ft_exit(ft_split(cmd, ' '));
+	}
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
+	{
+		printf("PWD\n");
 		ft_pwd();
+	}
 }
 
 int		is_builtin(char *cmd)

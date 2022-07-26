@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/18 15:58:55 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:55:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,58 @@ static void	close_fds(t_gdata *gdata, int *pids, int **fd)
 	}
 	// cerrar cmds->ind, cmds->red
 	waitpid(pids[s], &status, 0);
+	if (WIFEXITED(status))
+	{
+		//int val = WEXITSTATUS(status);
+		//printf("VAL: %d\n", val);
+	}
+	/*printf("STAT: %d\n", status);
+	printf("WIF: %d\n", WIFEXITED(status));
+	printf("WEXIT: %d\n", WEXITSTATUS(status));*/
+}
+
+int	check_builtin(t_gdata *gdata, t_cmds *cmds)
+{
+	char	*cmd;
+	int		it_is;
+
+	it_is = 0;
+	cmd = (char *)cmds->content;
+	if (is_builtin(cmd))
+		execute_builtin(gdata, cmd);
+	return (it_is);
 }
 
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 {
-	int	**fd;
-	int	r;
-	int	*pids;
+	int		**fd;
+	int		r;
+	int		*pids;
+	char	*cmd;
 
 	r = -1;
 	fd = init_fds(gdata);
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
 	while (++r < gdata->n_pipes + 1)
 	{
-		pids[r] = fork();
-		if (pids[r] == -1)
+		cmd = (char *)cmds->content;
+		if (is_builtin(cmd))
 		{
-			perror("Fork: ");
-			exit(EXIT_FAILURE);
+			execute_builtin(gdata, cmd);
 		}
-		if (pids[r] == 0)
+		else
 		{
-			do_child(cmds, fd, r, gdata);
-			handle_here_exec(cmds, gdata, r);
+			pids[r] = fork();
+			if (pids[r] == -1)
+			{
+				perror("Fork: ");
+				exit(EXIT_FAILURE);
+			}
+			if (pids[r] == 0)
+			{
+				do_child(cmds, fd, r, gdata);
+				handle_here_exec(cmds, gdata, r);
+			}
 		}
 		cmds = cmds->next;
 	}
