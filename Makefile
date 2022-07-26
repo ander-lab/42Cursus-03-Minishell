@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/07/26 11:35:42 by goliano-         ###   ########.fr        #
+#    Updated: 2022/07/26 13:14:59 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBP	= minishell.a
 # **************************************************************************** #
 
 CC		= gcc 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= #-Wall -Wextra -Werror
 SAN		= -fsanitize=address
 LIB 	= ar -rcs
 RM		= /bin/rm -rf

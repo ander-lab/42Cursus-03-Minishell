@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 11:46:05 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:19:00 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,11 @@ static	char	**split_once(char *s)
 	split[2] = NULL;
 	return (split);
 }
-//
+
 int	ft_export(t_list **env, char **cmd)
 {
 	char	**var;
 
-
-	//hacer un split modificado con el tema "=" . Debe de hacer un split solamente del primer espacio que encuentre,
-	//en caso de no encontrar ninguno meter un null dentro del string content.
-	//var = ft_split(cmd[1], '=');
 	var = split_once(cmd[1]);
 	if (ft_matrixlen(cmd) == 1)
 	{

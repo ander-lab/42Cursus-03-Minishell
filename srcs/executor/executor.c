@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 11:55:13 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:19:48 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ void	executor(t_gdata *gdata)
 	if (gdata->inf_err && !exists_pipe(lst))
 		return ;
 	handle_cmd(gdata, cmds);
-	/*while (cmds)
-	{
-		printf("CMD: %s\n", (char *)cmds->content);
-		printf("IND: %d\n", cmds->ind);
-		printf("RED: %d\n", cmds->red);
-		cmds = cmds->next;
-	}*/
+//	while (cmds)
+//	{
+//		printf("CMD: %s\n", (char *)cmds->content);
+//		printf("IND: %d\n", cmds->ind);
+//		printf("RED: %d\n", cmds->red);
+//		cmds = cmds->next;
+//	}
 }
