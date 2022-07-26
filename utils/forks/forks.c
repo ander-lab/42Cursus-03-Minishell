@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 11:55:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:16:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ static void	close_fds(t_gdata *gdata, int *pids, int **fd)
 	waitpid(pids[s], &status, 0);
 	if (WIFEXITED(status))
 	{
-		//int val = WEXITSTATUS(status);
-		//printf("VAL: %d\n", val);
+		int val = WEXITSTATUS(status);
+		printf("VAL: %d\n", val);
 	}
-	/*printf("STAT: %d\n", status);
+	printf("STAT: %d\n", status);
 	printf("WIF: %d\n", WIFEXITED(status));
-	printf("WEXIT: %d\n", WEXITSTATUS(status));*/
+	printf("WEXIT: %d\n", WEXITSTATUS(status));
 }
 
 int	check_builtin(t_gdata *gdata, t_cmds *cmds)
