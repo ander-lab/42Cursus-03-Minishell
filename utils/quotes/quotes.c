@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:46:46 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/18 13:02:17 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/06/07 11:49:26 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int	has_quotes(char *s)
 		i++;
 	}
 	if (is_closed == 0)
-		return (-1);
+		quotes = -1;
 	return (quotes);
 }

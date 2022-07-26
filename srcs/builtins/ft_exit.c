@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:09:15 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/26 15:22:28 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:46:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_exit(char **cmd)
 
 	ret = 0;
 	data = ft_matrix_data(cmd);
-	ft_putstr_fd("exit\n", 1);
 	if (data.line_count == 1)
 		exit(0);
 	else if (data.line_count >= 2)

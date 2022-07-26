@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 09:36:22 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:53:12 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ typedef enum s_token_type
 /*  								STRUCTS									  */
 /* ************************************************************************** */
 
+/*typedef struct s_cmds_data
+{
+	char				*cmd;
+	int					ind;
+	int					red;
+} t_cmds;
+*/
+
 /*
 ** PROMPT
 */
@@ -52,12 +60,15 @@ typedef struct s_data
 	int		aux_n_commands;
 	int		n_tokens;
 	int		err;
+	int		inf_err;
 	char	**cmds;
 	int		last_token;
 	int		handle_next;
-	t_dlist	*cmds_list;
-	int		fd[2];
-	char	*heredoc;
+	t_dlist	*glob_lst;
+	t_cmds	*cmds_lst;
+	int		fd_pipe;
+	int		n_pipes;
+	char	**heredoc;
 } t_gdata;
 
 /*

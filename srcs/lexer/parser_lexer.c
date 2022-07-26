@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/25 14:50:17 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:29:28 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	l = filename_length(word);
 	file_name = cpy_cmd(word, l, 0);
 	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
-	g_data->cmds[get_cmds_length(g_data)] = file_name;
-	g_data->cmds[get_cmds_length(g_data)] = cmd;
+	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(file_name, " ");
+	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(cmd, " ");
 }
 
 static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
@@ -47,7 +47,7 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 	}
 	else if (exists_word(word))
 	{
-		g_data->cmds[get_cmds_length(g_data)] = word;
+		g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(word, " ");
 		g_data->aux_n_commands--;
 	}
 	if (!exists_word(word))
@@ -78,13 +78,13 @@ void	handle_input(char *s, t_gdata *g_data)
 			prev_l = l + 1;
 		}
 	}
-	if (/*g_data->aux_n_commands == 1 &&*/ !ends_with_token(s))
+	if (!ends_with_token(s))
 	{
 		word = get_until_token(prev_l, l, s);
 		if (g_data->handle_next && needs_split(word))
 			custom_split_word(word, g_data);
 		else
-			g_data->cmds[get_cmds_length(g_data)] = word;
+			g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(word, " ");
 	}
 	//ft_putmatrix(g_data->cmds, g_data->n_commands);
 	g_data->err = quotes;
@@ -110,7 +110,6 @@ int	get_n_commands(char *s)
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 		{
 			if (is_cmd_hide(s, ++i, token))
-			//if (is_cmd_hide(s, i, token))
 				nc++;
 			nc++;
 		}

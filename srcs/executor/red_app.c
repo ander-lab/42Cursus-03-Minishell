@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:38:39 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/31 15:31:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:09:03 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,33 +49,32 @@ static void	multiple_reds(t_dlist *aux)
 	}
 }
 
-t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata)
+t_dlist *do_red_or_app(t_dlist *lst)
 {
 	char	*cmd;
 	int	tkn;
-	int	is_red;
+	//int	is_red;
 
-	aux = aux->next;
-	tkn = ((t_token_data *)aux->content)->token;
+	lst = lst->next;
+	tkn = ((t_token_data *)lst->content)->token;
 	while (tkn == 2 || tkn == 4)
 	{
-		is_red = 0;
-		if (tkn == 2) //red
-			is_red = 1;
-		aux = aux->next;
-		cmd = ft_strtrim((((t_token_data *)aux->content)->str), " ");
+	//	is_red = 0;
+	//	if (tkn == 2) //red
+	//		is_red = 1;
+		lst = lst->next;
+		cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		cmd = ft_strtrim(cmd, " ");
-		printf("ABRO: %s\n", cmd);
-		if (is_red)
-			gdata->fd[1] = handle_file_create(cmd, 0);
+	/*	if (is_red)
+			lst->red = handle_file_create(cmd, 0);
 		else
-			gdata->fd[1] = handle_file_create(cmd, 1);
-		aux = aux->next;
-		if (!aux)
-			return (aux);
-		tkn = ((t_token_data *)aux->content)->token;
+			lst->red = handle_file_create(cmd, 1);
+	*/	lst = lst->next;
+		if (!lst)
+			return (lst);
+		tkn = ((t_token_data *)lst->content)->token;
 		if (tkn >= 5)
-			multiple_reds(aux);
+			multiple_reds(lst);
 	}
-	return (aux->next);
+	return (lst->next);
 }

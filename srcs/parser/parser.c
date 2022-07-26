@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:17:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/24 12:21:05 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 10:07:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	parser(t_gdata *gdata)
 	t_dlist	*aux;
 	int	i;
 
-	aux = gdata->cmds_list;
+	aux = gdata->glob_lst;
 	i = 0;
-	ft_printdlst(aux);
+	//ft_printdlst(aux);
 	while (aux && !gdata->err)
 	{
 		if (check_parser_error(i, aux))

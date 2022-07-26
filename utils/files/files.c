@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:51:41 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/31 13:13:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:51:12 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	handle_file_no_create(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-	{
-		perror(file);
 		return (-1);
-	}
 	return (fd);
 }
 
@@ -36,12 +33,12 @@ int	handle_file_create(char *file, int type)
 	if (fd < 0)
 	{
 		perror("File");
-		return (-1);
+		return (0);
 	}
 	return (fd);
 }
 
-int	open_next_file(t_dlist *lst, int type)
+/*int	open_next_file(t_dlist *lst, int type)
 {
 	t_dlist	*aux;
 	char	*cmd;
@@ -60,4 +57,4 @@ int	open_next_file(t_dlist *lst, int type)
 		return (-1);
 	cmd = (((t_token_data *)aux->content)->str);
 	return (handle_file_create(ft_strtrim(cmd, " "), type));
-}
+}*/

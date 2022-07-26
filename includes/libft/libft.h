@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 10:22:13 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:55:17 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ typedef struct s_dlist
 	struct s_dlist	*prev;
 }				t_dlist;
 
+typedef struct s_cmds_data
+{
+	void			*content;
+	int			ind;
+	int			red;
+	int			here;
+	struct	s_cmds_data	*next;
+}	t_cmds;
+
 typedef struct s_matrix_data
 {
 	ssize_t		line_count;
@@ -54,6 +63,12 @@ void			ft_matrix_to_dlst(t_dlist **dlst, char **matrix);
 t_dlist			*ft_dlstnew_struct(void *newcontent, size_t size);
 t_dlist			*ft_dlstlast(t_dlist *lst);
 t_dlist			*ft_dlstnew(void *content);
+int				ft_dlstsize(t_dlist *lst);
+void			ft_dlstadd_back2(t_cmds **dlst, t_cmds *new);
+t_cmds			*ft_dlstnew_struct2(void *newcontent, size_t size);
+t_dlist			*ft_dlstlast(t_dlist *lst);
+t_cmds			*ft_dlstlast2(t_cmds *lst);
+t_cmds			*ft_dlstnew2(t_cmds *cmds);
 int				ft_dlstsize(t_dlist *lst);
 
 /*
@@ -90,6 +105,7 @@ void			*ft_calloc(size_t num, size_t size);
 char			*ft_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin_space(char const *s1, char const *s2);
 char			*ft_strjoinnl(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -136,6 +152,7 @@ void			ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_back(t_list **lst, t_list *new);
+void			ft_lstadd_back2(t_cmds **lst, t_cmds *new);
 void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));

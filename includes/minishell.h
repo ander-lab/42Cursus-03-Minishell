@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 11:46:03 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:53:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 # include "./libft/libft.h"
 # include "structs_and_macros.h"
+
+# define READ_END 0
+# define WRITE_END 1
 
 void	init_prompt(t_gdata *g_data, char **envp);
 void 	lexer(char *s, t_gdata *g_data);
@@ -84,13 +86,11 @@ char	*remove_new_line(char *str);
  *	srcs/executor/executor.c
  */
 void	executor(t_gdata *gdata);
-int		get_next_type(t_dlist *lst);
-int	get_prev_type(t_dlist *lst);
 
 /*
  *	srcs/executor/heredoc.c
  */
-t_dlist	*go_to_pipe(t_dlist *lst);
+void	do_heredoc(t_dlist *lst, t_gdata *gdata);
 
 /*
  *	srcs/lexer/spaces.c
@@ -107,7 +107,7 @@ void		parser(t_gdata *gdata);
 void	init_tokens(char *s, t_gdata *gdata);
 
 /*
- *	utils/global/global.c
+ *	utils/global/count.c
  */
 int		command_count(char *s);
 
@@ -175,6 +175,7 @@ int		length_from_idx(char *word, int idx);
 int		get_cmds_length(t_gdata *g_data);
 int		filename_length(char *word);
 int		length_str_no_quotes(char *cmd);
+int		matrix_length(char **mat);
 
 /*
  *	utils/handler/error_handler.c
@@ -189,28 +190,20 @@ int		handle_path(char *cmd, char **envp);
 /*
  *	utils/forks/forks.c
  */
-void	handle_cmd1(int fd, int *end, char *cmd, char **envp);
-void	handle_cmd2(int fd, int *end, char *cmd, char **envp);
-void	handle_cmd3(int fd, int *end, char *cmd, char **envp);
-
-/*
- *	srcs/executor/heredoc.c
- */
-void	do_heredoc(t_dlist *lst, t_gdata *gdata);
-int		is_heredoc(t_dlist *aux);
-int	exists_heredoc(t_dlist *aux);
-void	do_here_cmd(t_dlist *lst, t_gdata *gdata);
+void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
 
 /*
  *	srcs/executor/infile.c
  */
-int		is_infile(t_dlist *aux);
-void	do_infile(t_dlist *aux, t_gdata *gdata);
+int			is_infile(t_dlist *aux);
+t_dlist*	do_infile(t_dlist *lst, t_gdata *gdata);
+//void		infile_checker(t_dlist *lst, t_gdata *gdata);
+void		handle_infile(t_dlist *lst, t_gdata *gdata);
 
 /*
  *	srcs/executor/red_app.c
  */
-t_dlist *do_red_or_app(t_dlist *aux, t_gdata *gdata);
+t_dlist *do_red_or_app(t_dlist *aux);
 int		is_red_or_app(t_dlist *aux);
 
 /*
@@ -229,9 +222,38 @@ void	ft_convert_matrix(char **words, t_dlist *lst);
 /*
  *	utils/heredoc/heredoc.c
  */
-void	fill_heredoc(t_gdata *gdata, char *cmd);
-int	need_exec(t_dlist *lst);
+char	*fill_heredoc(char *cmd);
+int		exists_heredoc(t_dlist *lst);
+
+/*
+ *	utils/heredoc/heredoc2.c
+ */
+t_dlist	*iterate_ind(t_dlist *lst);
+t_dlist	*iterate_red_app(t_dlist *lst);
 t_dlist	*go_heredoc(t_dlist *lst);
-int	is_last_heredoc(t_dlist *lst);
-int	exists_heredoc(t_dlist *lst);
+
+/*
+ *	utils/cmds/cmds.c
+ */
+int	last_infile(t_dlist *lst);
+int	last_red(t_dlist *lst, int red);
+int	exist_red(t_dlist *lst);
+int	get_ind(t_dlist *lst);
+int	get_red(t_dlist *lst);
+
+/*
+ *	srcs/lexer/cmds_lst.c
+ */
+char	*get_cmd(t_dlist *lst);
+t_dlist	*iter_to_pipe(t_dlist *lst);
+t_dlist	*move_to_last_heredoc(t_dlist *lst);
+int		exists_heredoc_until_pipe(t_dlist *lst);
+int		need_exec_here(t_dlist *lst);
+
+/*
+ *	utils/list/list.c
+ */
+int	get_next_type(t_dlist *lst);
+int	get_prev_type(t_dlist *lst);
+
 #endif

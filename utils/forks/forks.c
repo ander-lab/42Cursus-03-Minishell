@@ -6,86 +6,147 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/06/01 13:24:16 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:55:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	do_child_two(int fd, int *end, char *cmd, char **envp)
+static void	do_child(t_cmds *cmds, int **fd, int r, t_gdata *gdata)
 {
-	close(end[1]);
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
-	dup2(end[0], STDIN_FILENO);
-	handle_path(cmd, envp);
-}
+	int	s;
 
-static void do_child_one(int fd, int *end, char *cmd, char **envp)
-{
-	close(end[0]);
-	dup2(fd, STDIN_FILENO);	//fd es la entrada de execve
-	close(fd);
-	dup2(end[1], STDOUT_FILENO); //la salida de execve se guarda en end[1]
-	//close(end[1]);
-	handle_path(cmd, envp);
-}
-
-void handle_cmd3(int fd, int *end, char *cmd, char **envp)
-{
-	pid_t	p1;
-	int	status;
-
-	p1 = fork();
-	fd += 1;
-	end[0] += 1;
-	if (p1 < 0)
-		return (perror("Fork: "));
-	if (p1 == 0)
-		handle_path(cmd, envp);
-	close(end[1]);
-	waitpid(p1, &status, 0);
-	if (WEXITSTATUS(status))
+	s = 0;
+	if (r != gdata->n_pipes)
+		dup2(fd[r][WRITE_END], STDOUT_FILENO);
+	if (r != 0)
+		dup2(fd[r - 1][READ_END], STDIN_FILENO);
+	if (cmds->ind > 0)
 	{
-		write(2, "WEXIT1\n", 7);
-		return ;
+		dup2(cmds->ind, STDIN_FILENO);
+		close(cmds->ind);
+	}
+	if (cmds->red > 0)
+	{
+		dup2(cmds->red, STDOUT_FILENO);
+		close(cmds->red);
+	}
+	while (s < gdata->n_pipes)
+	{
+		close(fd[s][READ_END]);
+		close(fd[s][WRITE_END]);
+		s++;
 	}
 }
 
-void handle_cmd1(int fd, int *end, char *cmd, char **envp)
+static int	**init_fds(t_gdata *gdata)
 {
-	pid_t	p1;
-	int	status;
+	int	**fd;
+	int	i;
 
-	p1 = fork();
-	if (p1 < 0)
-		return (perror("Fork: "));
-	if (p1 == 0)
-		do_child_one(fd, end, cmd, envp);
-	waitpid(p1, &status, 0);
-	if (WEXITSTATUS(status))
+	fd = ft_calloc(sizeof(int *), gdata->n_pipes);
+	i = 0;
+	while (i < gdata->n_pipes)
 	{
-		write(2, "WEXIT1\n", 7);
-		return ;
+		fd[i] = ft_calloc(sizeof(int), 2);
+		pipe(fd[i]);
+		i++;
 	}
+	return (fd);
 }
 
-void	handle_cmd2(int fd, int *end, char *cmd, char **envp)
+static void	handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r)
 {
-	pid_t	p;
+	int		fd;
+	char	*join;
+
+	if (cmds->here)
+	{
+		fd = open("42heredoctmpfile", O_WRONLY | O_CREAT, 0644);
+		if (fd < 0)
+		{
+			perror("42heredoctmpfile: ");
+			exit(0);
+		}
+		write(fd, gdata->heredoc[r], ft_strlen(gdata->heredoc[r]));
+		join = ft_strjoin_space(cmds->content, "42heredoctmpfile");
+		handle_path(join, gdata->envp);
+	}
+	else
+		handle_path(cmds->content, gdata->envp);
+}
+
+static void	close_fds(t_gdata *gdata, int *pids, int **fd)
+{
+	int	s;
 	int	status;
 
-	p = fork();
-	if (p < 0)
-		return (perror("Fork: "));
-	if (p == 0)
-		do_child_two(fd, end, cmd, envp);
-	close(end[0]);
-	close(end[1]);
-	waitpid(p, &status, 0);
-	if (WEXITSTATUS(status))
+	s = 0;
+	if (access("42heredoctmpfile", F_OK) == 0)
+		unlink("42heredoctmpfile");
+	while (s < gdata->n_pipes)
 	{
-		write(2, "WEXIT2\n", 7);
-		return ;
+		close(fd[s][READ_END]);
+		close(fd[s][WRITE_END]);
+		waitpid(pids[s], &status, 0);
+		s++;
 	}
+	// cerrar cmds->ind, cmds->red
+	waitpid(pids[s], &status, 0);
+	if (WIFEXITED(status))
+	{
+		//int val = WEXITSTATUS(status);
+		//printf("VAL: %d\n", val);
+	}
+	/*printf("STAT: %d\n", status);
+	printf("WIF: %d\n", WIFEXITED(status));
+	printf("WEXIT: %d\n", WEXITSTATUS(status));*/
+}
+
+int	check_builtin(t_gdata *gdata, t_cmds *cmds)
+{
+	char	*cmd;
+	int		it_is;
+
+	it_is = 0;
+	cmd = (char *)cmds->content;
+	if (is_builtin(cmd))
+		execute_builtin(gdata, cmd);
+	return (it_is);
+}
+
+void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
+{
+	int		**fd;
+	int		r;
+	int		*pids;
+	char	*cmd;
+
+	r = -1;
+	fd = init_fds(gdata);
+	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
+	while (++r < gdata->n_pipes + 1)
+	{
+		cmd = (char *)cmds->content;
+		if (is_builtin(cmd))
+		{
+			execute_builtin(gdata, cmd);
+		}
+		else
+		{
+			pids[r] = fork();
+			if (pids[r] == -1)
+			{
+				perror("Fork: ");
+				exit(EXIT_FAILURE);
+			}
+			if (pids[r] == 0)
+			{
+				do_child(cmds, fd, r, gdata);
+				handle_here_exec(cmds, gdata, r);
+			}
+		}
+		cmds = cmds->next;
+	}
+	close_fds(gdata, pids, fd);
 }
