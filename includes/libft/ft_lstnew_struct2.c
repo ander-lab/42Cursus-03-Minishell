@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_struct.c                                 :+:      :+:    :+:   */
+/*   ft_lstnew_struct2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 10:38:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/27 12:06:27 by ajimenez         ###   ########.fr       */
+/*   Created: 2022/07/27 12:09:48 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/07/27 12:13:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew_struct(void *newcontent, size_t size)
+t_cmds	*ft_lstnew_struct_cmds(void *newcontent, size_t size)
 {
-	t_list	*new;
+	t_cmds	*new;
 	void	*content;
 
 	new = malloc(sizeof(t_list));

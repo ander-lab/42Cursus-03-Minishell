@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 12:55:17 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:13:56 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_back(t_list **lst, t_list *new);
 void			ft_lstadd_back2(t_cmds **lst, t_cmds *new);
+t_list			*ft_lstnew_struct(void *newcontent, size_t size);
+t_cmds			*ft_lstnew_struct_cmds(void *newcontent, size_t size);
 void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));

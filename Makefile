@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/07/26 13:14:59 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/07/27 12:18:02 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@
 
 NAME 	= minishell
 LIBP	= minishell.a 
+
 # **************************************************************************** #
 # 									COMPILER                                   #
 # **************************************************************************** #
@@ -47,7 +48,8 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./srcs/executor/heredoc.c ./utils/str/strings3.c ./utils/heredoc/heredoc.c \
 			./utils/list/list.c ./utils/cmds/cmds.c ./srcs/lexer/cmds_lst.c \
 			./srcs/parser/parser.c ./srcs/executor/builtins.c ./srcs/builtins/ft_echo.c \
-			./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c
+			./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c \
+			./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c 
 
 # **************************************************************************** #
 # 								    RULES                                      #
