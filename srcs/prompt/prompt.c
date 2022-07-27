@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 10:45:42 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/03/02 13:58:27 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:55:07 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	init_prompt(t_gdata *g_data, char **envp)
 	char	*username;
 	char	*hostname;
 
-	g_data->envp = envp;
+	g_data->env = ft_calloc(sizeof(t_env), 1);
+	g_data->env->envp = envp;
 	username = exec_command("/usr/bin/whoami", envp);
 	username = add_at_sign(username);
 	hostname = exec_command("/bin/hostname", envp);
@@ -76,4 +77,5 @@ void	init_prompt(t_gdata *g_data, char **envp)
 	g_data->prompt = ft_strjoin(username, hostname);
 	free(username);
 	free(hostname);
+	g_data->env->envp = ft_matrix_dup(envp, ft_matrixlen(envp));
 }

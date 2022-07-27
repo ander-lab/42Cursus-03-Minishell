@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 11:55:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/27 13:41:35 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ static void	handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r)
 		}
 		write(fd, gdata->heredoc[r], ft_strlen(gdata->heredoc[r]));
 		join = ft_strjoin_space(cmds->content, "42heredoctmpfile");
-		handle_path(join, gdata->envp);
+		handle_path(join, gdata->env->envp);
 	}
 	else
-		handle_path(cmds->content, gdata->envp);
+		handle_path(cmds->content, gdata->env->envp);
 }
 
 static void	close_fds(t_gdata *gdata, int *pids, int **fd)

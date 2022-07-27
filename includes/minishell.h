@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 20:46:16 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:52:28 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int		ft_unset(t_list **env, char **cmd);
 /*
  *	srcs/builtins/ft_env.c
  */
-int		ft_env(char **env, char **args);
+//int		ft_env(char **env, char **args);
+int 	ft_env(char **args, t_gdata *data);
 /*
  *	srcs/builtins/ft_export.c
  */
@@ -73,7 +74,8 @@ t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 char	*ft_strjoin_token(char const *s1, char const *s2, char token);
 void	envp_to_lst(char **envp, t_list **lst_env);
 void	ft_lstfree(t_list *lst);
-char	**lst_to_envmtrx(t_list *lst_env, char **envp);
+//char	**lst_to_envmtrx(t_list *lst_env, char **envp);
+void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata);
 
 /*
  *	srcs/lexer/lexer.c

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 15:25:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 10:16:28 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:50:56 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,21 +118,21 @@ void	ft_lstfree(t_list *lst)
 	//*lst = NULL;
 }
 
-char	**lst_to_envmtrx(t_list *lst_env, char **envp)
+void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata)
 {
 	int i = 0;
 
 	//size_t	aux;
 
-	//ft_free_matrix(envp);
-	envp = ft_calloc(ft_lstsize(lst_env), sizeof(char *));
+	if (!gdata->env->envp)
+		ft_free_matrix(gdata->env->envp);
+	gdata->env->envp = ft_calloc(ft_lstsize(lst_env), sizeof(char *));
 	while (lst_env)
 	{
-		envp[i] = ft_strjoin_token(((t_env_line *)lst_env->content)->key, ((t_env_line *)lst_env->content)->value, '=');
+		gdata->env->envp[i] = ft_strjoin_token(((t_env_line *)lst_env->content)->key, ((t_env_line *)lst_env->content)->value, '=');
 		lst_env = lst_env->next;
 		i++;
 	}
-	return (envp);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 20:28:11 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:59:35 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_env
 typedef struct s_data
 {
 	char	*prompt;
-	char	**envp;
+	//char	**envp;
 	int		n_commands;	// comandos y redirecciones
 	int		commands;	// comandos solo (pipes)
 	int		aux_n_commands;

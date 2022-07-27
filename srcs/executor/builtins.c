@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 20:48:53 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:51:58 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 {
 	char	*builtin;
 
-
+	envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
 	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
 		ft_echo(ft_split(cmd, ' '));
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
-		ft_env(gdata->envp, ft_split(cmd, ' '));
+		ft_env(ft_split(cmd, ' '), gdata);
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
 		ft_exit(ft_split(cmd, ' '), gdata);
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
@@ -30,6 +30,8 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
 		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
+	lst_to_envmtrx(gdata->env->env_lst, gdata);
+	ft_lstfree(gdata->env->env_lst);
 }
 
 static int cmp_builtin(char *builtin, char *s)
