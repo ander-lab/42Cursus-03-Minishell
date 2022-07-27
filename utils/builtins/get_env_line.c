@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   get_env_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 11:51:36 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 20:34:30 by ajimenez         ###   ########.fr       */
+/*   Created: 2022/06/07 11:11:56 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/06/07 12:58:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+# include "../../includes/minishell.h"
 
-int	ft_pwd(t_gdata *gdata)
+char	*find_env_var(char **env, char *var)
 {
-	char	*pwd;
+	size_t	i;
+	char	*line;
 
-	//pwd = safe_getcwd(current_cwd);
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	free (pwd);
-	return (EXIT_SUCCESS);
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strcmp(env[i], var) == 0)
+			line = ft_strdup(ft_strchr(env[i], '='));
+		i++;
+	}
+	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 14:16:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:22:50 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,7 @@ static void	close_fds(t_gdata *gdata, int *pids, int **fd)
 	// cerrar cmds->ind, cmds->red
 	waitpid(pids[s], &status, 0);
 	if (WIFEXITED(status))
-	{
-		int val = WEXITSTATUS(status);
-		printf("VAL: %d\n", val);
-	}
-	printf("STAT: %d\n", status);
-	printf("WIF: %d\n", WIFEXITED(status));
-	printf("WEXIT: %d\n", WEXITSTATUS(status));
+		gdata->proc =  WEXITSTATUS(status);
 }
 
 int	check_builtin(t_gdata *gdata, t_cmds *cmds)
@@ -111,7 +105,7 @@ int	check_builtin(t_gdata *gdata, t_cmds *cmds)
 	it_is = 0;
 	cmd = (char *)cmds->content;
 	if (is_builtin(cmd))
-		execute_builtin(gdata, cmd);
+		execute_builtin(cmds, gdata, cmd);
 	return (it_is);
 }
 
@@ -130,7 +124,7 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 		cmd = (char *)cmds->content;
 		if (is_builtin(cmd))
 		{
-			execute_builtin(gdata, cmd);
+			execute_builtin(cmds, gdata, cmd);
 		}
 		else
 		{

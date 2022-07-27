@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_dlstadd_matrix.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 11:51:36 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 20:34:30 by ajimenez         ###   ########.fr       */
+/*   Created: 2022/06/08 10:41:05 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/06/08 14:04:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	ft_pwd(t_gdata *gdata)
+void ft_matrix_to_dlst(t_dlist **dlst, char **matrix)
 {
-	char	*pwd;
+	int	aux;
+	t_matrix_data data;
 
-	//pwd = safe_getcwd(current_cwd);
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	free (pwd);
-	return (EXIT_SUCCESS);
+	aux = 0;
+	data = ft_matrix_data(matrix);
+	while (aux < data.line_count)
+	{
+		ft_dlstadd_back(dlst, ft_dlstnew(matrix[aux]));
+		aux++;
+	}
 }

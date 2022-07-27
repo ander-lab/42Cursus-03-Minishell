@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 11:51:36 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 20:34:30 by ajimenez         ###   ########.fr       */
+/*   Created: 2022/06/07 11:16:19 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/06/08 13:57:55 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	ft_pwd(t_gdata *gdata)
+int	ft_strcmp(const char *src, const char *to_cmp)
 {
-	char	*pwd;
+	size_t	i;
+	size_t	n;
 
-	//pwd = safe_getcwd(current_cwd);
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	free (pwd);
-	return (EXIT_SUCCESS);
+	i = 0;
+	n = ft_strlen(src);
+	while (src[i] != '\0' && to_cmp[i] != '\0' && i < n)
+	{
+		if (src[i] != to_cmp[i])
+			return ((unsigned char)src[i] - (unsigned char)src[i]);
+		++i;
+	}
+	if (i != n)
+		return ((unsigned char)src[i] - (unsigned char)to_cmp[i]);
+	return (0);
 }

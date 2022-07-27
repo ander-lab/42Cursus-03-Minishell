@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 14:16:10 by goliano-         ###   ########.fr       */
+/*   Created: 2022/07/27 12:19:45 by goliano-          #+#    #+#             */
+/*   Updated: 2022/07/27 12:19:48 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	executor(t_gdata *gdata)
 	t_dlist	*lst;
 	t_cmds	*cmds;
 
+	//TODO -> Duplicar envp 
+	//TODO -> Duplicar env keys
+	//TODO -> LLamar a env to matrix y lst to env
 	cmds = gdata->cmds_lst;
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);
@@ -57,11 +60,11 @@ void	executor(t_gdata *gdata)
 	if (gdata->inf_err && !exists_pipe(lst))
 		return ;
 	handle_cmd(gdata, cmds);
-	/*while (cmds)
-	{
-		printf("CMD: %s\n", (char *)cmds->content);
-		printf("IND: %d\n", cmds->ind);
-		printf("RED: %d\n", cmds->red);
-		cmds = cmds->next;
-	}*/
+//	while (cmds)
+//	{
+//		printf("CMD: %s\n", (char *)cmds->content);
+//		printf("IND: %d\n", cmds->ind);
+//		printf("RED: %d\n", cmds->red);
+//		cmds = cmds->next;
+//	}
 }

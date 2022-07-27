@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:48:03 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/18 15:14:58 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:14:06 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_cmd(t_dlist *lst)
 		next = get_next_type(lst);
 		if ((prev < 1 || prev > 4) && (next < 1 || next > 4) && tkn > 4)
 			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-		else if ((prev < 1 || prev > 4) && (next > 1 || next < 4) && tkn > 4)
+		else if ((prev < 1 || prev > 4) && (next > 1 || next < 4) && (tkn > 4))
 			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		lst = lst->next;
 		if (lst)

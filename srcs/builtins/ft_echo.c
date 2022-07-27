@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:44:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 11:58:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:22:46 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_put_echo(char **s, int i)
+static void	write_echo(int red, char **s, int i)
+{
+	if (red > 2)
+		write(red, s[i], ft_strlen(s[i]));
+	else
+		write(1, s[i], ft_strlen(s[i]));
+	if (s[i + 1])
+	{
+		if (red > 2)
+			write(red, " ", 1);
+		else
+			write(STDOUT_FILENO, " ", 1);
+	}
+}
+
+static void	ft_put_echo(char **s, int i, int red)
 {
 	while (s[i])
-	{
-		write(1, s[i], ft_strlen(s[i]));
-		if (s[i + 1])
-			write(STDOUT_FILENO, " ", 1);
+	{	
+		write_echo(red, s, i);
 		i++;
 	}
 }
@@ -39,7 +52,7 @@ static int	check_flag(char *str)
 	return (1);
 }
 
-static int ft_print_no_nl(char **s)
+static int	ft_print_no_nl(char **s, int red)
 {
 	int	i;
 
@@ -47,24 +60,30 @@ static int ft_print_no_nl(char **s)
 	while (s[i] && check_flag(s[i]) == 1)
 		i++;
 	if (!s[i])
-		return (EXIT_FAILURE);
-	ft_put_echo(s, i);
+		return (127);
+	ft_put_echo(s, i, red);
 	return (EXIT_SUCCESS);
 }
 
-int	ft_echo(char **cmd)
+int	ft_echo(char **cmd, int red)
 {
 	if (!cmd[1])
 	{
-		printf("\n");
+		if (red > 2)
+			write(red, "\n", 1);
+		else
+			write(STDOUT_FILENO, "\n", 1);
 		return (EXIT_SUCCESS);
 	}
 	if (!check_flag(cmd[1]))
 	{
-		ft_put_echo(cmd, 1);
-		printf("\n");
+		ft_put_echo(cmd, 1, red);
+		if (red > 2)
+			write(red, "\n", 1);
+		else
+			write(STDOUT_FILENO, "\n", 1);
 	}
 	else
-		ft_print_no_nl(cmd);
+		ft_print_no_nl(cmd, red);
 	return (EXIT_SUCCESS);
 }
