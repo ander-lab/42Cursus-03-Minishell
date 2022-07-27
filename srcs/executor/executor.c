@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 13:19:48 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:35:45 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	executor(t_gdata *gdata)
 	t_dlist	*lst;
 	t_cmds	*cmds;
 
+	//TODO -> Duplicar envp 
+	//TODO -> Duplicar env keys
+	//TODO -> LLamar a env to matrix y lst to env
 	cmds = gdata->cmds_lst;
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);

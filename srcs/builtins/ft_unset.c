@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:03:49 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 10:24:22 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 20:46:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	ft_lstcmp_delnode(t_list **lst, char *str)
 	printf("NO EXISTE\n");
 }
 
-int	ft_unset(t_list	**env, char **cmd)
+int	ft_unset(t_list **env, char **cmd)
 {
 	//printf("%zu\n", ft_matrixlen(cmd));
 //	ft_putmatrix(cmd, ft_matrixlen(cmd));

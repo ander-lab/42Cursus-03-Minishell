@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 12:53:29 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/07/26 20:46:16 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ int		get_n_commands(char *s);
 /*
  *	srcs/builtins/ft_pwd.c
  */
-int		ft_pwd(void);
+int		ft_pwd(t_gdata *gdata);
 
 /*
  *	srcs/builtins/ft_echo.c
  */
 int		ft_echo(char **cmd);
-
+/*
+ *	srcs/builtins/ft_unset.c
+ */
+int		ft_unset(t_list **env, char **cmd);
 /*
  *	srcs/builtins/ft_env.c
  */
@@ -61,7 +64,7 @@ int	ft_export(t_list **env, char **cmd);
 /*
  *	srcs/builtins/ft_exit.c
  */
-int		ft_exit(char **cmd);
+int		ft_exit(char **cmd, t_gdata *data);
 /*
  *	srcs/builtins/utils.c
  */
