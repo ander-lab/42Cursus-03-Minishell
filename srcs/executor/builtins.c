@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/27 15:45:49 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:39:34 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata, char *cmd)
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
 		ft_env(gdata->envp, ft_split(cmd, ' '));
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
-		ft_exit(ft_split(cmd, ' '), gdata);
+		ft_exit(ft_split(cmd, ' '));
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
-		ft_pwd(gdata);
+		ft_pwd();
 	else if (!ft_strncmp("export", builtin, ft_strlen("export")))
 		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
@@ -53,10 +53,7 @@ int		is_builtin(char *cmd)
 		|| !cmp_builtin("unset", builtin)
 		|| !cmp_builtin("env", builtin)
 		|| !cmp_builtin("exit", builtin))
-	{
-		printf("DEBUUUUUG\n");
 		return (1);
-	}
 	free(builtin);
 	return (0);
 }
