@@ -93,6 +93,7 @@ static void	close_fds(t_gdata *gdata, int *pids, int **fd)
 	}
 	// cerrar cmds->ind, cmds->red
 	waitpid(pids[s], &status, 0);
+	gdata->proc = 0;
 	if (WIFEXITED(status))
 		gdata->proc =  WEXITSTATUS(status);
 }
@@ -105,7 +106,10 @@ int	check_builtin(t_gdata *gdata, t_cmds *cmds)
 	it_is = 0;
 	cmd = (char *)cmds->content;
 	if (is_builtin(cmd))
+	{
+		it_is = 1;
 		execute_builtin(cmds, gdata, cmd);
+	}
 	return (it_is);
 }
 
@@ -114,19 +118,15 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 	int		**fd;
 	int		r;
 	int		*pids;
-	char	*cmd;
+	int		built;
 
 	r = -1;
 	fd = init_fds(gdata);
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
 	while (++r < gdata->n_pipes + 1)
 	{
-		cmd = (char *)cmds->content;
-		if (is_builtin(cmd))
-		{
-			execute_builtin(cmds, gdata, cmd);
-		}
-		else
+		built = check_builtin(gdata, cmds);
+		if (!built)
 		{
 			pids[r] = fork();
 			if (pids[r] == -1)

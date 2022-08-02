@@ -65,8 +65,10 @@ static int	ft_print_no_nl(char **s, int red)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_echo(char **cmd, int red)
+int	ft_echo(char **cmd, int red, t_gdata *gdata)
 {
+	if (print_cmd_proc(cmd, red, gdata))
+		return (1);
 	if (!cmd[1])
 	{
 		if (red > 2)

@@ -80,5 +80,5 @@ int	handle_path(char *cmd, char **envp)
 		free(cmd_one);
 	}
 	perror("bash");
-	exit(EXIT_FAILURE);
+	exit(127);
 }

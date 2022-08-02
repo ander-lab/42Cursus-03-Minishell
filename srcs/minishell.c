@@ -36,6 +36,11 @@ void handle_sigint(int n)
 	}
 }
 
+void	init_proc(t_gdata *gdata)
+{
+	gdata->proc = 0;
+}	
+
 int main(int argc, char **argv)
 {
 	char		*inp;
@@ -48,6 +53,7 @@ int main(int argc, char **argv)
 	//printf("VER: %d\n", rl_readline_version);
 	//execve("/usr/bin/whoami", cmd, environ);
 	//execve("/usr/bin/hostnamectl", cmd, environ);
+	init_proc(&gdata);
 	while (42)
 	{
 		signal(SIGQUIT, SIG_IGN);

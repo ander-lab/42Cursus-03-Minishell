@@ -12,7 +12,19 @@
 
 #include "libft.h"
 
-int	ft_strcmp(const char *src, const char *to_cmp)
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 != '\0' || *s2 != '\0')
+	{	
+		if (*s1 != *s2)
+			break ;
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
+/*int	ft_strcmp(const char *src, const char *to_cmp)
 {
 	size_t	i;
 	size_t	n;
@@ -28,4 +40,4 @@ int	ft_strcmp(const char *src, const char *to_cmp)
 	if (i != n)
 		return ((unsigned char)src[i] - (unsigned char)to_cmp[i]);
 	return (0);
-}
+}*/

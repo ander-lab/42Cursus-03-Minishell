@@ -48,7 +48,7 @@ int		ft_pwd();
 /*
  *	srcs/builtins/ft_echo.c
  */
-int		ft_echo(char **cmd, int red);
+int		ft_echo(char **cmd, int red, t_gdata *gdata);
 /*
  *	srcs/builtins/ft_unset.c
  */
@@ -214,6 +214,11 @@ int		is_red_or_app(t_dlist *aux);
  */
 int		is_builtin(char *cmd);
 void	execute_builtin(t_cmds *cmds, t_gdata *gdata, char *cmd);
+
+/*
+ *	utils/builtins/echo.c
+ */
+int	print_cmd_proc(char **cmd, int red, t_gdata *gdata);
 
 /*
  *	srcs/lexer/token_to_list.c

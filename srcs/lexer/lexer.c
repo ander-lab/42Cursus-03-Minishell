@@ -32,7 +32,6 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->inf_err = 0;
 	gdata->err = 0;
 	gdata->fd_pipe = -1;
-	gdata->proc = 0;
 }
 
 /*void	free_gdata(t_gdata *gdata)

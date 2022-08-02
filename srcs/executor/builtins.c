@@ -18,7 +18,7 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata, char *cmd)
 
 	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
-		ft_echo(ft_split(cmd, ' '), cmds->red);
+		ft_echo(ft_split(cmd, ' '), cmds->red, gdata);
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
 		ft_env(gdata->envp, ft_split(cmd, ' '));
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
