@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/29 12:55:13 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/03 10:16:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@
 # include <readline/history.h>
 # include "./libft/libft.h"
 # include "structs_and_macros.h"
+//# include "/Users/goliano-/.brew/opt/readline/include/readline/readline.h"
 
 # define READ_END 0
 # define WRITE_END 1
+
+extern void rl_replace_line(const char *c, int x);
 
 void	init_prompt(t_gdata *g_data, char **envp);
 void 	lexer(char *s, t_gdata *g_data);

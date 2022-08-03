@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/27 12:29:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:26:48 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef struct s_data
 	int		fd_pipe;
 	int		n_pipes;
 	char	**heredoc;
-	int		proc;
 } t_gdata;
 
 /*
@@ -103,6 +102,11 @@ typedef struct s_token_data
 	char	*str;
 }	t_token_data;
 
+typedef	struct	g_struc
+{
+	int	proc;
+}	t_glob;
 
+t_glob	s_glob;
 
 #endif

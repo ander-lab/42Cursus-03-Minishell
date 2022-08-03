@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/27 16:22:50 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:19:59 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,8 @@ static void	close_fds(t_gdata *gdata, int *pids, int **fd)
 	}
 	// cerrar cmds->ind, cmds->red
 	waitpid(pids[s], &status, 0);
-	gdata->proc = 0;
 	if (WIFEXITED(status))
-		gdata->proc =  WEXITSTATUS(status);
+		s_glob.proc =  WEXITSTATUS(status);
 }
 
 int	check_builtin(t_gdata *gdata, t_cmds *cmds)
@@ -113,6 +112,26 @@ int	check_builtin(t_gdata *gdata, t_cmds *cmds)
 	return (it_is);
 }
 
+void	sigquit_child(int n)
+{
+	if (n == 3)
+	{
+		write(STDOUT_FILENO, "Quit: 3\n", 8);
+		s_glob.proc = 131;
+	}
+	if (n == 2)
+		s_glob.proc = 130;
+}
+
+void	child_signal_handler(int pid)
+{
+	if (pid == 0)
+	{
+		signal(SIGQUIT, sigquit_child);
+		signal(SIGINT, sigquit_child);
+	}	
+}
+
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 {
 	int		**fd;
@@ -126,6 +145,7 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 	while (++r < gdata->n_pipes + 1)
 	{
 		built = check_builtin(gdata, cmds);
+		child_signal_handler(pids[r]);
 		if (!built)
 		{
 			pids[r] = fork();
