@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/03 16:19:59 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/04 10:12:40 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,26 +110,6 @@ int	check_builtin(t_gdata *gdata, t_cmds *cmds)
 		execute_builtin(cmds, gdata, cmd);
 	}
 	return (it_is);
-}
-
-void	sigquit_child(int n)
-{
-	if (n == 3)
-	{
-		write(STDOUT_FILENO, "Quit: 3\n", 8);
-		s_glob.proc = 131;
-	}
-	if (n == 2)
-		s_glob.proc = 130;
-}
-
-void	child_signal_handler(int pid)
-{
-	if (pid == 0)
-	{
-		signal(SIGQUIT, sigquit_child);
-		signal(SIGINT, sigquit_child);
-	}	
 }
 
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds)

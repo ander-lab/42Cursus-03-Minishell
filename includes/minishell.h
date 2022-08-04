@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/03 10:16:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/04 10:36:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <readline/history.h>
 # include "./libft/libft.h"
 # include "structs_and_macros.h"
-//# include "/Users/goliano-/.brew/opt/readline/include/readline/readline.h"
 
 # define READ_END 0
 # define WRITE_END 1
@@ -266,5 +265,11 @@ int		need_exec_here(t_dlist *lst);
  */
 int	get_next_type(t_dlist *lst);
 int	get_prev_type(t_dlist *lst);
+
+/*
+ *	utils/signals/signals.c
+ */
+void	sigquit_child(int n);
+void	child_signal_handler(int pid);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/03 13:26:48 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:52:22 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ typedef struct s_data
 	int		n_pipes;
 	char	**heredoc;
 } t_gdata;
+
+typedef struct	s_quotes
+{
+	int		fq;
+	size_t	c;
+	int		qw;
+}	t_quotes;
 
 /*
 ** LEXER
