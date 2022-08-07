@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 15:25:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/03 17:33:57 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/07 16:49:06 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,18 @@ void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata)
 
 	//size_t	aux;
 
-	if (!gdata->env->envp)
-		ft_free_matrix(gdata->env->envp);
-	gdata->env->envp = ft_calloc(ft_lstsize(lst_env), sizeof(char *));
+	//if (gdata->env->envp)
+	ft_free_matrix(gdata->env->envp);
+	//printf(" LST = %i \n  MATRIX = %zu\n", ft_lstsize(lst_env), ft_matrixlen(gdata->env->envp));
+	gdata->env->envp = malloc(ft_lstsize(lst_env) * (sizeof(char *) + 1));
+	//ft_printkey(lst_env);
 	while (lst_env)
 	{
 		gdata->env->envp[i] = ft_strjoin_token(((t_env_line *)lst_env->content)->key, ((t_env_line *)lst_env->content)->value, '=');
 		lst_env = lst_env->next;
 		i++;
 	}
+	gdata->env->envp[i] = NULL;
 }
 
 
@@ -151,7 +154,6 @@ void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata)
 //	envp_to_lst(env, &lst_env);
 //	ft_printdlst(lst_env);
 //	env = lst_to_envmtrx(lst_env, env);
-//	//printf("\n-----------------LA GUENAAAAA--------------\n\n\n");
 //	//ft_putmatrix(env, ft_matrixlen(env));
 //	ft_lstfree(lst_env);
 //	ft_free_matrix(env);

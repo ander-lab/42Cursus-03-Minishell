@@ -6,16 +6,36 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/27 15:51:58 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:28:13 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void ft_printkey(t_list *token_lst)
+{
+	printf("\n");
+	printf("\n");
+	while (token_lst)
+	{
+		printf("%s=", ((t_env_line *)token_lst->content)->key);
+		printf("%s\n", ((t_env_line *)token_lst->content)->value);
+		//token_data = token_lst->content;
+		//printf(" token 2= %i\n", token_data->token);
+		token_lst = token_lst->next;
+	}
+}
 void	execute_builtin(t_gdata *gdata, char *cmd)
 {
 	char	*builtin;
 
+//	printf("\n");
+//	printf("------------------------------------------------------------------------------");
+//	printf("\n");
+//	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
+//	printf("\n");
+//	printf("------------------------------------------------------------------------------");
+//	printf("\n");
 	envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
 	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
@@ -30,8 +50,22 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
 		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
+//	ft_printkey(gdata->env->env_lst);
+//	return ;
+//	printf("\n-----------------LA GUENAAAAA--------------\n\n\n");
+//	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
+//	if (gdata->env->envp)
+//		ft_free_matrix(gdata->env->envp);
 	lst_to_envmtrx(gdata->env->env_lst, gdata);
-	ft_lstfree(gdata->env->env_lst);
+//	ft_lstfree(gdata->env->env_lst);
+	//envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
+//	printf("\n");
+//	printf("------------------------------------------------------------------------------");
+//	printf("\n");
+//	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
+//	printf("\n");
+//	printf("------------------------------------------------------------------------------");
+//	printf("\n");
 }
 
 static int cmp_builtin(char *builtin, char *s)
@@ -57,7 +91,6 @@ int		is_builtin(char *cmd)
 		|| !cmp_builtin("env", builtin)
 		|| !cmp_builtin("exit", builtin))
 	{
-		printf("DEBUUUUUG\n");
 		return (1);
 	}
 	free(builtin);

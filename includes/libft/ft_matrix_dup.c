@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 09:55:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/27 15:57:15 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/07 15:50:21 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ char	**ft_matrix_dup(char **matrix, size_t lines)
 	 char 	**dup;
 	 
 	i = 0;
-	dup = ft_calloc(lines, 1);
+	dup = malloc((lines + 1) * sizeof(char *));
 	while (i < lines)
 	{
 		dup[i] = ft_strdup(matrix[i]);
 		i++;
+		//dup[i] = NULL;
 	}
-	return (matrix);
+	dup[i] = NULL;
+	return (dup);
 }

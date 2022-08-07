@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/27 15:52:28 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/07 11:55:16 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,5 +260,8 @@ int		need_exec_here(t_dlist *lst);
  */
 int	get_next_type(t_dlist *lst);
 int	get_prev_type(t_dlist *lst);
+
+
+void ft_printkey(t_list *token_lst);
 
 #endif
