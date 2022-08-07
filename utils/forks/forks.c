@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/27 13:41:35 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:31:39 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,18 @@ int	check_builtin(t_gdata *gdata, t_cmds *cmds)
 	return (it_is);
 }
 
+static void ft_printlst(t_list *token_lst)
+{
+	while (token_lst)
+	{
+		
+		printf("%s\n", ((t_env_line *)token_lst->content)->key);
+		//token_data = token_lst->content;
+		//printf(" token 2= %i\n", token_data->token);
+		token_lst = token_lst->next;
+	}
+}
+
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 {
 	int		**fd;
@@ -125,6 +137,7 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 	r = -1;
 	fd = init_fds(gdata);
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
+	ft_printlst(gdata->env->env_lst);
 	while (++r < gdata->n_pipes + 1)
 	{
 		cmd = (char *)cmds->content;
