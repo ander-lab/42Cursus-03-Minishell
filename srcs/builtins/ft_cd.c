@@ -6,20 +6,13 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 11:50:54 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 14:43:21 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 //TODO -> MAX FILE NAME ES 255 en bash
-
-int	chdir_env(t_gdata *data)
-{
-	chdir(path);
-	getcwd(pwd, 255);
-	return (0);
-}
 
 int		max_name(char *file)
 {
@@ -28,20 +21,48 @@ int		max_name(char *file)
 	return (0);
 }
 
-void	go_home(t_gdata *data, char **args, int count)
+void	go_home(t_gdata *data, char **args)
 {
-	if (count != 1 || (count <= 2 && !ft_strchr(args[1], '~')))
-		return ;
+	if (!data->env->home)
+		ft_putstr_fd("minishell: cd: HOME not set", 2);
+	
 }
 
-int	ft_cd(t_gdata *data, char **args)
+char	*ft_dup_var(t_list **lst, char *key)
+{
+	t_list	*aux_iter;
+	char	*var;
+
+	if (!lst || !*lst)
+		return (0);
+	aux_iter = *lst;
+	while (aux_iter)
+	{
+		if (!ft_strcmp((((t_env_line *)(aux_iter)->content)->key), key))
+		{
+			var = ft_strdup(((t_env_line *)(aux_iter)->content)->value);
+			return (var);
+		}
+		aux_iter = aux_iter->next;
+	}
+	return (0);
+}
+
+//void	init_dir_vars(t_gdata *data)
+//{
+//	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
+//	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
+//}
+
+int	ft_cd(t_gdata *data, char **cmd)
 {
 	char			*tmp;
-	t_matrix_data 	matrix_data;
 
-	data = ft_matrix_data(args);
-	go_home(home, pwd, matrix_data.line_count, args);
-	if (ft_strlen(args[1]) > 255)
-		return (max_name(args[1]));
+	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
+	data->env->pwd = ft_dup_var(&data->env->env_lst, "PWD");
+	if (ft_strlen(cmd[1]) > 255)
+		return (max_name(cmd[1]));
+	if ((!ft_strcmp(cmd[1], "~") || !cmd[1]))
+		go_home(data, cmd);
 	return (EXIT_SUCCESS);
 }
