@@ -6,26 +6,18 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:16:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/08 13:57:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 11:15:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *src, const char *to_cmp)
+int	ft_strcmp(char *s1, char *s2)
 {
 	size_t	i;
-	size_t	n;
 
 	i = 0;
-	n = ft_strlen(src);
-	while (src[i] != '\0' && to_cmp[i] != '\0' && i < n)
-	{
-		if (src[i] != to_cmp[i])
-			return ((unsigned char)src[i] - (unsigned char)src[i]);
-		++i;
-	}
-	if (i != n)
-		return ((unsigned char)src[i] - (unsigned char)to_cmp[i]);
-	return (0);
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }

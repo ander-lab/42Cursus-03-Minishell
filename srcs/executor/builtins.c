@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/07 17:28:13 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 11:34:58 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 //	printf("\n");
 //	printf("------------------------------------------------------------------------------");
 //	printf("\n");
-	envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
-	builtin = cpy_until_space(cmd);
+//	envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
+//	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
 		ft_echo(ft_split(cmd, ' '));
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
@@ -56,11 +56,11 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 //	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
 //	if (gdata->env->envp)
 //		ft_free_matrix(gdata->env->envp);
+	printf("------------------------------------------------------------------------------");
+	printf("\n");
 	lst_to_envmtrx(gdata->env->env_lst, gdata);
 //	ft_lstfree(gdata->env->env_lst);
 	//envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
-//	printf("\n");
-//	printf("------------------------------------------------------------------------------");
 //	printf("\n");
 //	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
 //	printf("\n");
