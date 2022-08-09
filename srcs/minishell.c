@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/07 17:28:15 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:27:04 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int main(int argc, char **argv, char **envp)
 	//printf("ARGC: %d\n", argc);
 	//printf("ARGV[0]: %s\n", argv[0]);
 	init_prompt(&gdata, environ);
+	//TODO -> CHEQUEAR SI ENV EXISTE E INICIALIZAR LAS VARIABLES BASICAS
 	//printf("VER: %d\n", rl_readline_version);
 	//execve("/usr/bin/whoami", cmd, environ);
 	//execve("/usr/bin/hostnamectl", cmd, environ);

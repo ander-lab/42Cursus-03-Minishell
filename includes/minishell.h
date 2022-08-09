@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/09 16:11:34 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:21:30 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	envp_to_lst(char **envp, t_list **lst_env);
 void	ft_lstfree(t_list *lst);
 //char	**lst_to_envmtrx(t_list *lst_env, char **envp);
 void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata);
+char	*ft_dup_var(t_list **lst, char *key);
 
 /*
  *	srcs/lexer/lexer.c

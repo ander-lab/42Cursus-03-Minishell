@@ -6,12 +6,32 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 15:25:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/09 16:20:33 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:21:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
+
+char	*ft_dup_var(t_list **lst, char *key)
+{
+	t_list	*aux_iter;
+	char	*var;
+
+	if (!lst || !*lst)
+		return (0);
+	aux_iter = *lst;
+	while (aux_iter)
+	{
+		if (!ft_strcmp((((t_env_line *)(aux_iter)->content)->key), key))
+		{
+			var = ft_strdup(((t_env_line *)(aux_iter)->content)->value);
+			return (var);
+		}
+		aux_iter = aux_iter->next;
+	}
+	return (0);
+}
 
 char	*safe_getcwd(char *current_cwd)
 {
