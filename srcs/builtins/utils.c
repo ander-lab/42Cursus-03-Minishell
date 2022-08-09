@@ -6,17 +6,18 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 15:25:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/07 16:49:06 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:20:33 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <stdio.h>
 
 char	*safe_getcwd(char *current_cwd)
 {
 	char	*pwd;
 
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, FILENAME_MAX);
 	if (!pwd)
 		return (current_cwd);
 	return (pwd);

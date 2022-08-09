@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/09 11:34:58 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:11:50 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
 		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
+	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
+		ft_cd(gdata, ft_split(cmd, ' '));
 //	ft_printkey(gdata->env->env_lst);
 //	return ;
 //	printf("\n-----------------LA GUENAAAAA--------------\n\n\n");
 //	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
 //	if (gdata->env->envp)
 //		ft_free_matrix(gdata->env->envp);
-	printf("------------------------------------------------------------------------------");
-	printf("\n");
+//	printf("------------------------------------------------------------------------------");
+//	printf("\n");
 	lst_to_envmtrx(gdata->env->env_lst, gdata);
 //	ft_lstfree(gdata->env->env_lst);
 	//envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
