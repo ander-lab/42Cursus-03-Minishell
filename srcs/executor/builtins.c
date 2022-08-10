@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/09 16:11:50 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:51:23 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,13 @@ void ft_printkey(t_list *token_lst)
 		token_lst = token_lst->next;
 	}
 }
-void	execute_builtin(t_gdata *gdata, char *cmd)
+void	execute_builtin(t_cmds *cmds, t_gdata *gdata, char *cmd)
 {
 	char	*builtin;
 
-//	printf("\n");
-//	printf("------------------------------------------------------------------------------");
-//	printf("\n");
-//	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
-//	printf("\n");
-//	printf("------------------------------------------------------------------------------");
-//	printf("\n");
-//	envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
-//	builtin = cpy_until_space(cmd);
+	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
-		ft_echo(ft_split(cmd, ' '));
+		ft_echo(ft_split(cmd, ' '), cmds->red, gdata);
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
 		ft_env(ft_split(cmd, ' '), gdata);
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
@@ -52,14 +44,7 @@ void	execute_builtin(t_gdata *gdata, char *cmd)
 		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
 		ft_cd(gdata, ft_split(cmd, ' '));
-//	ft_printkey(gdata->env->env_lst);
-//	return ;
-//	printf("\n-----------------LA GUENAAAAA--------------\n\n\n");
-//	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
-//	if (gdata->env->envp)
-//		ft_free_matrix(gdata->env->envp);
-//	printf("------------------------------------------------------------------------------");
-//	printf("\n");
+//TODO-> FUNCION QUE EXPORTE HOME
 	lst_to_envmtrx(gdata->env->env_lst, gdata);
 //	ft_lstfree(gdata->env->env_lst);
 	//envp_to_lst(gdata->env->envp, &gdata->env->env_lst);

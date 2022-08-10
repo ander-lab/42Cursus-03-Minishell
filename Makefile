@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/08/09 16:12:21 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/08/10 13:24:41 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,15 +49,18 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./utils/list/list.c ./utils/cmds/cmds.c ./srcs/lexer/cmds_lst.c \
 			./srcs/parser/parser.c ./srcs/executor/builtins.c ./srcs/builtins/ft_echo.c \
 			./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c \
-			./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c ./srcs/builtins/utils.c ./srcs/builtins/ft_cd.c
+			./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c ./srcs/builtins/utils.c ./srcs/builtins/ft_cd.c \
+			./utils/builtins/echo.c ./utils/signals/signals.c
 
 # **************************************************************************** #
 # 								    RULES                                      #
 # **************************************************************************** #
 
 OBJS	= $(SRCS:.c=.o)
-COMP	= $(CC) $(CFLAGS) $(LIBP) $(SRCS) -o $(NAME) -lreadline
-SANCOMP	= $(CC) $(CFLAGS) $(SAN) $(LIBP) $(SRCS) -g3 -o $(NAME) -lreadline
+RL_LIB	= -L /Users/$(USER)/.brew/opt/readline/lib
+RL_INC	= -I/Users/$(USER)/.brew/opt/readline/include
+COMP	= $(CC) $(CFLAGS) $(LIBP) $(SRCS) -lreadline $(RL_LIB) $(RL_INC) -o $(NAME)
+SANCOMP	= $(CC) $(CFLAGS) $(SAN) $(LIBP) $(SRCS) -g3 -lreadline $(RL_LIB) $(RL_INC) -o $(NAME)
 
 all: 		$(NAME)
 

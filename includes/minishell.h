@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/09 17:21:30 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:59:41 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define READ_END 0
 # define WRITE_END 1
 
+extern void rl_replace_line(const char *c, int x);
+
 void	init_prompt(t_gdata *g_data, char **envp);
 void 	lexer(char *s, t_gdata *g_data);
 
@@ -43,12 +45,12 @@ int		get_n_commands(char *s);
 /*
  *	srcs/builtins/ft_pwd.c
  */
-int		ft_pwd(t_gdata *gdata);
+int		ft_pwd();
 
 /*
  *	srcs/builtins/ft_echo.c
  */
-int		ft_echo(char **cmd);
+int		ft_echo(char **cmd, int red, t_gdata *gdata);
 /*
  *	srcs/builtins/ft_unset.c
  */
@@ -62,6 +64,7 @@ int 	ft_env(char **args, t_gdata *data);
  *	srcs/builtins/ft_export.c
  */
 int	ft_export(t_list **env, char **cmd);
+int	check_var_replace(t_list **lst, char *key, char *value);
 /*
  *	srcs/builtins/ft_exit.c
  */
@@ -222,7 +225,12 @@ int		is_red_or_app(t_dlist *aux);
  *	srcs/executor/builtins.c
  */
 int		is_builtin(char *cmd);
-void	execute_builtin(t_gdata *gdata, char *cmd);
+void	execute_builtin(t_cmds *cmds, t_gdata *gdata, char *cmd);
+
+/*
+ *	utils/builtins/echo.c
+ */
+int	print_cmd_proc(char **cmd, int red, t_gdata *gdata);
 
 /*
  *	srcs/lexer/token_to_list.c
@@ -270,5 +278,10 @@ int	get_prev_type(t_dlist *lst);
 
 
 void ft_printkey(t_list *token_lst);
+/*
+ *	utils/signals/signals.c
+ */
+void	sigquit_child(int n);
+void	child_signal_handler(int pid);
 
 #endif

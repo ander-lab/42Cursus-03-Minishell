@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/27 12:59:35 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:25:44 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,13 @@ typedef struct s_data
 	char	**heredoc;
 } t_gdata;
 
+typedef struct	s_quotes
+{
+	int		fq;
+	size_t	c;
+	int		qw;
+}	t_quotes;
+
 /*
 ** LEXER
 */
@@ -102,6 +109,11 @@ typedef struct s_token_data
 	char	*str;
 }	t_token_data;
 
+typedef	struct	g_struc
+{
+	int	proc;
+}	t_glob;
 
+t_glob	s_glob;
 
 #endif

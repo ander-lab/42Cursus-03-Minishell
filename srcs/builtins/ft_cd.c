@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/10 11:33:59 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:24:07 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	ft_cd(t_gdata *data, char **cmd)
 		go_home(data, cmd);
 	else
 		go_path(data, cmd);
+	check_var_replace(env)
 	//TODO-> LIBERAR ENV struct
 	//free()
 	return (EXIT_SUCCESS);
