@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:54:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/07 16:18:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:57:32 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static int	env_error(char **args)
 	return (127);
 }
 
-static int	print_env(char **env)
+static int	print_env(char **env, t_gdata *data)
 {
 	int	i;
 
 	i = 0;
 	while (env[i])
 	{
-		ft_putstr_fd(env[i], 1);
+		ft_putstr_fd(env[i], 2);
 		write(1, "\n", 1);
 		i++;
 	}
@@ -53,6 +53,6 @@ int ft_env(char **args, t_gdata *data)
 	if (args[1] || !data->env->envp)
 		return (env_error(args));
 	else
-		print_env(data->env->envp);
+		print_env(data->env->envp, data);
 	return (0);
 }

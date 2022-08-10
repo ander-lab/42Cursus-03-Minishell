@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/09 14:43:20 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/10 12:27:20 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static	char	**split_once(char *s)
 {
 	char **split;
 
+	if (!ft_strchr(s, '='))
+		return (0);
 	split = ft_calloc(sizeof(char *), 3);
 	split[0] = ft_strdup(ft_split(s, '=')[0]);
 	split[1] = ft_strdup(ft_strchr(s, '=') + 1);
@@ -74,8 +76,13 @@ int	ft_export(t_list **env, char **cmd)
 
 
 //	printf("EXISTEEEE\n\n");
+	//ft_putmatrix(cmd, ft_matrixlen(cmd));
 	if (cmd[1])
+	{
 		var = split_once(cmd[1]); 
+		if (!var || !*var)
+			return (0);
+	}
 	if (!cmd[1])
 	{
 		//printf("==SALE==");

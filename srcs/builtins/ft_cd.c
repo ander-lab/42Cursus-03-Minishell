@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/09 17:54:18 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:33:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	go_path(t_gdata *data, char **cmd)
 	char *tmp;
 
 	//comprobar si existe la carpeta
-	if (open(cmd[0], O_RDONLY) < 0)
+	if (open(cmd[1], O_RDONLY) < 0)
 	{
 		put_cd_error(cmd[1], PERMISION);
 	//	ft_putstr_fd("minishell: ", 2);
