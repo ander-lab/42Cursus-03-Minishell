@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/12 12:18:14 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:41:54 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,7 @@ int	ft_export(t_list **env, char **cmd)
 		ft_putchar_fd('\n', 1);
 	}
 	else if (!check_var_replace(env, var[0], var[1]))
-	{
-	//	printf("ta entrando\n");
-	//	printf("--------------------DEBUUUUUUUUUUUUUUUUUUUG--------------------------\n");
 		ft_add_var(env, var[0], var[1]);
-	}
 //	printf("------------------------------------------------------------------------------");
 //	ft_printkey(*env);
 //	printf("------------------------------------------------------------------------------");
