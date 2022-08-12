@@ -12,26 +12,28 @@
 
 #include "../../includes/minishell.h"
 
-static void	write_echo(int red, char **s, int i)
+static void	write_echo(int red, char **s, int i, t_gdata *gdata)
 {
-	if (red > 2)
+	print_built_out(s[i], gdata, red);
+	/*if (red > 2)
 		write(red, s[i], ft_strlen(s[i]));
 	else
-		write(1, s[i], ft_strlen(s[i]));
+		write(1, s[i], ft_strlen(s[i]));*/
 	if (s[i + 1])
 	{
-		if (red > 2)
+		print_built_out(" ", gdata, red);
+		/*if (red > 2)
 			write(red, " ", 1);
 		else
-			write(STDOUT_FILENO, " ", 1);
+			write(STDOUT_FILENO, " ", 1);*/
 	}
 }
 
-static void	ft_put_echo(char **s, int i, int red)
+static void	ft_put_echo(char **s, int i, t_gdata *gdata, int red)
 {
 	while (s[i])
 	{	
-		write_echo(red, s, i);
+		write_echo(red, s, i, gdata);
 		i++;
 	}
 }
@@ -52,7 +54,7 @@ static int	check_flag(char *str)
 	return (1);
 }
 
-static int	ft_print_no_nl(char **s, int red)
+static int	ft_print_no_nl(char **s, int red, t_gdata *gdata)
 {
 	int	i;
 
@@ -61,31 +63,34 @@ static int	ft_print_no_nl(char **s, int red)
 		i++;
 	if (!s[i])
 		return (127);
-	ft_put_echo(s, i, red);
+	ft_put_echo(s, i, gdata, red);
 	return (EXIT_SUCCESS);
 }
 
-int	ft_echo(char **cmd, int red, t_gdata *gdata)
+int	ft_echo(char **cmd, t_gdata *gdata, int red)
 {
-	if (print_cmd_proc(cmd, red, gdata))
-		return (1);
+	if (print_cmd_proc(cmd, red))
+		return (EXIT_SUCCESS);
+	output_type(gdata, red);
 	if (!cmd[1])
 	{
-		if (red > 2)
+		print_built_out("\n", gdata, red);
+		/*if (red > 2)
 			write(red, "\n", 1);
 		else
-			write(STDOUT_FILENO, "\n", 1);
+			write(STDOUT_FILENO, "\n", 1);*/
 		return (EXIT_SUCCESS);
 	}
 	if (!check_flag(cmd[1]))
 	{
-		ft_put_echo(cmd, 1, red);
-		if (red > 2)
+		ft_put_echo(cmd, 1, gdata, red);
+		print_built_out("\n", gdata, red);
+		/*if (red > 2)
 			write(red, "\n", 1);
 		else
-			write(STDOUT_FILENO, "\n", 1);
+			write(STDOUT_FILENO, "\n", 1);*/
 	}
 	else
-		ft_print_no_nl(cmd, red);
+		ft_print_no_nl(cmd, red, gdata);
 	return (EXIT_SUCCESS);
 }

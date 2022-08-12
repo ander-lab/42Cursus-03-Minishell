@@ -45,12 +45,12 @@ int		get_n_commands(char *s);
 /*
  *	srcs/builtins/ft_pwd.c
  */
-int		ft_pwd();
+int		ft_pwd(t_gdata *gdata, int red);
 
 /*
  *	srcs/builtins/ft_echo.c
  */
-int		ft_echo(char **cmd, int red, t_gdata *gdata);
+int		ft_echo(char **cmd, t_gdata *gdata, int red);
 /*
  *	srcs/builtins/ft_unset.c
  */
@@ -58,7 +58,7 @@ int		ft_unset(t_list **env, char **cmd);
 /*
  *	srcs/builtins/ft_env.c
  */
-int		ft_env(char **env, char **args);
+int		ft_env(t_gdata *gdata, char **args, int red);
 /*
  *	srcs/builtins/ft_export.c
  */
@@ -215,12 +215,18 @@ int		is_red_or_app(t_dlist *aux);
  *	srcs/executor/builtins.c
  */
 int		is_builtin(char *cmd);
-void	execute_builtin(t_cmds *cmds, t_gdata *gdata, char *cmd);
+void	execute_builtin(t_cmds *cmds, t_gdata *gdata);
 
 /*
  *	utils/builtins/echo.c
  */
-int	print_cmd_proc(char **cmd, int red, t_gdata *gdata);
+int	print_cmd_proc(char **cmd, int red);
+
+/*
+ *	utils/builtins/global.c
+ */
+void	output_type(t_gdata *gdata, int red);
+void	print_built_out(char *out, t_gdata *gdata, int red);
 
 /*
  *	srcs/lexer/token_to_list.c

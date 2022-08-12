@@ -217,23 +217,28 @@ void	handle_exp(t_cmds *cmds)
 int	strquotes_len(char *cmd)
 {
 	int	qt;
-	int fq;
+	int	fq;
 	int	i;
 	int	l;
+	int	lq;
 
 	fq = 0;
 	qt = 0;
 	i = 0;
 	l = 0;
+	lq = 0;
 	while (cmd[i])
 	{
 		qt = is_quote(cmd[i]);
-		if (qt > 0)
+		if (qt > 0 && fq == 0)
 			fq = qt;
+		else if (qt == fq && fq != 0)
+			lq = 1;
 		else if (qt == fq)
 			fq = 0;
-		if (fq != qt || qt == 0)
+		if ((fq != qt || qt == 0) && lq == 0)
 			l++;
+		lq = 0;
 		i++;
 	}
 	return (l);
@@ -245,14 +250,11 @@ char	*remove_quotes(char  *cmd)
 	int		i;
 	int		x;
 	int		fq;
-	char	*new;
+	char		*new;
 
 	i = 0;
 	fq = 0;
 	x = -1;
-	printf("L: %d\n", strquotes_len(cmd));
-	//new = ft_calloc(sizeof(char), strquotes_len(cmd) + 1);
-	//new = malloc(sizeof(char) * ft_strlen(cmd) + 1);
 	new = ft_calloc(sizeof(char), ft_strlen(cmd) + 1);
 	if (!new)
 		return (0);
@@ -262,49 +264,51 @@ char	*remove_quotes(char  *cmd)
 		qt = is_quote(cmd[i]);
 		if (qt > 0 && fq == 0)
 			fq = qt;
-		else if (qt == fq)
-		{
+		else if (qt == fq && fq != 0)
 			lq = 1;
+		else if (qt == fq)
 			fq = 0;
-		}
 		if ((fq != qt || qt == 0) && lq == 0)
 			new[++x] = cmd[i];
 		lq = 0;
-		/*if (fq == 0 && qt > 0)
-			fq = qt;
-		else if (fq == qt)
-			fq = 0;
-		if (fq != qt && fq == 0)
-			new[++x] = cmd[i];*/
-		/*if (qt == fq)
-			fq = 0;
-		else if (qt > 0 && fq == 0)
-			fq = qt;
-		if (qt != fq || qt == 0)
-			new[++x] = cmd[i];*/
-		//if (fq != qt || qt == 0)
-		//{
-		//	new[++x] = cmd[i];
-		//}
-		//printf("NEW[x]: %c\n", new[x]);
-		printf("QT: %d\n", qt);
-		printf("FQ: %d\n", fq);
-		printf("CMD[i]: %c\n", cmd[i]);
-		printf("------------------------\n");
 		i++;
 	}
-	printf("NEW: %s\n", new);
+	free(cmd);
 	return (new);
 }
 
-void	quote_handler(t_cmds *cmds)
+void	check_expansion(t_cmds *cmds)
+{
+	char	*cmd;
+	int	x;
+	int	qt;
+	int	fq;
+
+	cmd = (char *)cmds->content;
+	x = 0;
+	fq = 0;
+	while (cmd[x])
+	{
+		qt = is_quote(cmd[x]);
+		if (qt > 0 && fq == 0)
+			fq = qt;
+		else if (qt == fq)
+			fq = 0;
+		if (cmd[x] == '$' && (fq == 1 || fq == 0))
+			cmds->exp = 1;
+		x++;
+	}
+}
+
+void	cmds_iteration(t_cmds *cmds)
 {
 	char	*cmd;
 
 	while (cmds)
 	{
 		cmd = (char *)cmds->content;
-		cmd = remove_quotes(cmd);
+		check_expansion(cmds);
+		cmds->content = remove_quotes(cmd);
 		cmds = cmds->next;
 	}
 }
@@ -318,7 +322,7 @@ void	executor(t_gdata *gdata)
 	//TODO -> Duplicar env keys
 	//TODO -> LLamar a env to matrix y lst to env
 	cmds = gdata->cmds_lst;
-	quote_handler(cmds);
+	cmds_iteration(cmds);
 	//handle_exp(cmds);
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);

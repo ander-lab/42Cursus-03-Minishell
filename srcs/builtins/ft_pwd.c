@@ -12,13 +12,15 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd()
+int	ft_pwd(t_gdata *gdata, int red)
 {
 	char	*pwd;
 
+	output_type(gdata, red);
 	//pwd = safe_getcwd(current_cwd);
 	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
+	print_built_out(pwd, gdata, red);
+	print_built_out("\n", gdata, red);
 	free (pwd);
 	return (EXIT_SUCCESS);
 }

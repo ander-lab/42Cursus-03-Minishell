@@ -90,6 +90,9 @@ typedef struct s_data
 	int		fd_pipe;
 	int		n_pipes;
 	char	**heredoc;
+	int		**fd;
+	int	type;
+	int	r;
 } t_gdata;
 
 typedef struct	s_quotes

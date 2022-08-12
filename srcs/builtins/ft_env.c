@@ -20,25 +20,38 @@ static int	env_error(char **args)
 	return (127);
 }
 
-static int	print_env(char **env)
+static int	print_env(char **env, t_gdata *gdata, int red)
 {
 	int	i;
 
 	i = 0;
 	while (env[i])
 	{
-		ft_putstr_fd(env[i], 1);
-		write(1, "\n", 1);
+		print_built_out(env[i], gdata, red);
+		print_built_out("\n", gdata, red);
+		/*if (ep)
+		{
+			ft_putstr_fd(env[i], fd[r][WRITE_END]);
+			write(fd[r][WRITE_END], "\n", 1);
+		}
+		else
+		{
+			ft_putstr_fd(env[i], 1);
+			write(1, "\n", 1);
+		}*/
 		i++;
 	}
 	return (0);
 }
 
-int ft_env(char **env, char **args)
+int ft_env(t_gdata *gdata, char **args, int red)
 {
-	if (args[1] || !env)
+	if (args[1] || !gdata->envp)
 		return (env_error(args));
 	else
-		print_env(env);
+	{
+		output_type(gdata, red);
+		print_env(gdata->envp, gdata, red);
+	}
 	return (0);
 }

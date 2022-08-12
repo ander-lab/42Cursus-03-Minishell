@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	print_cmd_proc(char **cmd, int red, t_gdata *gdata)
+int	print_cmd_proc(char **cmd, int red)
 {
 	int	x;
 	int	fd;

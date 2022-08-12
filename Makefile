@@ -50,7 +50,7 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./srcs/parser/parser.c ./srcs/executor/builtins.c ./srcs/builtins/ft_echo.c \
 			./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c \
 			./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c ./srcs/builtins/utils.c \
-			./utils/builtins/echo.c ./utils/signals/signals.c
+			./utils/builtins/echo.c ./utils/signals/signals.c ./utils/builtins/global.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

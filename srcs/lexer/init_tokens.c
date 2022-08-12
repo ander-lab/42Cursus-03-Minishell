@@ -71,6 +71,7 @@ static t_cmds	*fill_cmds(char *cmd, int ind, int red, int here)
 	cmds->ind = ind;
 	cmds->red = red;
 	cmds->here = here;
+	cmds->exp = 0;
 	cmds->next = NULL;
 	return (cmds);
 }
