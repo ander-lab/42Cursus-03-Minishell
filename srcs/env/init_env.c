@@ -6,16 +6,15 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:57:09 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/12 12:09:42 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:32:38 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	increase_shlvl(t_list **lst)
+void	increase_shlvl(t_list **lst, int shlvl)
 {
 	t_list	*aux_iter;
-	int	shlvl = 0;
 
 	int i = 0;
 	if (!lst || !*lst)
@@ -27,7 +26,9 @@ void	increase_shlvl(t_list **lst)
 		//i++;
 		if (!ft_strcmp((((t_env_line *)(aux_iter)->content)->key), "SHLVL"))
 		{
-			shlvl = ft_atoi((((t_env_line *)(aux_iter)->content)->value));
+
+			printf("-----------------------\n");
+			shlvl = ft_atoi(((t_env_line *)(aux_iter)->content)->value);
 			shlvl += 1;
 			free((((t_env_line *)(aux_iter)->content)->value));
 			((t_env_line *)(aux_iter)->content)->value = ft_itoa(shlvl);
@@ -44,7 +45,7 @@ char	**build_env(void)
 
 	env = ft_calloc(sizeof(char *), 3);
 	env[0] = ft_strjoin_token("PWD", safe_getcwd("not_found"), '=');
-	env[1] = ft_strjoin_token("SHLVL", "1", '=');
+	env[1] = ft_strjoin_token("SHLVL", "0", '=');
 	env[2] = NULL;
 	return (env);
 }
@@ -57,5 +58,7 @@ void	init_env(t_gdata *data, char **envp)
 	else
 		data->env->envp = ft_matrix_dup(envp, ft_matrixlen(envp));
 	envp_to_lst(data->env->envp, &data->env->env_lst);
-	increase_shlvl(&data->env->env_lst);
+	increase_shlvl(&data->env->env_lst, data->env->shlvl);
+	lst_to_envmtrx(data->env->env_lst, data);
+	//ft_printkey(data->env->env_lst);
 }

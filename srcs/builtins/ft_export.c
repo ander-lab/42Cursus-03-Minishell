@@ -6,14 +6,13 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/10 12:27:20 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:18:14 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
-
 
 int	check_var_replace(t_list **lst, char *key, char *value)
 {

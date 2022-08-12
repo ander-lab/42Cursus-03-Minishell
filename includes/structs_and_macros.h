@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/10 13:25:44 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:32:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_env
 	char	 *home;
 	char	 *pwd;
 	char	 *old_pwd;
+	int		shlvl;
 }	t_env;
 
 /*typedef struct s_cmds_data

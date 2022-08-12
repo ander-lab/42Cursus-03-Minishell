@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/10 21:09:16 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:37:41 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	go_home(t_gdata *data, char **args)
 	char	*tmp;
 
 	if (!data->env->home)
+	{
 		put_cd_error("", HOME);
+		return ;
+	}
 		//ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 	tmp = ft_strdup(data->env->pwd);
 	data->env->old_pwd = ft_strdup(tmp);
@@ -93,7 +96,11 @@ int	ft_cd(t_gdata *data, char **cmd)
 	else
 		go_path(data, cmd);
 	check_var_replace(&data->env->env_lst, "PWD", data->env->pwd);
-	check_var_replace(&data->env->env_lst, "OLDPWD", data->env->old_pwd);
+	if (!check_var_replace(&data->env->env_lst, "OLDPWD", data->env->old_pwd))
+	{
+		printf("-------DEBUG------\n");
+		ft_add_var(&data->env->env_lst, "OLDPWD", data->env->old_pwd);
+	}
 	//TODO-> LIBERAR ENV struct
 	//free()
 	return (EXIT_SUCCESS);

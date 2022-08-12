@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/12 12:11:19 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:22:15 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ int 	ft_env(char **args, t_gdata *data);
 /*
  *	srcs/builtins/ft_export.c
  */
-int	ft_export(t_list **env, char **cmd);
-int	check_var_replace(t_list **lst, char *key, char *value);
+int		ft_export(t_list **env, char **cmd);
+int		check_var_replace(t_list **lst, char *key, char *value);
+void	ft_add_var(t_list **lst, char *key, char *value);
 /*
  *	srcs/builtins/ft_exit.c
  */
