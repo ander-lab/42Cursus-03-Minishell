@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/10 12:31:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:27:09 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ static void	handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r)
 		}
 		write(fd, gdata->heredoc[r], ft_strlen(gdata->heredoc[r]));
 		join = ft_strjoin_space(cmds->content, "42heredoctmpfile");
-		handle_path(join, gdata->envp);
+		handle_path(join, gdata->env->envp);
 	}
 	else
-		handle_path(cmds->content, gdata->envp);
+		handle_path(cmds->content, gdata->env->envp);
 }
 
 static void	close_fds(t_gdata *gdata, int *pids)
@@ -111,6 +111,18 @@ int	check_builtin(t_gdata *gdata, t_cmds *cmds)
 	}
 	return (it_is);
 }
+
+//static void ft_printlst(t_list *token_lst)
+//{
+//	while (token_lst)
+//	{
+//		
+//		printf("%s\n", ((t_env_line *)token_lst->content)->key);
+//		//token_data = token_lst->content;
+//		//printf(" token 2= %i\n", token_data->token);
+//		token_lst = token_lst->next;
+//	}
+//}
 
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 {

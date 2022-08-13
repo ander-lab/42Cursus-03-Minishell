@@ -6,17 +6,38 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 15:25:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/26 10:16:28 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:21:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <stdio.h>
+
+char	*ft_dup_var(t_list **lst, char *key)
+{
+	t_list	*aux_iter;
+	char	*var;
+
+	if (!lst || !*lst)
+		return (0);
+	aux_iter = *lst;
+	while (aux_iter)
+	{
+		if (!ft_strcmp((((t_env_line *)(aux_iter)->content)->key), key))
+		{
+			var = ft_strdup(((t_env_line *)(aux_iter)->content)->value);
+			return (var);
+		}
+		aux_iter = aux_iter->next;
+	}
+	return (0);
+}
 
 char	*safe_getcwd(char *current_cwd)
 {
 	char	*pwd;
 
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, FILENAME_MAX);
 	if (!pwd)
 		return (current_cwd);
 	return (pwd);
@@ -118,21 +139,24 @@ void	ft_lstfree(t_list *lst)
 	//*lst = NULL;
 }
 
-char	**lst_to_envmtrx(t_list *lst_env, char **envp)
+void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata)
 {
 	int i = 0;
 
 	//size_t	aux;
 
-	//ft_free_matrix(envp);
-	envp = ft_calloc(ft_lstsize(lst_env), sizeof(char *));
+	//if (gdata->env->envp)
+	ft_free_matrix(gdata->env->envp);
+	//printf(" LST = %i \n  MATRIX = %zu\n", ft_lstsize(lst_env), ft_matrixlen(gdata->env->envp));
+	gdata->env->envp = malloc(ft_lstsize(lst_env) * (sizeof(char *) + 1));
+	//ft_printkey(lst_env);
 	while (lst_env)
 	{
-		envp[i] = ft_strjoin_token(((t_env_line *)lst_env->content)->key, ((t_env_line *)lst_env->content)->value, '=');
+		gdata->env->envp[i] = ft_strjoin_token(((t_env_line *)lst_env->content)->key, ((t_env_line *)lst_env->content)->value, '=');
 		lst_env = lst_env->next;
 		i++;
 	}
-	return (envp);
+	gdata->env->envp[i] = NULL;
 }
 
 
@@ -151,7 +175,6 @@ char	**lst_to_envmtrx(t_list *lst_env, char **envp)
 //	envp_to_lst(env, &lst_env);
 //	ft_printdlst(lst_env);
 //	env = lst_to_envmtrx(lst_env, env);
-//	//printf("\n-----------------LA GUENAAAAA--------------\n\n\n");
 //	//ft_putmatrix(env, ft_matrixlen(env));
 //	ft_lstfree(lst_env);
 //	ft_free_matrix(env);

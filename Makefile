@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/08/04 09:50:51 by goliano-         ###   ########.fr        #
+#    Updated: 2022/08/12 12:11:59 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./srcs/parser/parser.c ./srcs/executor/builtins.c ./srcs/builtins/ft_echo.c \
 			./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c \
 			./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c ./srcs/builtins/utils.c \
-			./utils/builtins/echo.c ./utils/signals/signals.c ./utils/builtins/global.c
+			./utils/builtins/echo.c ./utils/signals/signals.c ./utils/builtins/global.c \
+			./srcs/builtins/ft_cd.c ./srcs/env/init_env.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

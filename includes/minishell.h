@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:17:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/04 10:36:01 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:22:15 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,19 @@ int		ft_env(t_gdata *gdata, char **args, int red);
 /*
  *	srcs/builtins/ft_export.c
  */
-int	ft_export(t_list **env, char **cmd);
+int		ft_export(t_list **env, char **cmd);
+int		check_var_replace(t_list **lst, char *key, char *value);
+void	ft_add_var(t_list **lst, char *key, char *value);
 /*
  *	srcs/builtins/ft_exit.c
  */
-int		ft_exit(char **cmd/*, t_gdata *data*/);
+int		ft_exit(char **cmd, t_gdata *data);
+
+/*
+ *	srcs/builtins/ft_exit.c
+ */
+int		ft_cd(t_gdata *data, char **cmd);
+
 /*
  *	srcs/builtins/utils.c
  */
@@ -75,7 +83,9 @@ t_list	*ft_lstnew_struct(void *newcontent, size_t size);
 char	*ft_strjoin_token(char const *s1, char const *s2, char token);
 void	envp_to_lst(char **envp, t_list **lst_env);
 void	ft_lstfree(t_list *lst);
-char	**lst_to_envmtrx(t_list *lst_env, char **envp);
+//char	**lst_to_envmtrx(t_list *lst_env, char **envp);
+void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata);
+char	*ft_dup_var(t_list **lst, char *key);
 
 /*
  *	srcs/lexer/lexer.c
@@ -198,6 +208,12 @@ int		handle_path(char *cmd, char **envp);
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
 
 /*
+ * srcs/env/init_env.c
+ */
+
+void	init_env(t_gdata *data, char **envp);
+
+/*
  *	srcs/executor/infile.c
  */
 int			is_infile(t_dlist *aux);
@@ -272,6 +288,8 @@ int		need_exec_here(t_dlist *lst);
 int	get_next_type(t_dlist *lst);
 int	get_prev_type(t_dlist *lst);
 
+
+void ft_printkey(t_list *token_lst);
 /*
  *	utils/signals/signals.c
  */

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:09:15 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/29 12:38:54 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:29:57 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int ft_exit_with_args(char **cmd, int lines)
 	return (0);
 }
 
-int	ft_exit(char **cmd/*, t_gdata *data*/)
+int	ft_exit(char **cmd, t_gdata *data)
 {
 	int				ret;
 

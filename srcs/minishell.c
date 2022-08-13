@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/03 13:22:40 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:14:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,23 @@ void handle_sigint(int n)
 	}
 }
 
-int main(int argc, char **argv)
+
+//void	init_env(t_gdata *gdata, char **envp)
+//{
+//	gdata->env->
+//}
+
+int main(int argc, char **argv, char **envp)
 {
 	char		*inp;
 	extern char	**environ;
 	t_gdata		gdata;
 	
-	printf("ARGC: %d\n", argc);
-	printf("ARGV[0]: %s\n", argv[0]);
+	//printf("ARGC: %d\n", argc);
+	//printf("ARGV[0]: %s\n", argv[0]);
 	init_prompt(&gdata, environ);
+	init_env(&gdata, envp);
+	//TODO -> CHEQUEAR SI ENV EXISTE E INICIALIZAR LAS VARIABLES BASICAS
 	s_glob.proc = 0;
 	//printf("VER: %d\n", rl_readline_version);
 	//execve("/usr/bin/whoami", cmd, environ);

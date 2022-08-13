@@ -6,11 +6,23 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:54:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/26 15:11:17 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:57:32 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void ft_printlst(t_list *token_lst)
+{
+	while (token_lst)
+	{
+		
+		printf("%s\n", ((t_env_line *)token_lst->content)->key);
+		//token_data = token_lst->content;
+		//printf(" token 2= %i\n", token_data->token);
+		token_lst = token_lst->next;
+	}
+}
 
 static int	env_error(char **args)
 {
@@ -29,16 +41,6 @@ static int	print_env(char **env, t_gdata *gdata, int red)
 	{
 		print_built_out(env[i], gdata, red);
 		print_built_out("\n", gdata, red);
-		/*if (ep)
-		{
-			ft_putstr_fd(env[i], fd[r][WRITE_END]);
-			write(fd[r][WRITE_END], "\n", 1);
-		}
-		else
-		{
-			ft_putstr_fd(env[i], 1);
-			write(1, "\n", 1);
-		}*/
 		i++;
 	}
 	return (0);
