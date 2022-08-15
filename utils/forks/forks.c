@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/10 13:27:09 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:44:34 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	close_fds(t_gdata *gdata, int *pids, int **fd)
 		s_glob.proc =  WEXITSTATUS(status);
 }
 
-int	check_builtin(t_gdata *gdata, t_cmds *cmds)
+int	check_builtin(t_gdata *gdata, t_cmds *cmds, int **fd, int r)
 {
 	char	*cmd;
 	int		it_is;
@@ -136,7 +136,7 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
 	while (++r < gdata->n_pipes + 1)
 	{
-		built = check_builtin(gdata, cmds);
+		built = check_builtin(gdata, cmds, fd, r);
 		child_signal_handler(pids[r]);
 		if (!built)
 		{
