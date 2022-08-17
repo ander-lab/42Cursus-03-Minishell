@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 13:01:47 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/08/08 15:59:27 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:47:32 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strdup(const char *s1)
 {
 	char	*s_dup;
 
+	if (!s1)
+		return (0);
 	s_dup = (char *)malloc(ft_strlen(s1) + 1);
 	if (!s_dup)
 		return (0);

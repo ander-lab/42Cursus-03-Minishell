@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_and_macros.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 09:39:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/17 12:44:15 by goliano-         ###   ########.fr       */
+/*   Created: 2022/08/17 12:53:28 by goliano-          #+#    #+#             */
+/*   Updated: 2022/08/17 12:53:36 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_env
 	char	 *home;
 	char	 *pwd;
 	char	 *old_pwd;
+	int		shlvl;
 }	t_env;
 
 /*typedef struct s_cmds_data
@@ -74,7 +75,7 @@ typedef struct s_env
 typedef struct s_data
 {
 	char	*prompt;
-	char	**envp;
+	//char	**envp;
 	int		n_commands;	// comandos y redirecciones
 	int		commands;	// comandos solo (pipes)
 	int		aux_n_commands;
