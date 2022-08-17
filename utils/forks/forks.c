@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:35:02 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/10 13:27:09 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:27:24 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,13 @@ static int	**init_fds(t_gdata *gdata)
 
 	fd = ft_calloc(sizeof(int *), gdata->n_pipes);
 	i = 0;
+	if (!fd)
+		return (0);
 	while (i < gdata->n_pipes)
 	{
 		fd[i] = ft_calloc(sizeof(int), 2);
+		if (!fd[i])
+			return (0);
 		pipe(fd[i]);
 		i++;
 	}

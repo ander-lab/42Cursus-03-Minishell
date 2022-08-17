@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   global.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/17 10:25:47 by goliano-          #+#    #+#             */
+/*   Updated: 2022/08/17 12:44:17 by goliano-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	output_type(t_gdata *gdata, int red)
@@ -5,7 +17,7 @@ void	output_type(t_gdata *gdata, int red)
 	gdata->type = 0;
 	if (red > 2)
 		gdata->type = 1;
-	else if (gdata->fd[0])
+	else if (gdata->r < gdata->n_pipes)
 		gdata->type = 2;
 }
 
@@ -18,4 +30,3 @@ void	print_built_out(char *out, t_gdata *gdata, int red)
 	else
 		write(gdata->fd[gdata->r][WRITE_END], out, ft_strlen(out));
 }
-
