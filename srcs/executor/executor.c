@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/17 16:12:44 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:28:24 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,7 +300,79 @@ void	check_expansion(t_cmds *cmds)
 	}
 }
 
-void	cmds_iteration(t_cmds *cmds)
+int		env_search_length(char *cmd)
+{
+	int		i;
+	int		l;
+
+	i = -1;
+	l = 0;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '$')
+			break ;
+	}
+	while (cmd[i] && !is_quote(cmd[i]))
+	{
+		i++;
+		l++;
+	}
+	return (l);
+}
+
+char	*get_env_search(char *cmd)
+{
+	int		i;
+	int		x;
+	char	*search;
+
+	i = -1;
+	x = -1;
+	search = calloc(sizeof(char), env_search_length(cmd)); 
+	if (!search)
+		return (0);
+	while (cmd[++i])
+	{
+		if (cmd[i] == '$')
+			break ;
+	}
+	while (cmd[i] && !is_quote(cmd[i]))
+		search[++x] = cmd[++i];
+	search[x] = '=';
+	search[x + 1] = '\0';
+	//chequ sanitize
+	return (search);
+}
+
+char	*get_env_val(char *cmd, char **envp)
+{
+	int	i;
+
+	i = 0;
+	printf("CMD: %s\n", cmd);
+	while (envp[i])
+	{
+		printf("ENV: %s\n", envp[i]);
+		if (ft_strcmp(envp[i], cmd) == 0)
+			break ;
+		i++;
+	}
+	printf("I: %d\n", i);
+	printf("DEJO: %s\n", envp[i]);
+	return (envp[i]);
+}
+
+char	*handle_expansion(t_cmds *cmds, char **envp)
+{
+	char	*cmd;
+	char	*val;
+
+	cmd = (char *)cmds->content;
+	val = get_env_val(get_env_search(cmd), envp);
+	return (0);
+}
+
+void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)
 {
 	char	*cmd;
 
@@ -309,6 +381,8 @@ void	cmds_iteration(t_cmds *cmds)
 		cmd = (char *)cmds->content;
 		check_expansion(cmds);
 		cmds->content = remove_quotes(cmd);
+		if (cmds->exp)
+			cmds->content = handle_expansion(cmds, gdata->env->envp);
 		cmds = cmds->next;
 	}
 }
@@ -322,7 +396,7 @@ void	executor(t_gdata *gdata)
 	//TODO -> Duplicar env keys
 	//TODO -> LLamar a env to matrix y lst to env
 	cmds = gdata->cmds_lst;
-	cmds_iteration(cmds);
+	cmds_iteration(cmds, gdata);
 	//handle_exp(cmds);
 	lst = gdata->glob_lst;
 	gdata->n_pipes = get_n_pipes(lst);

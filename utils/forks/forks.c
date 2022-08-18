@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:45:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/17 16:13:13 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:48:08 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,14 @@ static void	close_fds(t_gdata *gdata, int *pids)
 	{
 		close(gdata->fd[s][READ_END]);
 		close(gdata->fd[s][WRITE_END]);
+		s++;
+	}
+	s = 0;
+	while (s < gdata->n_pipes)
+	{
 		waitpid(pids[s], &status, 0);
 		s++;
 	}
-	// cerrar cmds->ind, cmds->red
 	waitpid(pids[s], &status, 0);
 	if (WIFEXITED(status))
 		s_glob.proc =  WEXITSTATUS(status);
