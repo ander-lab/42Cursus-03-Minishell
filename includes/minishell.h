@@ -70,10 +70,10 @@ void	ft_add_var(t_list **lst, char *key, char *value);
 /*
  *	srcs/builtins/ft_exit.c
  */
-int		ft_exit(char **cmd, t_gdata *data);
+int		ft_exit(char **cmd);
 
 /*
- *	srcs/builtins/ft_exit.c
+ *	srcs/builtins/ft_cd.c
  */
 int		ft_cd(t_gdata *data, char **cmd);
 

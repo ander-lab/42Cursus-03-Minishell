@@ -35,8 +35,8 @@ int main(int argc, char **argv, char **envp)
 	extern char	**environ;
 	t_gdata		gdata;
 	
-	//printf("ARGC: %d\n", argc);
-	//printf("ARGV[0]: %s\n", argv[0]);
+	printf("ARGC: %d\n", argc);
+	printf("ARGV[0]: %s\n", argv[0]);
 	init_prompt(&gdata, environ);
 	init_env(&gdata, envp);
 	//TODO -> CHEQUEAR SI ENV EXISTE E INICIALIZAR LAS VARIABLES BASICAS

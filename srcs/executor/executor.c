@@ -344,22 +344,98 @@ char	*get_env_search(char *cmd)
 	return (search);
 }
 
-char	*get_env_val(char *cmd, char **envp)
+int	env_val_length(char *val)
 {
+	int	l;
 	int	i;
 
 	i = 0;
-	printf("CMD: %s\n", cmd);
-	while (envp[i])
+	l = 0;
+	while (val[i])
 	{
-		printf("ENV: %s\n", envp[i]);
-		if (ft_strcmp(envp[i], cmd) == 0)
+		if (val[i] == '=')
 			break ;
 		i++;
 	}
-	printf("I: %d\n", i);
-	printf("DEJO: %s\n", envp[i]);
-	return (envp[i]);
+	while (val[++i])
+		l++;
+	return (l);
+}
+
+char	*get_env_val(char *cmd, char **envp)
+{
+	int	i;
+	char	*val;
+	int	x;
+	int	z;
+
+	i = 0;
+	x = -1;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], cmd, ft_strlen(cmd)) == 0)
+			break ;
+		i++;
+	}
+	if (!envp[i])
+		return (0);
+	val = ft_calloc(sizeof(char), env_val_length(envp[i]));
+	if (!val)
+		return (0);
+	z = 0;
+	while (envp[i][z] != '=')
+		z++;
+	while (envp[i][z])
+		val[++x] = envp[i][++z];
+	return (val);
+}
+
+/*int	n_quotes(char *cmd)
+{
+	int	x;
+	int	c;
+
+	x = 0;
+	c = 0;
+	while (cmd[x])
+	{
+		if (is_quote(cmd[x]))
+			c++;
+		x++;
+	}
+	printf("NQUOT: %d\n", c);
+	return (c);
+}*/
+
+char	*expansion_output(char *cmd, char *val)
+{
+	char	*out;
+	int	i;
+	int	x;
+	int	z;
+
+	printf("CMD: %s\n", cmd);
+	printf("VAL: %s\n", val);
+	out = ft_calloc(sizeof(char *), ft_strlen(val) + ft_strlen(cmd));
+	if (!out)
+		return (0);
+	i = -1;
+	x = -1;
+	z = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '$')
+			break ;
+		out[++x] = cmd[i];
+	}
+	while (val[++z])
+		out[++x] = val[z];
+	while (cmd[++i])
+	{
+		if (is_quote(cmd[i]))
+			out[++x] = cmd[i];
+	}
+	return (out);
 }
 
 char	*handle_expansion(t_cmds *cmds, char **envp)
@@ -369,7 +445,9 @@ char	*handle_expansion(t_cmds *cmds, char **envp)
 
 	cmd = (char *)cmds->content;
 	val = get_env_val(get_env_search(cmd), envp);
-	return (0);
+	if (!val)
+		return (0);
+	return (expansion_output(cmd, val));
 }
 
 void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)

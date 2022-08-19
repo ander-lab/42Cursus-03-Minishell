@@ -35,7 +35,7 @@ static int ft_exit_with_args(char **cmd, int lines)
 	return (0);
 }
 
-int	ft_exit(char **cmd, t_gdata *data)
+int	ft_exit(char **cmd)
 {
 	int				ret;
 

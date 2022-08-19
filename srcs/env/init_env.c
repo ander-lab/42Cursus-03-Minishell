@@ -16,7 +16,6 @@ void	increase_shlvl(t_list **lst, int shlvl)
 {
 	t_list	*aux_iter;
 
-	int i = 0;
 	if (!lst || !*lst)
 		return ;
 	aux_iter = *lst;

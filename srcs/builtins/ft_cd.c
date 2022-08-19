@@ -35,7 +35,7 @@ int	put_cd_error(char *arg, int code)
 
 //TODO -> funcion que imprima y retorne error
 
-void	go_home(t_gdata *data, char **args)
+void	go_home(t_gdata *data)
 {
 	char	*tmp;
 
@@ -83,8 +83,6 @@ void	go_path(t_gdata *data, char **cmd)
 
 int	ft_cd(t_gdata *data, char **cmd)
 {
-	char			*tmp;
-
 	//printf("---------DEBUUUUG--------");
 	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
 	//printf("%s\n", data->env->home);
@@ -92,7 +90,7 @@ int	ft_cd(t_gdata *data, char **cmd)
 	if (ft_strlen(cmd[1]) > 255)
 		return (put_cd_error(cmd[1], FILENAME));
 	if ((!ft_strcmp(cmd[1], "~") || !cmd[1]))
-		go_home(data, cmd);
+		go_home(data);
 	else
 		go_path(data, cmd);
 	check_var_replace(&data->env->env_lst, "PWD", data->env->pwd);

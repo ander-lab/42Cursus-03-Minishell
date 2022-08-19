@@ -18,7 +18,6 @@ int	check_var_replace(t_list **lst, char *key, char *value)
 {
 	t_list	*aux_iter;
 
-	int i = 0;
 	if (!lst || !*lst)
 		return (0);
 	aux_iter = *lst;

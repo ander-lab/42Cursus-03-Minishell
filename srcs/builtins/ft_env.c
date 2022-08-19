@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static void ft_printlst(t_list *token_lst)
+/*static void ft_printlst(t_list *token_lst)
 {
 	while (token_lst)
 	{
@@ -22,7 +22,7 @@ static void ft_printlst(t_list *token_lst)
 		//printf(" token 2= %i\n", token_data->token);
 		token_lst = token_lst->next;
 	}
-}
+}*/
 
 static int	env_error(char **args)
 {

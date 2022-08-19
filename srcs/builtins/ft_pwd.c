@@ -17,7 +17,6 @@
 int	ft_pwd(t_gdata *gdata, int red)
 {
 	char	*pwd;
-	char	*old;
 
 	output_type(gdata, red);
 	if (!getcwd(NULL, FILENAME_MAX))
