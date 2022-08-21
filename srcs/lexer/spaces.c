@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 10:46:51 by goliano-          #+#    #+#             */
-/*   Updated: 2022/05/25 15:41:07 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:32:30 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_file_token(int t)
 	return (it_is);
 }
 
-static int *ft_duparr(const int *arr, int len)
+static	int	*ft_duparr(const int *arr, int len)
 {
 	int	*arr_dup;
 
@@ -54,7 +54,7 @@ static int *ft_duparr(const int *arr, int len)
 	return (arr_dup);
 }
 
-int *spaces(char *s, int *raw, int raw_len)
+int	*spaces(char *s, int *raw, int raw_len)
 {
 	int	*spaces;
 	int	aux_raw;

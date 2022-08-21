@@ -6,17 +6,18 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/10 13:08:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:46:55 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_printdlst(t_dlist *token_lst)
+void	ft_printdlst(t_dlist *token_lst)
 {
 	while (token_lst)
 	{
-		printf("token  %i char * %s\n", ((t_token_data *)token_lst->content)->token,
+		printf("token  %i char * %s\n",
+			((t_token_data *)token_lst->content)->token,
 			((t_token_data *)token_lst->content)->str);
 		token_lst = token_lst->next;
 	}
@@ -54,10 +55,10 @@ void	lexer(char *s, t_gdata *gdata)
 		return ;
 	handle_input(s, gdata);
 	if (gdata->err)
-		return ; //gestion de comillas abiertas lexer
+		return ;
 	init_tokens(s, gdata);
 	parser(gdata);
 	if (gdata->err)
-		return ; //gestion de comillas abiertas lexer
+		return ;
 	executor(gdata);
 }

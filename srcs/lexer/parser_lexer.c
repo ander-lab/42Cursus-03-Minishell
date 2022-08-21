@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/04 11:29:28 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:47:14 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	char	*cmd;
 
 	l = 0;
-	// LEAK POR AKI jiji
+	// TODO -> LEAK POR AKI jiji
 	word = ft_strtrim(word, " ");
 	l = filename_length(word);
 	file_name = cpy_cmd(word, l, 0);
@@ -57,6 +57,7 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 		g_data->handle_next = 1;
 }
 
+//TODO -> NORMINETTE
 void	handle_input(char *s, t_gdata *g_data)
 {
 	int		prev_l;
@@ -86,7 +87,6 @@ void	handle_input(char *s, t_gdata *g_data)
 		else
 			g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(word, " ");
 	}
-	//ft_putmatrix(g_data->cmds, g_data->n_commands);
 	g_data->err = quotes;
 }
 

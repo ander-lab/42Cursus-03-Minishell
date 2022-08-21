@@ -6,11 +6,11 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:11:56 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/07 12:58:29 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:32:16 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*find_env_var(char **env, char *var)
 {

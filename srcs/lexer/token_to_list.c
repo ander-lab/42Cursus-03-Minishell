@@ -6,13 +6,14 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:39:30 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/07/05 13:01:59 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:41:26 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_insert_data_lst(t_dlist **lst, t_token_data *token_data, int *tokens, int len)
+void	ft_insert_data_lst(t_dlist **lst, t_token_data *token_data,
+		int *tokens, int len)
 {
 	int	aux;
 
@@ -20,7 +21,8 @@ void	ft_insert_data_lst(t_dlist **lst, t_token_data *token_data, int *tokens, in
 	while (aux < len)
 	{
 		token_data->token = tokens[aux];
-		ft_dlstadd_back(lst, ft_dlstnew_struct(token_data, sizeof(t_token_data)));
+		ft_dlstadd_back(lst, ft_dlstnew_struct(token_data,
+				sizeof(t_token_data)));
 		aux++;
 	}
 }

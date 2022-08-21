@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 10:45:42 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/12 12:15:25 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:55:40 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*remove_new_line(char *str)
 	return (word);
 }
 
+//TODO-> NORMINETTE COMPROBAR LINEA COMENTADA 
+
 char	*exec_command(char *cmd, char **envp)
 {
 	int		end[2];
@@ -56,7 +58,6 @@ char	*exec_command(char *cmd, char **envp)
 	}
 	close(end[1]);
 	waitpid(p, NULL, 0);
-	//out = malloc(sizeof(char) * 4096);
 	out = get_next_line(end[0]);
 	out = remove_new_line(out);
 	close(end[0]);

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/18 18:28:24 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:17:40 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,10 +224,10 @@ int	strquotes_len(char *cmd)
 
 	fq = 0;
 	qt = 0;
-	i = 0;
+	i = -1;
 	l = 0;
 	lq = 0;
-	while (cmd[i])
+	while (cmd[++i])
 	{
 		qt = is_quote(cmd[i]);
 		if (qt > 0 && fq == 0)
@@ -239,18 +239,17 @@ int	strquotes_len(char *cmd)
 		if ((fq != qt || qt == 0) && lq == 0)
 			l++;
 		lq = 0;
-		i++;
 	}
 	return (l);
 }
 
-char	*remove_quotes(char  *cmd)
+char	*remove_quotes(char *cmd)
 {
 	int		qt;
 	int		i;
 	int		x;
 	int		fq;
-	char		*new;
+	char	*new;
 
 	i = 0;
 	fq = 0;
@@ -280,9 +279,9 @@ char	*remove_quotes(char  *cmd)
 void	check_expansion(t_cmds *cmds)
 {
 	char	*cmd;
-	int	x;
-	int	qt;
-	int	fq;
+	int		x;
+	int		qt;
+	int		fq;
 
 	cmd = (char *)cmds->content;
 	x = 0;

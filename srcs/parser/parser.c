@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:17:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 10:07:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:48:31 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ static int	check_parser_error(int i, t_dlist *aux)
 void	parser(t_gdata *gdata)
 {
 	t_dlist	*aux;
-	int	i;
+	int		i;
 
 	aux = gdata->glob_lst;
 	i = 0;
-	//ft_printdlst(aux);
 	while (aux && !gdata->err)
 	{
 		if (check_parser_error(i, aux))
