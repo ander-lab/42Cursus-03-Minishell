@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/20 20:24:11 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:17:43 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,10 @@ int		**init_fds(t_gdata *gdata);
 void	handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r);
 void	close_fds(t_gdata *gdata, int *pids);
 int		check_builtin(t_gdata *gdata, t_cmds *cmds);
+
+/*
+ *	utils/forks/handle_cmd.c
+ */
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
 
 /*

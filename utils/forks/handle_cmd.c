@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:21:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:30:03 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:18:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 				exit_error_fork();
 			if (pids[gdata->r] == 0)
 			{
+				write(2, "child\n", 6);
 				do_child(cmds, gdata->r, gdata);
 				handle_here_exec(cmds, gdata, gdata->r);
 			}
