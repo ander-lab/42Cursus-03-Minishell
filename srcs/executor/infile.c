@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:37:10 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/18 12:57:47 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:49:44 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	do_inf_err(char *file, t_dlist *lst)
 	return (0);
 }
 
-t_dlist *do_infile(t_dlist *lst, t_gdata *gdata)
+t_dlist	*do_infile(t_dlist *lst, t_gdata *gdata)
 {
 	char	*file;
 
