@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/20 17:45:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:39:04 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ static void	write_token(char *s, int *raw_tokens, int i, int l)
 		raw_tokens[l] = -1;
 }
 
-//TODO -> NORMINETTE LINES
+void handle_token(int *quotes, int *token, char *s, int *i)
+{
+		*quotes = quote_type(*quotes, s, *i);
+		*token = ft_get_token(s, i);
+}
+
 static int	put_tokens_on_arr(char *s, int *raw_tokens)
 {
 	int	i;
@@ -33,16 +38,15 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	l = 0;
 	quotes = 0;
 	while (s[++i])
-	{
-		quotes = quote_type(quotes, s, i);
-		token = ft_get_token(s, &i);
+	{	
+		handle_token(&quotes, &token, s, &i);
 		if (token != -1 && quotes == 0)
 		{
 			raw_tokens[l] = token;
 			r = i;
 			if (is_cmd_hide(s, ++i, token))
 				raw_tokens[++l] = -2;
-			i = r;
+			i = r;		
 		}
 		else
 			write_token(s, raw_tokens, i, l);

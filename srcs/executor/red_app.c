@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:38:39 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/06 13:09:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:52:00 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,19 @@ static void	multiple_reds(t_dlist *aux)
 	}
 }
 
-t_dlist *do_red_or_app(t_dlist *lst)
+t_dlist	*do_red_or_app(t_dlist *lst)
 {
 	char	*cmd;
-	int	tkn;
-	//int	is_red;
+	int		tkn;
 
 	lst = lst->next;
 	tkn = ((t_token_data *)lst->content)->token;
 	while (tkn == 2 || tkn == 4)
 	{
-	//	is_red = 0;
-	//	if (tkn == 2) //red
-	//		is_red = 1;
 		lst = lst->next;
 		cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		cmd = ft_strtrim(cmd, " ");
-	/*	if (is_red)
-			lst->red = handle_file_create(cmd, 0);
-		else
-			lst->red = handle_file_create(cmd, 1);
-	*/	lst = lst->next;
+		lst = lst->next;
 		if (!lst)
 			return (lst);
 		tkn = ((t_token_data *)lst->content)->token;

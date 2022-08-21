@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/20 20:24:11 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:43:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ void	ft_printdlst(t_dlist *token_lst);
  *	srcs/prompt/prompt.c
  */
 char	*remove_new_line(char *str);
+
+/*
+ *	srcs/executor/expansion.c
+ */
+
+char	*expansion_output(char *cmd, char *val);
+char	*handle_expansion(t_cmds *cmds, char **envp);
 
 /*
  *	srcs/executor/executor.c
@@ -212,6 +219,10 @@ int		**init_fds(t_gdata *gdata);
 void	handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r);
 void	close_fds(t_gdata *gdata, int *pids);
 int		check_builtin(t_gdata *gdata, t_cmds *cmds);
+
+/*
+ *	utils/forks/handle_cmd.c
+ */
 void	handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
 
 /*
@@ -302,5 +313,17 @@ void ft_printkey(t_list *token_lst);
  */
 void	sigquit_child(int n);
 void	child_signal_handler(int pid);
+
+/*
+ * utils/expansion/expansion.c
+ */ 
+
+char	*get_env_val(char *cmd, char **envp);
+
+/*
+ * utils/expansion/quotes.c
+ */ 
+
+char	*remove_quotes(char *cmd);
 
 #endif

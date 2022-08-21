@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:57:09 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 12:28:03 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:47:08 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,8 @@ void	increase_shlvl(t_list **lst, int shlvl)
 	aux_iter = *lst;
 	while (aux_iter)
 	{
-		//printf("%s \n %s\n", (((t_env_line *)(aux_iter)->content)->key), key);
-		//i++;
 		if (!ft_strcmp((((t_env_line *)(aux_iter)->content)->key), "SHLVL"))
 		{
-
-			//printf("-----------------------\n");
 			shlvl = ft_atoi(((t_env_line *)(aux_iter)->content)->value);
 			shlvl += 1;
 			free((((t_env_line *)(aux_iter)->content)->value));
@@ -35,7 +31,6 @@ void	increase_shlvl(t_list **lst, int shlvl)
 		}
 		aux_iter = aux_iter->next;
 	}
-	//printf("NO EXISTE\n");
 }
 
 char	**build_env(void)
@@ -59,5 +54,4 @@ void	init_env(t_gdata *data, char **envp)
 	envp_to_lst(data->env->envp, &data->env->env_lst);
 	increase_shlvl(&data->env->env_lst, data->env->shlvl);
 	lst_to_envmtrx(data->env->env_lst, data);
-	//ft_printkey(data->env->env_lst);
 }
