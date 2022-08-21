@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:46:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:47:45 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:20:17 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin_token(char const *s1, char const *s2, char token)
 
 	if (!s1 || !s2)
 		return (0);
-	sjoin = (char *)ft_calloc(ft_strlen(s1), ft_strlen(s2) + 2);
+	sjoin = (char *)ft_calloc(ft_strlen(s1), ft_strlen(s2) + 3);
 	i = 0;
 	while (s1[i] != '\0')
 	{

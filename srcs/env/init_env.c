@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:57:09 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/12 13:32:38 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:28:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	increase_shlvl(t_list **lst, int shlvl)
 		if (!ft_strcmp((((t_env_line *)(aux_iter)->content)->key), "SHLVL"))
 		{
 
-			printf("-----------------------\n");
+			//printf("-----------------------\n");
 			shlvl = ft_atoi(((t_env_line *)(aux_iter)->content)->value);
 			shlvl += 1;
 			free((((t_env_line *)(aux_iter)->content)->value));
