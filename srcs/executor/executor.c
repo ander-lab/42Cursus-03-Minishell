@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/18 18:28:24 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:41:55 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,8 +414,6 @@ char	*expansion_output(char *cmd, char *val)
 	int	x;
 	int	z;
 
-	printf("CMD: %s\n", cmd);
-	printf("VAL: %s\n", val);
 	out = ft_calloc(sizeof(char *), ft_strlen(val) + ft_strlen(cmd));
 	if (!out)
 		return (0);
@@ -461,6 +459,7 @@ void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)
 		cmds->content = remove_quotes(cmd);
 		if (cmds->exp)
 			cmds->content = handle_expansion(cmds, gdata->env->envp);
+		printf("CMD: %s\n", cmds->content);
 		cmds = cmds->next;
 	}
 }
