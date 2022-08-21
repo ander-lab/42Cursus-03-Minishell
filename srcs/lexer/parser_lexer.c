@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 17:47:14 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:54:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 }
 
 //TODO -> NORMINETTE
+//
+int	ft_prev_l(int prev_l, t_gdata *gdata, char *s, int l)
+{
+	fill_cmd_str(s, prev_l, l, gdata);
+	prev_l = l + 1;
+	return  (prev_l);
+}
+
 void	handle_input(char *s, t_gdata *g_data)
 {
 	int		prev_l;
@@ -74,10 +82,7 @@ void	handle_input(char *s, t_gdata *g_data)
 		quotes = quote_type(quotes, s, l);
 		g_data->last_token = ft_get_token(s, &l);
 		if (g_data->last_token != -1 && quotes == 0)
-		{
-			fill_cmd_str(s, prev_l, l, g_data);
-			prev_l = l + 1;
-		}
+			prev_l = ft_prev_l(prev_l, g_data, s, l);
 	}
 	if (!ends_with_token(s))
 	{
