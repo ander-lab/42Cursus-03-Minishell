@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/09 11:15:10 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:45:55 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	write_token(char *s, int *raw_tokens, int i, int l)
 		raw_tokens[l] = -1;
 }
 
+//TODO -> NORMINETTE LINES
 static int	put_tokens_on_arr(char *s, int *raw_tokens)
 {
 	int	i;
@@ -76,6 +77,7 @@ static t_cmds	*fill_cmds(char *cmd, int ind, int red, int here)
 	return (cmds);
 }
 
+//TODO -> NORMINETTE VAR
 void	init_cmds_lst(t_gdata *gdata)
 {
 	t_cmds	*cmds;

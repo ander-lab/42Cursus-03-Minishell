@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 10:17:54 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 12:41:55 by goliano-         ###   ########.fr       */
+/*   Created: 2022/08/21 12:48:58 by goliano-          #+#    #+#             */
+/*   Updated: 2022/08/21 13:31:41 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,10 +224,10 @@ int	strquotes_len(char *cmd)
 
 	fq = 0;
 	qt = 0;
-	i = 0;
+	i = -1;
 	l = 0;
 	lq = 0;
-	while (cmd[i])
+	while (cmd[++i])
 	{
 		qt = is_quote(cmd[i]);
 		if (qt > 0 && fq == 0)
@@ -239,18 +239,17 @@ int	strquotes_len(char *cmd)
 		if ((fq != qt || qt == 0) && lq == 0)
 			l++;
 		lq = 0;
-		i++;
 	}
 	return (l);
 }
 
-char	*remove_quotes(char  *cmd)
+char	*remove_quotes(char *cmd)
 {
 	int		qt;
 	int		i;
 	int		x;
 	int		fq;
-	char		*new;
+	char	*new;
 
 	i = 0;
 	fq = 0;
@@ -280,9 +279,9 @@ char	*remove_quotes(char  *cmd)
 void	check_expansion(t_cmds *cmds)
 {
 	char	*cmd;
-	int	x;
-	int	qt;
-	int	fq;
+	int		x;
+	int		qt;
+	int		fq;
 
 	cmd = (char *)cmds->content;
 	x = 0;
@@ -328,7 +327,7 @@ char	*get_env_search(char *cmd)
 
 	i = -1;
 	x = -1;
-	search = calloc(sizeof(char), env_search_length(cmd)); 
+	search = calloc(sizeof(char), env_search_length(cmd) + 1); 
 	if (!search)
 		return (0);
 	while (cmd[++i])
@@ -379,7 +378,7 @@ char	*get_env_val(char *cmd, char **envp)
 	}
 	if (!envp[i])
 		return (0);
-	val = ft_calloc(sizeof(char), env_val_length(envp[i]));
+	val = ft_calloc(sizeof(char), env_val_length(envp[i]) + 1);
 	if (!val)
 		return (0);
 	z = 0;
@@ -459,7 +458,6 @@ void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)
 		cmds->content = remove_quotes(cmd);
 		if (cmds->exp)
 			cmds->content = handle_expansion(cmds, gdata->env->envp);
-		printf("CMD: %s\n", cmds->content);
 		cmds = cmds->next;
 	}
 }

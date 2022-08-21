@@ -6,13 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/17 16:12:46 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:53:28 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_printkey(t_list *token_lst)
+/*void ft_printkey(t_list *token_lst)
 {
 	printf("\n");
 	printf("\n");
@@ -24,7 +24,7 @@ void ft_printkey(t_list *token_lst)
 		//printf(" token 2= %i\n", token_data->token);
 		token_lst = token_lst->next;
 	}
-}
+}*/
 void	execute_builtin(t_cmds *cmds, t_gdata *gdata)
 {
 	char	*builtin;
@@ -46,18 +46,10 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata)
 		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
 		ft_cd(gdata, ft_split(cmd, ' '));
-//TODO-> FUNCION QUE EXPORTE HOME
 	lst_to_envmtrx(gdata->env->env_lst, gdata);
-//	ft_lstfree(gdata->env->env_lst);
-	//envp_to_lst(gdata->env->envp, &gdata->env->env_lst);
-//	printf("\n");
-//	ft_putmatrix(gdata->env->envp, ft_matrixlen(gdata->env->envp));
-//	printf("\n");
-//	printf("------------------------------------------------------------------------------");
-//	printf("\n");
 }
 
-static int cmp_builtin(char *builtin, char *s)
+static	int	cmp_builtin(char *builtin, char *s)
 {
 	if (!ft_strncmp(builtin, s, ft_strlen(s)) \
 			&& !ft_strncmp(builtin, s, ft_strlen(builtin)))
@@ -65,7 +57,7 @@ static int cmp_builtin(char *builtin, char *s)
 	return (1);
 }
 
-int		is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	char	*builtin;
 

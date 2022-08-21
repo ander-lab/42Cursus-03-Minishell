@@ -6,11 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:42:48 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/04 09:50:48 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:31:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	sigquit_child(int n)
 {

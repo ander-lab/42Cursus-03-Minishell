@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:44:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 12:42:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:31:44 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_flag(char *str)
 	int	i;
 
 	i = 2;
-	if (!str || (str[0] != '-' && str[1] == 'n'))
+	if (!str || (str[0] != '-' && str[1] != 'n'))
 		return (0);
 	while (str[i])
 	{

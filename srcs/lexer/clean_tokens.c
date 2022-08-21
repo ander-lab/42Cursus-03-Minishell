@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:49:06 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/05/10 10:31:41 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:31:28 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	*clean_tokens(int *raw, int raw_len, int len)
 		if (raw[x] == -1)
 		{
 			clean_tokens[aux_clean] = -1;
-			//printf("clean: %d\n", clean_tokens[aux_clean]);
 			aux_clean++;
 			ft_iter_raw_x(&x, raw);
 		}

@@ -6,17 +6,15 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/12 13:37:41 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:38:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//TODO -> MAX FILE NAME ES 255 en bash
 #define PERMISION 0
 #define FILENAME  1
 #define HOME      2
-
 
 int	put_cd_error(char *arg, int code)
 {
@@ -44,7 +42,6 @@ void	go_home(t_gdata *data)
 		put_cd_error("", HOME);
 		return ;
 	}
-		//ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 	tmp = ft_strdup(data->env->pwd);
 	data->env->old_pwd = ft_strdup(tmp);
 	free(data->env->pwd);
@@ -56,15 +53,11 @@ void	go_home(t_gdata *data)
 //TODO-> diferenciar error de no existe a no acceder y comprobar codigos
 void	go_path(t_gdata *data, char **cmd)
 {
-	char *tmp;
+	char	*tmp;
 
-	//comprobar si existe la carpeta
 	if (open(cmd[1], O_RDONLY) < 0)
 	{
 		put_cd_error(cmd[1], PERMISION);
-	//	ft_putstr_fd("minishell: ", 2);
-	//	ft_putstr_fd(cmd[1], 2);
-	//	ft_putstr_fd(": Permission denied\n", 2);
 		return ;
 	}
 	data->env->old_pwd = ft_strdup(data->env->pwd);
@@ -74,18 +67,9 @@ void	go_path(t_gdata *data, char **cmd)
 	data->env->pwd = ft_strdup(tmp);
 }
 
-
-//void	init_dir_vars(t_gdata *data)
-//{
-//	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
-//	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
-//}
-
 int	ft_cd(t_gdata *data, char **cmd)
 {
-	//printf("---------DEBUUUUG--------");
 	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
-	//printf("%s\n", data->env->home);
 	data->env->pwd = ft_dup_var(&data->env->env_lst, "PWD");
 	if (ft_strlen(cmd[1]) > 255)
 		return (put_cd_error(cmd[1], FILENAME));
@@ -99,7 +83,5 @@ int	ft_cd(t_gdata *data, char **cmd)
 		printf("-------DEBUG------\n");
 		ft_add_var(&data->env->env_lst, "OLDPWD", data->env->old_pwd);
 	}
-	//TODO-> LIBERAR ENV struct
-	//free()
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:54:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/17 12:58:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:39:11 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 static int	env_error(char **args)
 {
-	ft_putstr_fd("env: " , 1);
+	ft_putstr_fd("env: ", 1);
 	ft_putstr_fd(args[1], 1);
 	ft_putstr_fd(": No such file or directory\n", 1);
 	return (127);
@@ -46,7 +46,7 @@ static int	print_env(char **env, t_gdata *gdata, int red)
 	return (0);
 }
 
-int ft_env(char **args, t_gdata *data, int red)
+int	ft_env(char **args, t_gdata *data, int red)
 {
 	if (args[1] || !data->env->envp)
 		return (env_error(args));
