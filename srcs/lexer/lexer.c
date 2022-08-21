@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/20 17:46:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:44:57 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	lexer(char *s, t_gdata *gdata)
 {
 	init_gdata(s, gdata);
 	s = ft_strtrim(s, " ");
+	if (ft_strlen(s) == 0)
+		return ;
 	if (exists_error(s, gdata))
 		return ;
 	handle_input(s, gdata);
