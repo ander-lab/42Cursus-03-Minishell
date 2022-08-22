@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:13:27 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 17:14:09 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:04:28 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static int	env_val_length(char *val)
 
 char	*get_env_val(char *cmd, char **envp)
 {
-	int	i;
+	int		i;
 	char	*val;
-	int	x;
-	int	z;
+	int		x;
+	int		z;
 
 	i = 0;
 	x = -1;

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:25:28 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 19:02:31 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/22 13:58:15 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,22 @@ char	*cpy_str_no_quotes(char *cmd)
 	return (word);
 }
 
-	//TODO-> quitar break
+static int	size_to_space(char *cmd)
+{
+	int	i;
+	int	l;
 
+	i = 0;
+	l = 0;
+	while (is_quote(cmd[i]))
+		i++;
+	while (cmd[i] && (cmd[i] != ' ' || !is_quote(cmd[i])))
+	{
+		i++;
+		l++;
+	}
+	return (l);
+}
 
 char	*cpy_until_space(char *cmd)
 {
@@ -50,18 +64,7 @@ char	*cpy_until_space(char *cmd)
 	int		l;
 	char	*word;
 
-	i = 0;
-	l = 0;
-	while (is_quote(cmd[i]))
-		i++;
-	while (cmd[i])
-	{
-		if (cmd[i] == ' ' || is_quote(cmd[i]))
-			break ;
-		i++;
-		l++;
-	}
-	word = malloc(sizeof(char *) + (l + 1));
+	word = malloc(sizeof(char *) + (size_to_space(cmd) + 1));
 	if (!word)
 		return (0);
 	i = 0;

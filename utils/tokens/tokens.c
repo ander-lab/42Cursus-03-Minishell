@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:29:59 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 15:44:56 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/22 13:58:42 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	ft_get_token(char *s, int *l)
 	int	token;
 
 	token = 0;
-	//if (ft_strlen(s) < *l + 1)
-	//	return (token);
 	if (s[*l + 1])
 		token = ft_give_token(s[*l], s[*l + 1], l);
 	else

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 18:57:59 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:05:11 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static int	next_is_command(char *word, int idx)
 	return (is_cmd);
 }
 
+//TODO -> strtrim LEAK POR AKI jiji
+
 int	needs_split(char *word)
 {
 	int	i;
@@ -74,7 +76,6 @@ int	needs_split(char *word)
 	i = 0;
 	need_it = 0;
 	is_in_space = 0;
-	//TODO LEAK POR AKI jiji
 	word = ft_strtrim(word, " ");
 	quotes = 0;
 	while (word[i] && need_it == 0)

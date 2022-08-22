@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/22 13:44:16 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:13:20 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,14 @@ int		exists_error(char *s, t_gdata *gdata);
 /*
  *	utils/cmd_exec/cmd_exec.c
  */
+
 int		handle_path(char *cmd, char **envp);
+
+/*
+ *	utils/cmd_exec/smart_split.c
+ */
+
+char	**smart_split(char *order, char limit);
 
 /*
  *	utils/forks/forks.c
