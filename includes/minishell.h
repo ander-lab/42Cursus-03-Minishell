@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 17:43:18 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/22 13:44:16 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,18 @@ char	*ft_dup_var(t_list **lst, char *key);
  *	srcs/lexer/lexer.c
  */
 void	ft_printdlst(t_dlist *token_lst);
+
+/*
+ *	srcs/lexer/get_n_commands.c
+ */
+
+int	get_n_commands(char *s);
+
+/*
+ *	srcs/lexer/init_cmds_lst.c
+ */
+
+void	init_cmds_lst(t_gdata *gdata);
 
 /*
  *	srcs/prompt/prompt.c

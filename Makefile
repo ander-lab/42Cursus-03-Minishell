@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/08/21 17:42:24 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/08/22 13:44:45 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,8 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./utils/builtins/envp_to_lst.c ./utils/builtins/ft_dup_var.c \
 			./utils/builtins/ft_strjoin_token.c ./utils/builtins/get_env_line.c \
 			./utils/builtins/lst_to_envmtrx.c ./utils/builtins/safe_getcwd.c \
-			./utils/expansion/get_env_val.c ./srcs/executor/expansion.c ./utils/expansion/quotes.c
+			./utils/expansion/get_env_val.c ./srcs/executor/expansion.c ./utils/expansion/quotes.c \
+			./srcs/lexer/get_n_commands.c srcs/lexer/init_cmds_lst.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

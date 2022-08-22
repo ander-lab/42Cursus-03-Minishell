@@ -6,11 +6,11 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:45:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:47:22 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:57:05 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	envp_to_lst(char **envp, t_list **lst)
 {

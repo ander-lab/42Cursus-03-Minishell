@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 16:11:48 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:57:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	need_cmd_slash(char *cmd)
 	int	r;
 
 	r = 1;
-	//if (ft_strlen(cmd) == 0)
-	//	return (0);
 	if (cmd[0] == '/' || cmd[0] == '.' || cmd[0] == '~')
 		r = 0;
 	return (r);
@@ -33,8 +31,6 @@ int	is_cmd_hide(char *s, int idx, int token)
 		return (0);
 	i = get_cmd_length_until_token(s, idx);
 	word = cpy_cmd(s, i, idx);
-	//ls >a | cat a 
-	//word = remove_ind_red(word);
 	return (needs_split(word));
 }
 
@@ -78,7 +74,7 @@ int	needs_split(char *word)
 	i = 0;
 	need_it = 0;
 	is_in_space = 0;
-	// LEAK POR AKI jiji
+	//TODO LEAK POR AKI jiji
 	word = ft_strtrim(word, " ");
 	quotes = 0;
 	while (word[i] && need_it == 0)
@@ -90,12 +86,6 @@ int	needs_split(char *word)
 			need_it = !next_is_command(word, i);
 		if (word[i] != ' ')
 			is_in_space = 0;
-		/*if (word[i] == ' ' && word[i - 1] == '\\' && quotes == 0)
-			is_in_space = 1;
-		if (word[i] == ' ' && word[i - 1] != '\\' && is_in_space == 0)
-			need_it = !next_is_command(word, i);
-		if (word[i] != ' ')
-			is_in_space = 0;*/
 		i++;
 	}
 	return (need_it);
