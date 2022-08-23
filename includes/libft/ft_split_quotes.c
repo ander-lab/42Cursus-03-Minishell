@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:32:11 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/04 12:26:07 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/24 00:34:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	count_words(char const *str, char c)
 	while (trigger < ft_strlen(str))
 	{
 		quotes = split_in_quotes(str[trigger], quotes);
-		if (quotes == 0 && str[trigger] == c && str[trigger + 1] && str[trigger + 1] != c)
+		if (quotes == 0 && str[trigger] == c &&
+				str[trigger + 1] && str[trigger + 1] != c)
 			count++;
 		trigger++;
 	}

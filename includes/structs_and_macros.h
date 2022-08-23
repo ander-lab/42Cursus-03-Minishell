@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:28 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/18 17:17:00 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/24 01:00:33 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum s_token_type
 	APPEND,
 	FILE_NAME,
 	ARGUMENT,
-} t_token_type;
+}	t_token_type;
 
 /* ************************************************************************** */
 /*  								STRUCTS									  */
@@ -46,16 +46,15 @@ typedef struct s_env_line
 {
 	char	*key;
 	char	*value;
-} t_env_line;
-
+}	t_env_line;
 
 typedef struct s_env
 {
-	t_list *env_lst;
-	char	 **envp;
-	char	 *home;
-	char	 *pwd;
-	char	 *old_pwd;
+	t_list	*env_lst;
+	char	**envp;
+	char	*home;
+	char	*pwd;
+	char	*old_pwd;
 	int		shlvl;
 }	t_env;
 
@@ -71,13 +70,11 @@ typedef struct s_env
 ** PROMPT
 */
 
-
 typedef struct s_data
 {
 	char	*prompt;
-//	char	**envp;
-	int		n_commands;	// comandos y redirecciones
-	int		commands;	// comandos solo (pipes)
+	int		n_commands;
+	int		commands;
 	int		aux_n_commands;
 	int		n_tokens;
 	int		err;
@@ -92,11 +89,11 @@ typedef struct s_data
 	int		n_pipes;
 	char	**heredoc;
 	int		**fd;
-	int	type;
-	int	r;
-} t_gdata;
+	int		type;
+	int		r;
+}	t_gdata;
 
-typedef struct	s_quotes
+typedef struct s_quotes
 {
 	int		fq;
 	size_t	c;
@@ -113,11 +110,11 @@ typedef struct s_token_data
 	char	*str;
 }	t_token_data;
 
-typedef	struct	g_struc
+typedef struct g_struc
 {
 	int	proc;
 }	t_glob;
 
-t_glob	s_glob;
+t_glob	s_glob; //TODO-> CAMBIAR S_ POR G_
 
 #endif
