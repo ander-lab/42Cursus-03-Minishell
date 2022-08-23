@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:19:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/22 14:14:12 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/24 00:32:08 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ static int	path_index(char **envp)
 	return (i);
 }
 
+char	**handle_more(char **envp, char *path, char **all_paths)
+{
+	int	i;
+
+	i = 0;
+	i = path_index(envp);
+	path = ft_strtrim(envp[i], "PATH=");
+	if (!path)
+		return (0);
+	all_paths = ft_split(path, ':');
+	return (all_paths);
+}
+
 int	handle_path(char *cmd, char **envp)
 {
 	int		i;
@@ -60,11 +73,7 @@ int	handle_path(char *cmd, char **envp)
 
 	if (need_cmd_slash(cmd))
 		cmd = cmd_add_slash(cmd);
-	i = path_index(envp);
-	path = ft_strtrim(envp[i], "PATH=");
-	if (!path)
-		return (0);
-	all_paths = ft_split(path, ':');
+	all_paths = handle_more(envp, path, all_paths);
 	mycmdargs = smart_split(cmd, ' ');
 	i = -1;
 	while (mycmdargs[++i])
