@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 18:44:17 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/24 01:28:17 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 
 	init_prompt(&gdata, environ);
 	init_env(&gdata, envp);
-	s_glob.proc = 0;
+	g_glob.proc = 0;
 	while (42)
 	{
 		signal(SIGQUIT, SIG_IGN);

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:19:57 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/03 16:20:04 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/24 01:29:19 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	print_cmd_proc(char **cmd, int red)
 	{
 		if (ft_strcmp(cmd[x], "$?") == 0)
 		{
-			ft_putnbr_fd(s_glob.proc, fd);
+			ft_putnbr_fd(g_glob.proc, fd);
 			write(fd, "\n", 1);
-			s_glob.proc = 0;
+			g_glob.proc = 0;
 			return (1);
 		}
 		x++;
 	}
-	s_glob.proc = 0;
+	g_glob.proc = 0;
 	return (0);
 }

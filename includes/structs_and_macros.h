@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:28 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/24 01:00:33 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/24 01:27:42 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ typedef struct g_struc
 	int	proc;
 }	t_glob;
 
-t_glob	s_glob; //TODO-> CAMBIAR S_ POR G_
+t_glob	g_glob; //TODO-> CAMBIAR S_ POR G_
 
 #endif
