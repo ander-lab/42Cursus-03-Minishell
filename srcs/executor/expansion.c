@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:09:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/22 21:09:47 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:09:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	env_search_length(char *cmd)
 	int		i;
 	int		l;
 
+	if (!cmd)
+		return (0);
 	i = -1;
 	l = 0;
 	while (cmd[++i])
@@ -38,6 +40,8 @@ char	*get_env_search(char *cmd)
 	int		x;
 	char	*search;
 
+	if (!cmd)
+		return(0);
 	i = -1;
 	x = -1;
 	search = calloc(sizeof(char), env_search_length(cmd) + 1);

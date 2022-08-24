@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:23:54 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/22 14:03:37 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:06:37 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*remove_quotes(char *cmd)
 	int		x;
 	char	*new;
 
+	if (!cmd)
+		return (0);
 	i = 0;
 	x = -1;
 	new = ft_calloc(sizeof(char), ft_strlen(cmd) + 1);
