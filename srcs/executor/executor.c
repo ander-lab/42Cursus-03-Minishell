@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:48:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 17:48:16 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:56:37 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	check_expansion(t_cmds *cmds)
 	int		qt;
 	int		fq;
 
-	cmd = (char *)cmds->content;
+	//cmd = (char *)cmds->content;
 	x = 0;
 	fq = 0;
 	while (cmd[x])
