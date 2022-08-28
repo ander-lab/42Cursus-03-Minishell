@@ -129,6 +129,8 @@ int	handle_path(char *cmd, char **envp)
 	char	**mycmdargs;
 	char	*cmd_one;
 
+	if (!cmd)
+		return (127);
 	if (need_cmd_slash(cmd))
 		cmd = cmd_add_slash(cmd);
 	i = path_index(envp);

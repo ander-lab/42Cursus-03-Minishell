@@ -63,35 +63,22 @@ static int	quote_copy(char c)
 
 char	*remove_quotes(char *cmd)
 {
-	//int		qt;
 	int		i;
 	int		x;
-	//int		fq;
 	char	*new;
-	//int		lq;
 		
-	//lq = 0;
 	i = 0;
-	//fq = 0;
 	x = -1;
+	if (!cmd)
+		return (cmd);
 	new = ft_calloc(sizeof(char), ft_strlen(cmd) + 1);
 	if (!new)
 		return (0);
 	while (cmd[i])
 	{
-	//	qt = is_quote(cmd[i]);
 		if (quote_copy(cmd[i]))
 			new[++x] = cmd[i];
 		i++;
-		/*if (qt > 0 && fq == 0)
-			fq = qt;
-		else if (qt == fq && fq != 0)
-			lq = 1;
-		else if (qt == fq)
-			fq = 0;
-		if ((fq != qt || qt == 0) && lq == 0)
-			new[++x] = cmd[i];
-		lq = 0;*/
 	}
 	free(cmd);
 	return (new);

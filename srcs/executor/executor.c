@@ -54,6 +54,8 @@ void	check_expansion(t_cmds *cmds)
 	cmd = (char *)cmds->content;
 	x = 0;
 	fq = 0;
+	if (!cmd)
+		return ;
 	while (cmd[x])
 	{
 		qt = is_quote(cmd[x]);

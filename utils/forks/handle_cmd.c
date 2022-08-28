@@ -42,7 +42,6 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 				exit_error_fork();
 			if (pids[gdata->r] == 0)
 			{
-				write(2, "child\n", 6);
 				do_child(cmds, gdata->r, gdata);
 				handle_here_exec(cmds, gdata, gdata->r);
 			}
