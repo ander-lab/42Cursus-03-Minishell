@@ -6,16 +6,16 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 10:41:05 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/06/08 14:04:43 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/24 00:37:32 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_matrix_to_dlst(t_dlist **dlst, char **matrix)
+void	ft_matrix_to_dlst(t_dlist **dlst, char **matrix)
 {
-	int	aux;
-	t_matrix_data data;
+	int				aux;
+	t_matrix_data	data;
 
 	aux = 0;
 	data = ft_matrix_data(matrix);

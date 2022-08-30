@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:23:54 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 17:40:48 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/30 10:23:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	strquotes_len(char *cmd)
 
 static int	quote_copy(char c)
 {
-	int 	qt;
-	int 	fq;
-	int 	lq;
+	int	qt;
+	int	fq;
+	int	lq;
 
 	fq = 0;
 	lq = 0;
@@ -66,7 +66,7 @@ char	*remove_quotes(char *cmd)
 	int		i;
 	int		x;
 	char	*new;
-		
+
 	i = 0;
 	x = -1;
 	if (!cmd)

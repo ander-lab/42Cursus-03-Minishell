@@ -6,11 +6,11 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:45:51 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:48:29 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:57:09 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_dup_var(t_list **lst, char *key)
 {

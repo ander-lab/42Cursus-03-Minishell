@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 18:39:04 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/22 13:45:13 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	write_token(char *s, int *raw_tokens, int i, int l)
 		raw_tokens[l] = -1;
 }
 
-void handle_token(int *quotes, int *token, char *s, int *i)
+void	handle_token(int *quotes, int *token, char *s, int *i)
 {
 		*quotes = quote_type(*quotes, s, *i);
 		*token = ft_get_token(s, i);
@@ -46,63 +46,13 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 			r = i;
 			if (is_cmd_hide(s, ++i, token))
 				raw_tokens[++l] = -2;
-			i = r;		
+			i = r;
 		}
 		else
 			write_token(s, raw_tokens, i, l);
 		l++;
 	}
 	return (l);
-}
-
-/*static void	ft_printdlst(t_dlist *token_lst)
-{
-	while (token_lst)
-	{
-		printf("token  %i char * %s\n", ((t_token_data *)token_lst->content)->token, \
-				((t_token_data *)token_lst->content)->str);
-		token_lst = token_lst->next;
-	}
-}*/
-
-static t_cmds	*fill_cmds(char *cmd, int ind, int red, int here)
-{
-	t_cmds	*cmds;
-
-	cmds = malloc(sizeof(t_cmds));
-	if (!cmds)
-		return (0);
-	cmds->content = cmd;
-	cmds->ind = ind;
-	cmds->red = red;
-	cmds->here = here;
-	cmds->exp = 0;
-	cmds->next = NULL;
-	return (cmds);
-}
-
-//TODO -> NORMINETTE VAR
-void	init_cmds_lst(t_gdata *gdata)
-{
-	t_cmds	*cmds;
-	t_dlist	*glob_lst;
-	char	*cmd;
-	int		ind;
-	int		red;
-	int		here;
-
-	cmds = NULL;
-	glob_lst = gdata->glob_lst;
-	while (glob_lst)
-	{
-		ind = get_ind(glob_lst);
-		red = get_red(glob_lst);
-		cmd = get_cmd(glob_lst);
-		here = need_exec_here(glob_lst);
-		ft_dlstadd_back2(&cmds, fill_cmds(cmd, ind, red, here));
-		glob_lst = iter_to_pipe(glob_lst);
-	}
-	gdata->cmds_lst = cmds;
 }
 
 void	init_tokens(char *s, t_gdata *gdata)

@@ -1,41 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_token.c                                 :+:      :+:    :+:   */
+/*   get_n_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 20:46:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/30 16:13:00 by goliano-         ###   ########.fr       */
+/*   Created: 2022/08/22 13:23:11 by ajimenez          #+#    #+#             */
+/*   Updated: 2022/08/22 13:23:39 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_strjoin_token(char const *s1, char const *s2, char token)
+int	get_n_commands(char *s)
 {
-	char	*sjoin;
-	int		i;
-	int		aux_s2;
+	int	i;
+	int	nc;
+	int	token;
+	int	quotes;
 
-	if (!s1 || !s2)
+	i = -1;
+	nc = 1;
+	token = 0;
+	quotes = 0;
+	if (spaces_or_null(s))
 		return (0);
-	sjoin = (char *)ft_calloc(ft_strlen(s1), ft_strlen(s2) + 3);
-	i = 0;
-	while (s1[i] != '\0')
+	while (s[++i])
 	{
-		sjoin[i] = s1[i];
-		i++;
+		quotes = quote_type(quotes, s, i);
+		token = ft_get_token(s, &i);
+		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
+		{
+			if (is_cmd_hide(s, ++i, token))
+				nc++;
+			nc++;
+		}
 	}
-	sjoin[i] = token;
-	i++;
-	aux_s2 = 0;
-	while (s2[aux_s2] != '\0')
-	{
-		sjoin[i] = s2[aux_s2];
-		i++;
-		aux_s2++;
-	}
-	sjoin[i] = '\0';
-	return (sjoin);
+	if (starts_with_token(s))
+		nc--;
+	return (nc);
 }

@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/18 17:01:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/24 00:41:46 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ typedef struct s_dlist
 
 typedef struct s_cmds_data
 {
-	void			*content;
-	int			ind;
-	int			red;
-	int			here;
-	int			exp;
-	struct	s_cmds_data	*next;
+	void				*content;
+	int					ind;
+	int					red;
+	int					here;
+	int					exp;
+	struct s_cmds_data	*next;
 }	t_cmds;
 
 typedef struct s_matrix_data

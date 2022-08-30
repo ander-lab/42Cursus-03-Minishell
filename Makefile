@@ -1,57 +1,104 @@
-CC	= gcc
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
+#    Updated: 2022/08/30 14:54:02 by goliano-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CFLAGS	= -Wall -Wextra -Werror #-g3 -fsanitize=address
 
-SRCS =	./srcs/lexer/lexer.c ./srcs/prompt/prompt.c ./srcs/minishell.c ./includes/libft/ft_strlen.c \
-	./includes/libft/ft_split.c ./includes/libft/get_next_line.c ./includes/libft/ft_calloc.c \
-	./includes/libft/ft_strcpy.c ./includes/libft/ft_substr.c ./includes/libft/ft_strjoin.c \
-	./includes/libft/ft_strchr.c ./includes/libft/ft_strdup.c ./includes/libft/ft_memcpy.c \
-	./srcs/lexer/parser_lexer.c ./utils/chequer/chequer.c ./utils/lengths/lengths.c \
-	./utils/quotes/quotes.c ./utils/str/strings.c ./utils/str/strings2.c ./utils/tokens/tokens.c \
-	./includes/libft/ft_strtrim.c ./utils/handler/error_handler.c ./srcs/lexer/clean_tokens.c \
-	./includes/libft/ft_putmatrix.c ./includes/libft/ft_putstr_fd.c ./includes/libft/ft_putchar_fd.c \
-	./srcs/lexer/token_to_list.c ./includes/libft/ft_lstadd_back_bonus.c \
-	./includes/libft/ft_lstlast_bonus.c ./includes/libft/ft_dlstnew_struct.c \
-	./includes/libft/ft_dlstadd_back.c ./includes/libft/ft_dlstlast.c ./srcs/lexer/init_tokens.c \
-	./srcs/lexer/spaces.c ./srcs/parser/parser.c ./utils/global/count.c ./srcs/executor/executor.c \
-	./srcs/lexer/second_round.c ./includes/libft/ft_dlstsize.c ./includes/libft/ft_strncmp.c \
-	./utils/files/files.c ./utils/cmd_exec/cmd_exec.c ./utils/forks/forks.c \
-	./includes/libft/ft_split_quotes.c ./srcs/builtins/ft_echo.c ./srcs/builtins/ft_env.c \
-	./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c ./includes/libft/ft_iter_str_bool.c \
-	./includes/libft/ft_atoi.c ./includes/libft/ft_matrix_data.c ./includes/libft/ft_isdigit.c \
-	./includes/libft/ft_matrixlen.c ./includes/libft/ft_max_int.c ./includes/libft/ft_min_int.c \
-	./srcs/executor/builtins.c ./srcs/executor/heredoc.c ./srcs/executor/infile.c \
-	./srcs/executor/red_app.c ./utils/str/strings3.c ./includes/libft/ft_strjoinnl.c \
-	./utils/heredoc/heredoc.c ./includes/libft/ft_dlstnew2.c ./includes/libft/ft_lstadd_back_bonus2.c \
-	./includes/libft/ft_dlstlast2.c ./utils/heredoc/heredoc2.c ./includes/libft/ft_putnbr_fd.c \
-	./includes/libft/ft_strjoin_space.c ./utils/cmds/cmds.c ./srcs/lexer/cmds_lst.c \
-	./utils/list/list.c ./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c ./includes/libft/ft_strcmp.c \
-	./includes/libft/ft_lstnew_struct.c ./utils/builtins/echo.c ./utils/signals/signals.c \
-	./utils/builtins/global.c ./srcs/env/init_env.c ./srcs/builtins/ft_cd.c \
-	./srcs/builtins/utils.c ./includes/libft/ft_itoa.c ./includes/libft/ft_matrix_dup.c \
-	./includes/libft/ft_free_matrix.c ./includes/libft/ft_lstsize_bonus.c ./utils/expansion/quotes.c \
-	./srcs/executor/expansion.c ./utils/forks/handle_cmd.c ./utils/builtins/lst_to_envmtrx.c \
-	./utils/builtins/safe_getcwd.c ./utils/builtins/envp_to_lst.c ./utils/builtins/ft_dup_var.c \
-	./utils/builtins/ft_strjoin_token.c ./utils/builtins/get_env_line.c ./utils/expansion/get_env_val.c
+# **************************************************************************** #
+# 									 PROGRAM                                   #
+# **************************************************************************** #
 
-OBJS = $(SRCS:.c=.o)
+NAME 	= minishell
+LIBP	= minishell.a 
 
-RM	= rm -f
+# **************************************************************************** #
+# 									COMPILER                                   #
+# **************************************************************************** #
 
-NAME	= minishell
+CC		= gcc 
+CFLAGS	= -Wall -Wextra -Werror
+SAN		= -fsanitize=address
+LIB 	= ar -rcs
+RM		= /bin/rm -rf
 
-all:			$(NAME)
+# **************************************************************************** #
+# 									INCLUDES                                   #
+# **************************************************************************** #
 
-$(NAME):		$(OBJS)
-				$(CC) $(CFLAGS)	-o $(NAME) $(OBJS) -lreadline
+LIBFT	= ./includes/libft/libft.a
+
+# **************************************************************************** #
+# 									SOURCES                                    #
+# **************************************************************************** #
+
+SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/parser_lexer.c \
+			srcs/lexer/second_round.c ./utils/quotes/quotes.c srcs/lexer/token_to_list.c \
+			utils/tokens/tokens.c ./utils/str/strings.c ./utils/str/strings2.c ./utils/chequer/chequer.c \
+			./utils/lengths/lengths.c srcs/lexer/clean_tokens.c ./utils/handler/error_handler.c \
+			./srcs/lexer/init_tokens.c ./srcs/lexer/spaces.c ./utils/global/count.c \
+			./srcs/executor/executor.c ./utils/forks/forks.c ./utils/cmd_exec/cmd_exec.c \
+			./srcs/executor/infile.c ./utils/heredoc/heredoc2.c ./utils/files/files.c \
+			./srcs/executor/heredoc.c ./utils/str/strings3.c ./utils/heredoc/heredoc.c \
+			./utils/list/list.c ./utils/cmds/cmds.c ./srcs/lexer/cmds_lst.c \
+			./srcs/parser/parser.c ./srcs/executor/builtins.c ./srcs/builtins/ft_echo.c \
+			./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c \
+			./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c ./srcs/builtins/utils.c ./srcs/builtins/ft_cd.c \
+			./utils/builtins/echo.c ./utils/signals/signals.c ./srcs/env/init_env.c \
+			./utils/builtins/global.c ./utils/forks/handle_cmd.c  \
+			./utils/builtins/envp_to_lst.c ./utils/builtins/ft_dup_var.c \
+			./utils/builtins/ft_strjoin_token.c ./utils/builtins/get_env_line.c \
+			./utils/builtins/lst_to_envmtrx.c ./utils/builtins/safe_getcwd.c \
+			./utils/expansion/get_env_val.c ./srcs/executor/expansion.c ./utils/expansion/quotes.c \
+			./srcs/lexer/get_n_commands.c srcs/lexer/init_cmds_lst.c utils/cmd_exec/smart_split.c \
+			./utils/free/free.c
+
+
+# **************************************************************************** #
+# 								    RULES                                      #
+# **************************************************************************** #
+
+OBJS	= $(SRCS:.c=.o)
+RL_LIB	= -L /Users/$(USER)/.brew/opt/readline/lib
+RL_INC	= -I/Users/$(USER)/.brew/opt/readline/include
+COMP	= $(CC) $(CFLAGS) $(LIBP) $(SRCS) -lreadline $(RL_LIB) $(RL_INC) -o $(NAME)
+SANCOMP	= $(CC) $(CFLAGS) $(SAN) $(LIBP) $(SRCS) -g3 -lreadline $(RL_LIB) $(RL_INC) -o $(NAME)
+
+all: 		$(NAME)
+
+$(NAME):			$(OBJS)
+					@echo "\n\033[33mMaking libft! ░░░░░░ (._.)\ ░░░░░\033[39m\n"
+					@make bonus -s -C ./includes/libft
+					@cp includes/libft/libft.a ./$(LIBP)
+					$(LIB) $(LIBP) $(OBJS)
+					$(COMP) 
+					@echo "\n\033[1;32mEverything done! ░░░░░░ ＼(>o<)ノ ░░░░░\033[39m\n"
+
+fsanitize:			$(OBJS)
+					@echo "\n\033[33mMaking libft! ░░░░░░ /(ಠ_ಠ)\ ░░░░░\033[39m\n"
+					@make bonus -s -C ./includes/libft
+					@cp includes/libft/libft.a ./$(LIBP)
+					$(LIB) $(LIBP) $(OBJS)
+					$(SANCOMP)
+					@echo "\n\033[1;32mEverything done! ░░░░░░ ＼(>o<)ノ ░░░░░\033[39m\n"
 
 clean:
-				$(RM) $(OBJS)
+					@make clean -C ./includes/libft
+					$(RM) $(OBJS) $(OBJS_B)
 
-fclean:			clean
-				$(RM) $(NAME)
+fclean: 	clean
+					@make fclean -C ./includes/libft
+					$(RM) $(NAME)
+					$(RM) $(PROG)
+					$(RM) $(LIBP)
+					@echo "\n\033[31mEverything fcleaned! ░░░░░░ ٩(╬ʘ益ʘ╬)۶ ░░░░░\n\033[39m"
 
-re:				fclean $(NAME)
+re:			fclean all
 
-.PHONY:			all clean fclean re
-
+.PHONY: all clean fclean reincludes

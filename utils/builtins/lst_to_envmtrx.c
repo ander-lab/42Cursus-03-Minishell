@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:46:33 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 12:40:54 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:14:08 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata)
 				((t_env_line *)lst_env->content)->value,
 				'=');
 		lst_env = lst_env->next;
+		//free(((t_env_line *)lst_env->content)->key);
+		//free(((t_env_line *)lst_env->content)->value);
+		//free(gdata->env->envp[i]);
 		i++;
 	}
 	gdata->env->envp[i] = NULL;
+	//free(gdata->env->envp);
 }
