@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/30 16:02:40 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:25:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,31 @@ void		init_prompt(t_gdata *g_data, char **envp);
  */
 void	free_double_p_char(char **s);
 void	free_t_lst(t_list *lst);
+void	free_t_cmds(t_cmds *cmds);
+void	free_t_env(t_env *env);
 
+/*
+ * srcs/lexer/lexer.c
+ */
 void		lexer(char *s, t_gdata *g_data);
 
-int			*clean_tokens(int *raw, int raw_len, int len);
-//int		*clean_tokens(int *raw, int raw_len, int len, int n_commands);
+/*
+ *	srcs/lexer/parser_lexer.c
+ */
+void		handle_input(char *str, t_gdata *g_data);
 
+/*
+ *	srcs/lexer/clean_tokens.c
+ */
+int			*clean_tokens(int *raw, int raw_len, int len);
+
+/*
+ *	srcs/lexer/second_round.c
+ */
 void		clean_lst_tokens(t_dlist *token_lst);
 int			ft_give_token(char c1, char c2, int *aux);
-char		*get_until_token(int prev_l, int l, char *str);
 int			is_escaping(char c);
-void		handle_input(char *str, t_gdata *g_data);
+
 int			get_n_commands(char *s);
 
 /*

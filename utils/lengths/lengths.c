@@ -6,25 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:29:03 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/20 20:17:43 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:53:31 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*int	matrix_length(char **mat)
-{
-	int	l;
-
-	l = 0;
-	while (mat[l])
-	{
-		printf("WORD: %s\n", mat[l]);
-		l++;
-	}
-	printf("L: %d\n", l);
-	return (l);
-}*/
 
 int	filename_length(char *word)
 {

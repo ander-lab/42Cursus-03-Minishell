@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:32:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/18 13:05:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/31 15:17:53 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 		here = fill_heredoc(cmd);
 		if (store)
 			gdata->heredoc[++x] = here;
+		else
+			free(here);
 	}
 }

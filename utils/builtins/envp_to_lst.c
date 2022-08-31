@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:45:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/30 16:08:38 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:43:25 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	envp_to_lst(char **envp, t_list **lst)
 		env_struct->key = ft_strdup(splitted_env_str[0]);
 		env_struct->value = ft_strdup(splitted_env_str[1]);
 		ft_lstadd_back(lst, ft_lstnew_struct(env_struct, sizeof(t_env_line)));
-		free(env_struct->key);
-		free(env_struct->value);
+		//free(env_struct->key);
+		//free(env_struct->value);
 		ft_free_matrix(splitted_env_str);
 		ei++;
 	}

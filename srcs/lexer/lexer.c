@@ -6,24 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/21 15:44:57 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/31 14:55:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_printdlst(t_dlist *token_lst)
-{
-	while (token_lst)
-	{
-		printf("token  %i char * %s\n",
-			((t_token_data *)token_lst->content)->token,
-			((t_token_data *)token_lst->content)->str);
-		token_lst = token_lst->next;
-	}
-}
-
-void	init_gdata(char *s, t_gdata *gdata)
+static void	init_gdata(char *s, t_gdata *gdata)
 {
 	gdata->n_commands = get_n_commands(s);
 	gdata->aux_n_commands = gdata->n_commands;
@@ -34,18 +23,6 @@ void	init_gdata(char *s, t_gdata *gdata)
 	gdata->err = 0;
 	gdata->fd_pipe = -1;
 }
-
-/*void	free_gdata(t_gdata *gdata)
-{
-	int	i;
-
-	i = 0;
-	while (gdata->cmds[i])
-	{
-		free(gdata->cmds[i]);
-		i++;
-	}
-}*/
 
 void	lexer(char *s, t_gdata *gdata)
 {
@@ -59,6 +36,7 @@ void	lexer(char *s, t_gdata *gdata)
 	if (gdata->err)
 		return ;
 	init_tokens(s, gdata);
+	free(s);
 	parser(gdata);
 	if (gdata->err)
 		return ;

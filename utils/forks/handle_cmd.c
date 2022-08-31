@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:21:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 16:18:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/31 15:21:29 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 		cmds = cmds->next;
 	}
 	close_fds(gdata, pids);
+	free(pids);
 }

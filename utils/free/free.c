@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/30 15:46:26 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:38:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,25 @@ void	free_t_lst(t_list *lst)
 	}
 }
 
-/*void	free_t_env_line(t_list *lst)
+void	free_t_cmds(t_cmds *cmds)
 {
-	if (lst->content->key)
-		printf("EXISTE\n");
-	while (lst)
+	while (cmds)
 	{
-		lst = lst->next;
+		free(cmds->content);
+		cmds = cmds->next;
 	}
+	free(cmds);
+}
 
-}*/
+void	free_t_env(t_env *env)
+{
+	ft_free_matrix(env->envp);
+	//free(env->home);
+	//free(env->pwd);
+	//free(env->old_pwd);
+	//while (lst)
+//	{
+//		lst = lst->next;
+//	}
+
+}

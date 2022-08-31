@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/22 13:35:36 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:53:49 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(file_name, " ");
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(cmd, " ");
+	//free(file_name);
+	//free(cmd);
 }
 
 static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
@@ -50,11 +52,12 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 		g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(word, " ");
 		g_data->aux_n_commands--;
 	}
-	if (!exists_word(word))
-		free(word);
+	//if (!exists_word(word))
+	//	free(word);
 	g_data->handle_next = 0;
 	if (is_file_token(g_data->last_token))
 		g_data->handle_next = 1;
+	//free(word);
 }
 
 //TODO -> normi dividir handle input en otro archivo
@@ -90,6 +93,7 @@ void	handle_input(char *s, t_gdata *g_data)
 			custom_split_word(word, g_data);
 		else
 			g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(word, " ");
+		free(word);
 	}
 	g_data->err = quotes;
 }
