@@ -12,15 +12,31 @@
 
 #include "../includes/minishell.h"
 
+/*void	free_t_env(t_list *lst)
+{
+	char	*key;
+	char	*value;
+
+	while (lst)
+	{
+		key = ((t_env_line *)(lst)->content)->key;
+		value = ((t_env_line *)(lst)->content)->value;
+		free(key);
+		free(value);
+		lst = lst->next;
+	}
+}*/
+
 void	free_gdata(t_gdata *gdata)
 {
-	//ft_free_matrix(gdata->env->envp);
+	ft_free_matrix(gdata->env->envp);
 	//ft_free_matrix(gdata->cmds);
-	//free_t_lst(gdata->env->env_lst);
+	free_t_lst(gdata->env->env_lst);
+	//free_t_env(gdata->env->env_lst);
 	free(gdata->prompt);
+	free(gdata->env);
 	//free_t_cmds(gdata->cmds_lst);
 	//free(gdata->heredoc);
-	free_t_env(gdata->env);
 }
 
 void	handle_sigint(int n)
@@ -34,14 +50,14 @@ void	handle_sigint(int n)
 	}
 }
 
-void leaks()
+/*void leaks()
 {
 	system("leaks -q minishell");
-}
+}*/
 
 int	main(int argc, char **argv, char **envp)
 {
-	//char		*inp;
+	char		*inp;
 	extern char	**environ;
 	t_gdata		gdata;
 
@@ -49,10 +65,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_prompt(&gdata, environ);
 	init_env(&gdata, envp);
-	atexit(leaks);
+	//atexit(leaks);
 	g_glob.proc = 0;
-	free_gdata(&gdata);
-	/*while (42)
+	//free_gdata(&gdata);
+	while (42)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, handle_sigint);
@@ -66,8 +82,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(inp);
 		lexer(inp, &gdata);
 	}
-	printf("LLAMO\n");
-	//free_gdata(&gdata);
-	//free(gdata.prompt);*/
+	printf("LLEGO\n");
+	free_gdata(&gdata);
+	//free(gdata.prompt);
 	return (0);
 }

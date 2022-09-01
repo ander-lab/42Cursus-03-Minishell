@@ -12,28 +12,27 @@
 
 #include "../../includes/minishell.h"
 
-void	free_double_p_char(char **s)
-{
-	int	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
 void	free_t_lst(t_list *lst)
 {
+	char	*key;
+	char	*value;
+	int	i;
+	t_list	*aux;
+
+	i = 0;
 	while (lst)
 	{
+ 		key = ((t_env_line *)(lst)->content)->key;
+ 		value = ((t_env_line *)(lst)->content)->value;
+		free(key);
+		free(value);
 		free(lst->content);
+		aux = lst;
 		lst = lst->next;
+		free(aux);
+		i++;
 	}
+	free(lst);
 }
 
 void	free_t_cmds(t_cmds *cmds)
@@ -44,17 +43,4 @@ void	free_t_cmds(t_cmds *cmds)
 		cmds = cmds->next;
 	}
 	free(cmds);
-}
-
-void	free_t_env(t_env *env)
-{
-	ft_free_matrix(env->envp);
-	//free(env->home);
-	//free(env->pwd);
-	//free(env->old_pwd);
-	//while (lst)
-//	{
-//		lst = lst->next;
-//	}
-
 }

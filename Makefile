@@ -3,102 +3,67 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
+#    By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/08/30 14:54:02 by goliano-         ###   ########.fr        #
+#    Created: 2021/08/01 17:15:58 by ajimenez          #+#    #+#              #
+#    Updated: 2022/07/29 13:03:00 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
-# **************************************************************************** #
-# 									 PROGRAM                                   #
-# **************************************************************************** #
-
-NAME 	= minishell
-LIBP	= minishell.a 
-
-# **************************************************************************** #
-# 									COMPILER                                   #
-# **************************************************************************** #
-
-CC		= gcc 
+CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-SAN		= -fsanitize=address
-LIB 	= ar -rcs
-RM		= /bin/rm -rf
+LIB1	= ar -rcs
+LIB2	= ranlib
+RM		= /bin/rm -f
 
-# **************************************************************************** #
-# 									INCLUDES                                   #
-# **************************************************************************** #
+NAME	= libft.a
 
-LIBFT	= ./includes/libft/libft.a
-
-# **************************************************************************** #
-# 									SOURCES                                    #
-# **************************************************************************** #
-
-SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/parser_lexer.c \
-			srcs/lexer/second_round.c ./utils/quotes/quotes.c srcs/lexer/token_to_list.c \
-			utils/tokens/tokens.c ./utils/str/strings.c ./utils/str/strings2.c ./utils/chequer/chequer.c \
-			./utils/lengths/lengths.c srcs/lexer/clean_tokens.c ./utils/handler/error_handler.c \
-			./srcs/lexer/init_tokens.c ./srcs/lexer/spaces.c ./utils/global/count.c \
-			./srcs/executor/executor.c ./utils/forks/forks.c ./utils/cmd_exec/cmd_exec.c \
-			./srcs/executor/infile.c ./utils/heredoc/heredoc2.c ./utils/files/files.c \
-			./srcs/executor/heredoc.c ./utils/str/strings3.c ./utils/heredoc/heredoc.c \
-			./utils/list/list.c ./utils/cmds/cmds.c ./srcs/lexer/cmds_lst.c \
-			./srcs/parser/parser.c ./srcs/executor/builtins.c ./srcs/builtins/ft_echo.c \
-			./srcs/builtins/ft_env.c ./srcs/builtins/ft_exit.c ./srcs/builtins/ft_pwd.c \
-			./srcs/builtins/ft_export.c ./srcs/builtins/ft_unset.c ./srcs/builtins/utils.c ./srcs/builtins/ft_cd.c \
-			./utils/builtins/echo.c ./utils/signals/signals.c ./srcs/env/init_env.c \
-			./utils/builtins/global.c ./utils/forks/handle_cmd.c  \
-			./utils/builtins/envp_to_lst.c ./utils/builtins/ft_dup_var.c \
-			./utils/builtins/ft_strjoin_token.c ./utils/builtins/get_env_line.c \
-			./utils/builtins/lst_to_envmtrx.c ./utils/builtins/safe_getcwd.c \
-			./utils/expansion/get_env_val.c ./srcs/executor/expansion.c ./utils/expansion/quotes.c \
-			./srcs/lexer/get_n_commands.c srcs/lexer/init_cmds_lst.c utils/cmd_exec/smart_split.c \
-			./utils/free/free.c
-
-
-# **************************************************************************** #
-# 								    RULES                                      #
-# **************************************************************************** #
+INCLUDE	= libft.h
+SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+		  	ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c \
+			ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c \
+			ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c\
+			ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c\
+			ft_strtrim.c ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c\
+			ft_putendl_fd.c ft_strmapi.c ft_striteri.c ft_itoa.c ft_split.c\
+			ft_putmatrix.c ft_free_matrix.c ft_isspace.c ft_iter_str_bool.c\
+			get_next_line.c ft_strcpy.c ft_iter_matrix_bool.c ft_matrixlen.c\
+			ft_matrix_data.c ft_max_int.c ft_min_int.c ft_countchars.c \
+			ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
+			ft_dlstdelone.c ft_dlstlast.c ft_dlstnew.c ft_dlstsize.c \
+			ft_dlstnew_struct.c ft_split_quotes.c ft_strjoinnl.c ft_matrix_dup.c \
+			ft_strcmp.c ft_dlstadd_matrix.c ft_dlstnew_struct2.c ft_strjoin_space.c \
+			ft_lstnew_struct.c ft_lstnew_struct2.c 
 
 OBJS	= $(SRCS:.c=.o)
-RL_LIB	= -L /Users/$(USER)/.brew/opt/readline/lib
-RL_INC	= -I/Users/$(USER)/.brew/opt/readline/include
-COMP	= $(CC) $(CFLAGS) $(LIBP) $(SRCS) -lreadline $(RL_LIB) $(RL_INC) -o $(NAME)
-SANCOMP	= $(CC) $(CFLAGS) $(SAN) $(LIBP) $(SRCS) -g3 -lreadline $(RL_LIB) $(RL_INC) -o $(NAME)
 
-all: 		$(NAME)
+BONUS_S = 	ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c\
+			ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c\
+			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
+			ft_dlstnew2.c ft_dlstadd_back2.c ft_dlstlast2.c
 
-$(NAME):			$(OBJS)
-					@echo "\n\033[33mMaking libft! ░░░░░░ (._.)\ ░░░░░\033[39m\n"
-					@make bonus -s -C ./includes/libft
-					@cp includes/libft/libft.a ./$(LIBP)
-					$(LIB) $(LIBP) $(OBJS)
-					$(COMP) 
-					@echo "\n\033[1;32mEverything done! ░░░░░░ ＼(>o<)ノ ░░░░░\033[39m\n"
+BONUS_O = $(BONUS_S:.c=.o)
 
-fsanitize:			$(OBJS)
-					@echo "\n\033[33mMaking libft! ░░░░░░ /(ಠ_ಠ)\ ░░░░░\033[39m\n"
-					@make bonus -s -C ./includes/libft
-					@cp includes/libft/libft.a ./$(LIBP)
-					$(LIB) $(LIBP) $(OBJS)
-					$(SANCOMP)
-					@echo "\n\033[1;32mEverything done! ░░░░░░ ＼(>o<)ノ ░░░░░\033[39m\n"
+all:		$(NAME)
 
+$(NAME):	$(OBJS) $(INCLUDE)
+			$(LIB1) $(NAME) $(OBJS)
+			$(LIB2) $(NAME)
+
+bonus:		$(NAME) $(BONUS_O)
+			$(LIB1) $(NAME) $(BONUS_O)
+			$(LIB2) $(NAME)
+			
+.c.o:
+			$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $(<:.c=.o)
+			
 clean:
-					@make clean -C ./includes/libft
-					$(RM) $(OBJS) $(OBJS_B)
+			$(RM) $(OBJS) $(BONUS_O)
 
-fclean: 	clean
-					@make fclean -C ./includes/libft
-					$(RM) $(NAME)
-					$(RM) $(PROG)
-					$(RM) $(LIBP)
-					@echo "\n\033[31mEverything fcleaned! ░░░░░░ ٩(╬ʘ益ʘ╬)۶ ░░░░░\n\033[39m"
+fclean:		clean
+			$(RM) $(NAME)
 
 re:			fclean all
 
-.PHONY: all clean fclean reincludes
+rebonus:	fclean bonus
+
+.PHONY:		all clean fclean re bonus rebonus

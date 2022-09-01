@@ -26,11 +26,7 @@ void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata)
 				((t_env_line *)lst_env->content)->value,
 				'=');
 		lst_env = lst_env->next;
-		//free(((t_env_line *)lst_env->content)->key);
-		//free(((t_env_line *)lst_env->content)->value);
-		//free(gdata->env->envp[i]);
 		i++;
 	}
 	gdata->env->envp[i] = NULL;
-	//free(gdata->env->envp);
 }

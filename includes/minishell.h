@@ -41,7 +41,6 @@ void		init_prompt(t_gdata *g_data, char **envp);
 void	free_double_p_char(char **s);
 void	free_t_lst(t_list *lst);
 void	free_t_cmds(t_cmds *cmds);
-void	free_t_env(t_env *env);
 
 /*
  * srcs/lexer/lexer.c
@@ -64,8 +63,6 @@ int			*clean_tokens(int *raw, int raw_len, int len);
 void		clean_lst_tokens(t_dlist *token_lst);
 int			ft_give_token(char c1, char c2, int *aux);
 int			is_escaping(char c);
-
-int			get_n_commands(char *s);
 
 /*
  *	srcs/builtins/ft_pwd.c
@@ -105,11 +102,18 @@ int			ft_cd(t_gdata *data, char **cmd);
 /*
  *	srcs/builtins/utils.c
  */
-char		*safe_getcwd(char *current_cwd);
 t_list		*ft_lstnew_struct(void *newcontent, size_t size);
 void		ft_lstfree(t_list *lst);
-//char		**lst_to_envmtrx(t_list *lst_env, char **envp);
+
+/*
+ *	utils/builtins/ft_dup_var.c
+ */
 char		*ft_dup_var(t_list **lst, char *key);
+
+/*
+ *	utils/builtins/safe_getcwd.c
+ */
+char		*safe_getcwd(char *current_cwd);
 
 /*
  *	utils/builtins/lst_to_envmtrx.c
@@ -370,7 +374,7 @@ void		sigquit_child(int n);
 void		child_signal_handler(int pid);
 
 /*
- * utils/expansion/expansion.c
+ * utils/expansion/get_env_val.c
  */
 
 char		*get_env_val(char *cmd, char **envp);
