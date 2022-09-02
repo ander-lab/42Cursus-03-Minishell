@@ -40,7 +40,8 @@ void		init_prompt(t_gdata *g_data, char **envp);
  */
 void	free_double_p_char(char **s);
 void	free_t_lst(t_list *lst);
-void	free_t_cmds(t_cmds *cmds);
+void	free_t_cmds(t_cmds *lst);
+void	free_gdata(t_gdata *gdata);
 
 /*
  * srcs/lexer/lexer.c
@@ -92,7 +93,7 @@ void		ft_add_var(t_list **lst, char *key, char *value);
 /*
  *	srcs/builtins/ft_exit.c
  */
-int			ft_exit(char **cmd);
+int			ft_exit(char **cmd, t_gdata *gdata);
 
 /*
  *	srcs/builtins/ft_cd.c

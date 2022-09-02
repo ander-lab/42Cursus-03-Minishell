@@ -75,6 +75,7 @@ void	init_tokens(char *s, t_gdata *gdata)
 	clean_lst_tokens(token_lst);
 	gdata->glob_lst = token_lst;
 	init_cmds_lst(gdata);
+	free(token_data);
 	free(raw_tokens);
 	free(clean_tkns);
 }

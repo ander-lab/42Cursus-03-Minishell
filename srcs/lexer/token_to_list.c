@@ -31,7 +31,8 @@ static void	ft_strdup_on_lst(t_dlist **lst, char *str)
 {
 	if (!*lst || !str)
 		return ;
-	((t_token_data *)(*lst)->content)->str = ft_strtrim(ft_strdup(str), " ");
+	//((t_token_data *)(*lst)->content)->str = ft_strtrim(ft_strdup(str), " ");
+	((t_token_data *)(*lst)->content)->str = ft_strtrim(str, " ");
 }
 
 void	ft_convert_matrix(char **words, t_dlist *lst)

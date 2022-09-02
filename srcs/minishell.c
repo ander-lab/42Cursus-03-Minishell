@@ -12,33 +12,6 @@
 
 #include "../includes/minishell.h"
 
-/*void	free_t_env(t_list *lst)
-{
-	char	*key;
-	char	*value;
-
-	while (lst)
-	{
-		key = ((t_env_line *)(lst)->content)->key;
-		value = ((t_env_line *)(lst)->content)->value;
-		free(key);
-		free(value);
-		lst = lst->next;
-	}
-}*/
-
-void	free_gdata(t_gdata *gdata)
-{
-	ft_free_matrix(gdata->env->envp);
-	//ft_free_matrix(gdata->cmds);
-	free_t_lst(gdata->env->env_lst);
-	//free_t_env(gdata->env->env_lst);
-	free(gdata->prompt);
-	free(gdata->env);
-	//free_t_cmds(gdata->cmds_lst);
-	//free(gdata->heredoc);
-}
-
 void	handle_sigint(int n)
 {
 	if (n == 2)
@@ -67,7 +40,6 @@ int	main(int argc, char **argv, char **envp)
 	init_env(&gdata, envp);
 	//atexit(leaks);
 	g_glob.proc = 0;
-	//free_gdata(&gdata);
 	while (42)
 	{
 		signal(SIGQUIT, SIG_IGN);
@@ -84,6 +56,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	printf("LLEGO\n");
 	free_gdata(&gdata);
-	//free(gdata.prompt);
 	return (0);
 }

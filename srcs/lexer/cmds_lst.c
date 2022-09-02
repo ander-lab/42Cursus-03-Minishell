@@ -25,6 +25,7 @@ char	*get_cmd(t_dlist *lst)
 	{
 		prev = get_prev_type(lst);
 		next = get_next_type(lst);
+		free(cmd);
 		if ((prev < 1 || prev > 4) && (next < 1 || next > 4) && tkn > 4)
 			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		else if ((prev < 1 || prev > 4) && (next > 1 || next < 4) && (tkn > 4))

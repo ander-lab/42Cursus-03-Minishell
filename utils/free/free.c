@@ -37,10 +37,41 @@ void	free_t_lst(t_list *lst)
 
 void	free_t_cmds(t_cmds *cmds)
 {
+	t_cmds	*tmp;
+
 	while (cmds)
 	{
+		tmp = cmds;
 		free(cmds->content);
 		cmds = cmds->next;
+		free(tmp);
 	}
 	free(cmds);
+}
+
+static void	free_t_dlst(t_dlist *lst)
+{
+	t_dlist	*aux;
+
+	while (lst)
+	{
+		aux = lst;
+		free(((t_token_data *)(lst)->content)->str);
+		free(lst->content);
+		lst = lst->next;
+		free(aux);
+	}
+}
+
+void	free_gdata(t_gdata *gdata)
+{
+	ft_free_matrix(gdata->env->envp);
+	free_t_lst(gdata->env->env_lst);
+	free(gdata->prompt);
+	free(gdata->env);
+	free_t_cmds(gdata->cmds_lst);
+	ft_free_matrix(gdata->cmds);
+	free_t_dlst(gdata->glob_lst);
+	free(gdata->heredoc);
+	free(gdata->fd);
 }
