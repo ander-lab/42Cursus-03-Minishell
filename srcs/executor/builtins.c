@@ -12,19 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/*void ft_printkey(t_list *token_lst)
-{
-	printf("\n");
-	printf("\n");
-	while (token_lst)
-	{
-		printf("%s=", ((t_env_line *)token_lst->content)->key);
-		printf("%s\n", ((t_env_line *)token_lst->content)->value);
-		//token_data = token_lst->content;
-		//printf(" token 2= %i\n", token_data->token);
-		token_lst = token_lst->next;
-	}
-}*/
 void	execute_builtin(t_cmds *cmds, t_gdata *gdata)
 {
 	char	*builtin;
@@ -47,6 +34,7 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata)
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
 		ft_cd(gdata, ft_split(cmd, ' '));
 	lst_to_envmtrx(gdata->env->env_lst, gdata);
+	free(builtin);
 }
 
 static	int	cmp_builtin(char *builtin, char *s)
@@ -72,6 +60,7 @@ int	is_builtin(char *cmd)
 		|| !cmp_builtin("env", builtin)
 		|| !cmp_builtin("exit", builtin))
 	{
+		free(builtin);
 		return (1);
 	}
 	free(builtin);

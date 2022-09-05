@@ -36,10 +36,6 @@ void	free_t_cmds(t_cmds *cmds)
 {
 	t_cmds	*tmp;
 
-	if (cmds->next)
-		printf("EYYY");
-	printf("cmds: %s\n", (char *)cmds->content);
-	return ;
 	while (cmds)
 	{
 		tmp = cmds;
