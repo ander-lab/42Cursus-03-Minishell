@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/31 17:43:29 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 10:19:19 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	handle_sigint(int n)
 	}
 }
 
-/*void leaks()
+void leaks()
 {
 	system("leaks -q minishell");
-}*/
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -38,7 +38,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_prompt(&gdata, environ);
 	init_env(&gdata, envp);
-	//atexit(leaks);
 	g_glob.proc = 0;
 	while (42)
 	{
@@ -47,7 +46,8 @@ int	main(int argc, char **argv, char **envp)
 		inp = readline(gdata.prompt);
 		if (!inp)
 		{
-			free_gdata(&gdata);
+			free_gdata(&gdata, 0);
+			atexit(leaks);
 			return (1);
 		}
 		if (inp[0])
@@ -55,6 +55,6 @@ int	main(int argc, char **argv, char **envp)
 		lexer(inp, &gdata);
 	}
 	printf("LLEGO\n");
-	free_gdata(&gdata);
+	free_gdata(&gdata, 0);
 	return (0);
 }

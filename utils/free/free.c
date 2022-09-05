@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/31 17:38:27 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 10:19:22 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	free_t_cmds(t_cmds *cmds)
 {
 	t_cmds	*tmp;
 
+	if (cmds->next)
+		printf("EYYY");
+	printf("cmds: %s\n", (char *)cmds->content);
+	return ;
 	while (cmds)
 	{
 		tmp = cmds;
@@ -61,20 +65,18 @@ static void	free_t_dlst(t_dlist *lst)
 	//free(lst);
 }
 
-void	free_gdata(t_gdata *gdata)
+void	free_gdata(t_gdata *gdata, int t)
 {
 	ft_free_matrix(gdata->env->envp);
 	free_t_lst(gdata->env->env_lst);
 	free(gdata->prompt);
 	free(gdata->env);
-	if (gdata->cmds_lst)
+	if (t == 1)
+	{
 		free_t_cmds(gdata->cmds_lst);
-	if (gdata->cmds)
 		ft_free_matrix(gdata->cmds);
-	if (gdata->glob_lst)
 		free_t_dlst(gdata->glob_lst);
-	if (gdata->heredoc)
 		free(gdata->heredoc);
-	if (gdata->fd)
 		free(gdata->fd);
+	}
 }

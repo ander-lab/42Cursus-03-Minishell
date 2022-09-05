@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/31 17:25:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 10:19:21 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		init_prompt(t_gdata *g_data, char **envp);
 void	free_double_p_char(char **s);
 void	free_t_lst(t_list *lst);
 void	free_t_cmds(t_cmds *lst);
-void	free_gdata(t_gdata *gdata);
+void	free_gdata(t_gdata *gdata, int t);
 
 /*
  * srcs/lexer/lexer.c

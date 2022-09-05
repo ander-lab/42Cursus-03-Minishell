@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:09:15 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:43:28 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/05 10:18:41 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_exit_with_args(char **cmd, int lines, t_gdata *gdata)
 		ft_putstr_fd("exit: ", 1);
 		ft_putstr_fd(cmd[1], 1);
 		ft_putstr_fd(": numeric argument require\n", 1);
-		free_gdata(gdata);
+		free_gdata(gdata, 1);
 		ft_free_matrix(cmd);
 		exit(255);
 	}
@@ -30,7 +30,7 @@ static int	ft_exit_with_args(char **cmd, int lines, t_gdata *gdata)
 	}
 	else
 	{
-		free_gdata(gdata);
+		free_gdata(gdata, 1);
 		ft_free_matrix(cmd);
 		exit (ft_atoi(cmd[1]));
 	}
@@ -44,7 +44,7 @@ int	ft_exit(char **cmd, t_gdata *gdata)
 	ret = 0;
 	if (ft_matrixlen(cmd) == 1)
 	{
-		free_gdata(gdata);
+		free_gdata(gdata, 1);
 		ft_free_matrix(cmd);
 		exit(0);
 	}
