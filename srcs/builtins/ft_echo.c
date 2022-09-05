@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:44:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/05 11:27:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:02:24 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	ft_echo(char **cmd, t_gdata *gdata, int red)
 	}
 	else
 		ft_print_no_nl(cmd, red, gdata);
-	ft_free_matrix(cmd);
+	if (cmd && *cmd)
+		ft_free_matrix(cmd);
 	return (EXIT_SUCCESS);
 }
