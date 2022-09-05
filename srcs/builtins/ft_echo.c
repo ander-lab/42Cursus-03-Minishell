@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:44:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/05 12:02:24 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:24:53 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	ft_print_no_nl(char **s, int red, t_gdata *gdata)
 	if (!s[i])
 		return (127);
 	ft_put_echo(s, i, gdata, red);
-	ft_free_matrix(s);
 	return (EXIT_SUCCESS);
 }
 
