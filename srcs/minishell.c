@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 10:19:19 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:25:05 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ int	main(int argc, char **argv, char **envp)
 	char		*inp;
 	extern char	**environ;
 	t_gdata		gdata;
+	int			i;
 
 	(void)argc;
 	(void)argv;
 	init_prompt(&gdata, environ);
 	init_env(&gdata, envp);
 	g_glob.proc = 0;
+	i = 0;
 	while (42)
 	{
 		signal(SIGQUIT, SIG_IGN);
@@ -46,13 +48,13 @@ int	main(int argc, char **argv, char **envp)
 		inp = readline(gdata.prompt);
 		if (!inp)
 		{
-			free_gdata(&gdata, 0);
-			atexit(leaks);
+			free_gdata(&gdata, i);
 			return (1);
 		}
 		if (inp[0])
 			add_history(inp);
 		lexer(inp, &gdata);
+		i++;
 	}
 	printf("LLEGO\n");
 	free_gdata(&gdata, 0);

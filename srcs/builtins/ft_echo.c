@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:44:28 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 16:41:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:27:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,22 @@ static int	ft_print_no_nl(char **s, int red, t_gdata *gdata)
 	if (!s[i])
 		return (127);
 	ft_put_echo(s, i, gdata, red);
+	ft_free_matrix(s);
 	return (EXIT_SUCCESS);
 }
 
 int	ft_echo(char **cmd, t_gdata *gdata, int red)
 {
 	if (print_cmd_proc(cmd, red))
+	{
+		ft_free_matrix(cmd);
 		return (EXIT_SUCCESS);
+	}
 	output_type(gdata, red);
 	if (!cmd[1])
 	{
 		print_built_out("\n", gdata, red);
+		ft_free_matrix(cmd);
 		return (EXIT_SUCCESS);
 	}
 	if (!check_flag(cmd[1]))
@@ -69,5 +74,6 @@ int	ft_echo(char **cmd, t_gdata *gdata, int red)
 	}
 	else
 		ft_print_no_nl(cmd, red, gdata);
+	ft_free_matrix(cmd);
 	return (EXIT_SUCCESS);
 }

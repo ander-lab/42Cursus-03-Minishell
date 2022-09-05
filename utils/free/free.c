@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 10:19:22 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:19:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	free_gdata(t_gdata *gdata, int t)
 	free_t_lst(gdata->env->env_lst);
 	free(gdata->prompt);
 	free(gdata->env);
-	if (t == 1)
+	if (t > 0)
 	{
 		free_t_cmds(gdata->cmds_lst);
 		ft_free_matrix(gdata->cmds);

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:03:49 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:43:08 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:33:14 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ static void	ft_lstcmp_delnode(t_list **lst, char *str)
 int	ft_unset(t_list **env, char **cmd)
 {
 	if (ft_matrixlen(cmd) == 1)
+	{
+		ft_free_matrix(cmd);
 		return (0);
+	}
 	else if (ft_matrixlen(cmd) > 1)
 		ft_lstcmp_delnode(env, cmd[1]);
+	ft_free_matrix(cmd);
 	return (0);
 }
 

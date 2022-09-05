@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:41:14 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:30:30 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ int	ft_export(t_list **env, char **cmd)
 	{
 		var = split_once(cmd[1]);
 		if (!var || !*var)
+		{
+			ft_free_matrix(cmd);
 			return (0);
+		}
 	}
 	if (!cmd[1])
 	{
@@ -76,5 +79,6 @@ int	ft_export(t_list **env, char **cmd)
 	}
 	else if (!check_var_replace(env, var[0], var[1]))
 		ft_add_var(env, var[0], var[1]);
+	ft_free_matrix(cmd);
 	return (0);
 }

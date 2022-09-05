@@ -6,29 +6,18 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:54:10 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:39:11 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:28:56 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*static void ft_printlst(t_list *token_lst)
-{
-	while (token_lst)
-	{
-		
-		printf("%s\n", ((t_env_line *)token_lst->content)->key);
-		//token_data = token_lst->content;
-		//printf(" token 2= %i\n", token_data->token);
-		token_lst = token_lst->next;
-	}
-}*/
 
 static int	env_error(char **args)
 {
 	ft_putstr_fd("env: ", 1);
 	ft_putstr_fd(args[1], 1);
 	ft_putstr_fd(": No such file or directory\n", 1);
+	ft_free_matrix(args);
 	return (127);
 }
 
@@ -55,5 +44,6 @@ int	ft_env(char **args, t_gdata *data, int red)
 		output_type(data, red);
 		print_env(data->env->envp, data, red);
 	}
+	ft_free_matrix(args);
 	return (0);
 }

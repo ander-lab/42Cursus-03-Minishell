@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 20:38:18 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:31:50 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,17 @@ int	ft_cd(t_gdata *data, char **cmd)
 	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
 	data->env->pwd = ft_dup_var(&data->env->env_lst, "PWD");
 	if (ft_strlen(cmd[1]) > 255)
+	{
+		ft_free_matrix(cmd);
 		return (put_cd_error(cmd[1], FILENAME));
+	}
 	if ((!ft_strcmp(cmd[1], "~") || !cmd[1]))
 		go_home(data);
 	else
 		go_path(data, cmd);
 	check_var_replace(&data->env->env_lst, "PWD", data->env->pwd);
 	if (!check_var_replace(&data->env->env_lst, "OLDPWD", data->env->old_pwd))
-	{
-		printf("-------DEBUG------\n");
 		ft_add_var(&data->env->env_lst, "OLDPWD", data->env->old_pwd);
-	}
+	ft_free_matrix(cmd);
 	return (EXIT_SUCCESS);
 }
