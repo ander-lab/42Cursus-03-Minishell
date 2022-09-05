@@ -12,8 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-static void	init_cmd_str(t_gdata *g_data)
+static void	init_cmd_str(t_gdata *g_data, int i)
 {
+	if (i > 0)
+		ft_free_matrix(g_data->cmds);
 	g_data->cmds = ft_calloc(sizeof(char *), (g_data->n_commands + 1));
 	if (!g_data->cmds)
 		return ;
@@ -68,7 +70,7 @@ static int	ft_prev_l(int prev_l, t_gdata *gdata, char *s, int l)
 	return (prev_l);
 }
 
-void	handle_input(char *s, t_gdata *g_data)
+void	handle_input(char *s, t_gdata *g_data, int i)
 {
 	int		prev_l;
 	int		l;
@@ -78,7 +80,7 @@ void	handle_input(char *s, t_gdata *g_data)
 	l = -1;
 	prev_l = 0;
 	quotes = 0;
-	init_cmd_str(g_data);
+	init_cmd_str(g_data, i);
 	while (s[++l])
 	{
 		quotes = quote_type(quotes, s, l);

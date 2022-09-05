@@ -55,7 +55,7 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	return (l);
 }
 
-void	init_tokens(char *s, t_gdata *gdata)
+void	init_tokens(char *s, t_gdata *gdata, int i)
 {
 	int				raw_len;
 	int				*raw_tokens;
@@ -69,6 +69,12 @@ void	init_tokens(char *s, t_gdata *gdata)
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, \
 			gdata->n_commands + gdata->n_tokens);
+	if (i > 0)
+	{
+		free_t_dlst(gdata->glob_lst);
+		free_t_cmds(gdata->cmds_lst);
+		free(gdata->heredoc);
+	}
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, \
 			gdata->n_commands + gdata->n_tokens);
 	ft_convert_matrix(gdata->cmds, token_lst);

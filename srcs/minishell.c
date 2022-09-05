@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (inp[0])
 			add_history(inp);
-		lexer(inp, &gdata);
+		lexer(inp, &gdata, i);
 		i++;
 	}
 	printf("LLEGO\n");

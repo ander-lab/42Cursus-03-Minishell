@@ -39,14 +39,14 @@ void	free_t_cmds(t_cmds *cmds)
 	while (cmds)
 	{
 		tmp = cmds;
-		free(tmp->content);
+		free(cmds->content);
 		cmds = cmds->next;
 		free(tmp);
 	}
 	//free(cmds);
 }
 
-static void	free_t_dlst(t_dlist *lst)
+void	free_t_dlst(t_dlist *lst)
 {
 	t_dlist		*aux;
 

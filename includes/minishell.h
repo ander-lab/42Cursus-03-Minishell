@@ -38,7 +38,7 @@ void		init_prompt(t_gdata *g_data, char **envp);
 /*
  *	utils/free/free.c
  */
-void	free_double_p_char(char **s);
+void	free_t_dlst(t_dlist *lst);
 void	free_t_lst(t_list *lst);
 void	free_t_cmds(t_cmds *lst);
 void	free_gdata(t_gdata *gdata, int t);
@@ -46,12 +46,12 @@ void	free_gdata(t_gdata *gdata, int t);
 /*
  * srcs/lexer/lexer.c
  */
-void		lexer(char *s, t_gdata *g_data);
+void		lexer(char *s, t_gdata *g_data, int i);
 
 /*
  *	srcs/lexer/parser_lexer.c
  */
-void		handle_input(char *str, t_gdata *g_data);
+void		handle_input(char *str, t_gdata *g_data, int i);
 
 /*
  *	srcs/lexer/clean_tokens.c
@@ -182,7 +182,7 @@ void		parser(t_gdata *gdata);
 /*
  *	srcs/lexer/init_tokens.c
  */
-void		init_tokens(char *s, t_gdata *gdata);
+void		init_tokens(char *s, t_gdata *gdata, int i);
 
 /*
  *	utils/global/count.c
