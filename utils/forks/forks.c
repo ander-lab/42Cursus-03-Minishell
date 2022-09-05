@@ -105,7 +105,7 @@ void	close_fds(t_gdata *gdata, int *pids)
 		g_glob.proc = WEXITSTATUS(status);
 }
 
-int	check_builtin(t_gdata *gdata, t_cmds *cmds)
+int	check_builtin(t_gdata *gdata, t_cmds *cmds, int *pids)
 {
 	int		it_is;
 	char	*cmd;
@@ -115,7 +115,7 @@ int	check_builtin(t_gdata *gdata, t_cmds *cmds)
 	if (is_builtin(cmd))
 	{
 		it_is = 1;
-		execute_builtin(cmds, gdata);
+		execute_builtin(cmds, gdata, pids);
 	}
 	return (it_is);
 }

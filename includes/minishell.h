@@ -279,7 +279,7 @@ void		do_child(t_cmds *cmds, int r, t_gdata *gdata);
 int			**init_fds(t_gdata *gdata);
 void		handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r);
 void		close_fds(t_gdata *gdata, int *pids);
-int			check_builtin(t_gdata *gdata, t_cmds *cmds);
+int			check_builtin(t_gdata *gdata, t_cmds *cmds, int *pids);
 
 /*
  *	utils/forks/handle_cmd.c
@@ -310,7 +310,7 @@ int			is_red_or_app(t_dlist *aux);
  *	srcs/executor/builtins.c
  */
 int			is_builtin(char *cmd);
-void		execute_builtin(t_cmds *cmds, t_gdata *gdata);
+void		execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids);
 
 /*
  *	utils/builtins/echo.c
