@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/31 14:00:49 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:39:24 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	is_cmd_hide(char *s, int idx, int token)
 		return (0);
 	i = get_cmd_length_until_token(s, idx);
 	word = cpy_cmd(s, i, idx);
-	//free(word);
 	return (needs_split(word));
 }
 
@@ -67,8 +66,6 @@ static int	next_is_command(char *word, int idx)
 	return (is_cmd);
 }
 
-//TODO -> strtrim LEAK POR AKI jiji
-
 int	needs_split(char *word)
 {
 	int	i;
@@ -79,7 +76,6 @@ int	needs_split(char *word)
 	i = 0;
 	need_it = 0;
 	is_in_space = 0;
-	//word = ft_strtrim(word, " ");
 	quotes = 0;
 	while (word[i] && need_it == 0)
 	{
@@ -92,6 +88,5 @@ int	needs_split(char *word)
 			is_in_space = 0;
 		i++;
 	}
-	//free(word);
 	return (need_it);
 }

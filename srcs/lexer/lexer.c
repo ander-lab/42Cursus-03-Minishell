@@ -24,7 +24,7 @@ static void	init_gdata(char *s, t_gdata *gdata)
 	gdata->fd_pipe = -1;
 }
 
-void	lexer(char *s, t_gdata *gdata)
+void	lexer(char *s, t_gdata *gdata, int i)
 {
 	init_gdata(s, gdata);
 	s = ft_strtrim(s, " ");
@@ -32,10 +32,10 @@ void	lexer(char *s, t_gdata *gdata)
 		return ;
 	if (exists_error(s, gdata))
 		return ;
-	handle_input(s, gdata);
+	handle_input(s, gdata, i);
 	if (gdata->err)
 		return ;
-	init_tokens(s, gdata);
+	init_tokens(s, gdata, i);
 	free(s);
 	parser(gdata);
 	if (gdata->err)

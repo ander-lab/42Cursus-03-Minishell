@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	execute_builtin(t_cmds *cmds, t_gdata *gdata)
+void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
 {
 	char	*builtin;
 	char	*cmd;
@@ -24,7 +24,11 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata)
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
 		ft_env(ft_split(cmd, ' '), gdata, cmds->red);
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
+	{
+		free(pids);
+		free(builtin);
 		ft_exit(ft_split(cmd, ' '), gdata);
+	}
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
 		ft_pwd(gdata, cmds->red);
 	else if (!ft_strncmp("export", builtin, ft_strlen("export")))

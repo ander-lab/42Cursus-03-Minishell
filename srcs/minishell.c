@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 11:25:05 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:39:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_sigint(int n)
 	}
 }
 
-void leaks()
+void	leaks(void)
 {
 	system("leaks -q minishell");
 }
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (inp[0])
 			add_history(inp);
-		lexer(inp, &gdata);
+		lexer(inp, &gdata, i);
 		i++;
 	}
 	printf("LLEGO\n");

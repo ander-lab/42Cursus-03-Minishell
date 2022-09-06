@@ -33,7 +33,7 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds)
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
 	while (++(gdata->r) < gdata->n_pipes + 1)
 	{
-		built = check_builtin(gdata, cmds);
+		built = check_builtin(gdata, cmds, pids);
 		child_signal_handler(pids[gdata->r]);
 		if (!built)
 		{

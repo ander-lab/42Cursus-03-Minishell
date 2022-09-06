@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:39:30 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/20 17:41:26 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:35:28 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	ft_strdup_on_lst(t_dlist **lst, char *str)
 {
 	if (!*lst || !str)
 		return ;
-	//((t_token_data *)(*lst)->content)->str = ft_strtrim(ft_strdup(str), " ");
 	((t_token_data *)(*lst)->content)->str = ft_strtrim(str, " ");
 }
 

@@ -50,5 +50,7 @@ int	ft_exit(char **cmd, t_gdata *gdata)
 	}
 	else if (ft_matrixlen(cmd) >= 2)
 		ft_exit_with_args(cmd, ft_matrixlen(cmd), gdata);
+	free_gdata(gdata, 1);
+	ft_free_matrix(cmd);
 	return (ret);
 }

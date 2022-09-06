@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 11:19:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:37:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	free_t_lst(t_list *lst)
 
 	while (lst)
 	{
- 		key = ((t_env_line *)(lst)->content)->key;
- 		value = ((t_env_line *)(lst)->content)->value;
+		key = ((t_env_line *)(lst)->content)->key;
+		value = ((t_env_line *)(lst)->content)->value;
 		free(key);
 		free(value);
 		free(lst->content);
@@ -39,14 +39,13 @@ void	free_t_cmds(t_cmds *cmds)
 	while (cmds)
 	{
 		tmp = cmds;
-		free(tmp->content);
+		free(cmds->content);
 		cmds = cmds->next;
 		free(tmp);
 	}
-	//free(cmds);
 }
 
-static void	free_t_dlst(t_dlist *lst)
+void	free_t_dlst(t_dlist *lst)
 {
 	t_dlist		*aux;
 
@@ -58,7 +57,6 @@ static void	free_t_dlst(t_dlist *lst)
 		lst = lst->next;
 		free(aux);
 	}
-	//free(lst);
 }
 
 void	free_gdata(t_gdata *gdata, int t)

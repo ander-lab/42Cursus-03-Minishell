@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 11:33:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:32:47 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ void		init_prompt(t_gdata *g_data, char **envp);
 /*
  *	utils/free/free.c
  */
-void	free_double_p_char(char **s);
-void	free_t_lst(t_list *lst);
-void	free_t_cmds(t_cmds *lst);
-void	free_gdata(t_gdata *gdata, int t);
+void		free_t_dlst(t_dlist *lst);
+void		free_t_lst(t_list *lst);
+void		free_t_cmds(t_cmds *lst);
+void		free_gdata(t_gdata *gdata, int t);
 
 /*
  * srcs/lexer/lexer.c
  */
-void		lexer(char *s, t_gdata *g_data);
+void		lexer(char *s, t_gdata *g_data, int i);
 
 /*
  *	srcs/lexer/parser_lexer.c
  */
-void		handle_input(char *str, t_gdata *g_data);
+void		handle_input(char *str, t_gdata *g_data, int i);
 
 /*
  *	srcs/lexer/clean_tokens.c
@@ -182,7 +182,7 @@ void		parser(t_gdata *gdata);
 /*
  *	srcs/lexer/init_tokens.c
  */
-void		init_tokens(char *s, t_gdata *gdata);
+void		init_tokens(char *s, t_gdata *gdata, int i);
 
 /*
  *	utils/global/count.c
@@ -279,7 +279,7 @@ void		do_child(t_cmds *cmds, int r, t_gdata *gdata);
 int			**init_fds(t_gdata *gdata);
 void		handle_here_exec(t_cmds *cmds, t_gdata *gdata, int r);
 void		close_fds(t_gdata *gdata, int *pids);
-int			check_builtin(t_gdata *gdata, t_cmds *cmds);
+int			check_builtin(t_gdata *gdata, t_cmds *cmds, int *pids);
 
 /*
  *	utils/forks/handle_cmd.c
@@ -310,7 +310,7 @@ int			is_red_or_app(t_dlist *aux);
  *	srcs/executor/builtins.c
  */
 int			is_builtin(char *cmd);
-void		execute_builtin(t_cmds *cmds, t_gdata *gdata);
+void		execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids);
 
 /*
  *	utils/builtins/echo.c
