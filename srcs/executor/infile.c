@@ -73,5 +73,6 @@ t_dlist	*do_infile(t_dlist *lst, t_gdata *gdata)
 			gdata->inf_err = 1;
 		lst = lst->next;
 	}
+	free(file);
 	return (lst);
 }

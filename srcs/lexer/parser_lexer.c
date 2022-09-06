@@ -35,8 +35,9 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(file_name, " ");
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(cmd, " ");
-	//free(file_name);
-	//free(cmd);
+	//free(word);
+	free(file_name);
+	free(cmd);
 }
 
 static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
@@ -59,7 +60,7 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 	g_data->handle_next = 0;
 	if (is_file_token(g_data->last_token))
 		g_data->handle_next = 1;
-	//free(word);
+	free(word);
 }
 
 //TODO -> normi dividir handle input en otro archivo

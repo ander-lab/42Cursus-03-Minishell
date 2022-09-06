@@ -76,7 +76,7 @@ void	free_gdata(t_gdata *gdata, int t)
 		ft_free_matrix(gdata->cmds);
 		free_t_dlst(gdata->glob_lst);
 		free(gdata->heredoc);
-		while (x < gdata->prev_n_pipes)
+		while (x < gdata->prev_n_pipes - 1)
 		{
 			free(gdata->fd[x]);
 			x++;

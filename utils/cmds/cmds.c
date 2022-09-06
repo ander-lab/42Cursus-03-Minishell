@@ -71,6 +71,7 @@ int	get_ind(t_dlist *lst)
 			lst = lst->next;
 			file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 			ind = handle_file_no_create(file);
+			free(file);
 		}
 		lst = lst->next;
 		if (lst)

@@ -28,13 +28,15 @@ int	is_cmd_hide(char *s, int idx, int token)
 {
 	int		i;
 	char	*word;
+	int	out;
 
 	if (token <= 0 || token >= 5)
 		return (0);
 	i = get_cmd_length_until_token(s, idx);
 	word = cpy_cmd(s, i, idx);
-	//free(word);
-	return (needs_split(word));
+	out = needs_split(word);
+	free(word);
+	return (out);
 }
 
 int	get_cmd_length_until_token(char *s, int idx)
@@ -79,7 +81,6 @@ int	needs_split(char *word)
 	i = 0;
 	need_it = 0;
 	is_in_space = 0;
-	//word = ft_strtrim(word, " ");
 	quotes = 0;
 	while (word[i] && need_it == 0)
 	{

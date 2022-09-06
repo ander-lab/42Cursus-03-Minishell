@@ -19,8 +19,6 @@ static void	init_gdata_handle(t_gdata *gdata, int i)
 	x = 0;
 	if (i > 0)
 	{
-	//	printf("PREV: %d\n", gdata->prev_n_pipes);
-	//	printf("ACT: %d\n", gdata->n_pipes);
 		while (x < gdata->prev_n_pipes - 1)
 		{
 			free(gdata->fd[x]);

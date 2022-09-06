@@ -18,18 +18,29 @@ char	*get_cmd(t_dlist *lst)
 	int		tkn;
 	int		next;
 	int		prev;
+	int	i;
 
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 	tkn = (((t_token_data *)lst->content)->token);
+	i = 0;
 	while (lst && tkn != 0)
 	{
 		prev = get_prev_type(lst);
 		next = get_next_type(lst);
-		free(cmd);
 		if ((prev < 1 || prev > 4) && (next < 1 || next > 4) && tkn > 4)
+		{
+			if (i == 0)
+				free(cmd);
 			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+			i = 1;
+		}
 		else if ((prev < 1 || prev > 4) && (next > 1 || next < 4) && (tkn > 4))
+		{
+			if (i == 0)
+				free(cmd);
 			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+		}
+		i = 0;
 		lst = lst->next;
 		if (lst)
 			tkn = (((t_token_data *)lst->content)->token);
