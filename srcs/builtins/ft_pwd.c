@@ -17,14 +17,17 @@
 int	ft_pwd(t_gdata *gdata, int red)
 {
 	char	*pwd;
+	char	*cwd;
 
 	output_type(gdata, red);
-	if (!getcwd(NULL, FILENAME_MAX))
+	cwd = getcwd(NULL, FILENAME_MAX);
+	if (!cwd)
 		pwd = ft_strdup(gdata->env->pwd);
 	else
 		pwd = getcwd(NULL, FILENAME_MAX);
 	print_built_out(pwd, gdata, red);
 	print_built_out("\n", gdata, red);
+	free(cwd);
 	free (pwd);
 	return (EXIT_SUCCESS);
 }

@@ -59,6 +59,7 @@ char	*exec_command(char *cmd, char **envp)
 	close(end[1]);
 	waitpid(p, NULL, 0);
 	out = get_next_line(end[0]);
+	get_next_line(end[0]);
 	out = remove_new_line(out);
 	close(end[0]);
 	return (out);
