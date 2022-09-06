@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:28 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/31 15:04:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:07:46 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_data
 	t_env	*env;
 	int		fd_pipe;
 	int		n_pipes;
+	int		prev_n_pipes;
 	char	**heredoc;
 	int		**fd;
 	int		type;

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 11:19:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:10:22 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	free_gdata(t_gdata *gdata, int t)
 		ft_free_matrix(gdata->cmds);
 		free_t_dlst(gdata->glob_lst);
 		free(gdata->heredoc);
-		while (x < gdata->n_pipes)
+		while (x < gdata->prev_n_pipes)
 		{
 			free(gdata->fd[x]);
 			x++;
