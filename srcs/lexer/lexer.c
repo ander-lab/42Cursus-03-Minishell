@@ -40,5 +40,5 @@ void	lexer(char *s, t_gdata *gdata, int i)
 	parser(gdata);
 	if (gdata->err)
 		return ;
-	executor(gdata);
+	executor(gdata, i);
 }

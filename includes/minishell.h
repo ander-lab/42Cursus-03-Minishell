@@ -163,7 +163,7 @@ char		*handle_expansion(t_cmds *cmds, char **envp);
 /*
  *	srcs/executor/executor.c
  */
-void		executor(t_gdata *gdata);
+void		executor(t_gdata *gdata, int i);
 
 /*
  *	srcs/executor/heredoc.c
@@ -284,7 +284,7 @@ int			check_builtin(t_gdata *gdata, t_cmds *cmds, int *pids);
 /*
  *	utils/forks/handle_cmd.c
  */
-void		handle_cmd(t_gdata *gdata, t_cmds *cmds_lst);
+void		handle_cmd(t_gdata *gdata, t_cmds *cmds_lst, int i);
 
 /*
  * srcs/env/init_env.c

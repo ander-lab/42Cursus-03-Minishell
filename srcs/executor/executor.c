@@ -86,7 +86,7 @@ void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)
 	}
 }
 
-void	executor(t_gdata *gdata)
+void	executor(t_gdata *gdata, int i)
 {
 	t_dlist	*lst;
 	t_cmds	*cmds;
@@ -99,5 +99,5 @@ void	executor(t_gdata *gdata)
 	handle_infile(lst, gdata);
 	if (gdata->inf_err && !exists_pipe(lst))
 		return ;
-	handle_cmd(gdata, cmds);
+	handle_cmd(gdata, cmds, i);
 }
