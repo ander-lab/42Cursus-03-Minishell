@@ -27,15 +27,16 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	int		l;
 	char	*file_name;
 	char	*cmd;
+	char	*trim;
 
 	l = 0;
-	word = ft_strtrim(word, " ");
-	l = filename_length(word);
-	file_name = cpy_cmd(word, l, 0);
-	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
+	trim = ft_strtrim(word, " ");
+	l = filename_length(trim);
+	file_name = cpy_cmd(trim, l, 0);
+	cmd = cpy_cmd2(trim, l, length_from_idx(trim, l));
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(file_name, " ");
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(cmd, " ");
-	//free(word);
+	free(trim);
 	free(file_name);
 	free(cmd);
 }

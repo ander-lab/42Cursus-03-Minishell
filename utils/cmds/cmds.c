@@ -98,6 +98,7 @@ int	get_red(t_dlist *lst)
 				red = handle_file_create(file, 0);
 			if (tkn == 4)
 				red = handle_file_create(file, 1);
+			free(file);
 		}
 		lst = lst->next;
 		if (lst)

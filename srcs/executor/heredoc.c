@@ -67,5 +67,6 @@ void	do_heredoc(t_dlist *lst, t_gdata *gdata)
 			gdata->heredoc[++x] = here;
 		else
 			free(here);
+		free(cmd);
 	}
 }
