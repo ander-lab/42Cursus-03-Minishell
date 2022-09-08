@@ -36,7 +36,7 @@ static void	exit_error_fork(void)
 	exit(EXIT_FAILURE);
 }
 
-void	handle_cmd(t_gdata *gdata, t_cmds *cmds, int i )
+void	handle_cmd(t_gdata *gdata, t_cmds *cmds, int i)
 {
 	int		*pids;
 	int		built;

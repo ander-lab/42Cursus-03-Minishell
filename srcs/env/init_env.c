@@ -36,11 +36,14 @@ void	increase_shlvl(t_list **lst, int shlvl)
 char	**build_env(void)
 {
 	char	**env;
+	char	*path;
 
 	env = ft_calloc(sizeof(char *), 3);
-	env[0] = ft_strjoin_token("PWD", safe_getcwd("not_found"), '=');
+	path = safe_getcwd("not_found");
+	env[0] = ft_strjoin_token("PWD", path, '=');
 	env[1] = ft_strjoin_token("SHLVL", "0", '=');
 	env[2] = NULL;
+	free(path);
 	return (env);
 }
 

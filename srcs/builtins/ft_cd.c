@@ -64,7 +64,7 @@ void	go_path(t_gdata *data, char **cmd)
 	chdir(cmd[1]);
 	tmp = safe_getcwd(data->env->pwd);
 	free(data->env->pwd);
-	data->env->pwd = ft_strdup(tmp);
+	data->env->pwd = tmp;
 }
 
 int	ft_cd(t_gdata *data, char **cmd)
