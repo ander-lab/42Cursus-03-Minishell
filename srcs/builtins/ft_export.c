@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 15:54:18 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:22:58 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,17 @@ void	ft_add_var(t_list **lst, char *key, char *value)
 static	char	**split_once(char *s)
 {
 	char	**split;
+	char	**aux;
 
 	if (!ft_strchr(s, '='))
 		return (0);
+	aux = ft_split(s, '=');
 	split = ft_calloc(sizeof(char *), 3);
-	split[0] = ft_strdup(ft_split(s, '=')[0]);
+	//split[0] = ft_strdup(ft_split(s, '=')[0]);
+	split[0] = ft_strdup(aux[0]);
 	split[1] = ft_strdup(ft_strchr(s, '=') + 1);
 	split[2] = NULL;
+	ft_free_matrix(aux);
 	return (split);
 }
 
@@ -79,6 +83,7 @@ int	ft_export(t_list **env, char **cmd)
 	}
 	else if (!check_var_replace(env, var[0], var[1]))
 		ft_add_var(env, var[0], var[1]);
+	ft_free_matrix(var);
 	ft_free_matrix(cmd);
 	return (0);
 }
