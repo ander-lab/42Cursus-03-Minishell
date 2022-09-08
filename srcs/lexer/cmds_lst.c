@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:48:03 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/26 13:14:06 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 10:38:42 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*get_cmd(t_dlist *lst)
 	int	i;
 
 	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
+	//printf("\nget_cmd0->>>>>>>>>> %s\n", cmd);
 	tkn = (((t_token_data *)lst->content)->token);
 	i = 0;
 	while (lst && tkn != 0)
@@ -41,6 +42,8 @@ char	*get_cmd(t_dlist *lst)
 			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 		}
 		i = 0;
+//		printf("\nget_cmd1->>>>>>>>>> %s\n", cmd);
+//		printf("\nget_cmd2char->>>>>>>>>> %d\n", cmd[0]);
 		lst = lst->next;
 		if (lst)
 			tkn = (((t_token_data *)lst->content)->token);

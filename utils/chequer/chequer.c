@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/31 14:00:49 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:28:40 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	needs_split(char *word)
 	need_it = 0;
 	is_in_space = 0;
 	quotes = 0;
+	word = ft_strtrim(word, " ");
 	while (word[i] && need_it == 0)
 	{
 		quotes = quote_type(quotes, word, i);

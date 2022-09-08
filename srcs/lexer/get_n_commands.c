@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:23:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/22 13:23:39 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 10:51:41 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,15 @@ int	get_n_commands(char *s)
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 		{
 			if (is_cmd_hide(s, ++i, token))
+			{
+				printf("HIDEE%d\n", nc);
 				nc++;
+			}
 			nc++;
 		}
 	}
+//	printf("nc %d\n", nc);
+//	printf("starts %d\n", starts_with_token(s));
 	if (starts_with_token(s))
 		nc--;
 	return (nc);
