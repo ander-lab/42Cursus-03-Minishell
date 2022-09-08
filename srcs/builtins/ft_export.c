@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 16:22:58 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:48:07 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static	char	**split_once(char *s)
 		return (0);
 	aux = ft_split(s, '=');
 	split = ft_calloc(sizeof(char *), 3);
-	//split[0] = ft_strdup(ft_split(s, '=')[0]);
 	split[0] = ft_strdup(aux[0]);
 	split[1] = ft_strdup(ft_strchr(s, '=') + 1);
 	split[2] = NULL;
