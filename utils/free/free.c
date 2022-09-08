@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/08 12:03:29 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:59:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,30 @@ void	free_t_dlst(t_dlist *lst)
 	}
 }
 
+void ft_printlst(t_list *token_lst)
+{
+	while (token_lst)
+	{
+		printf("KEY  %s char * %s\n", (((t_env_line *)(token_lst)->content)->key),
+			((t_env_line *)token_lst->content)->value);
+		token_lst = token_lst->next;
+	}
+}
+
 void	free_gdata(t_gdata *gdata, int t)
 {
 	int	x;
 
 	x = 0;
+	//ft_printlst(gdata->env->env_lst);
 	ft_free_matrix(gdata->env->envp);
 	free_t_lst(gdata->env->env_lst);
+	//TODO -> CHEQUEAR SI EXISTE O HACEN UNSET
+	safe_free(gdata->env->pwd);
+	safe_free(gdata->env->old_pwd);
+	safe_free(gdata->env->home);
+	//free(gdata->env->env_lst);
+	free(gdata->env->home);
 	free(gdata->prompt);
 	//safe_free(gdata->env);
 	//free(gdata->env);
