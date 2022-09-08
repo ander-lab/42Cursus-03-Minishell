@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 15:20:40 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:10:49 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	go_home(t_gdata *data, char **cmd)
 		return ;
 	}
 	tmp = ft_strdup(data->env->pwd);
+	if (data->env->old_pwd)
+		free(data->env->old_pwd);
 	data->env->old_pwd = ft_strdup(tmp);
 	free(data->env->pwd);
 	data->env->pwd = ft_strdup(data->env->home);
@@ -63,16 +65,22 @@ void	go_path(t_gdata *data, char **cmd)
 		put_cd_error(cmd[1], PERMISION, cmd);
 		return ;
 	}
+	if (data->env->old_pwd)
+		free(data->env->old_pwd);
 	data->env->old_pwd = ft_strdup(data->env->pwd);
 	chdir(cmd[1]);
 	tmp = safe_getcwd(data->env->pwd);
 	free(data->env->pwd);
 	data->env->pwd = tmp;
-	free (tmp);
+	//free (tmp);
 }
 
 int	ft_cd(t_gdata *data, char **cmd)
 {
+	if (data->env->home)
+		free(data->env->home);
+	if (data->env->pwd)
+		free(data->env->pwd);
 	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
 	data->env->pwd = ft_dup_var(&data->env->env_lst, "PWD");
 	if (ft_strlen(cmd[1]) > 255)

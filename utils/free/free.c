@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/08 12:59:18 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:58:10 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ void	free_gdata(t_gdata *gdata, int t)
 	safe_free(gdata->env->old_pwd);
 	safe_free(gdata->env->home);
 	//free(gdata->env->env_lst);
-	free(gdata->env->home);
+	//free(gdata->env->home);
 	free(gdata->prompt);
 	//safe_free(gdata->env);
-	//free(gdata->env);
+	free(gdata->env);
 	if (t > 0)
 	{
 		free_t_cmds(gdata->cmds_lst);
