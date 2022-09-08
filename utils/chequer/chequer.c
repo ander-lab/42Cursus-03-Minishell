@@ -94,6 +94,6 @@ int	needs_split(char *word)
 			is_in_space = 0;
 		i++;
 	}
-	//free(word);
+	free(word);
 	return (need_it);
 }

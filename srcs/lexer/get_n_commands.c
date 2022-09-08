@@ -32,15 +32,10 @@ int	get_n_commands(char *s)
 		if (token != -1 && quotes == 0 && is_cmd_between_tokens(s, i))
 		{
 			if (is_cmd_hide(s, ++i, token))
-			{
-				printf("HIDEE%d\n", nc);
 				nc++;
-			}
 			nc++;
 		}
 	}
-//	printf("nc %d\n", nc);
-//	printf("starts %d\n", starts_with_token(s));
 	if (starts_with_token(s))
 		nc--;
 	return (nc);
