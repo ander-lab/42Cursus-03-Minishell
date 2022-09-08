@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 13:07:08 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:20:40 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	go_path(t_gdata *data, char **cmd)
 	chdir(cmd[1]);
 	tmp = safe_getcwd(data->env->pwd);
 	free(data->env->pwd);
-	data->env->pwd = ft_strdup(tmp);
+	data->env->pwd = tmp;
 	free (tmp);
 }
 
