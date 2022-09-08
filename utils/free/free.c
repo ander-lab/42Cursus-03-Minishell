@@ -6,11 +6,17 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 12:43:29 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/06 11:37:29 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:03:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void safe_free(void *content)
+{
+	if (content)
+		free(content);
+}
 
 void	free_t_lst(t_list *lst)
 {
@@ -67,14 +73,15 @@ void	free_gdata(t_gdata *gdata, int t)
 	ft_free_matrix(gdata->env->envp);
 	free_t_lst(gdata->env->env_lst);
 	free(gdata->prompt);
-	free(gdata->env);
+	//safe_free(gdata->env);
+	//free(gdata->env);
 	if (t > 0)
 	{
 		free_t_cmds(gdata->cmds_lst);
 		ft_free_matrix(gdata->cmds);
 		free_t_dlst(gdata->glob_lst);
 		free(gdata->heredoc);
-		while (x < gdata->n_pipes)
+		while (x < gdata->prev_n_pipes - 1)
 		{
 			free(gdata->fd[x]);
 			x++;

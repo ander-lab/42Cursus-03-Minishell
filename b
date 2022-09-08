@@ -1,0 +1,10 @@
+Makefile
+README.md
+a
+b
+hola
+includes
+minishell
+minishell.a
+srcs
+utils

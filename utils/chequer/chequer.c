@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/06 11:39:24 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:48:55 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ int	is_cmd_hide(char *s, int idx, int token)
 {
 	int		i;
 	char	*word;
+	int	out;
 
 	if (token <= 0 || token >= 5)
 		return (0);
 	i = get_cmd_length_until_token(s, idx);
 	word = cpy_cmd(s, i, idx);
-	return (needs_split(word));
+	out = needs_split(word);
+	free(word);
+	return (out);
 }
 
 int	get_cmd_length_until_token(char *s, int idx)
@@ -77,6 +80,7 @@ int	needs_split(char *word)
 	need_it = 0;
 	is_in_space = 0;
 	quotes = 0;
+	word = ft_strtrim(word, " ");
 	while (word[i] && need_it == 0)
 	{
 		quotes = quote_type(quotes, word, i);
@@ -88,5 +92,6 @@ int	needs_split(char *word)
 			is_in_space = 0;
 		i++;
 	}
+	free(word);
 	return (need_it);
 }

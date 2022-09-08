@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/31 14:11:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:31:53 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	init_tokens(char *s, t_gdata *gdata, int i)
 	int				*clean_tkns;
 
 	token_data = ft_calloc(sizeof(t_token_data), 1);
-	raw_tokens = ft_calloc(sizeof(int), ft_strlen(s) + 1);
+	raw_tokens = ft_calloc(sizeof(int), ft_strlen(s) + 10);
 	token_lst = NULL;
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, \

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/06 11:39:59 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:35:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(inp);
 		lexer(inp, &gdata, i);
 		i++;
+		free(inp);
 	}
-	printf("LLEGO\n");
 	free_gdata(&gdata, 0);
 	return (0);
 }

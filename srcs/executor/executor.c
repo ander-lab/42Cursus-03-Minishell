@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:48:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 10:16:27 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:10:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	executor(t_gdata *gdata, int i)
 	cmds = gdata->cmds_lst;
 	cmds_iteration(cmds, gdata);
 	lst = gdata->glob_lst;
+	if (gdata->n_pipes > 0)
+		gdata->prev_n_pipes = gdata->n_pipes;
 	gdata->n_pipes = get_n_pipes(lst);
 	do_heredoc(lst, gdata);
 	handle_infile(lst, gdata);

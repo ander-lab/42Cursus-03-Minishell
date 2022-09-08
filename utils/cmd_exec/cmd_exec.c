@@ -62,6 +62,7 @@ static char	**handle_more(char **envp)
 	if (!path)
 		return (0);
 	all_paths = ft_split(path, ':');
+	free(path);
 	return (all_paths);
 }
 
@@ -79,6 +80,7 @@ int	handle_path(char *cmd, char **envp)
 	int		i;
 	char	**all_paths;
 	char	**mycmdargs;
+	char	*tmp;
 	char	*cmd_one;
 
 	cmd = handle_path_chequer(cmd);
@@ -86,17 +88,29 @@ int	handle_path(char *cmd, char **envp)
 	mycmdargs = smart_split(cmd, ' ');
 	i = -1;
 	while (mycmdargs[++i])
-		mycmdargs[i] = ft_strtrim(mycmdargs[i], " ");
+	{
+		tmp = ft_strtrim(mycmdargs[i], " ");
+		free(mycmdargs[i]);
+		mycmdargs[i] = tmp;
+		//mycmdargs[i] = ft_strtrim(mycmdargs[i], " ");
+	}
 	if (check_access(cmd, mycmdargs, envp, 0))
+	{
+		ft_free_matrix(mycmdargs);
 		exit(EXIT_SUCCESS);
+	}
 	i = -1;
 	while (all_paths[++i])
 	{
 		cmd_one = ft_strjoin(all_paths[i], mycmdargs[0]);
 		if (check_access(cmd_one, mycmdargs, envp, 1))
+		{
+			ft_free_matrix(mycmdargs);
 			exit(EXIT_SUCCESS);
+		}
 		free(cmd_one);
 	}
+	ft_free_matrix(mycmdargs);
 	perror("");
 	exit(127);
 }

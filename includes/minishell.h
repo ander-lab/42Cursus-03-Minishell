@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/06 11:32:47 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:28:14 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		ft_add_var(t_list **lst, char *key, char *value);
 /*
  *	srcs/builtins/ft_exit.c
  */
-int			ft_exit(char **cmd, t_gdata *gdata);
+int			ft_exit(char **cmd, t_gdata *gdata, int *pids);
 
 /*
  *	srcs/builtins/ft_cd.c

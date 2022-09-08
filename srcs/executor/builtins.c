@@ -6,29 +6,32 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/05 11:33:11 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:26:50 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static int	free_exit(char *cmd, t_gdata *gdata, int *pids, char *builtin)
+{
+	free(builtin);
+	ft_exit(ft_split(cmd, ' '), gdata, pids);
+	return (1);
+}
+
 void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
 {
 	char	*builtin;
 	char	*cmd;
+	int		aux_free;
 
+	aux_free = 0;
 	cmd = (char *)cmds->content;
 	builtin = cpy_until_space(cmd);
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
 		ft_echo(ft_split(cmd, ' '), gdata, cmds->red);
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
 		ft_env(ft_split(cmd, ' '), gdata, cmds->red);
-	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
-	{
-		free(pids);
-		free(builtin);
-		ft_exit(ft_split(cmd, ' '), gdata);
-	}
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
 		ft_pwd(gdata, cmds->red);
 	else if (!ft_strncmp("export", builtin, ft_strlen("export")))
@@ -37,8 +40,11 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
 		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
 		ft_cd(gdata, ft_split(cmd, ' '));
+	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
+		aux_free = free_exit(cmd, gdata, pids, builtin);
 	lst_to_envmtrx(gdata->env->env_lst, gdata);
-	free(builtin);
+	if (aux_free == 0)
+		free(builtin);
 }
 
 static	int	cmp_builtin(char *builtin, char *s)

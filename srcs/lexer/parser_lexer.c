@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/06 11:35:05 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:37:12 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,18 @@ void	custom_split_word(char *word, t_gdata *g_data)
 	int		l;
 	char	*file_name;
 	char	*cmd;
+	char	*trim;
 
 	l = 0;
-	word = ft_strtrim(word, " ");
-	l = filename_length(word);
-	file_name = cpy_cmd(word, l, 0);
-	cmd = cpy_cmd2(word, l, length_from_idx(word, l));
+	trim = ft_strtrim(word, " ");
+	l = filename_length(trim);
+	file_name = cpy_cmd(trim, l, 0);
+	cmd = cpy_cmd2(trim, l, length_from_idx(trim, l));
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(file_name, " ");
 	g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(cmd, " ");
+	free(trim);
+	free(file_name);
+	free(cmd);
 }
 
 static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
@@ -55,6 +59,7 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 	g_data->handle_next = 0;
 	if (is_file_token(g_data->last_token))
 		g_data->handle_next = 1;
+	free(word);
 }
 
 //TODO -> normi dividir handle input en otro archivo

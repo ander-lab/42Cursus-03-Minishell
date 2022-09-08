@@ -71,6 +71,7 @@ int	get_ind(t_dlist *lst)
 			lst = lst->next;
 			file = ft_strtrim((((t_token_data *)lst->content)->str), " ");
 			ind = handle_file_no_create(file);
+			free(file);
 		}
 		lst = lst->next;
 		if (lst)
@@ -97,6 +98,7 @@ int	get_red(t_dlist *lst)
 				red = handle_file_create(file, 0);
 			if (tkn == 4)
 				red = handle_file_create(file, 1);
+			free(file);
 		}
 		lst = lst->next;
 		if (lst)
