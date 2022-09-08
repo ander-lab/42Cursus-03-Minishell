@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:45:51 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/21 18:57:09 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 13:05:11 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char	*ft_dup_var(t_list **lst, char *key)
 		}
 		aux_iter = aux_iter->next;
 	}
+	free(aux_iter);
 	return (0);
 }
