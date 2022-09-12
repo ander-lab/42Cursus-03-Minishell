@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:21:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/12 16:53:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:13:03 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds, int i)
 
 	init_gdata_handle(gdata, i);
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
-	if (gdata->n_pipes == 0)
+	/*if (gdata->n_pipes == 0)
 	{
 		if (check_builtin(gdata, cmds, pids))
 			return ;
-	}
+	}*/
 	while (gdata->r < gdata->n_pipes + 1)
 	{
 		child_signal_handler(pids[gdata->r]);
-		pids[gdata->r] = fork();
-		if (pids[gdata->r] == -1)
-			exit_error_fork();
-		if (pids[gdata->r] == 0)
+		built = check_builtin(gdata, cmds, pids);
+		if (!built)
 		{
-			built = check_builtin(gdata, cmds, pids);
-			if (!built)
+			pids[gdata->r] = fork();
+			if (pids[gdata->r] == -1)
+				exit_error_fork();
+			if (pids[gdata->r] == 0)
 			{
 				do_child(cmds, gdata->r, gdata);
 				handle_here_exec(cmds, gdata, gdata->r);
