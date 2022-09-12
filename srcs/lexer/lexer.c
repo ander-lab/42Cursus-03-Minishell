@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:58:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/08 12:39:24 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 16:29:12 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	init_gdata2(char *s, t_gdata *gdata)
 	gdata->fd_pipe = -1;
 	gdata->n_pipes = 0;
 	gdata->prev_n_pipes = 0;
+	gdata->r = 0;
 }
 
 void	lexer(char *s, t_gdata *gdata, int i)
