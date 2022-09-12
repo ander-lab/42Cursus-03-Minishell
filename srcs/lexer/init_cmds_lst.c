@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:42:25 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 11:30:59 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:08:30 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_cmds	*fill_cmds(char *cmd, int ind, int red, int here)
 }
 
 //TODO -> NORMINETTE VAR
-void ft_printdlst(t_dlist *token_lst)
+/*void	ft_printdlst(t_dlist *token_lst)
 {
 	while (token_lst)
 	{
@@ -37,7 +37,7 @@ void ft_printdlst(t_dlist *token_lst)
 			((t_token_data *)token_lst->content)->str);
 		token_lst = token_lst->next;
 	}
-}
+}*/
 
 void	init_cmds_lst(t_gdata *gdata)
 {

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 20:21:40 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/06 15:09:11 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:57:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_gdata_handle(t_gdata *gdata, int i)
 {
-	int 	x;
+	int	x;
 
 	x = 0;
 	if (i > 0)

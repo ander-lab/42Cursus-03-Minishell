@@ -6,50 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:48:03 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/08 10:38:42 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:15:48 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*get_cmd(t_dlist *lst)
-{
-	char	*cmd;
-	int		tkn;
-	int		next;
-	int		prev;
-	int	i;
-
-	cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-	//printf("\nget_cmd0->>>>>>>>>> %s\n", cmd);
-	tkn = (((t_token_data *)lst->content)->token);
-	i = 0;
-	while (lst && tkn != 0)
-	{
-		prev = get_prev_type(lst);
-		next = get_next_type(lst);
-		if ((prev < 1 || prev > 4) && (next < 1 || next > 4) && tkn > 4)
-		{
-			if (i == 0)
-				free(cmd);
-			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-			i = 1;
-		}
-		else if ((prev < 1 || prev > 4) && (next > 1 || next < 4) && (tkn > 4))
-		{
-			if (i == 0)
-				free(cmd);
-			cmd = ft_strtrim((((t_token_data *)lst->content)->str), " ");
-		}
-		i = 0;
-//		printf("\nget_cmd1->>>>>>>>>> %s\n", cmd);
-//		printf("\nget_cmd2char->>>>>>>>>> %d\n", cmd[0]);
-		lst = lst->next;
-		if (lst)
-			tkn = (((t_token_data *)lst->content)->token);
-	}
-	return (cmd);
-}
 
 t_dlist	*iter_to_pipe(t_dlist *lst)
 {

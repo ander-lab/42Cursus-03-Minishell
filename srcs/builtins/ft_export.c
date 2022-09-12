@@ -67,6 +67,7 @@ int	ft_export(t_list **env, char **cmd)
 {
 	char	**var;
 
+	var = NULL;
 	if (cmd[1])
 	{
 		var = split_once(cmd[1]);
@@ -82,7 +83,8 @@ int	ft_export(t_list **env, char **cmd)
 	}
 	else if (!check_var_replace(env, var[0], var[1]))
 		ft_add_var(env, var[0], var[1]);
-	ft_free_matrix(var);
+	if (var)
+		ft_free_matrix(var);
 	ft_free_matrix(cmd);
 	return (0);
 }

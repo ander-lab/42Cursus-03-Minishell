@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:48:53 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/08 11:48:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:53:16 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_cmd_hide(char *s, int idx, int token)
 {
 	int		i;
 	char	*word;
-	int	out;
+	int		out;
 
 	if (token <= 0 || token >= 5)
 		return (0);

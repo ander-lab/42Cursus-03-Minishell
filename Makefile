@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 15:18:00 by ajimenez          #+#    #+#              #
-#    Updated: 2022/09/08 12:55:19 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/09/12 14:15:10 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBP	= minishell.a
 # **************************************************************************** #
 
 CC		= gcc 
-CFLAGS	= #-Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror
 SAN		= -fsanitize=address -g3
 LIB 	= ar -rcs
 RM		= /bin/rm -rf
@@ -57,7 +57,7 @@ SRCS	= 	srcs/minishell.c srcs/prompt/prompt.c srcs/lexer/lexer.c srcs/lexer/pars
 			./utils/builtins/lst_to_envmtrx.c ./utils/builtins/safe_getcwd.c \
 			./utils/expansion/get_env_val.c ./srcs/executor/expansion.c ./utils/expansion/quotes.c \
 			./srcs/lexer/get_n_commands.c srcs/lexer/init_cmds_lst.c utils/cmd_exec/smart_split.c \
-			./utils/free/free.c
+			./utils/free/free.c ./srcs/lexer/get_cmd.c
 
 # **************************************************************************** #
 # 								    RULES                                      #

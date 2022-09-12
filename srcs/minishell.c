@@ -23,6 +23,15 @@ void	handle_sigint(int n)
 	}
 }
 
+static void	init_gdata(t_gdata *gdata)
+{
+	gdata->cmds_lst = NULL;
+	gdata->cmds = NULL;
+	gdata->glob_lst = NULL;
+	gdata->fd = NULL;
+	gdata->heredoc = NULL;
+}
+
 void	leaks(void)
 {
 	system("leaks -q minishell");
@@ -39,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_prompt(&gdata, environ);
 	init_env(&gdata, envp);
+	init_gdata(&gdata);
 	g_glob.proc = 0;
 	i = 0;
 	while (42)

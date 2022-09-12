@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static void	init_gdata(char *s, t_gdata *gdata)
+static void	init_gdata2(char *s, t_gdata *gdata)
 {
 	gdata->n_commands = get_n_commands(s);
 	gdata->aux_n_commands = gdata->n_commands;
@@ -28,7 +28,7 @@ static void	init_gdata(char *s, t_gdata *gdata)
 
 void	lexer(char *s, t_gdata *gdata, int i)
 {
-	init_gdata(s, gdata);
+	init_gdata2(s, gdata);
 	s = ft_strtrim(s, " ");
 	if (ft_strlen(s) == 0 || exists_error(s, gdata))
 	{
