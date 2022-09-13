@@ -42,25 +42,26 @@ void	handle_cmd(t_gdata *gdata, t_cmds *cmds, int i)
 
 	init_gdata_handle(gdata, i);
 	pids = ft_calloc(sizeof(int), gdata->n_pipes + 1);
-	/*if (gdata->n_pipes == 0)
+	if (gdata->n_pipes == 0 && check_builtin(gdata, cmds, pids))
 	{
-		if (check_builtin(gdata, cmds, pids))
-			return ;
-	}*/
+		free(pids);
+		return ;
+	}
 	while (gdata->r < gdata->n_pipes + 1)
 	{
 		child_signal_handler(pids[gdata->r]);
-		built = check_builtin(gdata, cmds, pids);
-		if (!built)
+		pids[gdata->r] = fork();
+		if (pids[gdata->r] == -1)
+			exit_error_fork();
+		if (pids[gdata->r] == 0)
 		{
-			pids[gdata->r] = fork();
-			if (pids[gdata->r] == -1)
-				exit_error_fork();
-			if (pids[gdata->r] == 0)
+			built = check_builtin(gdata, cmds, pids);
+			if (!built)
 			{
 				do_child(cmds, gdata->r, gdata);
 				handle_here_exec(cmds, gdata, gdata->r);
 			}
+			exit(1);
 		}
 		gdata->r++;
 		cmds = cmds->next;

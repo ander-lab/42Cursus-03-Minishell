@@ -1,6 +1,6 @@
 CC	= gcc -g
 
-CFLAGS	= -Wall -Wextra -Werror# -g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRCS =	./srcs/lexer/lexer.c ./srcs/prompt/prompt.c ./srcs/minishell.c ./includes/libft/ft_strlen.c \
 	./includes/libft/ft_split.c ./includes/libft/get_next_line.c ./includes/libft/ft_calloc.c \
@@ -33,7 +33,8 @@ SRCS =	./srcs/lexer/lexer.c ./srcs/prompt/prompt.c ./srcs/minishell.c ./includes
 	./srcs/executor/expansion.c ./utils/forks/handle_cmd.c ./utils/free/free.c srcs/lexer/init_cmds_lst.c \
 	./utils/cmd_exec/smart_split.c ./utils/builtins/lst_to_envmtrx.c ./srcs/builtins/utils.c \
 	./utils/builtins/envp_to_lst.c ./utils/builtins/ft_strjoin_token.c ./utils/expansion/get_env_val.c \
-	./utils/builtins/safe_getcwd.c ./utils/builtins/ft_dup_var.c srcs/lexer/get_n_commands.c
+	./utils/builtins/safe_getcwd.c ./utils/builtins/ft_dup_var.c srcs/lexer/get_n_commands.c \
+	./srcs/lexer/get_cmd.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -21,4 +21,5 @@ void	ft_free_matrix(char **matrix)
 		return ;
 	while (matrix[++aux])
 		free(matrix[aux]);
+	free(matrix);
 }

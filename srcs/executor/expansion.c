@@ -92,10 +92,17 @@ char	*handle_expansion(t_cmds *cmds, char **envp)
 {
 	char	*cmd;
 	char	*val;
+	char	*search;
+	char	*out;
 
 	cmd = (char *)cmds->content;
-	val = get_env_val(get_env_search(cmd), envp);
+	search = get_env_search(cmd);
+	val = get_env_val(search, envp);
+	free(search);
 	if (!val)
 		return (0);
-	return (expansion_output(cmd, val));
+	out = expansion_output(cmd, val);
+	free(cmd);
+	free(val);
+	return (out);
 }
