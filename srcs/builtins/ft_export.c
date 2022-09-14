@@ -78,9 +78,7 @@ int	ft_export(t_list **env, char **cmd)
 		}
 	}
 	if (!cmd[1])
-	{
 		ft_putchar_fd('\n', 1);
-	}
 	else if (!check_var_replace(env, var[0], var[1]))
 		ft_add_var(env, var[0], var[1]);
 	if (var)
