@@ -84,7 +84,7 @@ void	free_gdata(t_gdata *gdata, int t)
 			ft_free_matrix(gdata->cmds);
 		free_t_dlst(gdata->glob_lst);
 		safe_free(gdata->heredoc);
-		while (x < gdata->n_pipes - 1)
+		while (x < gdata->n_pipes)
 		{
 			free(gdata->fd[x]);
 			x++;

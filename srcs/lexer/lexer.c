@@ -22,7 +22,6 @@ static void	init_gdata2(char *s, t_gdata *gdata)
 	gdata->inf_err = 0;
 	gdata->err = 0;
 	gdata->fd_pipe = -1;
-	gdata->n_pipes = 0;
 	gdata->prev_n_pipes = 0;
 	gdata->r = 0;
 }

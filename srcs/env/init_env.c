@@ -53,7 +53,7 @@ void	init_env(t_gdata *data, char **envp)
 	if (!*envp)
 		data->env->envp = build_env();
 	else
-		data->env->envp = envp;//ft_matrix_dup(envp, ft_matrixlen(envp));
+		data->env->envp = ft_matrix_dup(envp, ft_matrixlen(envp));
 	envp_to_lst(data->env->envp, &data->env->env_lst);
 	increase_shlvl(&data->env->env_lst, data->env->shlvl);
 	lst_to_envmtrx(data->env->env_lst, data);

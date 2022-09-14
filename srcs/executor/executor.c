@@ -74,19 +74,14 @@ void	check_expansion(t_cmds *cmds)
 void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)
 {
 	char	*cmd;
-	char	*tmp;
 
 	while (cmds)
 	{
 		cmd = (char *)cmds->content;
 		check_expansion(cmds);
 		cmds->content = remove_quotes(cmd);
-		tmp = cmds->content;
 		if (cmds->exp)
-		{
 			cmds->content = handle_expansion(cmds, gdata->env->envp);
-			free(tmp);
-		}
 		cmds = cmds->next;
 	}
 }

@@ -30,6 +30,7 @@ static void	init_gdata(t_gdata *gdata)
 	gdata->glob_lst = NULL;
 	gdata->fd = NULL;
 	gdata->heredoc = NULL;
+	gdata->n_pipes = 0;
 }
 
 void	leaks(void)

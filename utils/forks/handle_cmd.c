@@ -19,7 +19,7 @@ static void	init_gdata_handle(t_gdata *gdata, int i)
 	x = 0;
 	if (i > 0)
 	{
-		while (x < gdata->prev_n_pipes - 1)
+		while (x < gdata->prev_n_pipes)
 		{
 			free(gdata->fd[x]);
 			x++;

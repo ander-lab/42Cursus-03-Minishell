@@ -35,14 +35,19 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
 		ft_pwd(gdata, cmds->red);
 	else if (!ft_strncmp("export", builtin, ft_strlen("export")))
+	{
 		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
+		lst_to_envmtrx(gdata->env->env_lst, gdata);
+	}
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
+	{
 		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
+		lst_to_envmtrx(gdata->env->env_lst, gdata);
+	}
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
 		ft_cd(gdata, ft_split(cmd, ' '));
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
 		aux_free = free_exit(cmd, gdata, pids, builtin);
-	lst_to_envmtrx(gdata->env->env_lst, gdata);
 	if (aux_free == 0)
 		free(builtin);
 }

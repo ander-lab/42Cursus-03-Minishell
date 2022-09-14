@@ -74,6 +74,5 @@ int	ft_echo(char **cmd, t_gdata *gdata, int red)
 	else
 		ft_print_no_nl(cmd, red, gdata);
 	ft_free_matrix(cmd);
-	ft_free_matrix(gdata->env->envp); //new
 	return (EXIT_SUCCESS);
 }

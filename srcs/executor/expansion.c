@@ -100,7 +100,10 @@ char	*handle_expansion(t_cmds *cmds, char **envp)
 	val = get_env_val(search, envp);
 	free(search);
 	if (!val)
+	{
+		free(cmd);
 		return (0);
+	}
 	out = expansion_output(cmd, val);
 	free(cmd);
 	free(val);

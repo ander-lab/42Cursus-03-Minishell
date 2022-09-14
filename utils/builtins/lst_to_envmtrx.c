@@ -17,7 +17,7 @@ void	lst_to_envmtrx(t_list *lst_env, t_gdata *gdata)
 	int	i;
 
 	i = 0;
-	//ft_free_matrix(gdata->env->envp);
+	ft_free_matrix(gdata->env->envp);
 	gdata->env->envp = malloc((ft_lstsize(lst_env) + 1) * (sizeof(char *)));
 	while (lst_env)
 	{
