@@ -74,7 +74,8 @@ static void	handle_path2(char **all_paths, char **mycmdargs, char **envp)
 	i = -1;
 	if (!all_paths)
 	{
-		perror("");
+		//perror("1");
+		printf("command not found\n");
 		exit(127);
 	}
 	while (all_paths[++i])
@@ -88,7 +89,8 @@ static void	handle_path2(char **all_paths, char **mycmdargs, char **envp)
 		free(cmd_one);
 	}
 	ft_free_matrix(mycmdargs);
-	perror("");
+	//perror("2");
+	printf("command not found\n");
 }
 
 int	handle_path(char *cmd, char **envp)

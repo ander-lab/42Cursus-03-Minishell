@@ -100,6 +100,7 @@ void	close_fds(t_gdata *gdata, int *pids)
 		waitpid(pids[s], &status, 0);
 		s++;
 	}
+	//aqui perror
 	waitpid(pids[s], &status, 0);
 	if (WIFEXITED(status))
 		g_glob.proc = WEXITSTATUS(status);

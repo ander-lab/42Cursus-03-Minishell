@@ -57,7 +57,10 @@ static int	quote_copy(char c)
 	else if (qt == fq)
 		fq = 0;
 	if ((fq != qt || qt == 0) && lq == 0)
+	{
+		printf("COPIO\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -66,6 +69,7 @@ char	*remove_quotes(char *cmd)
 	int		i;
 	int		x;
 	char	*new;
+	int	qt;
 
 	i = 0;
 	x = -1;
@@ -76,6 +80,7 @@ char	*remove_quotes(char *cmd)
 		return (0);
 	while (cmd[i])
 	{
+		qt = is_quote(c);
 		if (quote_copy(cmd[i]))
 			new[++x] = cmd[i];
 		i++;
