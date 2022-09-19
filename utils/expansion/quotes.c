@@ -41,50 +41,44 @@ int	strquotes_len(char *cmd)
 	return (l);
 }
 
-static int	quote_copy(char c)
+static char	*quote_copy(char *str, char *new)
 {
 	int	qt;
 	int	fq;
 	int	lq;
+	int	i;
+	int	x;
 
 	fq = 0;
 	lq = 0;
-	qt = is_quote(c);
-	if (qt > 0 && fq == 0)
-		fq = qt;
-	else if (qt == fq && fq != 0)
-		lq = 1;
-	else if (qt == fq)
-		fq = 0;
-	if ((fq != qt || qt == 0) && lq == 0)
+	i = -1;
+	x = -1;
+	while (str[++i])
 	{
-		printf("COPIO\n");
-		return (1);
+		qt = is_quote(str[i]);
+		if (qt > 0 && fq == 0)
+			fq = qt;
+		else if (qt == fq && fq != 0)
+			lq = 1;
+		else if (qt == fq)
+			fq = 0;
+		if ((fq != qt || qt == 0) && lq == 0)
+			new[++x] = str[i];
 	}
-	return (0);
+	return (new);
 }
+
 
 char	*remove_quotes(char *cmd)
 {
-	int		i;
-	int		x;
 	char	*new;
-	int	qt;
-
-	i = 0;
-	x = -1;
+	
 	if (!cmd)
 		return (cmd);
 	new = ft_calloc(sizeof(char), ft_strlen(cmd) + 1);
 	if (!new)
 		return (0);
-	while (cmd[i])
-	{
-		qt = is_quote(c);
-		if (quote_copy(cmd[i]))
-			new[++x] = cmd[i];
-		i++;
-	}
+	new = quote_copy(cmd, new);
 	free(cmd);
 	return (new);
 }
