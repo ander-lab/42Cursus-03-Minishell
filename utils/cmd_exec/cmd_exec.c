@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:19:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/12 16:03:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:33:19 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	handle_path2(char **all_paths, char **mycmdargs, char **envp)
 	i = -1;
 	if (!all_paths)
 	{
-		//perror("1");
 		printf("command not found\n");
 		exit(127);
 	}
@@ -89,7 +88,6 @@ static void	handle_path2(char **all_paths, char **mycmdargs, char **envp)
 		free(cmd_one);
 	}
 	ft_free_matrix(mycmdargs);
-	//perror("2");
 	printf("command not found\n");
 }
 

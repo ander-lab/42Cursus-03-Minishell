@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:23:54 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/30 10:23:27 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:34:02 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,10 @@ static char	*quote_copy(char *str, char *new)
 	return (new);
 }
 
-
 char	*remove_quotes(char *cmd)
 {
 	char	*new;
-	
+
 	if (!cmd)
 		return (cmd);
 	new = ft_calloc(sizeof(char), ft_strlen(cmd) + 1);

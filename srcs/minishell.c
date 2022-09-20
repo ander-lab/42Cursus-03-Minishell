@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:33:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/12 16:57:13 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:02:31 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,24 @@ void	handle_sigint(int n)
 	}
 }
 
-static void	init_gdata(t_gdata *gdata)
+void	signal_handler(void)
 {
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_sigint);
+}
+
+static void	init_data(t_gdata *gdata, char **envp, int argc, char **argv)
+{
+	(void)argc;
+	(void)argv;
+	g_glob.proc = 0;
+	init_env(gdata, envp);
 	gdata->cmds_lst = NULL;
 	gdata->cmds = NULL;
 	gdata->glob_lst = NULL;
 	gdata->fd = NULL;
 	gdata->heredoc = NULL;
 	gdata->n_pipes = 0;
-}
-
-void	leaks(void)
-{
-	system("leaks -q minishell");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -45,17 +50,12 @@ int	main(int argc, char **argv, char **envp)
 	t_gdata		gdata;
 	int			i;
 
-	(void)argc;
-	(void)argv;
 	init_prompt(&gdata, environ);
-	init_env(&gdata, envp);
-	init_gdata(&gdata);
-	g_glob.proc = 0;
+	init_data(&gdata, envp, argc, argv);
 	i = 0;
 	while (42)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, handle_sigint);
+		signal_handler();
 		inp = readline(gdata.prompt);
 		if (!inp)
 		{

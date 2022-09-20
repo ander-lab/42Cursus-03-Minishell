@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:48:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/12 16:25:08 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:08:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,6 @@ void	check_expansion(t_cmds *cmds)
 			cmds->exp = 0;
 		x++;
 	}
-}
-
-int	ft_strstr(char *str1, char *str2)
-{
-	int	i;
-	int	x;
-
-	i = -1;
-	x = -1;
-	while (str1[++i])
-	{
-		while (str1[i] == str2[++x])
-		{
-			if (!str2[x])
-				return (1);
-			i++;
-		}
-		if (!str2[x])
-			return (1);
-		x = -1;
-	}
-	return (0);
 }
 
 void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)

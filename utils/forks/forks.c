@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:48:42 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/12 17:13:06 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:34:18 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	close_fds(t_gdata *gdata, int *pids)
 		waitpid(pids[s], &status, 0);
 		s++;
 	}
-	//aqui perror
 	waitpid(pids[s], &status, 0);
 	if (WIFEXITED(status))
 		g_glob.proc = WEXITSTATUS(status);

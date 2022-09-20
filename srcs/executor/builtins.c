@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/12 16:34:37 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:32:39 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@ static int	free_exit(char *cmd, t_gdata *gdata, int *pids, char *builtin)
 	free(builtin);
 	ft_exit(ft_split(cmd, ' '), gdata, pids);
 	return (1);
+}
+
+static void	call_builtin(char *cmd, t_gdata *gdata, int t)
+{
+	if (t)
+	{
+		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
+		lst_to_envmtrx(gdata->env->env_lst, gdata);
+	}
+	else
+	{
+		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
+		lst_to_envmtrx(gdata->env->env_lst, gdata);
+	}
 }
 
 void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
@@ -35,15 +49,9 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
 		ft_pwd(gdata, cmds->red);
 	else if (!ft_strncmp("export", builtin, ft_strlen("export")))
-	{
-		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
-		lst_to_envmtrx(gdata->env->env_lst, gdata);
-	}
+		call_builtin(cmd, gdata, 1);
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
-	{
-		ft_unset(&gdata->env->env_lst, ft_split(cmd, ' '));
-		lst_to_envmtrx(gdata->env->env_lst, gdata);
-	}
+		call_builtin(cmd, gdata, 0);
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
 		ft_cd(gdata, ft_split(cmd, ' '));
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
