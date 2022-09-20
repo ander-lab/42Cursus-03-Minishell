@@ -6,11 +6,11 @@
 #    By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/01 17:15:58 by ajimenez          #+#    #+#              #
-#    Updated: 2021/12/12 20:42:22 by ajimenez         ###   ########.fr        #
+#    Updated: 2022/09/20 12:31:50 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address
 LIB1	= ar -rcs
 LIB2	= ranlib
 RM		= /bin/rm -f
@@ -27,13 +27,19 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 			ft_putendl_fd.c ft_strmapi.c ft_striteri.c ft_itoa.c ft_split.c\
 			ft_putmatrix.c ft_free_matrix.c ft_isspace.c ft_iter_str_bool.c\
 			get_next_line.c ft_strcpy.c ft_iter_matrix_bool.c ft_matrixlen.c\
-			ft_matrix_data.c ft_max_int.c ft_min_int.c ft_countchars.c
+			ft_matrix_data.c ft_max_int.c ft_min_int.c ft_countchars.c \
+			ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
+			ft_dlstdelone.c ft_dlstlast.c ft_dlstnew.c ft_dlstsize.c \
+			ft_dlstnew_struct.c ft_split_quotes.c ft_strjoinnl.c ft_matrix_dup.c \
+			ft_strcmp.c ft_dlstadd_matrix.c ft_dlstnew_struct2.c ft_strjoin_space.c \
+			ft_lstnew_struct.c ft_lstnew_struct2.c ft_strstr.c
 
 OBJS	= $(SRCS:.c=.o)
 
 BONUS_S = 	ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c\
 			ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c\
-			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
+			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
+			ft_dlstnew2.c ft_dlstadd_back2.c ft_dlstlast2.c
 
 BONUS_O = $(BONUS_S:.c=.o)
 

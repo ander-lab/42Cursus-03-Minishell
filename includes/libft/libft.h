@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/12/13 11:43:16 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:15:28 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 */
 # include <stdio.h>
 # include <stdlib.h>
-# include <sys/_types/_size_t.h>
-# include <sys/_types/_ssize_t.h>
+//# include <sys/_types/_size_t.h>
+//# include <sys/_types/_ssize_t.h>
 # include <unistd.h>
 
 typedef struct s_list
@@ -28,6 +28,23 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+typedef struct s_dlist
+{
+	void			*content;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}				t_dlist;
+
+typedef struct s_cmds_data
+{
+	void				*content;
+	int					ind;
+	int					red;
+	int					here;
+	int					exp;
+	struct s_cmds_data	*next;
+}	t_cmds;
+
 typedef struct s_matrix_data
 {
 	ssize_t		line_count;
@@ -35,6 +52,26 @@ typedef struct s_matrix_data
 	ssize_t		max;
 	ssize_t		min;
 }	t_matrix_data;
+
+/*
+**Dlst Library
+*/
+void			ft_dlstadd_back(t_dlist **dlst, t_dlist *new);
+void			ft_dlstadd_front(t_dlist **lst, t_dlist *new);
+void			ft_dlstclear(t_dlist **lst, void (*del)(void *));
+void			ft_dlstdelone(t_dlist *lst, void (*del)(void *));
+void			ft_matrix_to_dlst(t_dlist **dlst, char **matrix);
+t_dlist			*ft_dlstnew_struct(void *newcontent, size_t size);
+t_dlist			*ft_dlstlast(t_dlist *lst);
+t_dlist			*ft_dlstnew(void *content);
+int				ft_dlstsize(t_dlist *lst);
+void			ft_dlstadd_back2(t_cmds **dlst, t_cmds *new);
+t_cmds			*ft_dlstnew_struct2(void *newcontent, size_t size);
+t_dlist			*ft_dlstlast(t_dlist *lst);
+t_cmds			*ft_dlstlast2(t_cmds *lst);
+t_cmds			*ft_dlstnew2(t_cmds *cmds);
+int				ft_dlstsize(t_dlist *lst);
+
 /*
 **Is Library
 */
@@ -58,6 +95,7 @@ int				ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void			ft_strcpy(char *dst, const char *src);
+int				ft_strcmp(char *s1, char *s2);
 unsigned int	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
@@ -68,21 +106,26 @@ void			*ft_calloc(size_t num, size_t size);
 char			*ft_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin_space(char const *s1, char const *s2);
+char			*ft_strjoinnl(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			**ft_split(char const *s, char c);
-void			ft_free_matrix(char **matrix);
+char			**ft_split_quotes(char const *s, char c);
 int				ft_iter_str_bool(char *str, int (*f)(int));
 char			*get_next_line(int fd);
 ssize_t			ft_max_int(ssize_t *str, ssize_t len);
 ssize_t			ft_min_int(ssize_t *str, ssize_t len);
 size_t			count_chars(char c, char *str);
+int				ft_strstr(char *str1, char *str2);
 /*
 **Matrix Library
 */
+void			ft_free_matrix(char **matrix);
 int				ft_iter_matrix_bool(char **str, int (*f)(int));
 size_t			ft_matrixlen(char **matrix);
+char			**ft_matrix_dup(char **matrix, size_t lines);
 t_matrix_data	ft_matrix_data(char **matrix);
 
 /*
@@ -111,6 +154,9 @@ void			ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_back(t_list **lst, t_list *new);
+void			ft_lstadd_back2(t_cmds **lst, t_cmds *new);
+t_list			*ft_lstnew_struct(void *newcontent, size_t size);
+t_cmds			*ft_lstnew_struct_cmds(void *newcontent, size_t size);
 void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));

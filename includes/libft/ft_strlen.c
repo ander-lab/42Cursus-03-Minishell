@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:05:49 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/12/10 15:59:08 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/08/09 12:16:56 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	l;
 
 	l = 0;
+	if (!s)
+		return (0);
 	while (s[l] != '\0')
 		l++;
 	return (l);

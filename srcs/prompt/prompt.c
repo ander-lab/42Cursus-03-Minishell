@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 10:45:42 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/02/09 11:55:03 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:52:50 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,20 @@ char	*remove_new_line(char *str)
 	return (word);
 }
 
+char	*cmd_output(int fd)
+{
+	char	*out;
+
+	out = get_next_line(fd);
+	get_next_line(fd);
+	out = remove_new_line(out);
+	close(fd);
+	return (out);
+}
+
 char	*exec_command(char *cmd, char **envp)
 {
-	int	end[2];
+	int		end[2];
 	pid_t	p;
 	char	**sp;
 
@@ -55,44 +66,7 @@ char	*exec_command(char *cmd, char **envp)
 	}
 	close(end[1]);
 	waitpid(p, NULL, 0);
-	char *out = malloc(sizeof(char) * 4096);
-	out = get_next_line(end[0]);
-	out = remove_new_line(out);
-	close(end[0]);
-	return (out);
-}
-
-char	*add_at_sign(char *str)
-{
-	char	*word;
-	int		i;
-
-	word = ft_calloc(sizeof(char), (ft_strlen(str) + 2));
-	if (!word)
-		return (0);
-	ft_strcpy(word, str);
-	i = ft_strlen(str);
-	word[i] = '@';
-	word[i + 1] = '\0';
-	free(str);
-	return (word);
-}
-
-char *pretty_hostname(char *str)
-{
-	char	*word;
-	int		i;
-
-	word = ft_calloc(sizeof(char), (ft_strlen(str) + 4));
-	if (!word)
-		return (0);
-	ft_strcpy(word, str);
-	i = ft_strlen(str);
-	word[i] = ':';
-	word[i + 1] = ' ';
-	word[i + 2] = '\0';
-	free(str);
-	return (word);
+	return (cmd_output(end[0]));
 }
 
 void	init_prompt(t_gdata *g_data, char **envp)
@@ -100,10 +74,11 @@ void	init_prompt(t_gdata *g_data, char **envp)
 	char	*username;
 	char	*hostname;
 
-	g_data->envp = envp;
 	username = exec_command("/usr/bin/whoami", envp);
 	username = add_at_sign(username);
 	hostname = exec_command("/bin/hostname", envp);
 	hostname = pretty_hostname(hostname);
 	g_data->prompt = ft_strjoin(username, hostname);
+	free(username);
+	free(hostname);
 }
