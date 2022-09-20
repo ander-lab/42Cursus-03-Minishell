@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:57:09 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/31 17:43:28 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:43:53 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**build_env(void)
 	char	*path;
 
 	env = ft_calloc(sizeof(char *), 3);
-	path = safe_getcwd("not_found");
+	path = safe_getcwd("not_found", 0);
 	env[0] = ft_strjoin_token("PWD", path, '=');
 	env[1] = ft_strjoin_token("SHLVL", "0", '=');
 	env[2] = NULL;

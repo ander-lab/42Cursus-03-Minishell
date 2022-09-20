@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/20 14:18:01 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:50:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ static int	free_exit(char *cmd, t_gdata *gdata, int *pids, char *builtin)
 
 static void	call_builtin(char *cmd, t_gdata *gdata, int red, int t)
 {
-	if (t)
+	if (t == 1)
 	{
 		ft_export(red, ft_split(cmd, ' '), gdata);
+		lst_to_envmtrx(gdata->env->env_lst, gdata);
+	}
+	else if (t == 2)
+	{
+		ft_cd(gdata, ft_split(cmd, ' '));
 		lst_to_envmtrx(gdata->env->env_lst, gdata);
 	}
 	else
@@ -53,7 +58,7 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
 		call_builtin(cmd, gdata, cmds->red, 0);
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
-		ft_cd(gdata, ft_split(cmd, ' '));
+		call_builtin(cmd, gdata, cmds->red, 2);
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))
 		aux_free = free_exit(cmd, gdata, pids, builtin);
 	if (aux_free == 0)

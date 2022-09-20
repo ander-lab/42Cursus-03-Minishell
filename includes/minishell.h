@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/20 14:15:37 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:41:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char		*ft_dup_var(t_list **lst, char *key);
 /*
  *	utils/builtins/safe_getcwd.c
  */
-char		*safe_getcwd(char *current_cwd);
+char		*safe_getcwd(char *current_cwd, int *i);
 
 /*
  *	utils/builtins/lst_to_envmtrx.c
