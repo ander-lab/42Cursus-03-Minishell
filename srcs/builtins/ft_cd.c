@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/20 12:58:50 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:18:20 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	put_cd_error(char *arg, int code, char **cmd)
 	return (0);
 }
 
-//TODO -> funcion que imprima y retorne error
-
 void	go_home(t_gdata *data, char **cmd)
 {
 	char	*tmp;
@@ -56,7 +54,6 @@ void	go_home(t_gdata *data, char **cmd)
 	free(tmp);
 }
 
-//TODO-> diferenciar error de no existe a no acceder y comprobar codigos
 int	go_path(t_gdata *data, char **cmd)
 {
 	char	*tmp;
@@ -65,7 +62,6 @@ int	go_path(t_gdata *data, char **cmd)
 	dir = opendir(cmd[1]);
 	if (!dir)
 	{
-		printf("\n-----DEBUGGER------\n\n");
 		perror("minishell");
 		return (0);
 	}
@@ -78,7 +74,6 @@ int	go_path(t_gdata *data, char **cmd)
 	if (data->env->pwd)
 		free(data->env->pwd);
 	data->env->pwd = ft_strdup(tmp);
-	//free(tmp);
 	return (1);
 }
 
@@ -89,20 +84,9 @@ void	swap_vars(t_gdata *data)
 		ft_add_var(&data->env->env_lst, "OLDPWD", data->env->old_pwd);
 }
 
-static void	init_cd(t_gdata *gdata)
-{
-	if (gdata->env->home)
-		free(gdata->env->home);
-	if (gdata->env->pwd && *gdata->env->pwd)
-		free(gdata->env->pwd);
-	gdata->env->home = ft_dup_var(&gdata->env->env_lst, "HOME");
-	gdata->env->pwd = ft_dup_var(&gdata->env->env_lst, "PWD");
-}
-
 int	ft_cd(t_gdata *data, char **cmd)
 {
-	int i;
-	//char	*aux_pwd;
+	int	i;
 
 	init_cd(data);
 	if (ft_strlen(cmd[1]) > 255)
@@ -116,10 +100,6 @@ int	ft_cd(t_gdata *data, char **cmd)
 		i = go_path(data, cmd);
 	if (i == 1)
 		swap_vars(data);
-//	check_var_replace(&data->env->env_lst, "PWD", data->env->pwd);
-//	if (!check_var_replace(&data->env->env_lst, "OLDPWD", data->env->old_pwd))
-//		ft_add_var(&data->env->env_lst, "OLDPWD", data->env->old_pwd);
 	ft_free_matrix(cmd);
-	//free(aux_pwd);
 	return (EXIT_SUCCESS);
 }

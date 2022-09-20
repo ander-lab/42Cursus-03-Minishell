@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/20 13:04:52 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:15:37 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ int			ft_unset(t_list **env, char **cmd);
 /*
  *	srcs/builtins/ft_env.c
  */
-int			ft_env(char **args, t_gdata *gdata, int red);
-//int		ft_env(char **env, char **args);
+int			ft_env(char **args, t_gdata *data, int red, int exp);
 
 /*
  *	srcs/builtins/ft_export.c
  */
 //int			ft_export(t_list **env, char **cmd);
-int			ft_export(char **args, int red, char **cmd, t_gdata *data);
+int			ft_export(int red, char **cmd, t_gdata *data);
+//int			ft_export(char **args, int red, char **cmd, t_gdata *data);
 int			check_var_replace(t_list **lst, char *key, char *value);
 void		ft_add_var(t_list **lst, char *key, char *value);
 /*
@@ -106,6 +106,7 @@ int			ft_exit(char **cmd, t_gdata *gdata, int *pids);
  *	srcs/builtins/ft_cd.c
  */
 int			ft_cd(t_gdata *data, char **cmd);
+void		init_cd(t_gdata *gdata);
 
 /*
  *	srcs/builtins/utils.c

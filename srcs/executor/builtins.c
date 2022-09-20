@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:41:33 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/20 12:32:39 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:18:01 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	free_exit(char *cmd, t_gdata *gdata, int *pids, char *builtin)
 	return (1);
 }
 
-static void	call_builtin(char *cmd, t_gdata *gdata, int t)
+static void	call_builtin(char *cmd, t_gdata *gdata, int red, int t)
 {
 	if (t)
 	{
-		ft_export(&gdata->env->env_lst, ft_split(cmd, ' '));
+		ft_export(red, ft_split(cmd, ' '), gdata);
 		lst_to_envmtrx(gdata->env->env_lst, gdata);
 	}
 	else
@@ -45,13 +45,13 @@ void	execute_builtin(t_cmds *cmds, t_gdata *gdata, int *pids)
 	if (!ft_strncmp("echo", builtin, ft_strlen("echo")))
 		ft_echo(ft_split(cmd, ' '), gdata, cmds->red);
 	else if (!ft_strncmp("env", builtin, ft_strlen("env")))
-		ft_env(ft_split(cmd, ' '), gdata, cmds->red);
+		ft_env(ft_split(cmd, ' '), gdata, cmds->red, 1);
 	else if (!ft_strncmp("pwd", builtin, ft_strlen("pwd")))
 		ft_pwd(gdata, cmds->red);
 	else if (!ft_strncmp("export", builtin, ft_strlen("export")))
-		call_builtin(cmd, gdata, 1);
+		call_builtin(cmd, gdata, cmds->red, 1);
 	else if (!ft_strncmp("unset", builtin, ft_strlen("unset")))
-		call_builtin(cmd, gdata, 0);
+		call_builtin(cmd, gdata, cmds->red, 0);
 	else if (!ft_strncmp("cd", builtin, ft_strlen("cd")))
 		ft_cd(gdata, ft_split(cmd, ' '));
 	else if (!ft_strncmp("exit", builtin, ft_strlen("exit")))

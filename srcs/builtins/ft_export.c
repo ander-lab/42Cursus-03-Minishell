@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 14:41:24 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/20 13:04:32 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:41:25 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static	char	**split_once(char *s)
 	return (split);
 }
 
-int	ft_export(char **args, int red, char **cmd, t_gdata *data)
+int	ft_export(int red, char **cmd, t_gdata *data)
 {
 	char	**var;
 
@@ -78,7 +78,7 @@ int	ft_export(char **args, int red, char **cmd, t_gdata *data)
 		}
 	}
 	if (!cmd[1])
-		ft_putchar_fd('\n', 1);
+		ft_env(cmd, data, red, 0);
 	else if (!check_var_replace(&data->env->env_lst, var[0], var[1]))
 		ft_add_var(&data->env->env_lst, var[0], var[1]);
 	if (var)
