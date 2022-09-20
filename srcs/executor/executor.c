@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 12:48:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/06 15:10:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:08:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	cmds_iteration(t_cmds *cmds, t_gdata *gdata)
 	{
 		cmd = (char *)cmds->content;
 		check_expansion(cmds);
-		cmds->content = remove_quotes(cmd);
+		if (ft_strstr(cmd, "echo"))
+			cmds->content = remove_quotes(cmd);
 		if (cmds->exp)
 			cmds->content = handle_expansion(cmds, gdata->env->envp);
 		cmds = cmds->next;

@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/24 00:41:46 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:15:28 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char			*get_next_line(int fd);
 ssize_t			ft_max_int(ssize_t *str, ssize_t len);
 ssize_t			ft_min_int(ssize_t *str, ssize_t len);
 size_t			count_chars(char c, char *str);
+int				ft_strstr(char *str1, char *str2);
 /*
 **Matrix Library
 */

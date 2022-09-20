@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:39:30 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 11:35:19 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:47:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	ft_strdup_on_lst(t_dlist **lst, char *str)
 	if (!*lst || !str)
 		return ;
 	((t_token_data *)(*lst)->content)->str = ft_strtrim(str, " ");
-//	printf("str  ->>> %s\n", ((t_token_data *)(*lst)->content)->str);
 }
 
 void	ft_convert_matrix(char **words, t_dlist *lst)

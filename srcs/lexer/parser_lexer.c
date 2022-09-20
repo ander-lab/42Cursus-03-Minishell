@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:02:26 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 11:37:12 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:47:33 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,19 @@ static void	fill_cmd_str(char *s, int prev_l, int l, t_gdata *g_data)
 	free(word);
 }
 
-//TODO -> normi dividir handle input en otro archivo
-static int	ft_prev_l(int prev_l, t_gdata *gdata, char *s, int l)
+void	fill_cmds_word(char *s, t_gdata *gdata, int prev_l, int l)
 {
-	fill_cmd_str(s, prev_l, l, gdata);
-	prev_l = l + 1;
-	return (prev_l);
+	char	*word;
+
+	if (!ends_with_token(s))
+	{
+		word = get_until_token(prev_l, l, s);
+		if (gdata->handle_next && needs_split(word))
+			custom_split_word(word, gdata);
+		else
+			gdata->cmds[get_cmds_length(gdata)] = ft_strtrim(word, " ");
+		free(word);
+	}
 }
 
 void	handle_input(char *s, t_gdata *g_data, int i)
@@ -75,7 +82,6 @@ void	handle_input(char *s, t_gdata *g_data, int i)
 	int		prev_l;
 	int		l;
 	int		quotes;
-	char	*word;
 
 	l = -1;
 	prev_l = 0;
@@ -86,16 +92,11 @@ void	handle_input(char *s, t_gdata *g_data, int i)
 		quotes = quote_type(quotes, s, l);
 		g_data->last_token = ft_get_token(s, &l);
 		if (g_data->last_token != -1 && quotes == 0)
-			prev_l = ft_prev_l(prev_l, g_data, s, l);
+		{
+			fill_cmd_str(s, prev_l, l, g_data);
+			prev_l = l + 1;
+		}
 	}
-	if (!ends_with_token(s))
-	{
-		word = get_until_token(prev_l, l, s);
-		if (g_data->handle_next && needs_split(word))
-			custom_split_word(word, g_data);
-		else
-			g_data->cmds[get_cmds_length(g_data)] = ft_strtrim(word, " ");
-		free(word);
-	}
+	fill_cmds_word(s, g_data, prev_l, l);
 	g_data->err = quotes;
 }

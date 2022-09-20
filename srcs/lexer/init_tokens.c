@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:53:22 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/08 11:31:53 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:18:31 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ static int	put_tokens_on_arr(char *s, int *raw_tokens)
 	return (l);
 }
 
+static void	init_free(int i, t_gdata *gdata)
+{
+	if (i > 0)
+	{
+		free_t_dlst(gdata->glob_lst);
+		free_t_cmds(gdata->cmds_lst);
+		ft_free_matrix(gdata->heredoc);
+	}
+}
+
 void	init_tokens(char *s, t_gdata *gdata, int i)
 {
 	int				raw_len;
@@ -69,12 +79,7 @@ void	init_tokens(char *s, t_gdata *gdata, int i)
 	raw_len = put_tokens_on_arr(s, raw_tokens);
 	clean_tkns = clean_tokens(raw_tokens, raw_len, \
 			gdata->n_commands + gdata->n_tokens);
-	if (i > 0)
-	{
-		free_t_dlst(gdata->glob_lst);
-		free_t_cmds(gdata->cmds_lst);
-		free(gdata->heredoc);
-	}
+	init_free(i, gdata);
 	ft_insert_data_lst(&token_lst, token_data, clean_tkns, \
 			gdata->n_commands + gdata->n_tokens);
 	ft_convert_matrix(gdata->cmds, token_lst);

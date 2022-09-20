@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:29:37 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/09 17:35:07 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:58:50 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,22 @@ void	swap_vars(t_gdata *data)
 		ft_add_var(&data->env->env_lst, "OLDPWD", data->env->old_pwd);
 }
 
+static void	init_cd(t_gdata *gdata)
+{
+	if (gdata->env->home)
+		free(gdata->env->home);
+	if (gdata->env->pwd && *gdata->env->pwd)
+		free(gdata->env->pwd);
+	gdata->env->home = ft_dup_var(&gdata->env->env_lst, "HOME");
+	gdata->env->pwd = ft_dup_var(&gdata->env->env_lst, "PWD");
+}
+
 int	ft_cd(t_gdata *data, char **cmd)
 {
-	//char *aux_pwd;
 	int i;
+	//char	*aux_pwd;
 
-	if (data->env->home)
-		free(data->env->home);
-	if (data->env->pwd && *data->env->pwd)
-		free(data->env->pwd);
-	data->env->home = ft_dup_var(&data->env->env_lst, "HOME");
-	data->env->pwd = ft_dup_var(&data->env->env_lst, "PWD");
+	init_cd(data);
 	if (ft_strlen(cmd[1]) > 255)
 	{
 		ft_free_matrix(cmd);

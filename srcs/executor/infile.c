@@ -53,7 +53,7 @@ static int	do_inf_err(char *file, t_dlist *lst)
 
 	next = get_next_type(lst);
 	if (next != 0)
-	{
+	{	
 		perror(file);
 		return (1);
 	}

@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_matrix.c                                   :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/07 13:48:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/12 12:10:45 by goliano-         ###   ########.fr       */
+/*   Created: 2022/09/20 12:08:17 by goliano-          #+#    #+#             */
+/*   Updated: 2022/09/20 12:15:30 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_matrix(char **matrix)
+int	ft_strstr(char *str1, char *str2)
 {
-	size_t	aux;
+	int	i;
+	int	x;
 
-	aux = -1;
-	if (!matrix)
-		return ;
-	while (matrix[++aux])
-		free(matrix[aux]);
-	free(matrix);
+	i = -1;
+	x = -1;
+	while (str1[++i])
+	{
+		while (str1[i] == str2[++x])
+		{
+			if (!str2[x])
+				return (1);
+			i++;
+		}
+		if (!str2[x])
+			return (1);
+		x = -1;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 10:45:42 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/08/30 12:47:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:52:50 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,22 @@ char	*remove_new_line(char *str)
 	return (word);
 }
 
-//TODO-> NORMINETTE COMPROBAR LINEA COMENTADA 
+char	*cmd_output(int fd)
+{
+	char	*out;
+
+	out = get_next_line(fd);
+	get_next_line(fd);
+	out = remove_new_line(out);
+	close(fd);
+	return (out);
+}
 
 char	*exec_command(char *cmd, char **envp)
 {
 	int		end[2];
 	pid_t	p;
 	char	**sp;
-	char	*out;
 
 	pipe(end);
 	p = fork();
@@ -58,11 +66,7 @@ char	*exec_command(char *cmd, char **envp)
 	}
 	close(end[1]);
 	waitpid(p, NULL, 0);
-	out = get_next_line(end[0]);
-	get_next_line(end[0]);
-	out = remove_new_line(out);
-	close(end[0]);
-	return (out);
+	return (cmd_output(end[0]));
 }
 
 void	init_prompt(t_gdata *g_data, char **envp)

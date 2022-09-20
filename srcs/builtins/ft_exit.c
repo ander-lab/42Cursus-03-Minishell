@@ -6,11 +6,18 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:09:15 by ajimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 12:30:34 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:58:17 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	write_out(char **cmd)
+{
+	ft_putstr_fd("exit: ", 1);
+	ft_putstr_fd(cmd[1], 1);
+	ft_putstr_fd(": numeric argument require\n", 1);
+}
 
 static int	ft_exit_with_args(char **cmd, int lines, t_gdata *gdata, int *pids)
 {
@@ -18,9 +25,7 @@ static int	ft_exit_with_args(char **cmd, int lines, t_gdata *gdata, int *pids)
 
 	if (!ft_iter_str_bool(cmd[1], ft_isdigit))
 	{
-		ft_putstr_fd("exit: ", 1);
-		ft_putstr_fd(cmd[1], 1);
-		ft_putstr_fd(": numeric argument require\n", 1);
+		write_out(cmd);
 		free_gdata(gdata, 1);
 		ft_free_matrix(cmd);
 		free(pids);
@@ -55,7 +60,6 @@ int	ft_exit(char **cmd, t_gdata *gdata, int *pids)
 	}
 	else if (ft_matrixlen(cmd) >= 2)
 		ft_exit_with_args(cmd, ft_matrixlen(cmd), gdata, pids);
-//	free_gdata(gdata, 1);
 	ft_free_matrix(cmd);
 	return (ret);
 }

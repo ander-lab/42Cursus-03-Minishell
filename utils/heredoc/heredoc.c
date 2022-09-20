@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 10:33:00 by goliano-          #+#    #+#             */
-/*   Updated: 2022/07/18 14:45:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:09:05 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*fill_heredoc(char *cmd)
 		if (i != 0)
 			here = ft_strjoinnl(here, line);
 		line = readline("> ");
+		signal(SIGINT, SIG_IGN);
 		i++;
 	}
 	return (append_nl(here));

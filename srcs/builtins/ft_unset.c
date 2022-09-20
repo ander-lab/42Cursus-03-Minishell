@@ -41,6 +41,9 @@ static void	ft_lstcmp_delnode(t_list **lst, char *str)
 	{
 		if (ft_strcmp((((t_env_line *)aux_iter->content)->key), str) == 0)
 		{
+			free(((t_env_line *)aux_iter->content)->key);
+			free(((t_env_line *)aux_iter->content)->value);
+			free((t_env_line *)aux_iter->content);
 			tmp->next = aux_iter->next;
 			free(aux_iter);
 			return ;
@@ -48,7 +51,6 @@ static void	ft_lstcmp_delnode(t_list **lst, char *str)
 		tmp = aux_iter;
 		aux_iter = aux_iter->next;
 	}
-	printf("NO EXISTE\n");
 }
 
 int	ft_unset(t_list **env, char **cmd)

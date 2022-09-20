@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:19:37 by goliano-          #+#    #+#             */
-/*   Updated: 2022/08/30 11:44:25 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:33:19 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,40 +66,17 @@ static char	**handle_more(char **envp)
 	return (all_paths);
 }
 
-static char	*handle_path_chequer(char *cmd)
+static void	handle_path2(char **all_paths, char **mycmdargs, char **envp)
 {
-	if (!cmd)
-		exit(127);
-	if (need_cmd_slash(cmd))
-		cmd = cmd_add_slash(cmd);
-	return (cmd);
-}
-
-int	handle_path(char *cmd, char **envp)
-{
-	int		i;
-	char	**all_paths;
-	char	**mycmdargs;
-	char	*tmp;
 	char	*cmd_one;
+	int		i;
 
-	cmd = handle_path_chequer(cmd);
-	all_paths = handle_more(envp);
-	mycmdargs = smart_split(cmd, ' ');
 	i = -1;
-	while (mycmdargs[++i])
+	if (!all_paths)
 	{
-		tmp = ft_strtrim(mycmdargs[i], " ");
-		free(mycmdargs[i]);
-		mycmdargs[i] = tmp;
-		//mycmdargs[i] = ft_strtrim(mycmdargs[i], " ");
+		printf("command not found\n");
+		exit(127);
 	}
-	if (check_access(cmd, mycmdargs, envp, 0))
-	{
-		ft_free_matrix(mycmdargs);
-		exit(EXIT_SUCCESS);
-	}
-	i = -1;
 	while (all_paths[++i])
 	{
 		cmd_one = ft_strjoin(all_paths[i], mycmdargs[0]);
@@ -111,6 +88,34 @@ int	handle_path(char *cmd, char **envp)
 		free(cmd_one);
 	}
 	ft_free_matrix(mycmdargs);
-	perror("");
+	printf("command not found\n");
+}
+
+int	handle_path(char *cmd, char **envp)
+{
+	int		i;
+	char	**all_paths;
+	char	**mycmdargs;
+	char	*tmp;
+
+	if (!cmd)
+		exit(127);
+	if (need_cmd_slash(cmd))
+		cmd = cmd_add_slash(cmd);
+	all_paths = handle_more(envp);
+	mycmdargs = smart_split(cmd, ' ');
+	i = -1;
+	while (mycmdargs[++i])
+	{
+		tmp = ft_strtrim(mycmdargs[i], " ");
+		free(mycmdargs[i]);
+		mycmdargs[i] = tmp;
+	}
+	if (check_access(cmd, mycmdargs, envp, 0))
+	{
+		ft_free_matrix(mycmdargs);
+		exit(EXIT_SUCCESS);
+	}
+	handle_path2(all_paths, mycmdargs, envp);
 	exit(127);
 }

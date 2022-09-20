@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:54:45 by goliano-          #+#    #+#             */
-/*   Updated: 2022/09/08 12:28:14 by ajimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:04:52 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 extern void	rl_replace_line(const char *c, int x);
 
 /*
+ *	srcs/lexer/get_cmd.c
+ */
+char		*get_cmd(t_dlist *lst);
+
+/*
  *	srcs/prompt/prompt.c
  */
 
@@ -42,6 +47,7 @@ void		free_t_dlst(t_dlist *lst);
 void		free_t_lst(t_list *lst);
 void		free_t_cmds(t_cmds *lst);
 void		free_gdata(t_gdata *gdata, int t);
+void		safe_free(void *content);
 
 /*
  * srcs/lexer/lexer.c
@@ -87,7 +93,8 @@ int			ft_env(char **args, t_gdata *gdata, int red);
 /*
  *	srcs/builtins/ft_export.c
  */
-int			ft_export(t_list **env, char **cmd);
+//int			ft_export(t_list **env, char **cmd);
+int			ft_export(char **args, int red, char **cmd, t_gdata *data);
 int			check_var_replace(t_list **lst, char *key, char *value);
 void		ft_add_var(t_list **lst, char *key, char *value);
 /*
